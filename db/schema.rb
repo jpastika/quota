@@ -11,6 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120516171244) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "subdomain"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "pub_key"
+  end
+
+  add_index "accounts", ["pub_key"], :name => "index_accounts_on_pub_key", :unique => true
+  add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
+
+  create_table "members", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "pub_key"
+  end
+
+  add_index "members", ["account_id", "user_id"], :name => "index_members_on_account_id_and_user_id", :unique => true
+  add_index "members", ["account_id"], :name => "index_members_on_account_id"
+  add_index "members", ["pub_key"], :name => "index_members_on_pub_key", :unique => true
+  add_index "members", ["user_id"], :name => "index_members_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "pub_key"
+    t.string   "password_digest"
+  end
+
+  add_index "users", ["pub_key"], :name => "index_users_on_pub_key", :unique => true
 
 end

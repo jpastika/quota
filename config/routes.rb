@@ -1,9 +1,13 @@
 Quota::Application.routes.draw do
+  get "users/new"
+
   get "accounts/new"
 
-  root to: 'static_pages#home'
   
   match '/signup',  to: 'accounts#new'
+  
+  
+  root to: 'static_pages#home'
   
   
   # The priority is based upon order of creation:
