@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  #attr_accessible :email, :name, :password, :password_confirmation, :members, :accounts
+  attr_accessible :email, :name, :password, :members, :accounts
   has_secure_password
   
   has_many :members, dependent: :destroy
@@ -8,11 +9,12 @@ class User < ActiveRecord::Base
   before_create :generate_keys
   before_save { |user| user.email = email.downcase }
   
-  validates :name, presence: true, length: { maximum: 50 }
+  #validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, length: { minimum: 6 }
+  
+  #validates :password_confirmation, presence: true
   
   
   

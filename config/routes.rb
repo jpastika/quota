@@ -1,10 +1,15 @@
 Quota::Application.routes.draw do
-  get "users/new"
-
-  get "accounts/new"
+  get "dashboard" => "dashboard#index", :as => "dashboard"
+  match '/signup',  to: 'accounts#new'
+  
+  resources :accounts
+  resources :users
+  resources :members
 
   
-  match '/signup',  to: 'accounts#new'
+
+  
+  
   
   
   root to: 'static_pages#home'

@@ -1,9 +1,12 @@
 class Member < ActiveRecord::Base
-  attr_accessible :user_id
+  attr_accessible :user_id#, :user_attributes
   belongs_to :account
   belongs_to :user
   
+  #accepts_nested_attributes_for :user
+  
   before_create :generate_keys
+  
   
   validates :account_id, presence: true
   validates :user_id, presence: true

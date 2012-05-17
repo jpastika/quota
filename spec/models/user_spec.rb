@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe User do
   
-  before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
+  #before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
+  before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar") }
   
   subject { @user }
   
@@ -10,7 +11,7 @@ describe User do
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
-  it { should respond_to(:password_confirmation) }
+  #it { should respond_to(:password_confirmation) }
   it { should respond_to(:pub_key) }
   it { should respond_to(:members) }
   it { should respond_to(:accounts) }
@@ -18,11 +19,11 @@ describe User do
   it { should be_valid }
   
   
-  describe "when name is not present" do
-    before { @user.name = " " }
-    
-    it { should_not be_valid }
-  end
+  #describe "when name is not present" do
+  #  before { @user.name = " " }
+  #  
+  #  it { should_not be_valid }
+  #end
   
   describe "when email is not present" do
     before { @user.email = " " }
@@ -30,11 +31,11 @@ describe User do
     it { should_not be_valid }
   end 
   
-  describe "when name is too long" do
-    before{ @user.name = "a" * 51}
-    
-    it { should_not be_valid }
-  end
+  #describe "when name is too long" do
+  #  before{ @user.name = "a" * 51}
+  #  
+  #  it { should_not be_valid }
+  #end
   
   describe "when email is invalid" do
     it "should be invalid" do
@@ -57,22 +58,23 @@ describe User do
   end
   
   describe "when password is not present" do
-    before { @user.password = @user.password_confirmation = " " }
+    #before { @user.password = @user.password_confirmation = " " }
+    before { @user.password = " " }
     
     it { should_not be_valid }
   end
   
-  describe "when password does not match confirmation" do
-    before { @user.password_confirmation = "mismatch" }
-    
-    it { should_not be_valid }
-  end
+  #describe "when password does not match confirmation" do
+  #  before { @user.password_confirmation = "mismatch" }
+  #  
+  #  it { should_not be_valid }
+  #end
   
-  describe "when password confirmation is nil" do
-    before { @user.password_confirmation = nil }
-    
-    it { should_not be_valid }
-  end
+  #describe "when password confirmation is nil" do
+  #  before { @user.password_confirmation = nil }
+  #  
+  #  it { should_not be_valid }
+  #end
   
   describe "return value of authenticate method" do
     before { @user.save }
