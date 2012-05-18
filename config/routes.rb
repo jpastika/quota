@@ -1,12 +1,17 @@
 Quota::Application.routes.draw do
-  get "dashboard" => "dashboard#index", :as => "dashboard"
-  match '/signup',  to: 'accounts#new'
+  
   
   resources :accounts
   resources :users
   resources :members
+  resources :sessions, only: [:new, :create, :destroy, :choose]
 
-  
+  get "dashboard" => "dashboard#index", :as => "dashboard"
+  get "choose" => "sessions#choose", :as => "choose_account"
+  get "switch" => "sessions#switch_account", :as => "switch_account"
+  match '/signup', to: 'accounts#new'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   
   

@@ -1,0 +1,5 @@
+<ul class="nav nav-pills nav-stacked">
+<% current_user.members.each do |member| %>
+	<li><%= link_to member.account.name, { :controller => "sessions", :action => "switch_account", :id => member.account.pub_key } %></li>
+<% end %>
+</ul>

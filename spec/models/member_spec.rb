@@ -11,6 +11,8 @@ describe Member do
   subject { member }
   
   it { should respond_to(:pub_key) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:authenticate) }
   
   it { should be_valid }
   
@@ -41,6 +43,11 @@ describe Member do
     before { member.user_id = nil }
     
     it { should_not be_valid }
+  end
+  
+  describe "remember token" do
+    before { member.save }
+    its(:remember_token) { should_not be_blank }
   end
   
 end

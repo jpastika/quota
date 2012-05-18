@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516171244) do
+ActiveRecord::Schema.define(:version => 20120517183641) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -27,14 +27,16 @@ ActiveRecord::Schema.define(:version => 20120516171244) do
   create_table "members", :force => true do |t|
     t.integer  "account_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "pub_key"
+    t.string   "remember_token"
   end
 
   add_index "members", ["account_id", "user_id"], :name => "index_members_on_account_id_and_user_id", :unique => true
   add_index "members", ["account_id"], :name => "index_members_on_account_id"
   add_index "members", ["pub_key"], :name => "index_members_on_pub_key", :unique => true
+  add_index "members", ["remember_token"], :name => "index_members_on_remember_token"
   add_index "members", ["user_id"], :name => "index_members_on_user_id"
 
   create_table "users", :force => true do |t|

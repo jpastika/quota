@@ -6,6 +6,7 @@ class Member < ActiveRecord::Base
   #accepts_nested_attributes_for :user
   
   before_create :generate_keys
+  before_save :create_remember_token
   
   
   validates :account_id, presence: true
@@ -20,5 +21,9 @@ class Member < ActiveRecord::Base
   
     def generate_keys
       generate_token(:pub_key)
+    end
+    
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
     end
 end
