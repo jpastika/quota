@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517183641) do
+ActiveRecord::Schema.define(:version => 20120521191523) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,27 @@ ActiveRecord::Schema.define(:version => 20120517183641) do
 
   add_index "accounts", ["pub_key"], :name => "index_accounts_on_pub_key", :unique => true
   add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
+
+  create_table "catalog_items", :force => true do |t|
+    t.string   "name"
+    t.string   "part_number"
+    t.string   "manufacturer"
+    t.text     "description"
+    t.float    "list_price"
+    t.float    "cost"
+    t.boolean  "is_recurring"
+    t.string   "recurring_unit"
+    t.boolean  "is_taxable"
+    t.boolean  "is_subscription"
+    t.float    "subscription_length"
+    t.string   "subscription_length_unit"
+    t.string   "pub_key"
+    t.integer  "account_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "catalog_items", ["account_id"], :name => "index_catalog_items_on_account_id"
 
   create_table "members", :force => true do |t|
     t.integer  "account_id"

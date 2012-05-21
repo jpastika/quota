@@ -25,4 +25,9 @@ FactoryGirl.define do
     user
   end
   
+  
+  factory :catalog_item do
+    
+  end
+  
 end

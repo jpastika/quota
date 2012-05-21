@@ -2,6 +2,7 @@ class Account < ActiveRecord::Base
   attr_accessible :name, :subdomain, :members, :users, :users_attributes
   has_many :members, dependent: :destroy
   has_many :users, through: :members
+  has_many :catalog_items
   
   accepts_nested_attributes_for :users
   
