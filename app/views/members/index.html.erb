@@ -1,0 +1,8 @@
+<% provide(:title, 'Members') %>
+
+<% @members.each do |member| %>
+	<li><%= member.user.email %></li>
+<% end %>
+<div>
+	<%= link_to 'Add member', new_member_path %>
+</div>

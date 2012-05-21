@@ -1,9 +1,9 @@
 class Member < ActiveRecord::Base
-  attr_accessible :user_id#, :user_attributes
+  attr_accessible :user_id, :user_attributes
   belongs_to :account
   belongs_to :user
   
-  #accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :user
   
   before_create :generate_keys
   before_save :create_remember_token

@@ -1,8 +1,12 @@
 FactoryGirl.define do
   
+  sequence :subdomain do |n|
+    "co#{n}"
+  end
+  
   factory :account do
     sequence(:name)  { |n| "Company #{n}" }
-    sequence(:subdomain) { |n| "co#{n}" }
+    subdomain { FactoryGirl.generate(:subdomain) }
   end
   
   factory :user do
@@ -14,6 +18,11 @@ FactoryGirl.define do
     #factory :admin do
     #  admin true
     #end
+  end
+  
+  factory :member do
+    account
+    user
   end
   
 end

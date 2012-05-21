@@ -12,6 +12,7 @@ Quota::Application.routes.draw do
   match '/signup', to: 'accounts#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/members/new', to: 'members#new', :as => "new_member_path"
 
   
   

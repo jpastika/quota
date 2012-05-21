@@ -8,18 +8,18 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       if current_member != nil
         sign_in current_member
-        redirect_to dashboard_path
+        redirect_back_or dashboard_path
       else
         if user.members.count > 1
           set_current_user user
           redirect_to choose_account_path 
         else
           sign_in user.members.first
-          redirect_to dashboard_path
+          redirect_back_or dashboard_path
         end
       end
     else
-      flash.now[:error] = 'Invalid email/password combination' # Not quite right!
+      flash.now[:error] = 'Invalid email/password combination'
       render 'new'
     end
   end
