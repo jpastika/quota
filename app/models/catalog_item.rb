@@ -1,8 +1,10 @@
 class CatalogItem < ActiveRecord::Base
-  belongs_to :account
   attr_accessible :cost, :description, :is_recurring, :is_subscription, :is_taxable, :list_price, :name, :part_number, :pub_key, :recurring_unit, :subscription_length, :subscription_length_unit
+  belongs_to :account
   
   before_create :generate_keys
+  
+  validates :name, presence: true
   
   private
     def generate_token(column)

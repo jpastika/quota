@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   
   #before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
-  before { @user = User.new(name: "Example User", email: "user@example.com", password: "foobar") }
+  before { @user = User.new(name: "John Doe", email: "jdoe@example.com", password: "foobar") }
   
   subject { @user }
   

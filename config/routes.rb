@@ -4,6 +4,7 @@ Quota::Application.routes.draw do
   resources :accounts
   resources :users
   resources :members
+  resources :catalog_items
   resources :sessions, only: [:new, :create, :destroy, :choose]
 
   get "dashboard" => "dashboard#index", :as => "dashboard"
@@ -13,6 +14,7 @@ Quota::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/members/new', to: 'members#new', :as => "new_member_path"
+  match '/catalog_items/new', to: 'catalog_items#new', :as => "new_catalog_item_path"
 
   
   

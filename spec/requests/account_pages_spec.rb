@@ -31,10 +31,10 @@ describe "Account pages" do
     
     describe "with valid information" do
       before do
-        fill_in "Email address",        with: "user@example.com"
+        fill_in "Email address",        with: "aaa@example.com"
         fill_in "Password",     with: "foobar"
-        fill_in "Company", with: "ABC Company"
-        fill_in "Site address",    with: "abc"
+        fill_in "Company", with: "AAA Company"
+        fill_in "Site address",    with: "aaa"
       end
 
       it "should create an account" do

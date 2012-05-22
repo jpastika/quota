@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Account do
   
-  before { @account = Account.new(name: "ABC Company", subdomain: "abc") }
+  before { @account = Account.new(name: "XYZ Company", subdomain: "xyz") }
   
   subject { @account }
   
