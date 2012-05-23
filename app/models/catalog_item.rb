@@ -1,5 +1,5 @@
 class CatalogItem < ActiveRecord::Base
-  attr_accessible :cost, :description, :is_recurring, :is_subscription, :is_taxable, :list_price, :name, :part_number, :pub_key, :recurring_unit, :subscription_length, :subscription_length_unit
+  attr_accessible :cost, :description, :manufacturer, :is_recurring, :is_subscription, :is_taxable, :list_price, :name, :part_number, :pub_key, :recurring_unit, :subscription_length, :subscription_length_unit
   belongs_to :account
   
   before_create :generate_keys

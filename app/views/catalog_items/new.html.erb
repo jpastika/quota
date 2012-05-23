@@ -1,0 +1,12 @@
+<% provide(:title, "Add Catalog Item") %>
+
+<h1>Add Catalog Item</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@catalog_item) do |f| %>
+			<%= render 'fields', f: f %>
+			
+			<%= f.submit "Add catalog item", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

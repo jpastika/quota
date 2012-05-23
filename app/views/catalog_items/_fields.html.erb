@@ -1,0 +1,34 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :part_number %>
+<%= f.text_field :part_number %>
+
+<%= f.label :manufacturer %>
+<%= f.text_field :manufacturer %>
+
+<%= f.label :description %>
+<%= f.text_field :description %>
+
+<%= f.label :list_price %>
+<%= f.text_field :list_price %>
+
+<%= f.check_box :is_recurring %>
+<%= f.label :is_recurring, "Recurring" %>
+
+<%= f.label :recurring_unit %>
+<%= f.text_field :recurring_unit %>
+
+<%= f.check_box :is_subscription %>
+<%= f.label :is_subscription, "Subscription" %>
+
+<%= f.label :subscription_length %>
+<%= f.text_field :subscription_length %>
+
+<%= f.label :subscription_length_unit %>
+<%= f.text_field :subscription_length_unit %>
+
+<%= f.check_box :is_taxable %>
+<%= f.label :is_taxable, "Taxable" %>

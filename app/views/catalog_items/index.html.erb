@@ -1,7 +1,9 @@
 <% provide(:title, "Catalog Items") %>
 
 <% @catalog_items.each do |item| %>
-	<li><%= item.name %> - $<%= item.list_price %></li>
+	<li><%= link_to "#{item.name} - $#{item.list_price}", edit_catalog_item_path(item) %> [<%= link_to "delete", item, method:  :delete,
+                                     confirm: "You sure?",
+                                     title:   item.name %>]</li>
 <% end %>
 <div>
 	<%= link_to 'Add catalog item', new_catalog_item_path %>

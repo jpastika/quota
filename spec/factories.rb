@@ -27,7 +27,8 @@ FactoryGirl.define do
   
   
   factory :catalog_item do
-    
+    sequence(:name)  { |n| "Item #{n}" }
+    list_price 100
   end
   
 end

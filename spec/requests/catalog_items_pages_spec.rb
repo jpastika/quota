@@ -4,12 +4,30 @@ describe "Catalog Item Pages" do
   
   subject { page }
   
-  before {sign_in FactoryGirl.create(:member)}
+  let(:member){ FactoryGirl.create(:member) }
+  before {sign_in member}
   
   describe "index" do
-    before { visit catalog_items_path }
+    before do
+      FactoryGirl.create(:catalog_item, account: member.account)
+      visit catalog_items_path
+    end
     
     it { should have_selector('title', text: 'Catalog Items') }
     it { should have_link('Add catalog item', href: new_catalog_item_path) }
+    
+    describe "when delete link is clicked" do
+      
+      it "should delete a catalog item" do
+        expect { click_link "delete" }.should change(CatalogItem, :count).by(-1)
+      end
+    end
+  end
+  
+  describe "new" do
+    before { visit new_catalog_item_path }
+    
+    it { should have_selector('title', text: 'Add Catalog Item') }
+    
   end
 end
