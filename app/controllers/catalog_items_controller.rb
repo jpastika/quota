@@ -15,7 +15,7 @@ class CatalogItemsController < ApplicationController
   def update
     @catalog_item = CatalogItem.find(params[:id])
     if @catalog_item.update_attributes(params[:catalog_item])
-      flash[:success] = "Item updated"
+      flash[:success] = "Catalog Item updated"
       redirect_to catalog_items_path
     else
       render 'edit'
