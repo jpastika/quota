@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521191523) do
+ActiveRecord::Schema.define(:version => 20120524175419) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -38,27 +38,43 @@ ActiveRecord::Schema.define(:version => 20120521191523) do
     t.float    "subscription_length"
     t.string   "subscription_length_unit"
     t.string   "pub_key"
-    t.integer  "account_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.string   "account_key"
   end
 
-  add_index "catalog_items", ["account_id"], :name => "index_catalog_items_on_account_id"
+  add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
 
   create_table "members", :force => true do |t|
-    t.integer  "account_id"
-    t.integer  "user_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "pub_key"
     t.string   "remember_token"
+    t.string   "account_key"
+    t.string   "user_key"
   end
 
-  add_index "members", ["account_id", "user_id"], :name => "index_members_on_account_id_and_user_id", :unique => true
-  add_index "members", ["account_id"], :name => "index_members_on_account_id"
+  add_index "members", ["account_key", "user_key"], :name => "index_members_on_account_key_and_user_key"
+  add_index "members", ["account_key"], :name => "index_members_on_account_key"
   add_index "members", ["pub_key"], :name => "index_members_on_pub_key", :unique => true
   add_index "members", ["remember_token"], :name => "index_members_on_remember_token"
-  add_index "members", ["user_id"], :name => "index_members_on_user_id"
+  add_index "members", ["user_key"], :name => "index_members_on_user_key"
+
+  create_table "opportunities", :force => true do |t|
+    t.string   "name"
+    t.date     "estimated_close"
+    t.string   "milestone_key"
+    t.float    "probability"
+    t.string   "owner_key"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "account_key"
+    t.string   "pub_key"
+    t.string   "created_key"
+  end
+
+  add_index "opportunities", ["created_key"], :name => "index_opportunities_on_created_key"
+  add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
 
   create_table "users", :force => true do |t|
     t.string   "name"

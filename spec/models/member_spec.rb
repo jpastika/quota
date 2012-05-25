@@ -35,14 +35,14 @@ describe Member do
     its(:user) { should == @user }
   end
   
-  describe "when account id is not present" do
-    before { @member.account_id = nil }
+  describe "when account key is not present" do
+    before { @member.account_key = nil }
     
     it { should_not be_valid }
   end
   
-  describe "when user id is not present" do
-    before { @member.user_id = nil }
+  describe "when user key is not present" do
+    before { @member.user_key = nil }
     
     it { should_not be_valid }
   end

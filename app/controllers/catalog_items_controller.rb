@@ -8,6 +8,16 @@ class CatalogItemsController < ApplicationController
     @catalog_item = CatalogItem.new
   end
   
+  def create
+    @catalog_item = current_member.account.catalog_items.build(params[:catalog_item])
+    if @catalog_item.save
+      flash[:success] = "Item created!"
+      redirect_to catalog_items_path
+    else
+      render 'new'
+    end
+  end
+  
   def edit
     @catalog_item = CatalogItem.find(params[:id])
   end

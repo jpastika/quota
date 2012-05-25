@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :members, :accounts
   has_secure_password
   
-  has_many :members, dependent: :destroy
+  has_many :members, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "user_key"
   has_many :accounts, through: :members
   
   before_create :generate_keys

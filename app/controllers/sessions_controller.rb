@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
       account = Account.find_by_pub_key(params[:id])
       
       if account != nil
-        sign_in account.members.find_by_user_id(current_user)
+        sign_in account.members.find_by_user_key(current_user.pub_key)
         
         redirect_to dashboard_path
       end

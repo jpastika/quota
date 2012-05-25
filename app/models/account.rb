@@ -1,8 +1,9 @@
 class Account < ActiveRecord::Base
   attr_accessible :name, :subdomain, :members, :users, :users_attributes
-  has_many :members, dependent: :destroy
+  has_many :members, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :users, through: :members
-  has_many :catalog_items
+  has_many :catalog_items, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :opportunities, :primary_key => "pub_key", :foreign_key => "account_key"
   
   accepts_nested_attributes_for :users
   
@@ -15,7 +16,7 @@ class Account < ActiveRecord::Base
   
   
   def memberize!(user)
-    members.create!(user_id: user.id)
+    members.create!(user_key: user.pub_key)
   end
   
   private
