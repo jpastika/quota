@@ -86,9 +86,9 @@ def make_opportunities
     item_seq += 1
     name = "Opportunity #{item_seq}"
     owner_key = Member.first.pub_key
-    created_key = Member.first.pub_key
+    creator_key = Member.first.pub_key
     
-    Account.first.opportunities.create!(name: name, owner_key: owner_key, created_key: created_key)
+    Account.first.opportunities.create!(name: name, owner_key: owner_key, creator_key: creator_key)
   end
   
   item_seq = 0
@@ -96,8 +96,8 @@ def make_opportunities
     item_seq += 1
     name = "Opportunity #{item_seq}"
     owner_key = Member.first.pub_key
-    created_key = Member.last.pub_key
+    creator_key = Member.last.pub_key
     
-    Account.last.opportunities.create!(name: name, owner_key: owner_key, created_key: created_key)
+    Account.last.opportunities.create!(name: name, owner_key: owner_key, creator_key: creator_key)
   end
 end

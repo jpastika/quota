@@ -6,6 +6,7 @@ class CatalogItem < ActiveRecord::Base
   before_create :generate_keys
   
   validates :name, presence: true
+  validates :account_key, presence: true
   
   private
     def generate_token(column)

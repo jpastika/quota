@@ -2,7 +2,14 @@ require 'spec_helper'
 
 describe CatalogItem do
   
-  before { @item = CatalogItem.new(name: "Item 1", list_price: "50") }
+  before(:each) do
+     @member = FactoryGirl.create(:member)
+     @account = @member.account
+     @user = @member.user
+     @item = @account.catalog_items.build(name: "Item 1", list_price: "50")
+  end
+  
+  #before { @item = CatalogItem.new(name: "Item 1", list_price: "50") }
   
   subject { @item }
   
@@ -27,6 +34,13 @@ describe CatalogItem do
     before{ @item.name = " " }
     
     it { should_not be_valid }
+  end
+  
+  describe "related account" do
+    before { @item.save }
+    
+    it { should respond_to(:account) }
+    its(:account) { should == @account }
   end
   
   

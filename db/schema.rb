@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524175419) do
+ActiveRecord::Schema.define(:version => 20120525131356) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -70,10 +70,10 @@ ActiveRecord::Schema.define(:version => 20120524175419) do
     t.datetime "updated_at",      :null => false
     t.string   "account_key"
     t.string   "pub_key"
-    t.string   "created_key"
+    t.string   "creator_key"
   end
 
-  add_index "opportunities", ["created_key"], :name => "index_opportunities_on_created_key"
+  add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
 
   create_table "users", :force => true do |t|
