@@ -12,7 +12,7 @@ describe "Opportunities Pages" do
       visit opportunities_path
     end
     
-    it { should have_selector('title', text: 'Catalog Items') }
+    it { should have_selector('title', text: 'Opportunities') }
     it { should have_link('Add opportunity', href: new_opportunity_path) }
     
     describe "when delete link is clicked" do

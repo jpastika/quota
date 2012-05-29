@@ -1,0 +1,12 @@
+<% provide(:title, "Update Opportunity") %>
+
+<h1>Update Opportunity</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= simple_form_for(@opportunity, :url => opportunity_path(@opportunity.pub_key)) do |f| %>
+			<%= render 'fields', f: f %>
+			<%= f.button :submit, "Update Opportunity", class: "btn btn-large btn-primary" %>
+			
+		<% end %>
+	</div>
+</div>

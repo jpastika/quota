@@ -13,4 +13,7 @@ en:
                 password_digest: "Password"
                 password: "Password"
                 email: "Email"
+            opportunity:
+                owner_key: "Owner"
+                creator_key: "Created By"
                 

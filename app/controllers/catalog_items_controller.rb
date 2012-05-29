@@ -19,11 +19,11 @@ class CatalogItemsController < ApplicationController
   end
   
   def edit
-    @catalog_item = CatalogItem.find(params[:id])
+    @catalog_item = CatalogItem.find_by_pub_key(params[:id])
   end
   
   def update
-    @catalog_item = CatalogItem.find(params[:id])
+    @catalog_item = CatalogItem.find_by_pub_key(params[:id])
     if @catalog_item.update_attributes(params[:catalog_item])
       flash[:success] = "Catalog Item updated"
       redirect_to catalog_items_path
@@ -33,7 +33,7 @@ class CatalogItemsController < ApplicationController
   end
   
   def destroy
-    @catalog_item = CatalogItem.find(params[:id])
+    @catalog_item = CatalogItem.find_by_pub_key(params[:id])
     @catalog_item.destroy
     redirect_back_or catalog_items_path
   end

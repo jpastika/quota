@@ -1,10 +1,26 @@
 <% provide(:title, "Catalog Items") %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Part #</th>
+      <th>Price</th>
+	  <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @catalog_items.each do |item| %>
+      <tr>
+        <td><%= link_to item.name, catalog_item_path(item.pub_key) %></td>
+        <td><%= item.part_number %></td>
+        <td>$<%= item.list_price %></td>
+		<td>
+          <%= link_to 'Edit', edit_catalog_item_path(item.pub_key), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', catalog_item_path(item.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<% @catalog_items.each do |item| %>
-	<li><%= link_to "#{item.name} - $#{item.list_price}", edit_catalog_item_path(item) %> [<%= link_to "delete", item, method:  :delete,
-                                     confirm: "You sure?",
-                                     title:   item.name %>]</li>
-<% end %>
-<div>
-	<%= link_to 'Add catalog item', new_catalog_item_path %>
-</div>
+<%= link_to 'Add catalog item', new_catalog_item_path, :class => 'btn btn-primary' %>

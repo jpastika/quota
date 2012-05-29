@@ -1,4 +1,7 @@
 @import "bootstrap";
+body { padding-top: 60px; }
+
+@import "bootstrap-responsive";
 @import 'font-awesome';
 
 /* mixins, variables, etc. */
@@ -17,9 +20,6 @@ html {
   overflow-y: scroll;
 }
 
-body {
-  padding-top: 60px;
-}
 
 section {
   overflow: auto;
@@ -125,7 +125,15 @@ footer {
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
+  height: auto;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+.checkbox input[type="checkbox"] {
+  float:none;
+  padding: 5px;
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;

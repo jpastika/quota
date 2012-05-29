@@ -3,10 +3,13 @@
 <h1>Add Catalog Item</h1>
 <div class="row">
 	<div class="span6 offset3">
-		<%= form_for(@catalog_item) do |f| %>
+		<%= simple_form_for(@catalog_item, :html => { :class => 'form-vertical' }) do |f| %>
 			<%= render 'fields', f: f %>
 			
-			<%= f.submit "Add catalog item", class: "btn btn-large btn-primary" %>
+			<div class="form-actions">
+			    <%= f.button :submit, "Add catalog item", class: "btn btn-primary" %>
+				<%= link_to 'Cancel', catalog_items_path, :class => 'btn' %>
+			</div>
 		<% end %>
 	</div>
 </div>

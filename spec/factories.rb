@@ -31,4 +31,10 @@ FactoryGirl.define do
     list_price 100
   end
   
+  factory :opportunity do
+    sequence(:name)  { |n| "Opportunity #{n}" }
+    created_by { FactoryGirl.create(:member) }
+    owner { FactoryGirl.create(:member) }
+  end
+  
 end

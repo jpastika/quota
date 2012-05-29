@@ -1,34 +1,17 @@
-<%= render 'shared/error_messages', object: f.object %>
-
-<%= f.label :name %>
-<%= f.text_field :name %>
-
-<%= f.label :part_number %>
-<%= f.text_field :part_number %>
-
-<%= f.label :manufacturer %>
-<%= f.text_field :manufacturer %>
-
-<%= f.label :description %>
-<%= f.text_field :description %>
-
-<%= f.label :list_price %>
-<%= f.text_field :list_price %>
-
-<%= f.check_box :is_recurring %>
-<%= f.label :is_recurring, "Recurring" %>
-
-<%= f.label :recurring_unit %>
-<%= f.text_field :recurring_unit %>
-
-<%= f.check_box :is_subscription %>
-<%= f.label :is_subscription, "Subscription" %>
-
-<%= f.label :subscription_length %>
-<%= f.text_field :subscription_length %>
-
-<%= f.label :subscription_length_unit %>
-<%= f.text_field :subscription_length_unit %>
-
-<%= f.check_box :is_taxable %>
-<%= f.label :is_taxable, "Taxable" %>
+<% if f.error_notification %>
+    <div class="alert alert-error fade in">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <%= f.error_notification %>
+    </div>
+<% end %>
+<%= f.input :name %>
+<%= f.input :part_number %>
+<%= f.input :manufacturer %>
+<%= f.input :description %>
+<%= f.input :list_price %>
+<%= f.input :is_recurring, as: :boolean, :label => "Recurring" %>
+<%= f.input :recurring_unit %>
+<%= f.input :is_subscription, as: :boolean, :label => "Subscription" %>
+<%= f.input :subscription_length %>
+<%= f.input :subscription_length_unit %>
+<%= f.input :is_taxable, :as => :boolean, :label => "Taxable" %>
