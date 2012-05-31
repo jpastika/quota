@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  #attr_accessible :email, :name, :password, :password_confirmation, :members, :accounts
-  attr_accessible :email, :name, :password, :members, :accounts
+  attr_accessible :email, :name, :password, :is_disabled, :members, :accounts
   has_secure_password
   
   has_many :members, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "user_key"

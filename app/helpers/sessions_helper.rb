@@ -65,9 +65,9 @@ module SessionsHelper
   end
   
   def check_disabled!
-    if current_member && current_member.is_disabled?
-      flash[:error] = "You are no longer able to access this account."
-      redirect_to login_path
+    if current_member && (current_member.is_disabled? || current_user.is_disabled? || current_member.account.is_disabled?)
+      flash[:error] = "You are not able to access this account."
+      redirect_to signin_path
     end
   end
   

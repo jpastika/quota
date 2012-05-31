@@ -9,43 +9,7 @@
 			<%= link_to "Quota", root_url, id: "logo", :class => "brand" %>
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
-					<% if signed_in? %>
-						<li id="admin-menu" class="dropdown">
-							<a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-cog"></i><b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li><%= link_to "Members", members_path %></li>
-							</ul>
-						</li>
-						<li id="member-menu" class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<%= current_user.name || current_user.email %> <b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li><%= link_to "Profile", current_member %></li>
-								<li><%= link_to "Settings", '#' %></li>
-								<li class="divider"></li>
-								<li>
-									<%= link_to "Sign out", signout_path, method: "delete" %>
-								</li>
-								<% if current_user.members.count > 1 %>
-								<li class="divider"></li>
-								<li class="nav-header">Switch Accounts</li>
-									<% current_user.members.each do |member| %>
-										<% if member.account == current_member.account %>
-										<li class="active"><%= link_to member.account.name, { :controller => "sessions", :action => "switch_account", :id => member.account.pub_key } %></li>
-										<% else %>
-										<li><%= link_to member.account.name, { :controller => "sessions", :action => "switch_account", :id => member.account.pub_key } %></li>
-										<% end %>
-									<% end %>
-								</li>
-								<% end %>
-							</ul>
-						</li>
-					<% else %>
-						<li><%= link_to "Sign in", signin_path %></li>
-					<% end %>
+					<li><%= link_to "Sign in", signin_path %></li>
 				</ul>
 			</div>
 		</div>

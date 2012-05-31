@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  attr_accessible :name, :subdomain, :members, :users, :users_attributes
+  attr_accessible :name, :subdomain, :is_disabled, :members, :users, :users_attributes
   has_many :members, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :users, through: :members
   has_many :catalog_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
