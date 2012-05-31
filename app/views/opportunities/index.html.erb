@@ -1,70 +1,78 @@
 <% provide(:title, "Opportunities") %>
+<div class="span8">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>All Opportunities</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @opportunities.each do |opp| %>
+	      <tr>
+	        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
 
-<h1>All Opportunities</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @opportunities.each do |opp| %>
-      <tr>
-        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
-        <td>
-          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+	<h1>Opportunities I Created</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @my_created_opportunities.each do |opp| %>
+	      <tr>
+	        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
 
-<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
+	<h1>Opportunities I Own</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @my_owned_opportunities.each do |opp| %>
+	      <tr>
+	        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
 
-<h1>Opportunities I Created</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @my_created_opportunities.each do |opp| %>
-      <tr>
-        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
-        <td>
-          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
-
-<h1>Opportunities I Own</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @my_owned_opportunities.each do |opp| %>
-      <tr>
-        <td><%= link_to opp.name, opportunity_path(opp.pub_key) %></td>
-        <td>
-          <%= link_to 'Edit', edit_opportunity_path(opp.pub_key), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', opportunity_path(opp.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
+<% content_for :sidebar_right do %>
+<div class="span2">
+	<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
+</div>
+<% end %>

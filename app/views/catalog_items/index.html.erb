@@ -1,26 +1,35 @@
 <% provide(:title, "Catalog Items") %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Part #</th>
-      <th>Price</th>
-	  <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @catalog_items.each do |item| %>
-      <tr>
-        <td><%= link_to item.name, catalog_item_path(item.pub_key) %></td>
-        <td><%= item.part_number %></td>
-        <td>$<%= item.list_price %></td>
-		<td>
-          <%= link_to 'Edit', edit_catalog_item_path(item.pub_key), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', catalog_item_path(item.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="span10">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
 
-<%= link_to 'Add catalog item', new_catalog_item_path, :class => 'btn btn-primary' %>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Part #</th>
+	      <th>Price</th>
+		  <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @catalog_items.each do |item| %>
+	      <tr>
+	        <td><%= link_to item.name, catalog_item_path(item.pub_key) %></td>
+	        <td><%= item.part_number %></td>
+	        <td>$<%= item.list_price %></td>
+			<td>
+	          <%= link_to 'Edit', edit_catalog_item_path(item.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', catalog_item_path(item.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+	<%= link_to 'Add catalog item', new_catalog_item_path, :class => 'btn btn-primary' %>
+</div>

@@ -9,13 +9,28 @@
 	</head>
 	<body>
 		<%= render 'layouts/header' %>
-		<div class="container">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %>"><%= value %></div>
-			<% end %>
-			<%= yield %>
-			<%= render 'layouts/footer' %>
-			<%= debug(params) if Rails.env.development? %>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+					<div class="sidebar-nav">
+						<ul class="nav nav-list">
+							<li><%= link_to raw("<i class=""icon-home""></i> Dashboard"), dashboard_path %></li>
+							<li><%= link_to raw("<i class=""icon-folder-open""></i> Opportunities"), opportunities_path %></li>
+							<li><%= link_to raw("<i class=""icon-user""></i> Contacts"), "#" %></li>
+							<li><%= link_to raw("<i class=""icon-calendar""></i> Calendar"), "#" %></li>
+							<li><%= link_to raw("<i class=""icon-book""></i> Catalog"), catalog_items_path %></li>
+						</ul>
+						<ul class="nav nav-list">
+							<li class="divider"></li>
+							<li class="nav-header">Recently Viewed</li>
+						</ul>
+					</div>
+				</div>
+				<%= yield %>
+				<%= yield :sidebar_right %>
+			</div>
 		</div>
+		<%= render 'layouts/footer' %>
+		<%= debug(params) if Rails.env.development? %>
 	</body>
 </html>

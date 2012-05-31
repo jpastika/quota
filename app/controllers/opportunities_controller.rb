@@ -6,6 +6,10 @@ class OpportunitiesController < ApplicationController
     @my_owned_opportunities = @opportunities.where(:creator_key => current_member.pub_key)
   end
   
+  def show
+    @opportunity = Opportunity.find_by_pub_key(params[:id])
+  end
+  
   def new
     @opportunity = Opportunity.new
   end

@@ -1,5 +1,14 @@
-<ul class="nav nav-pills nav-stacked">
-<% current_user.members.each do |member| %>
-	<li><%= link_to member.account.name, { :controller => "sessions", :action => "switch_account", :id => member.account.pub_key } %></li>
-<% end %>
-</ul>
+<% provide(:title, "Select Account") %>
+<div class="container">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<ul class="nav nav-pills nav-stacked">
+	<% current_user.members.each do |member| %>
+		<li><%= link_to member.account.name, { :controller => "sessions", :action => "switch_account", :id => member.account.pub_key } %></li>
+	<% end %>
+	</ul>
+</div>

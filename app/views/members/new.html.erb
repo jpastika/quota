@@ -1,20 +1,26 @@
 <% provide(:title, "Add Member")%>
-<h1>Add Member</h1>
-<div class="row">
-	<div class="span6 offset3">
-		<%= simple_form_for(@member) do |f| %>
-			<% if @member.user.errors.any? %>
-				<div class="alert alert-error fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      Please review errors below.
-			    </div>
-			<% end %>
-			<%= simple_fields_for :user, @member.user do |u| %>
-				<%= u.input :name %>
-				<%= u.input :email %>
-				<%= u.input :password %>
-			<% end %>
-			<%= f.button :submit, "Add member", class: "btn btn-large btn-primary" %>
+<div class="span10">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>Add Member</h1>
+	
+	<%= simple_form_for(@member) do |f| %>
+		<% if @member.user.errors.any? %>
+			<div class="alert alert-error fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      Please review errors below.
+		    </div>
 		<% end %>
-	</div>
+		<%= simple_fields_for :user, @member.user do |u| %>
+			<%= u.input :name %>
+			<%= u.input :email %>
+			<%= u.input :password %>
+		<% end %>
+		<%= f.button :submit, "Add member", class: "btn btn-large btn-primary" %>
+	<% end %>
+		
 </div>

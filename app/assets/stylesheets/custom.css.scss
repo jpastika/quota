@@ -1,5 +1,5 @@
 @import "bootstrap";
-body { padding-top: 60px; }
+body { padding-top: 0px; }
 
 @import "bootstrap-responsive";
 @import 'font-awesome';
@@ -7,6 +7,7 @@ body { padding-top: 60px; }
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
+$grayMedium: #aaaaaa;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -43,17 +44,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2.5em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
+  
 }
 
 h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
   margin-bottom: 30px;
-  text-align: center;
   font-weight: normal;
   color: $grayLight;
 }
@@ -154,14 +153,38 @@ input, textarea, select, .uneditable-input {
 
 
 
-/* test */
-.nav .nav-header {
-  color: #999999;
-  display: block;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 18px;
-  padding: 3px 15px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
+/* page body */
+.nav-body{
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
+	margin: 10px 0 10px 0;
+	padding: 0 0 0 0;
+}
+
+.nav-body ul{
+  list-style: none outside none;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.show-field{
+	margin-bottom:15px;
+	line-height:1.7em;
+}
+
+.show-field .show-label{
+	font-weight:normal;
+	color: $grayMedium;
+}
+
+.show-field .show-value{
+	font-size:18px;
+}
+
+.section-heading{
+	margin-bottom:10px;
+}
+
+.section-content{
+	margin-bottom:50px;
 }

@@ -1,28 +1,35 @@
 <% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<div class="span10">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>Sign up</h1>
 
-<div class="row">
-	<div class="span6 offset3">
-		<%= form_for(@account) do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
-			<%= f.fields_for :users do |user| %>
-			
-				
-					<%= user.label :email, "Email address" %>
-					<%= user.text_field :email %>
-
-					<%= user.label :password %>
-					<%= user.password_field :password %>
-				
-			<% end %>
-
-			<%= f.label :name, "Company" %>
-			<%= f.text_field :name %>
-			
-			<%= f.label :subdomain, "Site address" %>
-			<%= f.text_field :subdomain %>
-			
-			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+	
+	<%= simple_form_for(@account) do |f| %>
+		<% if f.error_notification %>
+		    <div class="alert alert-error fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= f.error_notification %>
+		    </div>
 		<% end %>
-	</div>
+		<%= f.simple_fields_for :users do |user| %>
+
+				<%= user.input :email, :label => "Email address" %>
+				<%= user.input :password, :label => "Password" %>
+	
+		<% end %>
+
+		<%= f.input :name, :label => "Company" %>
+		<%= f.input :subdomain, :label => "Site address" %>
+
+		<div class="form-actions">
+		    <%= f.button :submit, "Create account", class: "btn btn-primary" %>
+			<%= link_to 'Cancel', root_path, :class => 'btn' %>
+		</div>
+	<% end %>
+		
 </div>

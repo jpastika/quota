@@ -18,7 +18,7 @@ describe "Opportunities Pages" do
     describe "when delete link is clicked" do
       
       it "should delete an opportunity" do
-        expect { click_link "delete" }.should change(Opportunity, :count).by(-1)
+        expect { click_link "Delete" }.should change(Opportunity, :count).by(-1)
       end
     end
   end
@@ -28,5 +28,16 @@ describe "Opportunities Pages" do
     
     it { should have_selector('title', text: 'Opportunity') }
     
+  end
+  
+  describe "show" do
+    let(:opportunity){ FactoryGirl.create(:opportunity, account: member.account) }
+    
+    before do
+      visit opportunity_path(opportunity.pub_key)
+      
+    end
+    
+    it { should have_selector('title', text: "Opportunity - #{opportunity.name}") }
   end
 end

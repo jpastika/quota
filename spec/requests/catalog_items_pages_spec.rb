@@ -19,7 +19,7 @@ describe "Catalog Item Pages" do
     describe "when delete link is clicked" do
       
       it "should delete a catalog item" do
-        expect { click_link "delete" }.should change(CatalogItem, :count).by(-1)
+        expect { click_link "Delete" }.should change(CatalogItem, :count).by(-1)
       end
     end
   end
