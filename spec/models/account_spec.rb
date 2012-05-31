@@ -9,6 +9,7 @@ describe Account do
   it { should respond_to(:name) }
   it { should respond_to(:subdomain) }
   it { should respond_to(:pub_key) }
+  it { should respond_to(:is_disabled) }
   it { should respond_to(:members) }
   it { should respond_to(:users) }
   it { should respond_to(:catalog_items) }

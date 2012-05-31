@@ -57,10 +57,17 @@ module SessionsHelper
     session[:return_to] = request.fullpath
   end
   
-  def signed_in_member
+  def signed_in_member!
     unless signed_in?
       store_location
       redirect_to signin_path, notice: "Please sign in." unless signed_in?
+    end
+  end
+  
+  def check_disabled!
+    if current_member && current_member.is_disabled?
+      flash[:error] = "You are no longer able to access this account."
+      redirect_to login_path
     end
   end
   

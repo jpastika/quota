@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  before_filter :signed_in_member!, :check_disabled!
   
   def index
     @members = current_member.account.members

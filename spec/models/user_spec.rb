@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:password) }
   #it { should respond_to(:password_confirmation) }
   it { should respond_to(:pub_key) }
+  it { should respond_to(:is_disabled) }
   it { should respond_to(:members) }
   it { should respond_to(:accounts) }
   it { should respond_to(:authenticate) }

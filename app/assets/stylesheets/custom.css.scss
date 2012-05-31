@@ -71,10 +71,8 @@ p {
   margin-right: 10px;
   font-size: 1.7em;
   color: white;
-  text-transform: uppercase;
-  letter-spacing: -1px;
   padding-top: 9px;
-  font-weight: bold;
+  font-family: 'Russo One', serif;
   line-height: 1;
   &:hover {
     color: white;
@@ -152,6 +150,13 @@ input, textarea, select, .uneditable-input {
   @extend .error;
  }
 
+
+/* nav */
+.navbar-inner{
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
 
 
 /* page body */

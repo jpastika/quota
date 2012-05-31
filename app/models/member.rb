@@ -1,9 +1,11 @@
 class Member < ActiveRecord::Base
-  attr_accessible :user_key, :user_attributes
+  attr_accessible :user_key, :is_disabled, :user_attributes
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :user, :primary_key => "pub_key", :foreign_key => "user_key"
   has_many :owned_opportunities, :class_name => "Opportunity", :primary_key => "pub_key", :foreign_key => "owner_key"
   has_many :created_opportunities, :class_name => "Opportunity", :primary_key => "pub_key", :foreign_key => "creator_key"
+  
+  scope :enabled, where('is_disabled != true')
   
   accepts_nested_attributes_for :user
   

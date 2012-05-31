@@ -2,6 +2,8 @@ class AccountsController < ApplicationController
   def new
     @account = Account.new
     @account.users.build
+    
+    render layout: "public"
   end
   
   def create

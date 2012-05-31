@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531140239) do
+ActiveRecord::Schema.define(:version => 20120531174324) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "subdomain"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "pub_key"
+    t.boolean  "is_disabled", :default => false
   end
 
   add_index "accounts", ["pub_key"], :name => "index_accounts_on_pub_key", :unique => true
@@ -31,15 +32,15 @@ ActiveRecord::Schema.define(:version => 20120531140239) do
     t.text     "description"
     t.float    "list_price"
     t.float    "cost"
-    t.boolean  "is_recurring"
+    t.boolean  "is_recurring",             :default => false
     t.string   "recurring_unit"
-    t.boolean  "is_taxable"
-    t.boolean  "is_subscription"
+    t.boolean  "is_taxable",               :default => false
+    t.boolean  "is_subscription",          :default => false
     t.float    "subscription_length"
     t.string   "subscription_length_unit"
     t.string   "pub_key"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "account_key"
   end
 
@@ -47,13 +48,13 @@ ActiveRecord::Schema.define(:version => 20120531140239) do
 
   create_table "documents", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_draft"
+    t.boolean  "is_draft",        :default => true
     t.string   "account_key"
     t.string   "creator_key"
     t.string   "opportunity_key"
     t.string   "pub_key"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "documents", ["account_key"], :name => "index_documents_on_account_key"
@@ -61,12 +62,13 @@ ActiveRecord::Schema.define(:version => 20120531140239) do
   add_index "documents", ["pub_key"], :name => "index_documents_on_pub_key"
 
   create_table "members", :force => true do |t|
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "pub_key"
     t.string   "remember_token"
     t.string   "account_key"
     t.string   "user_key"
+    t.boolean  "is_disabled",    :default => false
   end
 
   add_index "members", ["account_key", "user_key"], :name => "index_members_on_account_key_and_user_key"
@@ -95,10 +97,11 @@ ActiveRecord::Schema.define(:version => 20120531140239) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "pub_key"
     t.string   "password_digest"
+    t.boolean  "is_disabled",     :default => false
   end
 
   add_index "users", ["pub_key"], :name => "index_users_on_pub_key", :unique => true

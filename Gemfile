@@ -12,6 +12,7 @@ gem 'simple_form'
 
 group :development do
   gem 'pry'
+  gem 'sextant'
 end
 
 group :development, :test do

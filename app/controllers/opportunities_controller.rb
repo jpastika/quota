@@ -1,4 +1,5 @@
 class OpportunitiesController < ApplicationController
+  before_filter :signed_in_member!, :check_disabled!
   
   def index
     @opportunities = current_member.account.opportunities

@@ -15,6 +15,7 @@ describe Member do
   
   it { should respond_to(:pub_key) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:is_disabled) }
   
   it { should be_valid }
   
