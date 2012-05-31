@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525131356) do
+ActiveRecord::Schema.define(:version => 20120531140239) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,21 @@ ActiveRecord::Schema.define(:version => 20120525131356) do
 
   add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
 
+  create_table "documents", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_draft"
+    t.string   "account_key"
+    t.string   "creator_key"
+    t.string   "opportunity_key"
+    t.string   "pub_key"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "documents", ["account_key"], :name => "index_documents_on_account_key"
+  add_index "documents", ["creator_key"], :name => "index_documents_on_creator_key"
+  add_index "documents", ["pub_key"], :name => "index_documents_on_pub_key"
+
   create_table "members", :force => true do |t|
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
@@ -73,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20120525131356) do
     t.string   "creator_key"
   end
 
+  add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
   add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
 

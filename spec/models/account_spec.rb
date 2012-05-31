@@ -12,6 +12,8 @@ describe Account do
   it { should respond_to(:members) }
   it { should respond_to(:users) }
   it { should respond_to(:catalog_items) }
+  it { should respond_to(:opportunities) }
+  it { should respond_to(:documents) }
   it { should respond_to(:memberize!) }
   
   it { should be_valid }

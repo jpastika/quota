@@ -29,12 +29,21 @@ FactoryGirl.define do
   factory :catalog_item do
     sequence(:name)  { |n| "Item #{n}" }
     list_price 100
+    account
   end
   
   factory :opportunity do
     sequence(:name)  { |n| "Opportunity #{n}" }
     created_by { FactoryGirl.create(:member) }
     owner { FactoryGirl.create(:member) }
+    account
+  end
+  
+  factory :document do
+    sequence(:name)  { |n| "Document #{n}" }
+    created_by { FactoryGirl.create(:member) }
+    opportunity
+    account
   end
   
 end
