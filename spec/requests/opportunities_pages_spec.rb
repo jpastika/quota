@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Opportunities Pages" do
+describe "Opportunity Pages" do
   subject { page }
   
   let(:member){ FactoryGirl.create(:member) }

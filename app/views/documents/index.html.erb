@@ -1,0 +1,77 @@
+<% provide(:title, "Documents") %>
+<div class="span8">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>All Documents</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @documents.each do |doc| %>
+	      <tr>
+	        <td><%= link_to doc.name, document_path(doc.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_document_path(doc.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', document_path(doc.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+	<h1>Documents I Created</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @my_created_documents.each do |doc| %>
+	      <tr>
+	        <td><%= link_to doc.name, document_path(doc.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_document_path(doc.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', document_path(doc.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+	<h1>Documents Belonging to Opportunities I Own</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @my_opportunity_documents.each do |doc| %>
+	      <tr>
+	        <td><%= link_to doc.name, document_path(doc.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_document_path(doc.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', document_path(doc.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+
+<% content_for :sidebar_right do %>
+<div class="span2">
+</div>
+<% end %>

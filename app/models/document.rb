@@ -1,9 +1,11 @@
 class Document < ActiveRecord::Base
-  attr_accessible :account_key, :is_draft, :name, :opportunity_key, :creator_key, :pub_key
+  attr_accessible :account_key, :is_draft, :name, :opportunity_key, :creator_key, :pub_key, :document_type
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :created_by, :class_name => "Member", :primary_key => "pub_key", :foreign_key => "creator_key"
   belongs_to :opportunity, :primary_key => "pub_key", :foreign_key => "opportunity_key"
+  
+  scope :quotes, where(:document_type => "Quote")
   
   before_create :generate_keys
   
