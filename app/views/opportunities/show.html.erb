@@ -69,26 +69,21 @@
 							<tr>
 								<th></th>
 								<th>Type</th>
-								<th>#</th>
+								<th>Name</th>
 								<th>Created</th>
 								<th>Draft</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>*</td>
-								<td>Quote</td>
-								<td>11-221</td>
-								<td>5/28/2012</td>
-								<td></td>
-							</tr>
+							<% @opportunity.quotes.each do |quote| %>
 							<tr>
 								<td></td>
-								<td>Quote</td>
-								<td>21-3113</td>
-								<td>5/30/2012</td>
-								<td><input type="checkbox" checked disabled></td>
+								<td><span class="label label-success">Quote</span></td>
+								<td><%= link_to quote.name, edit_quote_path(id: quote.pub_key) %></td>
+								<td><%= quote.created_at %></td>
+								<td></td>
 							</tr>
+							<% end %>
 						</tbody>
 					</table>
 					<div class="btn-group">

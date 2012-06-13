@@ -8,6 +8,8 @@ gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'simple_form'
+gem 'jquery-rails'
+gem 'backbone-on-rails'
 
 
 group :development do
@@ -32,7 +34,7 @@ group :assets do
   gem 'font-awesome-sass-rails'
 end
 
-gem 'jquery-rails'
+
 
 group :test do
   gem 'rspec-rails'

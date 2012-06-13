@@ -21,7 +21,7 @@ describe Opportunity do
   it { should respond_to(:account) }
   it { should respond_to(:owner) }
   it { should respond_to(:created_by) }
-  it { should respond_to(:documents) }
+  it { should respond_to(:quotes) }
   
   it { should be_valid }
   

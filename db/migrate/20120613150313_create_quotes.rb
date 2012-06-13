@@ -15,7 +15,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :contact_phone
       t.string :contact_email
       t.string :shipping_street1
-      t.stirng :shipping_street2
+      t.string :shipping_street2
       t.string :shipping_city
       t.string :shipping_state
       t.string :shipping_zip

@@ -4,8 +4,8 @@ class Member < ActiveRecord::Base
   belongs_to :user, :primary_key => "pub_key", :foreign_key => "user_key"
   has_many :owned_opportunities, :class_name => "Opportunity", :primary_key => "pub_key", :foreign_key => "owner_key"
   has_many :created_opportunities, :class_name => "Opportunity", :primary_key => "pub_key", :foreign_key => "creator_key"
-  has_many :created_documents, :class_name => "Document", :primary_key => "pub_key", :foreign_key => "creator_key"
-  has_many :owned_opportunity_documents, through: :owned_opportunities, :source => :documents
+  has_many :created_quotes, :class_name => "Quote", :primary_key => "pub_key", :foreign_key => "creator_key"
+  has_many :owned_opportunity_quotes, through: :owned_opportunities, :source => :quotes
   
   scope :enabled, where('is_disabled != true')
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601203129) do
+ActiveRecord::Schema.define(:version => 20120613150313) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -94,6 +94,58 @@ ActiveRecord::Schema.define(:version => 20120601203129) do
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
   add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
+
+  create_table "quotes", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_draft"
+    t.string   "company_key"
+    t.string   "contact_key"
+    t.string   "reference_id"
+    t.string   "rep_key"
+    t.string   "po"
+    t.string   "company_name"
+    t.string   "compoany_phone"
+    t.string   "company_fax"
+    t.string   "contact_name"
+    t.string   "contact_phone"
+    t.string   "contact_email"
+    t.string   "shipping_street1"
+    t.string   "shipping_street2"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_zip"
+    t.string   "shipping_county"
+    t.string   "shipping_country"
+    t.string   "billing_street1"
+    t.string   "billing_street2"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip"
+    t.string   "billing_county"
+    t.string   "billing_country"
+    t.float    "total_recurring_monthly"
+    t.float    "total_recurring_yearly"
+    t.float    "total_subtotal"
+    t.float    "total_tax"
+    t.float    "total_tax_percent"
+    t.float    "total_shipping_handling"
+    t.float    "total_grand"
+    t.text     "notes_customer"
+    t.text     "notes_internal"
+    t.string   "account_key"
+    t.string   "opportunity_key"
+    t.string   "creator_key"
+    t.string   "pub_key"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "quotes", ["account_key"], :name => "index_quotes_on_account_key"
+  add_index "quotes", ["company_key"], :name => "index_quotes_on_company_key"
+  add_index "quotes", ["contact_key"], :name => "index_quotes_on_contact_key"
+  add_index "quotes", ["creator_key"], :name => "index_quotes_on_creator_key"
+  add_index "quotes", ["opportunity_key"], :name => "index_quotes_on_opportunity_key"
+  add_index "quotes", ["pub_key"], :name => "index_quotes_on_pub_key"
 
   create_table "users", :force => true do |t|
     t.string   "name"

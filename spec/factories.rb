@@ -39,8 +39,8 @@ FactoryGirl.define do
     account
   end
   
-  factory :document do
-    sequence(:name)  { |n| "Document #{n}" }
+  factory :quote do
+    sequence(:name)  { |n| "Quote #{n}" }
     created_by { FactoryGirl.create(:member) }
     opportunity
     account
