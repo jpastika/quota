@@ -24,6 +24,72 @@ $grayDark: #333333;
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color');
 }
 
+@mixin shadow($color: #333333) {
+  -moz-box-shadow: 0px 0px 2px $color;
+  -webkit-box-shadow: 0px 0px 2px $color;
+  box-shadow: 0px 0px 2px $color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color');
+}
+
+@mixin inner-shadow($color: #333333) {
+  -moz-box-shadow: inner 0px 0px 2px $color;
+  -webkit-box-shadow: inner 0px 0px 2px $color;
+  box-shadow: inner 0px 0px 2px $color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=-90, Color='$color')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=-90, Color='$color');
+}
+
+$default_rounded_amount: 5px;
+// Round corner at position by amount.
+@mixin round-corner($position, $amount: $default_rounded_amount){
+  border-#{$position}-radius: $amount;
+  -webkit-border-#{$position}-radius: $amount;
+}
+
+@mixin round-corner-mozilla($position, $amount: $default_rounded_amount){
+  -moz-border-radius-#{$position}: $amount;
+}
+
+// Round left corners by amount
+@mixin round-left-corners($amount: $default_rounded_amount){
+  @include round-corner("top-left", $amount);
+  @include round-corner("bottom-left", $amount);
+  @include round-corner-mozilla("topleft", $amount);
+  @include round-corner-mozilla("bottomleft", $amount);
+}
+
+// Round right corners by amount
+@mixin round-right-corners($amount: $default_rounded_amount){
+  @include round-corner("top-right", $amount);
+  @include round-corner("bottom-right", $amount);
+  @include round-corner-mozilla("topright", $amount);
+  @include round-corner-mozilla("bottomright", $amount);
+}
+
+// Round top corners by amount
+@mixin round-top-corners($amount: 5px){
+  @include round-corner("top-left", $amount);
+  @include round-corner("top-right", $amount);
+  @include round-corner-mozilla("topleft", $amount);
+  @include round-corner-mozilla("topright", $amount);
+}
+
+// Round bottom corners by amount
+@mixin round-bottom-corners($amount: $default_rounded_amount){
+  @include round-corner("bottom-left", $amount);
+  @include round-corner("bottom-right", $amount);
+  @include round-corner-mozilla("bottomleft", $amount);
+  @include round-corner-mozilla("bottomright", $amount);
+}
+
+// Round all corners by amount
+@mixin round-corners($amount: $default_rounded_amount){
+  border-radius: $amount;
+  -moz-border-radius: $amount;
+  -webkit-border-radius: $amount;
+}
+
 /* universal */
 
 html {
@@ -193,8 +259,8 @@ input, textarea, select, .uneditable-input {
 }
 
 .show-field{
-	margin-bottom:15px;
-	line-height:1.7em;
+	margin-bottom:10px;
+	line-height:1.5em;
 }
 
 .show-field .show-label{
@@ -203,7 +269,7 @@ input, textarea, select, .uneditable-input {
 }
 
 .show-field .show-value{
-	font-size:18px;
+	font-size:14px;
 }
 
 .section-heading{
@@ -254,4 +320,51 @@ input, textarea, select, .uneditable-input {
 .document-title {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.row-clicked{
+	background: #ddd;
+}
+
+.row-column-toggle{
+	background: #ddd;
+	@include round-top-corners(3px);
+	padding:3px 10px;
+	float:left;
+}
+
+.row-actions{
+	background: #555;
+	@include round-corners(3px);
+	float:left;
+	margin-right:5px;
+	color:#ddd;
+}
+
+.row-actions i{
+	padding:0px 8px;
+	vertical-align:middle;
+	
+}
+
+.table tbody tr.row-clicked:hover td{
+	background-color: #ddd;
+}
+
+
+#items2 tbody tr td div, #items2 tbody tr td span{
+	overflow: hidden;
+	vertical-align:middle;
+}
+
+#items2 tbody tr td{
+	vertical-align:middle;
+}
+
+.icon-resize-vertical{
+	cursor: pointer;
+}
+
+.history-list{
+	padding-left:0;
 }

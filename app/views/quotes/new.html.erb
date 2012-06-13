@@ -89,7 +89,7 @@
 				</div>
 				<div class="row-fluid">
 					<div class="section-content">
-						<table class="table table-condensed">
+						<table class="table table-condensed" id="items1">
 							<thead>
 								<tr>
 									<th>Qty</th>
@@ -129,6 +129,75 @@
 									<td>1</td>
 									<td>EWHH-CU</td>
 									<td>Trimble CU HW/SW Extended Warranty</td>
+									<td>$580.00</td>
+									<td>$0</td>
+									<td>$580.00</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn-group">
+					    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					    		add item
+					    		<span class="caret"></span>
+					    	</a>
+					    	<ul class="dropdown-menu">
+					    		<li><%= link_to "Quote", new_quote_path(id: @opportunity.pub_key) %></li>
+								<li><%= link_to "Rental", "#" %></li>
+								<li><%= link_to "Sale", "#" %></li>
+								<li><%= link_to "Proposal", "#" %></li>
+								<li class="divider"></li>
+								<li><%= link_to "Use Template", "#" %></li>
+					    	</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="items">Products and Services</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content" id="test">
+						<table class="table table-condensed table-striped" id="items2">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Part #</th>
+									<th>Qty</th>
+									<th>Unit</th>
+									<th>Discount</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="row1">
+									<td width="400"><div>Accugrade MS992 Receiver w/bracket Accugrade MS992 Receiver w/bracket Accugrade MS992 Receiver w/bracket</div></td>
+									<td>56992-10</td>
+									<td>1</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr id="row2">
+									<td><div>Accugrade MS992 Receiver w/bracket</div></td>
+									<td>56992-10</td>
+									<td>1</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr id="row3">
+									<td><div>TSC3 w/Trimble Access(2.4Ghz Radio)</div></td>
+									<td>TSC3111-001</td>
+									<td>1</td>
+									<td>$7,345.00</td>
+									<td>$0</td>
+									<td>$7,345.00</td>
+								</tr>
+								<tr id="row4">
+									<td><div>Trimble CU HW/SW Extended Warranty</div></td>
+									<td>EWHH-CU</td>
+									<td>1</td>
 									<td>$580.00</td>
 									<td>$0</td>
 									<td>$580.00</td>
@@ -218,7 +287,7 @@
 		
 	</div>
 	<div class="row-fluid">
-	<ul class="nav nav-list">
+	<ul class="nav nav-list history-list">
 		<li class="divider"></li>
 		<li class="nav-header">History</li>
 	</ul>
@@ -226,3 +295,70 @@
 	</div>
 </div>
 <% end %>
+
+<script>
+	$('#items2 tr').on('click', function(evt){ console.log(evt);handleRowClick(evt, this) });
+	$('#items1 tr').on('click', function(evt){ console.log(evt);handleRowClick2(evt, this) });
+	
+		
+	function handleRowClick(evt, row){
+		if($(evt.target).hasClass('icon-resize-vertical') == false && $(evt.target).closest('tr') != $(evt.target).closest('thead').first()){
+			if($(row).hasClass('row-clicked')){
+				cancelOverlay();
+			}
+			else{
+				cancelOverlay();
+				showOverlay(row);
+			}
+		}
+	}
+		
+	function cancelOverlay(){
+		$(".row-actions").closest('tr').removeClass('row-clicked');
+		$(".row-actions").remove();
+	}
+	
+	function showOverlay(row){
+		$(row).addClass('row-clicked');
+		
+		$('<div class="row-actions"><i class="icon-resize-vertical"></i><i class="icon-undo"></i><i class="icon-copy"></i><i class="icon-edit"></i><i class="icon-eye-close"></i><i class="icon-trash"></i></div>').prependTo($(row).find('td').first()).effect('highlight');
+		
+		$("#items2").tableDnDUpdate();
+	}
+	
+	function handleRowClick2(evt, row){
+		if($(evt.target).hasClass('icon-resize-vertical') == false && $(evt.target).closest('tr') != $(evt.target).closest('thead').first()){
+			if($(row).hasClass('row-clicked')){
+				cancelOverlay2();
+			}
+			else{
+				cancelOverlay2();
+				showOverlay2(row);
+			}
+		}
+	}
+		
+	function cancelOverlay2(){
+		$(".row-actions").closest('tr').removeClass('row-clicked');
+		$(".row-actions").remove();
+	}
+	
+	function showOverlay2(row){
+		$(row).addClass('row-clicked');
+		
+		$(row).after('<tr><td colspan=6><div class="row-actions"><i class="icon-resize-vertical"></i><i class="icon-undo"></i><i class="icon-copy"></i><i class="icon-edit"></i><i class="icon-eye-close"></i><i class="icon-trash"></i></div></td></tr>');
+		
+		$("#items1").tableDnDUpdate();
+	}
+	
+	$(document).ready(function() {
+	    // Initialise the table
+	    $("#items2").tableDnD({
+			dragHandle: '.icon-resize-vertical'
+		});
+		$("#items1").tableDnD({
+			dragHandle: '.icon-resize-vertical'
+		});
+	});
+	
+</script>
