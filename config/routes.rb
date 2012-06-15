@@ -1,6 +1,7 @@
 Quota::Application.routes.draw do
   
   
+  
   resources :accounts
   resources :users
   resources :members
@@ -9,6 +10,13 @@ Quota::Application.routes.draw do
   resources :documents
   resources :quotes
   resources :sessions, only: [:new, :create, :destroy, :choose]
+  
+  scope "api" do
+    resources :quotes
+    resources :opportunities
+    
+    match '/opportunities/:id/quotes', to: 'quotes#index'
+  end
 
   get "dashboard" => "dashboard#index", :as => "dashboard"
   get "choose" => "sessions#choose", :as => "choose_account"

@@ -29,9 +29,10 @@ end
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.4'
-  gem 'coffee-rails', '~> 3.2.2'
+  gem 'coffee-rails'
   gem 'uglifier', '>= 1.2.3'
   gem 'font-awesome-sass-rails'
+  gem 'handlebars_assets'
 end
 
 

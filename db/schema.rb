@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120613150313) do
+ActiveRecord::Schema.define(:version => 20120615161441) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20120613150313) do
 
   create_table "quotes", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_draft"
+    t.boolean  "is_draft",                :default => false
     t.string   "company_key"
     t.string   "contact_key"
     t.string   "reference_id"
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(:version => 20120613150313) do
     t.string   "opportunity_key"
     t.string   "creator_key"
     t.string   "pub_key"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
   add_index "quotes", ["account_key"], :name => "index_quotes_on_account_key"

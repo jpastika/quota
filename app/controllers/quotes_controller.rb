@@ -26,12 +26,43 @@ class QuotesController < ApplicationController
     end
   end
   
+  def index
+    # respond_to do |format|
+    #       format.html # index.html.erb
+    #       format.json { 
+    #         if params[:id]
+    #           @opportunity = Opportunity.find_by_pub_key(params[:id])
+    #           render :json => @opportunity.quotes
+    #         else  
+    #           render :json => Quote.all
+    #         end
+    #       }
+    #     end
+  end
+  
   def show
-    @quote = Quote.find_by_pub_key(params[:id])
+    respond_to do |format|
+      format.html {
+        @quote = Quote.find_by_pub_key(params[:id])
+      }
+      format.json {
+        @quote = Quote.find_by_pub_key(params[:id]) 
+        render :json => @quote.to_json(:include => :opportunity)
+      }
+    end
   end
   
   def edit
     @quote = Quote.find_by_pub_key(params[:id])
   end
   
+  def update
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { 
+        @quote = Quote.find_by_pub_key(params[:id])
+        render :json => @quote.update_attributes(params[:quote])
+      }
+    end
+  end
 end

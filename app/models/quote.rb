@@ -7,6 +7,8 @@ class Quote < ActiveRecord::Base
   
   before_create :generate_keys
   
+  after_create :generate_reference_id
+  
   validates :name, presence: true
   validates :account_key, presence: true
   validates :creator_key, presence: true
@@ -21,5 +23,9 @@ class Quote < ActiveRecord::Base
   
     def generate_keys
       generate_token(:pub_key)
+    end
+    
+    def generate_reference_id
+      self[reference_id] = 
     end
 end

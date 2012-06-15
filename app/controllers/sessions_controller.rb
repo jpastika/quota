@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.find_by_email(params[:session][:email])
+    user = User.find_by_email(params[:session][:email].downcase)
     if user
       if user.is_disabled?
         flash[:error] = "You are not able to access this account."

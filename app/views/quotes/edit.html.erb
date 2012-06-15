@@ -16,7 +16,7 @@
 			<span class="page-label label label-success">Quote</span>
 			<div class="row-fluid">
 				<div class="document-title">
-					<h1><%= @quote.name %></h1>
+					<h1 id="quote_name"></h1>
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -297,8 +297,8 @@
 <% end %>
 
 <script>
-	$('#items2 tr').on('click', function(evt){ console.log(evt);handleRowClick(evt, this) });
-	$('#items1 tr').on('click', function(evt){ console.log(evt);handleRowClick2(evt, this) });
+	$('#items2 tr').on('click', function(evt){ handleRowClick(evt, this) });
+	$('#items1 tr').on('click', function(evt){ handleRowClick2(evt, this) });
 	
 		
 	function handleRowClick(evt, row){

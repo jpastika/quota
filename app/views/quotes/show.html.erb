@@ -297,8 +297,8 @@
 <% end %>
 
 <script>
-	$('#items2 tr').on('click', function(evt){ console.log(evt);handleRowClick(evt, this) });
-	$('#items1 tr').on('click', function(evt){ console.log(evt);handleRowClick2(evt, this) });
+	$('#items2 tr').on('click', function(evt){ handleRowClick(evt, this) });
+	$('#items1 tr').on('click', function(evt){ handleRowClick2(evt, this) });
 	
 		
 	function handleRowClick(evt, row){
