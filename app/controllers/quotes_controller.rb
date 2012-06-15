@@ -65,4 +65,10 @@ class QuotesController < ApplicationController
       }
     end
   end
+  
+  def destroy
+    @quote = Quote.find_by_pub_key(params[:id])
+    @quote.destroy
+    redirect_back_or opportunity_path(id: @quote.opportunity.pub_key)
+  end
 end

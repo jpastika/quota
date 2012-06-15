@@ -71,7 +71,7 @@
 								<th>Type</th>
 								<th>Name</th>
 								<th>Created</th>
-								<th>Draft</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -81,7 +81,7 @@
 								<td><span class="label label-success">Quote</span></td>
 								<td><%= link_to quote.name, edit_quote_path(id: quote.pub_key) %></td>
 								<td><%= quote.created_at %></td>
-								<td></td>
+								<td><%= link_to 'Delete', quote_path(quote.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
 							</tr>
 							<% end %>
 						</tbody>
