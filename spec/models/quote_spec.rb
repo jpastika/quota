@@ -22,7 +22,7 @@ describe Quote do
   it { should respond_to(:company_fax) }
   it { should respond_to(:company_key) }
   it { should respond_to(:company_name) }
-  it { should respond_to(:compoany_phone) }
+  it { should respond_to(:company_phone) }
   it { should respond_to(:contact_email) }
   it { should respond_to(:contact_key) }
   it { should respond_to(:contact_name) }

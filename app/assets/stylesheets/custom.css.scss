@@ -368,3 +368,15 @@ input, textarea, select, .uneditable-input {
 .history-list{
 	padding-left:0;
 }
+
+.editable-value{
+	border:1px solid #f8f8f8;
+	position:relative;
+	left:-3px;
+	padding:3px;
+}
+
+.editable-value:hover{
+	border:1px solid #e8e8e8;
+	cursor:pointer;
+}

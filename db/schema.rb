@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615161441) do
+ActiveRecord::Schema.define(:version => 20120615185152) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -89,9 +89,11 @@ ActiveRecord::Schema.define(:version => 20120615161441) do
     t.string   "account_key"
     t.string   "pub_key"
     t.string   "creator_key"
+    t.string   "company_key"
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
+  add_index "opportunities", ["company_key"], :name => "index_opportunities_on_company_key"
   add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
 
@@ -104,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20120615161441) do
     t.string   "rep_key"
     t.string   "po"
     t.string   "company_name"
-    t.string   "compoany_phone"
+    t.string   "company_phone"
     t.string   "company_fax"
     t.string   "contact_name"
     t.string   "contact_phone"

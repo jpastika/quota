@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   
   def new
     @opportunity = Opportunity.find_by_pub_key(params[:id])
-    @quote = @opportunity.quotes.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key)
+    @quote = @opportunity.quotes.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key, company_key: @opportunity.company_key)
     
     @quote.name = "Quote - #{@opportunity.name}"
     
