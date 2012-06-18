@@ -46,4 +46,10 @@ FactoryGirl.define do
     account
   end
   
+  factory :sales_rep do
+    sequence(:name)  { |n| "Rep #{n}" }
+    member
+    account
+  end
+  
 end

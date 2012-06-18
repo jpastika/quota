@@ -18,6 +18,7 @@
 		<% end %>
 		<%= f.simple_fields_for :users do |user| %>
 
+				<%= user.input :name, :label => "Your name" %>
 				<%= user.input :email, :label => "Email address" %>
 				<%= user.input :password, :label => "Password" %>
 	

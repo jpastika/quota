@@ -31,6 +31,7 @@ describe "Account pages" do
     
     describe "with valid information" do
       before do
+        fill_in "Your name",        with: "Bob Dole"
         fill_in "Email address",        with: "aaa@example.com"
         fill_in "Password",     with: "foobar"
         fill_in "Company", with: "AAA Company"

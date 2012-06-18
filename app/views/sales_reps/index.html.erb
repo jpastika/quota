@@ -1,0 +1,35 @@
+<% provide(:title, 'Sales Reps') %>
+<div class="span10">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>Sales Reps</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Email</th>
+		  <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @reps.each do |rep| %>
+	      <tr>
+	        <td><%= link_to rep.name, sales_rep_path(rep.pub_key) %></td>
+	        <td><%= link_to rep.email, sales_rep_path(rep.pub_key) %></td>
+			<td>
+	          <%= link_to 'Edit', edit_sales_rep_path(rep.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', sales_rep_path(rep.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	
+	<div>
+		<%= link_to 'Add rep', new_sales_rep_path %>
+	</div>
+</div>

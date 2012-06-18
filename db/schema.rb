@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615161441) do
+ActiveRecord::Schema.define(:version => 20120615191638) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -89,9 +89,11 @@ ActiveRecord::Schema.define(:version => 20120615161441) do
     t.string   "account_key"
     t.string   "pub_key"
     t.string   "creator_key"
+    t.string   "company_key"
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
+  add_index "opportunities", ["company_key"], :name => "index_opportunities_on_company_key"
   add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
 
@@ -104,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20120615161441) do
     t.string   "rep_key"
     t.string   "po"
     t.string   "company_name"
-    t.string   "compoany_phone"
+    t.string   "company_phone"
     t.string   "company_fax"
     t.string   "contact_name"
     t.string   "contact_phone"
@@ -146,6 +148,21 @@ ActiveRecord::Schema.define(:version => 20120615161441) do
   add_index "quotes", ["creator_key"], :name => "index_quotes_on_creator_key"
   add_index "quotes", ["opportunity_key"], :name => "index_quotes_on_opportunity_key"
   add_index "quotes", ["pub_key"], :name => "index_quotes_on_pub_key"
+
+  create_table "sales_reps", :force => true do |t|
+    t.string   "name"
+    t.string   "pub_key"
+    t.string   "email"
+    t.string   "account_key"
+    t.string   "member_key"
+    t.boolean  "is_disabled", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "sales_reps", ["account_key"], :name => "index_sales_reps_on_account_key"
+  add_index "sales_reps", ["member_key"], :name => "index_sales_reps_on_member_key"
+  add_index "sales_reps", ["pub_key"], :name => "index_sales_reps_on_pub_key"
 
   create_table "users", :force => true do |t|
     t.string   "name"

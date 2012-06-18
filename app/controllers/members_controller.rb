@@ -30,4 +30,18 @@ class MembersController < ApplicationController
       end
     end
   end
+  
+  def edit
+    @member = Member.find_by_pub_key(params[:id])
+  end
+  
+  def update
+    @member = Member.find_by_pub_key(params[:id])
+    if @member.update_attributes(params[:member])
+      flash[:success] = "Member updated"
+      redirect_to members_path
+    else
+      render 'edit'
+    end
+  end
 end

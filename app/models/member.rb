@@ -6,6 +6,7 @@ class Member < ActiveRecord::Base
   has_many :created_opportunities, :class_name => "Opportunity", :primary_key => "pub_key", :foreign_key => "creator_key"
   has_many :created_quotes, :class_name => "Quote", :primary_key => "pub_key", :foreign_key => "creator_key"
   has_many :owned_opportunity_quotes, through: :owned_opportunities, :source => :quotes
+  has_one :sales_rep, :primary_key => "pub_key", :foreign_key => "member_key"
   
   scope :enabled, where('is_disabled != true')
   

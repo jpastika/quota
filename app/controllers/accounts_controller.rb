@@ -15,8 +15,9 @@ class AccountsController < ApplicationController
       @account = Account.new(params[:account])
       if @account.save
         @account.memberize!(user)
+        @account.repize!(@account.members.last)
         sign_in @account.members.last
-        flash[:success] = "Welcome to Quota!"
+        flash[:success] = "Welcome to Quota..."
         redirect_to dashboard_path
       else
         render 'new'
@@ -25,7 +26,8 @@ class AccountsController < ApplicationController
       @account = Account.new(params[:account])
       if @account.save
         sign_in @account.members.last
-        flash[:success] = "Welcome to Quota!"
+        @account.repize!(@account.members.last)
+        flash[:success] = "Welcome to Quota!!!"
         redirect_to dashboard_path
       else
         render 'new'

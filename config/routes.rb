@@ -9,6 +9,7 @@ Quota::Application.routes.draw do
   resources :opportunities
   resources :documents
   resources :quotes
+  resources :sales_reps
   resources :sessions, only: [:new, :create, :destroy, :choose]
   
   scope "api" do
