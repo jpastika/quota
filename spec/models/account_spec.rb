@@ -14,7 +14,7 @@ describe Account do
   it { should respond_to(:users) }
   it { should respond_to(:catalog_items) }
   it { should respond_to(:opportunities) }
-  it { should respond_to(:quotes) }
+  # it { should respond_to(:quotes) }
   it { should respond_to(:documents) }
   it { should respond_to(:sales_reps) }
   it { should respond_to(:contacts) }
