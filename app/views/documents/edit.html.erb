@@ -1,0 +1,415 @@
+<% provide(:title, "Edit #{@document.document_type}") %>
+<div class="span8">
+	<div class="row-fluid">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
+	</div>
+	<div class="parent-page">
+		<div class="row-fluid">
+			<h3><%= link_to @document.opportunity.name, opportunity_path(@document.opportunity.pub_key) %></h3>
+		</div>
+		<div class="child-page">
+			<span class="page-label label label-success"><%= @document.document_type %></span>
+			<div class="row-fluid">
+				<div class="document-title">
+					<h1 id="document_name"></h1>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="nav-body subnav">
+					<ul class="nav nav-pills">
+						<li><a href="#customer">Customer</a></li>
+						<li><a href="#items">Products, Services, and Subscriptions</a></li>
+						<li><a href="#credits">Credits and Trade-Ins</a></li>
+						<li><a href="#totals">Totals</a></li>
+						<li><a href="#notes">Notes</a></li>
+						<li><a href="#financing">Financing Options</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="customer">Customer</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content span6">
+						<div class="show-field">
+							<span class="show-label">Company</span>
+							<br>
+							<span class="show-value">ABC Company</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Phone</span>
+							<br>
+							<span class="show-value">813-123-1230</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Fax</span>
+							<br>
+							<span class="show-value">813-123-7890</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Shipping Address</span>
+							<br>
+							<span class="show-value">4618 Scarborough Dr<br>Lutz, FL  33559</span>
+						</div>
+					</div>
+					<div class="section-content span6">
+						<div class="show-field">
+							<span class="show-label">Contact</span>
+							<br>
+							<span class="show-value">Frank Smith</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Phone</span>
+							<br>
+							<span class="show-value">813-123-1234</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Email</span>
+							<br>
+							<span class="show-value">fsmith@abccompany.com</span>
+						</div>
+						<div class="show-field">
+							<span class="show-label">Billing Address</span>
+							<br>
+							<span class="show-value">4618 Scarborough Dr<br>Lutz, FL  33559</span>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="items">Products, Services, and Subscriptions</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content">
+						<table class="table table-condensed" id="items1">
+							<thead>
+								<tr>
+									<th>Qty</th>
+									<th>Part #</th>
+									<th>Item</th>
+									<th>Unit</th>
+									<th>Discount</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>56992-10</td>
+									<td>Accugrade MS992 Receiver w/bracket</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>56992-10</td>
+									<td>Accugrade MS992 Receiver w/bracket</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>TSC3111-001</td>
+									<td>TSC3 w/Trimble Access(2.4Ghz Radio)</td>
+									<td>$7,345.00</td>
+									<td>$0</td>
+									<td>$7,345.00</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>EWHH-CU</td>
+									<td>Trimble CU HW/SW Extended Warranty</td>
+									<td>$580.00</td>
+									<td>$0</td>
+									<td>$580.00</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn-group">
+					    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					    		add item
+					    		<span class="caret"></span>
+					    	</a>
+					    	<ul class="dropdown-menu">
+					    		<li><%= link_to "Quote", "#" %></li>
+								<li><%= link_to "Rental", "#" %></li>
+								<li><%= link_to "Sale", "#" %></li>
+								<li><%= link_to "Proposal", "#" %></li>
+								<li class="divider"></li>
+								<li><%= link_to "Use Template", "#" %></li>
+					    	</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="items">Products, Services, and Subscriptions</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content" id="test">
+						<table class="table table-condensed table-striped" id="items2">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Part #</th>
+									<th>Qty</th>
+									<th>Unit</th>
+									<th>Discount</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="row1">
+									<td width="400"><div>Accugrade MS992 Receiver w/bracket Accugrade MS992 Receiver w/bracket Accugrade MS992 Receiver w/bracket</div></td>
+									<td>56992-10</td>
+									<td>1</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr id="row2">
+									<td><div>Accugrade MS992 Receiver w/bracket</div></td>
+									<td>56992-10</td>
+									<td>1</td>
+									<td>$8,300.00</td>
+									<td>$0</td>
+									<td>$8,300.00</td>
+								</tr>
+								<tr id="row3">
+									<td><div>TSC3 w/Trimble Access(2.4Ghz Radio)</div></td>
+									<td>TSC3111-001</td>
+									<td>1</td>
+									<td>$7,345.00</td>
+									<td>$0</td>
+									<td>$7,345.00</td>
+								</tr>
+								<tr id="row4">
+									<td><div>Trimble CU HW/SW Extended Warranty</div></td>
+									<td>EWHH-CU</td>
+									<td>1</td>
+									<td>$580.00</td>
+									<td>$0</td>
+									<td>$580.00</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn-group">
+					    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					    		add item
+					    		<span class="caret"></span>
+					    	</a>
+					    	<ul class="dropdown-menu">
+					    		<li><%= link_to "Quote", "#" %></li>
+								<li><%= link_to "Rental", "#" %></li>
+								<li><%= link_to "Sale", "#" %></li>
+								<li><%= link_to "Proposal", "#" %></li>
+								<li class="divider"></li>
+								<li><%= link_to "Use Template", "#" %></li>
+					    	</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="credits">Credits and Trade-Ins</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content">
+						<table class="table table-condensed" id="items1">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Serial Number</th>
+									<th>Qty</th>
+									<th>Unit</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Trade-In Widget</td>
+									<td>56992-10</td>
+									<td>1</td>
+									<td>$4,000.00</td>
+									<td>$4,000.00</td>
+								</tr>
+								<tr>
+									<td>Some Credit</td>
+									<td></td>
+									<td>1</td>
+									<td>$500.00</td>
+									<td>$500.00</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn-group">
+					    	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					    		add item
+					    		<span class="caret"></span>
+					    	</a>
+					    	<ul class="dropdown-menu">
+					    		<li><%= link_to "Quote", "#" %></li>
+								<li><%= link_to "Rental", "#" %></li>
+								<li><%= link_to "Sale", "#" %></li>
+								<li><%= link_to "Proposal", "#" %></li>
+								<li class="divider"></li>
+								<li><%= link_to "Use Template", "#" %></li>
+					    	</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="totals">Totals</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content">
+				
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="notes">Notes</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content">
+				
+						<div>
+							<a href="#" class="btn">add a note</a>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-heading">
+						<h3><a name="financing">Financing Options</a></h3>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="section-content">
+						<table class="table table-condensed">
+							<tbody>
+						
+							</tbody>
+						</table>
+						<div>
+							<a href="#" class="btn">add option</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% content_for :sidebar_right do %>
+<div class="span2">
+	<div>
+	<div class="row-fluid">
+		<div class="show-field">
+			<span class="show-label">Reference #</span>
+			<br>
+			<span class="show-value">10-051203</span>
+		</div>
+		<div class="show-field">
+			<span class="show-label">Sales Representative</span>
+			<br>
+			<span class="show-value">John Doe</span>
+		</div>
+		<div class="show-field">
+			<span class="show-label">PO</span>
+			<br>
+			<span class="show-value">1225</span>
+		</div>
+		
+	</div>
+	<div class="row-fluid">
+	<ul class="nav nav-list history-list">
+		<li class="divider"></li>
+		<li class="nav-header">History</li>
+	</ul>
+	</div>
+	</div>
+</div>
+<% end %>
+
+<script>
+	$('#items2 tr').on('click', function(evt){ handleRowClick(evt, this) });
+	$('#items1 tr').on('click', function(evt){ handleRowClick2(evt, this) });
+	
+		
+	function handleRowClick(evt, row){
+		if($(evt.target).hasClass('icon-resize-vertical') == false && $(evt.target).closest('tr') != $(evt.target).closest('thead').first()){
+			if($(row).hasClass('row-clicked')){
+				cancelOverlay();
+			}
+			else{
+				cancelOverlay();
+				showOverlay(row);
+			}
+		}
+	}
+		
+	function cancelOverlay(){
+		$(".row-actions").closest('tr').removeClass('row-clicked');
+		$(".row-actions").remove();
+	}
+	
+	function showOverlay(row){
+		$(row).addClass('row-clicked');
+		
+		$('<div class="row-actions"><i class="icon-resize-vertical"></i><i class="icon-undo"></i><i class="icon-copy"></i><i class="icon-edit"></i><i class="icon-eye-close"></i><i class="icon-trash"></i></div>').prependTo($(row).find('td').first()).effect('highlight');
+		
+		$("#items2").tableDnDUpdate();
+	}
+	
+	function handleRowClick2(evt, row){
+		if($(evt.target).hasClass('icon-resize-vertical') == false && $(evt.target).closest('tr') != $(evt.target).closest('thead').first()){
+			if($(row).hasClass('row-clicked')){
+				cancelOverlay2();
+			}
+			else{
+				cancelOverlay2();
+				showOverlay2(row);
+			}
+		}
+	}
+		
+	function cancelOverlay2(){
+		$(".row-actions").closest('tr').removeClass('row-clicked');
+		$(".row-actions").remove();
+	}
+	
+	function showOverlay2(row){
+		$(row).addClass('row-clicked');
+		
+		$(row).after('<tr><td colspan=6><div class="row-actions"><i class="icon-resize-vertical"></i><i class="icon-undo"></i><i class="icon-copy"></i><i class="icon-edit"></i><i class="icon-eye-close"></i><i class="icon-trash"></i></div></td></tr>');
+		
+		$("#items1").tableDnDUpdate();
+	}
+	
+	$(document).ready(function() {
+	    // Initialise the table
+	    $("#items2").tableDnD({
+			dragHandle: '.icon-resize-vertical'
+		});
+		$("#items1").tableDnD({
+			dragHandle: '.icon-resize-vertical'
+		});
+	});
+	
+</script>

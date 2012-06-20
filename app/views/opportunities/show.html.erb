@@ -75,13 +75,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% @opportunity.quotes.each do |quote| %>
+							<% @opportunity.documents.each do |document| %>
 							<tr>
 								<td></td>
-								<td><span class="label label-success">Quote</span></td>
-								<td><%= link_to quote.name, edit_quote_path(id: quote.pub_key) %></td>
-								<td><%= quote.created_at %></td>
-								<td><%= link_to 'Delete', quote_path(quote.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
+								<td><span class="label label-success"><%= document.document_type %></span></td>
+								<td><%= link_to document.name, edit_document_path(id: document.pub_key) %></td>
+								<td><%= document.created_at %></td>
+								<td><%= link_to 'Delete', document_path(document.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
 							</tr>
 							<% end %>
 						</tbody>
@@ -92,7 +92,7 @@
 				    		<span class="caret"></span>
 				    	</a>
 				    	<ul class="dropdown-menu">
-				    		<li><%= link_to "Quote", new_quote_path(id: @opportunity.pub_key) %></li>
+				    		<li><%= link_to "Quote", new_document_path(id: @opportunity.pub_key, document_type: "Quote") %></li>
 							<li><%= link_to "Rental", "#" %></li>
 							<li><%= link_to "Sale", "#" %></li>
 							<li><%= link_to "Proposal", "#" %></li>

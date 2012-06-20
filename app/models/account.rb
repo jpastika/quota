@@ -5,7 +5,13 @@ class Account < ActiveRecord::Base
   has_many :users, through: :members
   has_many :catalog_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :opportunities, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-  has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :contact_phones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :contact_emails, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :contact_urls, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :contact_addresses, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   
   accepts_nested_attributes_for :users
   

@@ -4,7 +4,7 @@ window.Quota =
 	Views: {}
 	Routers: {}
 	init: ->
-		window.aaa = new Quota.Routers.Quotes()
+		window.aaa = new Quota.Routers.Documents()
 		Backbone.history.start(pushState: true)
 
 $(document).ready ->

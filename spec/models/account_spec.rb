@@ -15,6 +15,13 @@ describe Account do
   it { should respond_to(:catalog_items) }
   it { should respond_to(:opportunities) }
   it { should respond_to(:quotes) }
+  it { should respond_to(:documents) }
+  it { should respond_to(:sales_reps) }
+  it { should respond_to(:contacts) }
+  it { should respond_to(:contact_phones) }
+  it { should respond_to(:contact_emails) }
+  it { should respond_to(:contact_urls) }
+  it { should respond_to(:contact_addresses) }
   it { should respond_to(:memberize!) }
   
   it { should be_valid }

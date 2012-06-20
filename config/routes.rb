@@ -3,31 +3,31 @@ Quota::Application.routes.draw do
   
   
   resources :accounts
-  resources :users
-  resources :members
   resources :catalog_items
-  resources :opportunities
+  resources :contacts
+  resources :docs, :controller => "documents"
   resources :documents
-  resources :quotes
+  resources :members
+  resources :opportunities
+  # resources :quotes
   resources :sales_reps
   resources :sessions, only: [:new, :create, :destroy, :choose]
+  resources :users
   
   scope "api" do
-    resources :quotes
+    resources :documents
     resources :opportunities
     
-    match '/opportunities/:id/quotes', to: 'quotes#index'
+    match '/opportunities/:id/docs', to: 'documents#index'
   end
-
+  
+  
   get "dashboard" => "dashboard#index", :as => "dashboard"
   get "choose" => "sessions#choose", :as => "choose_account"
   get "switch" => "sessions#switch_account", :as => "switch_account"
   match '/signup', to: 'accounts#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  
-  
-  
   
   
   root to: 'static_pages#home'

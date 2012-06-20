@@ -4,7 +4,8 @@ class Opportunity < ActiveRecord::Base
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :owner, :class_name => "Member", :primary_key => "pub_key", :foreign_key => "owner_key"
   belongs_to :created_by, :class_name => "Member", :primary_key => "pub_key", :foreign_key => "creator_key"
-  has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
+  # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
+  has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
   
   before_create :generate_keys
   

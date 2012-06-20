@@ -22,7 +22,7 @@ describe Member do
   describe "accessible attributes" do
     it "should not allow access to account_id" do
       expect do
-        Member.new(account_id: @account)
+        Member.new(account_key: @account.pub_key)
       end.should raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
   end

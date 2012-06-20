@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615191638) do
+ActiveRecord::Schema.define(:version => 20120620122835) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -46,19 +46,139 @@ ActiveRecord::Schema.define(:version => 20120615191638) do
 
   add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
 
+  create_table "contact_addresses", :force => true do |t|
+    t.string   "name"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "county"
+    t.string   "pub_key"
+    t.string   "contact_key"
+    t.string   "account_key"
+    t.boolean  "is_disabled", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "contact_addresses", ["account_key"], :name => "index_contact_addresses_on_account_key"
+  add_index "contact_addresses", ["contact_key"], :name => "index_contact_addresses_on_contact_key"
+  add_index "contact_addresses", ["pub_key"], :name => "index_contact_addresses_on_pub_key"
+
+  create_table "contact_emails", :force => true do |t|
+    t.string   "name"
+    t.string   "val"
+    t.string   "pub_key"
+    t.string   "contact_key"
+    t.string   "account_key"
+    t.boolean  "is_disabled", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "contact_emails", ["account_key"], :name => "index_contact_emails_on_account_key"
+  add_index "contact_emails", ["contact_key"], :name => "index_contact_emails_on_contact_key"
+  add_index "contact_emails", ["pub_key"], :name => "index_contact_emails_on_pub_key"
+
+  create_table "contact_phones", :force => true do |t|
+    t.string   "name"
+    t.string   "val"
+    t.string   "pub_key"
+    t.string   "contact_key"
+    t.boolean  "is_disabled", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "account_key"
+  end
+
+  add_index "contact_phones", ["account_key"], :name => "index_contact_phones_on_account_key"
+  add_index "contact_phones", ["contact_key"], :name => "index_contact_phones_on_contact_key"
+  add_index "contact_phones", ["pub_key"], :name => "index_contact_phones_on_pub_key"
+
+  create_table "contact_urls", :force => true do |t|
+    t.string   "name"
+    t.string   "val"
+    t.string   "pub_key"
+    t.string   "contact_key"
+    t.string   "account_key"
+    t.boolean  "is_disabled", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "contact_urls", ["account_key"], :name => "index_contact_urls_on_account_key"
+  add_index "contact_urls", ["contact_key"], :name => "index_contact_urls_on_contact_key"
+  add_index "contact_urls", ["pub_key"], :name => "index_contact_urls_on_pub_key"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "name"
+    t.string   "pub_key"
+    t.string   "account_key"
+    t.string   "title"
+    t.string   "company_key"
+    t.string   "contact_type"
+    t.boolean  "is_disabled",  :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "contacts", ["account_key"], :name => "index_contacts_on_account_key"
+  add_index "contacts", ["company_key"], :name => "index_contacts_on_company_key"
+  add_index "contacts", ["contact_type"], :name => "index_contacts_on_contact_type"
+  add_index "contacts", ["pub_key"], :name => "index_contacts_on_pub_key"
+
   create_table "documents", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_draft",        :default => true
+    t.boolean  "is_draft",                :default => true
     t.string   "account_key"
     t.string   "creator_key"
     t.string   "opportunity_key"
     t.string   "pub_key"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "document_type"
+    t.boolean  "is_disabled",             :default => false
+    t.string   "company_key"
+    t.string   "contact_key"
+    t.string   "reference_id"
+    t.string   "rep_key"
+    t.string   "po"
+    t.string   "company_name"
+    t.string   "company_phone"
+    t.string   "company_fax"
+    t.string   "contact_name"
+    t.string   "contact_phone"
+    t.string   "contact_email"
+    t.string   "shipping_street1"
+    t.string   "shipping_street2"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_zip"
+    t.string   "shipping_county"
+    t.string   "shipping_country"
+    t.string   "billing_street1"
+    t.string   "billing_street2"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip"
+    t.string   "billing_county"
+    t.string   "billing_country"
+    t.float    "total_recurring_monthly"
+    t.float    "total_recurring_yearly"
+    t.float    "total_subtotal"
+    t.float    "total_tax"
+    t.float    "total_tax_percent"
+    t.float    "total_shipping_handling"
+    t.float    "total_grand"
+    t.text     "notes_customer"
+    t.text     "notes_internal"
   end
 
   add_index "documents", ["account_key"], :name => "index_documents_on_account_key"
+  add_index "documents", ["company_key"], :name => "index_documents_on_company_key"
+  add_index "documents", ["contact_key"], :name => "index_documents_on_contact_key"
   add_index "documents", ["creator_key"], :name => "index_documents_on_creator_key"
   add_index "documents", ["pub_key"], :name => "index_documents_on_pub_key"
 

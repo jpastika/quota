@@ -1,0 +1,35 @@
+<% provide(:title, 'Contacts') %>
+<div class="span10">
+	<% flash.each do |key, value| %>
+		<div class="alert alert-<%= key %> fade in">
+	      <a class="close" data-dismiss="alert" href="#">&times;</a>
+	      <%= value %>
+	    </div>
+	<% end %>
+	<h1>Contacts</h1>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      	<th></th>
+			<th>Name</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @contacts.each do |contact| %>
+	      <tr>
+	        <td><% if contact.contact_type == "PERSON"%><i class="icon-user"></i><% else %><i class="icon-reorder"></i><% end %></td>
+			<td><%= link_to contact.name, contact_path(contact.pub_key) %></td>
+	        <td>
+	          <%= link_to 'Edit', edit_contact_path(contact.pub_key), :class => 'btn btn-mini' %>
+	          <%= link_to 'Delete', contact_path(contact.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	
+	<div>
+		<%= link_to 'Add contact', new_contact_path %>
+	</div>
+</div>

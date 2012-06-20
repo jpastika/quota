@@ -39,17 +39,42 @@ FactoryGirl.define do
     account
   end
   
-  factory :quote do
-    sequence(:name)  { |n| "Quote #{n}" }
+  factory :document do
+    sequence(:name)  { |n| "Document #{n}" }
     created_by { FactoryGirl.create(:member) }
     opportunity
     account
+    
+    factory :quote do
+      document_type "Quote"
+    end
   end
+  
+  # factory :quote do
+  #     sequence(:name)  { |n| "Quote #{n}" }
+  #     created_by { FactoryGirl.create(:member) }
+  #     opportunity
+  #     account
+  #   end
   
   factory :sales_rep do
     sequence(:name)  { |n| "Rep #{n}" }
     member
     account
+  end
+  
+  factory :contact do
+    sequence(:name)  { |n| "Person #{n}" }
+    sequence(:title) { |n| "Title #{n}" }
+    account
+    
+    factory :person do
+      contact_type "PERSON"
+    end
+    
+    factory :company do
+      contact_type "COMPANY"
+    end
   end
   
 end
