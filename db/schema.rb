@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620122835) do
+ActiveRecord::Schema.define(:version => 20120625152240) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -42,6 +42,10 @@ ActiveRecord::Schema.define(:version => 20120620122835) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "account_key"
+    t.string   "list_price_unit"
+    t.float    "day_rate"
+    t.float    "week_rate"
+    t.float    "month_rate"
   end
 
   add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
@@ -128,6 +132,58 @@ ActiveRecord::Schema.define(:version => 20120620122835) do
   add_index "contacts", ["company_key"], :name => "index_contacts_on_company_key"
   add_index "contacts", ["contact_type"], :name => "index_contacts_on_contact_type"
   add_index "contacts", ["pub_key"], :name => "index_contacts_on_pub_key"
+
+  create_table "document_items", :force => true do |t|
+    t.string   "name"
+    t.string   "part_number"
+    t.float    "quantity"
+    t.float    "unit_price"
+    t.string   "discount"
+    t.boolean  "is_taxable",         :default => true
+    t.boolean  "is_discountable",    :default => true
+    t.float    "total"
+    t.text     "notes"
+    t.integer  "sort_order"
+    t.boolean  "is_hidden",          :default => false
+    t.string   "document_item_type"
+    t.float    "day_rate"
+    t.float    "week_rate"
+    t.float    "month_rate"
+    t.float    "buyout"
+    t.string   "serial_number"
+    t.text     "description"
+    t.string   "pub_key"
+    t.string   "document_key"
+    t.string   "account_key"
+    t.string   "catalog_item_key"
+    t.boolean  "is_disabled",        :default => false
+    t.string   "parent_item_key"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.float    "year_rate"
+    t.float    "term_length"
+    t.string   "term_unit"
+    t.string   "unit_price_unit"
+  end
+
+  add_index "document_items", ["account_key"], :name => "index_document_items_on_account_key"
+  add_index "document_items", ["catalog_item_key"], :name => "index_document_items_on_catalog_item_key"
+  add_index "document_items", ["document_key"], :name => "index_document_items_on_document_key"
+  add_index "document_items", ["pub_key"], :name => "index_document_items_on_pub_key"
+
+  create_table "document_types", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_disabled", :default => false
+    t.string   "account_key"
+    t.string   "pub_key"
+    t.text     "description"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "document_types", ["account_key"], :name => "index_document_types_on_account_key"
+  add_index "document_types", ["name"], :name => "index_document_types_on_name"
+  add_index "document_types", ["pub_key"], :name => "index_document_types_on_pub_key"
 
   create_table "documents", :force => true do |t|
     t.string   "name"

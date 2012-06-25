@@ -92,11 +92,10 @@
 				    		<span class="caret"></span>
 				    	</a>
 				    	<ul class="dropdown-menu">
-				    		<li><%= link_to "Quote", new_document_path(id: @opportunity.pub_key, document_type: "Quote") %></li>
-							<li><%= link_to "Rental", "#" %></li>
-							<li><%= link_to "Sale", "#" %></li>
-							<li><%= link_to "Proposal", "#" %></li>
-							<li class="divider"></li>
+							<% @current_member.account.document_types.each do | doc_type | %>
+								<li><%= link_to "#{doc_type.name}", new_document_path(id: @opportunity.pub_key, document_type: "#{doc_type.name}") %></li>
+							<% end %>
+				    		<li class="divider"></li>
 							<li><%= link_to "Use Template", "#" %></li>
 				    	</ul>
 				    </div>

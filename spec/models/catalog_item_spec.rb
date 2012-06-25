@@ -25,6 +25,10 @@ describe CatalogItem do
   it { should respond_to(:is_subscription) }
   it { should respond_to(:subscription_length) }
   it { should respond_to(:subscription_length_unit) }
+  it { should respond_to(:list_price_unit) }
+  it { should respond_to(:day_rate) }
+  it { should respond_to(:week_rate) }
+  it { should respond_to(:month_rate) }
   it { should respond_to(:pub_key) }
   it { should respond_to(:account) }
   

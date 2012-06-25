@@ -1,5 +1,5 @@
-class CatalogItem < ActiveRecord::Base
-  attr_accessible :cost, :description, :manufacturer, :is_recurring, :is_subscription, :is_taxable, :list_price, :name, :part_number, :pub_key, :recurring_unit, :subscription_length, :subscription_length_unit, :list_price_unit, :day_rate, :week_rate, :month_rate
+class DocumentType < ActiveRecord::Base
+  attr_accessible :is_disabled, :name, :pub_key
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   
@@ -12,7 +12,7 @@ class CatalogItem < ActiveRecord::Base
     def generate_token(column)
       begin
         self[column] = SecureRandom.urlsafe_base64
-      end while CatalogItem.exists?(column => self[column])
+      end while DocumentType.exists?(column => self[column])
     end
   
     def generate_keys
