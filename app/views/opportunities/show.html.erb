@@ -78,7 +78,7 @@
 							<% @opportunity.documents.each do |document| %>
 							<tr>
 								<td></td>
-								<td><span class="label label-success"><%= document.document_type %></span></td>
+								<td><span class="label label-success"><%= document.document_type.name %></span></td>
 								<td><%= link_to document.name, edit_document_path(id: document.pub_key) %></td>
 								<td><%= document.created_at %></td>
 								<td><%= link_to 'Delete', document_path(document.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
@@ -93,7 +93,7 @@
 				    	</a>
 				    	<ul class="dropdown-menu">
 							<% @current_member.account.document_types.each do | doc_type | %>
-								<li><%= link_to "#{doc_type.name}", new_document_path(id: @opportunity.pub_key, document_type: "#{doc_type.name}") %></li>
+								<li><%= link_to "#{doc_type.name}", new_document_path(id: @opportunity.pub_key, document_type: "#{doc_type.pub_key}") %></li>
 							<% end %>
 				    		<li class="divider"></li>
 							<li><%= link_to "Use Template", "#" %></li>

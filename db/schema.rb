@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625152240) do
+ActiveRecord::Schema.define(:version => 20120626170518) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -139,13 +139,12 @@ ActiveRecord::Schema.define(:version => 20120625152240) do
     t.float    "quantity"
     t.float    "unit_price"
     t.string   "discount"
-    t.boolean  "is_taxable",         :default => true
-    t.boolean  "is_discountable",    :default => true
+    t.boolean  "is_taxable",             :default => true
+    t.boolean  "is_discountable",        :default => true
     t.float    "total"
     t.text     "notes"
     t.integer  "sort_order"
-    t.boolean  "is_hidden",          :default => false
-    t.string   "document_item_type"
+    t.boolean  "is_hidden",              :default => false
     t.float    "day_rate"
     t.float    "week_rate"
     t.float    "month_rate"
@@ -156,14 +155,15 @@ ActiveRecord::Schema.define(:version => 20120625152240) do
     t.string   "document_key"
     t.string   "account_key"
     t.string   "catalog_item_key"
-    t.boolean  "is_disabled",        :default => false
+    t.boolean  "is_disabled",            :default => false
     t.string   "parent_item_key"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.float    "year_rate"
     t.float    "term_length"
     t.string   "term_unit"
     t.string   "unit_price_unit"
+    t.string   "document_item_type_key"
   end
 
   add_index "document_items", ["account_key"], :name => "index_document_items_on_account_key"
@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(:version => 20120625152240) do
     t.string   "pub_key"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
-    t.string   "document_type"
     t.boolean  "is_disabled",             :default => false
     t.string   "company_key"
     t.string   "contact_key"
@@ -230,12 +229,14 @@ ActiveRecord::Schema.define(:version => 20120625152240) do
     t.float    "total_grand"
     t.text     "notes_customer"
     t.text     "notes_internal"
+    t.string   "document_type_key"
   end
 
   add_index "documents", ["account_key"], :name => "index_documents_on_account_key"
   add_index "documents", ["company_key"], :name => "index_documents_on_company_key"
   add_index "documents", ["contact_key"], :name => "index_documents_on_contact_key"
   add_index "documents", ["creator_key"], :name => "index_documents_on_creator_key"
+  add_index "documents", ["document_type_key"], :name => "index_documents_on_document_type_key"
   add_index "documents", ["pub_key"], :name => "index_documents_on_pub_key"
 
   create_table "members", :force => true do |t|
@@ -339,6 +340,58 @@ ActiveRecord::Schema.define(:version => 20120625152240) do
   add_index "sales_reps", ["account_key"], :name => "index_sales_reps_on_account_key"
   add_index "sales_reps", ["member_key"], :name => "index_sales_reps_on_member_key"
   add_index "sales_reps", ["pub_key"], :name => "index_sales_reps_on_pub_key"
+
+  create_table "template_items", :force => true do |t|
+    t.float    "buyout"
+    t.string   "catalog_item_key"
+    t.float    "day_rate"
+    t.text     "description"
+    t.float    "discount"
+    t.string   "document_item_type_key"
+    t.string   "template_key"
+    t.boolean  "is_disabled",            :default => false
+    t.boolean  "is_discountable",        :default => true
+    t.boolean  "is_hidden",              :default => false
+    t.boolean  "is_taxable",             :default => true
+    t.float    "month_rate"
+    t.string   "name"
+    t.text     "notes"
+    t.string   "parent_item_key"
+    t.string   "part_number"
+    t.float    "quantity"
+    t.integer  "sort_order"
+    t.float    "total"
+    t.float    "unit_price"
+    t.float    "week_rate"
+    t.string   "pub_key"
+    t.float    "year_rate"
+    t.string   "unit_price_unit"
+    t.float    "term_length"
+    t.string   "term_unit"
+    t.string   "account_key"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "template_items", ["account_key"], :name => "index_template_items_on_account_key"
+  add_index "template_items", ["catalog_item_key"], :name => "index_template_items_on_catalog_item_key"
+  add_index "template_items", ["pub_key"], :name => "index_template_items_on_pub_key"
+  add_index "template_items", ["template_key"], :name => "index_template_items_on_template_key"
+
+  create_table "templates", :force => true do |t|
+    t.string   "name"
+    t.string   "document_type_key"
+    t.boolean  "is_disabled",              :default => false
+    t.boolean  "is_document_type_default", :default => false
+    t.string   "account_key"
+    t.string   "pub_key"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
+  add_index "templates", ["account_key"], :name => "index_templates_on_account_key"
+  add_index "templates", ["document_type_key"], :name => "index_templates_on_document_type_key"
+  add_index "templates", ["pub_key"], :name => "index_templates_on_pub_key"
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -72,14 +72,14 @@ class DocumentsController < ApplicationController
   
   def new
     @opportunity = Opportunity.find_by_pub_key(params[:id])
-    @document = @opportunity.documents.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key, document_type: params[:document_type])
+    @document = @opportunity.documents.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key, document_type_key: params[:document_type])
     
-    @document.name = "#{@document.document_type} - #{@opportunity.name}"
+    @document.name = "#{@document.document_type.name} - #{@opportunity.name}"
     
     if @document.save
       redirect_to edit_document_path(@document.pub_key)
     else
-      flash[:error] = "Unable to create #{@document.document_type}"
+      flash[:error] = "Unable to create #{@document.document_type.name}"
       redirect_to opportunity_path(@opportunity.pub_key)
     end
   end
@@ -89,7 +89,7 @@ class DocumentsController < ApplicationController
     @document.account = current_member.account
     @document.created_by = current_member
     if @document.save
-      flash[:success] = "#{@document.document_type} created!"
+      flash[:success] = "#{@document.document_type.name} created!"
       redirect_to opportunity_path(@document.opportunity.pub_key)
     else
       render 'new'
@@ -121,7 +121,7 @@ class DocumentsController < ApplicationController
       }
       format.json {
         @document = Document.find_by_pub_key(params[:id]) 
-        render :json => @document.to_json(:include => :opportunity)
+        render :json => @document.to_json(:include => :opportunity, :include => :document_type)
       }
     end
   end

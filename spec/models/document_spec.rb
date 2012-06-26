@@ -7,7 +7,7 @@ describe Document do
      @user = @member.user
      @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
      @opp.save
-     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @member.pub_key, document_type: "Quote")
+     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @member.pub_key, document_type: @account.document_types.first)
   end
   
   subject { @document }
@@ -28,7 +28,7 @@ describe Document do
   it { should respond_to(:contact_name) }
   it { should respond_to(:contact_phone) }
   it { should respond_to(:creator_key) }
-  it { should respond_to(:document_type) }
+  it { should respond_to(:document_type_key) }
   it { should respond_to(:is_draft) }
   it { should respond_to(:name) }
   it { should respond_to(:notes_customer) }
@@ -54,6 +54,7 @@ describe Document do
   it { should respond_to(:total_tax_percent) }
   it { should respond_to(:account) }
   it { should respond_to(:opportunity) }
+  it { should respond_to(:document_type) }
   it { should respond_to(:created_by) }
   
   it { should be_valid }

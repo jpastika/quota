@@ -44,10 +44,12 @@ FactoryGirl.define do
     created_by { FactoryGirl.create(:member) }
     opportunity
     account
-    
-    factory :quote do
-      document_type "Quote"
-    end
+  end
+  
+  factory :document_type do
+    sequence(:name)  { |n| "Quote" }
+    created_by { FactoryGirl.create(:member) }
+    account
   end
   
   # factory :quote do

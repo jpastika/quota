@@ -1,15 +1,13 @@
 require 'spec_helper'
 
-describe DocumentItem do
+describe TemplateItem do
   before(:each) do
      @member = FactoryGirl.create(:member)
      @account = @member.account
      @user = @member.user
-     @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
-     @opp.save
-     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @member.pub_key, document_type: @account.document_types.first)
-     @document.save
-     @item = @account.document_items.build(name: "Item 1", unit_price: "50", document_key: @document.pub_key)
+     @template = @account.templates.build(name: "Template 1", document_type: @account.document_types.first)
+     @template.save
+     @item = @account.template_items.build(name: "Item 1", unit_price: "50", template_key: @template.pub_key)
   end
   
   #before { @item = CatalogItem.new(name: "Item 1", list_price: "50") }
@@ -33,19 +31,18 @@ describe DocumentItem do
   it { should respond_to(:month_rate) }
   it { should respond_to(:year_rate) }
   it { should respond_to(:buyout) }
-  it { should respond_to(:serial_number) }
   it { should respond_to(:description) }
   it { should respond_to(:term_length) }
   it { should respond_to(:term_unit) }
   it { should respond_to(:unit_price_unit) }
   it { should respond_to(:pub_key) }
-  it { should respond_to(:document_key) }
+  it { should respond_to(:template_key) }
   it { should respond_to(:account_key) }
   it { should respond_to(:catalog_item_key) }
   it { should respond_to(:is_disabled) }
   it { should respond_to(:parent_item_key) }
   it { should respond_to(:account) }
-  it { should respond_to(:document) }
+  it { should respond_to(:template) }
   it { should respond_to(:catalog_item) }
   it { should respond_to(:parent_item) }
   

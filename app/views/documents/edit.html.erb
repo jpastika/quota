@@ -13,7 +13,7 @@
 			<h3><%= link_to @document.opportunity.name, opportunity_path(@document.opportunity.pub_key) %></h3>
 		</div>
 		<div class="child-page">
-			<span class="page-label label label-success"><%= @document.document_type %></span>
+			<span class="page-label label label-success"><%= @document.document_type.name %></span>
 			<div class="row-fluid">
 				<div class="document-title">
 					<h1 id="document_name"></h1>
