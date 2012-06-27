@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626170518) do
+ActiveRecord::Schema.define(:version => 20120626180925) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -132,6 +132,19 @@ ActiveRecord::Schema.define(:version => 20120626170518) do
   add_index "contacts", ["company_key"], :name => "index_contacts_on_company_key"
   add_index "contacts", ["contact_type"], :name => "index_contacts_on_contact_type"
   add_index "contacts", ["pub_key"], :name => "index_contacts_on_pub_key"
+
+  create_table "document_item_types", :force => true do |t|
+    t.string   "name"
+    t.string   "pub_key"
+    t.boolean  "is_disabled"
+    t.string   "account_key"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "document_item_types", ["account_key"], :name => "index_document_item_types_on_account_key"
+  add_index "document_item_types", ["name"], :name => "index_document_item_types_on_name"
+  add_index "document_item_types", ["pub_key"], :name => "index_document_item_types_on_pub_key"
 
   create_table "document_items", :force => true do |t|
     t.string   "name"

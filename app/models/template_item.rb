@@ -4,7 +4,8 @@ class TemplateItem < ActiveRecord::Base
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :template, :primary_key => "pub_key", :foreign_key => "template_key"
   belongs_to :parent_item, :class_name => "TemplateItem", :primary_key => "pub_key", :foreign_key => "parent_item_key"
-  has_one :catalog_item, :primary_key => "pub_key", :foreign_key => "catalog_item_key"
+  belongs_to :catalog_item, :primary_key => "pub_key", :foreign_key => "catalog_item_key"
+  belongs_to :document_item_type, :primary_key => "pub_key", :foreign_key => "document_item_type_key"
   
   before_create :generate_keys
   

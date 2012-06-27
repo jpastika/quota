@@ -72,14 +72,32 @@ class DocumentsController < ApplicationController
   
   def new
     @opportunity = Opportunity.find_by_pub_key(params[:id])
-    @document = @opportunity.documents.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key, document_type_key: params[:document_type])
     
-    @document.name = "#{@document.document_type.name} - #{@opportunity.name}"
+    if params.has_key?(:template_key)
+      @template = current_member.account.templates.find_by_pub_key(params[:template_key])
+    else
+      @template = current_member.account.templates.find_by_document_type_key(params[:document_type], :conditions => {:is_document_type_default => true})
+    end
+    
+    @document_type = @template.document_type
+    @document = @opportunity.documents.build(account: current_member.account, creator_key: current_member.pub_key, document_type: @document_type)
+    
+    @document.name = "#{@document_type.name} - #{@opportunity.name}"
+    
+    #get document items from temoplate
+    
+    @template.template_items.each do |item|
+      doc_item = @document.document_items.build(
+        name: item.name, 
+        document_item_type: item.document_item_type
+      )
+      doc_item.save
+    end 
     
     if @document.save
       redirect_to edit_document_path(@document.pub_key)
     else
-      flash[:error] = "Unable to create #{@document.document_type.name}"
+      flash[:error] = "Unable to create #{@@document_type.name}"
       redirect_to opportunity_path(@opportunity.pub_key)
     end
   end

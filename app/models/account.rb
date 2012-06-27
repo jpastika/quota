@@ -16,6 +16,7 @@ class Account < ActiveRecord::Base
   has_many :document_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
   has_many :templates, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :document_item_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
   
   accepts_nested_attributes_for :users
   
@@ -39,6 +40,22 @@ class Account < ActiveRecord::Base
   
   
   
+  def generate_default_templates
+    self.document_types.each do |doc_type|
+      self.templates.create!(name: doc_type.name, document_type: doc_type, is_document_type_default: true)
+    end
+  end
+  
+  def generate_document_item_types
+    self.document_item_types.create!(name: "Product")
+    self.document_item_types.create!(name: "Service")
+    self.document_item_types.create!(name: "Rental")
+    self.document_item_types.create!(name: "Subscription")
+    self.document_item_types.create!(name: "Credit")
+    self.document_item_types.create!(name: "Trade-In")
+    self.document_item_types.create!(name: "Header")
+  end
+  
   private
     def generate_token(column)
       begin
@@ -52,6 +69,8 @@ class Account < ActiveRecord::Base
     
     def generate_data
       generate_document_types
+      generate_default_templates
+      generate_document_item_types
     end
     
     def generate_document_types
@@ -60,5 +79,9 @@ class Account < ActiveRecord::Base
       self.document_types.create!(name: "Rental")
       self.document_types.create!(name: "Proposal")
     end
+    
+    
+    
+    
     
 end

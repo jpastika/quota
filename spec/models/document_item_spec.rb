@@ -48,6 +48,7 @@ describe DocumentItem do
   it { should respond_to(:document) }
   it { should respond_to(:catalog_item) }
   it { should respond_to(:parent_item) }
+  it { should respond_to(:document_item_type) }
   
   it { should be_valid }
   

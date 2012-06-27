@@ -3,7 +3,7 @@ class Template < ActiveRecord::Base
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "template_key"
-  has_one :document_type, :primary_key => "document_type_key", :foreign_key => "pub_key"
+  belongs_to :document_type, :primary_key => "pub_key", :foreign_key => "document_type_key"
   
   before_create :generate_keys
   
