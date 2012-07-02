@@ -15,10 +15,26 @@ Quota::Application.routes.draw do
   resources :users
   
   scope "api" do
+    resources :accounts
+    resources :catalog_items
+    resources :contacts
+    resources :contact_types
+    resources :contact_phones
+    resources :contact_emails
+    resources :contact_addresses
+    resources :contact_urls
     resources :documents
+    resources :members
     resources :opportunities
+    resources :sales_reps
+    resources :users
     
     match '/opportunities/:id/docs', to: 'documents#index'
+    match '/account', to: 'accounts#show'
+    match '/member', to: 'members#show'
+    match '/user', to: 'users#show'
+    match '/contacts/:id/phones', to: 'contact_phones#index'
+    
   end
   
   

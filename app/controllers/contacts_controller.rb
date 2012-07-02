@@ -2,10 +2,31 @@ class ContactsController < ApplicationController
   before_filter :signed_in_member!, :check_disabled!
   
   def index
-    @contacts = current_member.account.contacts
+    respond_to do |format|
+      format.html {
+        @contacts = current_member.account.contacts
+      }
+      format.json { 
+        @contacts = current_member.account.contacts
+        render :json => @contacts
+      }
+    end
+  end
+  
+  def show
+    respond_to do |format|
+      format.html {
+        @contact = Contact.find_by_pub_key(params[:id])
+      }
+      format.json {
+        @contact = Contact.find_by_pub_key(params[:id]) 
+        render :json => @contact.to_json(:include => :contact_type)
+      }
+    end
   end
   
   def new
+    @contact_types = current_member.account.contact_types.all
     @contact = current_member.account.contacts.build()
   end
   
@@ -21,6 +42,7 @@ class ContactsController < ApplicationController
   end
   
   def edit
+    @contact_types = current_member.account.contact_types.all
     @contact = Contact.find_by_pub_key(params[:id])
   end
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626180925) do
+ActiveRecord::Schema.define(:version => 20120627201213) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -101,6 +101,21 @@ ActiveRecord::Schema.define(:version => 20120626180925) do
   add_index "contact_phones", ["contact_key"], :name => "index_contact_phones_on_contact_key"
   add_index "contact_phones", ["pub_key"], :name => "index_contact_phones_on_pub_key"
 
+  create_table "contact_types", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_disabled", :default => false
+    t.string   "account_key"
+    t.string   "pub_key"
+    t.string   "icon_class"
+    t.boolean  "is_default",  :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "contact_types", ["account_key"], :name => "index_contact_types_on_account_key"
+  add_index "contact_types", ["name"], :name => "index_contact_types_on_name"
+  add_index "contact_types", ["pub_key"], :name => "index_contact_types_on_pub_key"
+
   create_table "contact_urls", :force => true do |t|
     t.string   "name"
     t.string   "val"
@@ -122,24 +137,23 @@ ActiveRecord::Schema.define(:version => 20120626180925) do
     t.string   "account_key"
     t.string   "title"
     t.string   "company_key"
-    t.string   "contact_type"
-    t.boolean  "is_disabled",  :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "is_disabled",      :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "contact_type_key"
   end
 
   add_index "contacts", ["account_key"], :name => "index_contacts_on_account_key"
   add_index "contacts", ["company_key"], :name => "index_contacts_on_company_key"
-  add_index "contacts", ["contact_type"], :name => "index_contacts_on_contact_type"
   add_index "contacts", ["pub_key"], :name => "index_contacts_on_pub_key"
 
   create_table "document_item_types", :force => true do |t|
     t.string   "name"
     t.string   "pub_key"
-    t.boolean  "is_disabled"
     t.string   "account_key"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_disabled", :default => false
   end
 
   add_index "document_item_types", ["account_key"], :name => "index_document_item_types_on_account_key"

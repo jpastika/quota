@@ -4,5 +4,5 @@
       <%= f.error_notification %>
     </div>
 <% end %>
+<%= f.input :contact_type_key, :label => '', :collection => @contact_types.reverse.map{|a| [a.name, a.pub_key]}, :as => :radio_buttons, :item_wrapper_class => 'inline', :checked => @contact_types.last.pub_key %>
 <%= f.input :name %>
-<%= f.collection_radio_buttons :contact_type, [['PERSON', 'Person'] ,['COMPANY', 'Company']], :first, :last %>

@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  before_filter [:signed_in_member!, :check_disabled!], :only => :show 
+  
   def new
     @account = Account.new
     @account.users.build
@@ -32,6 +34,18 @@ class AccountsController < ApplicationController
       else
         render 'new'
       end
+    end
+  end
+  
+  def show
+    respond_to do |format|
+      format.html {
+        @account = current_member.account
+      }
+      format.json {
+        @account = current_member.account 
+        render :json => @account.to_json
+      }
     end
   end
 end

@@ -40,6 +40,34 @@ $grayDark: #333333;
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=-90, Color='$color');
 }
 
+@mixin full-inner-shadow($a, $b, $c, $color: #333333) {
+  -moz-box-shadow: $a $b $c $color;
+  -webkit-box-shadow: $a $b $c $color;
+  box-shadow: $a $b $c $color;
+}
+
+@mixin no-inner-shadow() {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -ms-filter: none;
+  filter: none;
+}
+
+@mixin full-shadow($a, $b, $c, $rgb_r, $rgb_g, $rgb_b, $rgb_a, $dir){
+	-moz-box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+	-webkit-box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+	box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+}
+
+@mixin inherit-inner-shadow() {
+  -moz-box-shadow: inherit;
+  -webkit-box-shadow: inherit;
+  box-shadow: inherit;
+  -ms-filter: inherit;
+  filter: inherit;
+}
+
 $default_rounded_amount: 5px;
 // Round corner at position by amount.
 @mixin round-corner($position, $amount: $default_rounded_amount){
@@ -224,6 +252,10 @@ input, textarea, select, .uneditable-input {
   @extend .error;
  }
 
+label.required{
+	font-weight:bold;
+}
+
 
 /* nav */
 .navbar-inner{
@@ -367,4 +399,20 @@ input, textarea, select, .uneditable-input {
 
 .history-list{
 	padding-left:0;
+}
+
+
+
+
+.contact_phone .name{
+	text-align:right;
+	border:none;
+	@include no-inner-shadow;
+	margin-left:20px;
+}
+
+.contact_phone .name:focus{
+	text-align:right;
+	border:1px solid #bbb;
+	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
 }

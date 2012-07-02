@@ -11,6 +11,18 @@ class MembersController < ApplicationController
     #@user = User.new
   end
   
+  def show
+    respond_to do |format|
+      format.html {
+        @member = current_member
+      }
+      format.json {
+        @member = current_member 
+        render :json => @member.to_json
+      }
+    end
+  end
+  
   def create
     @member = Member.new(params[:member])
     @member.user = User.new(params[:user])

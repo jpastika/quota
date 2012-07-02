@@ -4,7 +4,8 @@ window.Quota =
 	Views: {}
 	Routers: {}
 	init: ->
-		window.aaa = new Quota.Routers.Documents()
+		window.Documents = new Quota.Routers.Documents()
+		window.Contacts = new Quota.Routers.Contacts()
 		Backbone.history.start(pushState: true)
 
 $(document).ready ->
