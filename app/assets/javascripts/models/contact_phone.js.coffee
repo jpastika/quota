@@ -3,5 +3,14 @@ class Quota.Models.ContactPhone extends Backbone.Model
 	urlRoot: '/api/contact_phones'
 	
 	initialize: ->
-	    this.name = 'phone'
-	    this.val = '123-123-1234'
+		self = @
+	
+	clear: ->
+		self = @
+		@destroy({
+			wait: false
+			success:()-> 
+				self.trigger('destroy:success',{model: self})
+			error:()-> 
+				self.trigger('destroy:error',{model: self})
+		})

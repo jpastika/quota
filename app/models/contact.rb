@@ -15,8 +15,8 @@ class Contact < ActiveRecord::Base
   before_create :generate_keys
   
   validates :name, presence: true
-  validates :account_key, presence: true
-  validates :contact_type_key, presence: true
+  # validates :account_key, presence: true
+  # validates :contact_type_key, presence: true
   
   private
     def generate_token(column)
