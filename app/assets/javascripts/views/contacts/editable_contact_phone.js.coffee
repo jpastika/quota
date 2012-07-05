@@ -2,11 +2,10 @@ class Quota.Views.EditableContactPhone extends Backbone.View
 
 	template: HandlebarsTemplates['contacts/editable_contact_phone'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events: {
-		"click .contact_method_val":		"val_clicked"
-		"click .contact_method_name":		"name_clicked"
-		"click .contact_method_remove":	"destroy"
-	}
+	events:
+		"click .contact_method_val": "valClicked"
+		"click .contact_method_name": "nameClicked"
+		"click .contact_method_remove": "destroy"
 	
 	initialize: (options)->
 		_.bindAll(@)
@@ -18,10 +17,10 @@ class Quota.Views.EditableContactPhone extends Backbone.View
 		$(@el).html(@template({contact_phone:@model.toJSON()}))
 		@
 		
-	val_clicked: (evt) ->
+	valClicked: (evt) ->
 		console.log $(evt.target).val()
 		
-	name_clicked: (evt) ->
+	nameClicked: (evt) ->
 		console.log $(evt.target).val()
 		
 	destroy: (evt) ->
@@ -32,8 +31,8 @@ class Quota.Views.EditableContactPhone extends Backbone.View
 	toggle: () ->
 		$(@el).toggle()
 		
-	hide_remove: () ->
+	hideRemove: () ->
 		$(@el).find('.contact_method_remove').hide();
 		
-	show_remove: () ->
+	showRemove: () ->
 		$(@el).find('.contact_method_remove').show();

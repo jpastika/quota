@@ -10,7 +10,7 @@ class Quota.Views.ContactTypesToggles extends Backbone.View
 		@vent = options.vent
 		@contact = options.contact
 		@_contactTypeViews = []
-		@collection.on('reset', @handle_collection_reset, @)
+		@collection.on('reset', @collectionReset, @)
 		@vent.on('contact_types:reset', @render, @)
 		
 		
@@ -20,7 +20,7 @@ class Quota.Views.ContactTypesToggles extends Backbone.View
 		frag.appendChild(@addOne(contact_type).render().el) for contact_type in @collection.models
 		$(@el).append(frag)
 		if @_contactTypeViews.length
-			@set_selected()
+			@setSelected()
 		@
 	
 	addOne: (contact_type)->
@@ -28,17 +28,18 @@ class Quota.Views.ContactTypesToggles extends Backbone.View
 		@_contactTypeViews.push(view)
 		view
 		
-	set_selected: ()->
+	setSelected: ->
 		self = @
 		if @contact && @contact.get('contact_type_key')
 			view = _.find self._contactTypeViews, (vw) -> vw.model.get('pub_key') == self.contact.get('contact_type_key')
 		else
 			view = _.find self._contactTypeViews, (vw) -> vw.model.get('is_default') == true
 		view.select()
+		@vent.trigger('contact_type:selected')
 			
-	get_selected: ->
+	getSelected: ->
 		self = @
 		view = _.find self._contactTypeViews, (vw) -> vw.model.get('pub_key') == $('#contact_types input:radio:checked').attr('value')
 		
-	handle_collection_reset: ->
+	collectionReset: ->
 		@render()

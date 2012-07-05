@@ -2,8 +2,7 @@ class Quota.Views.ContactPhone extends Backbone.View
 
 	template: HandlebarsTemplates['contacts/contact_phone'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events: {
-	}
+	# events:
 	
 	initialize: (options)->
 		_.bindAll(@)

@@ -34,6 +34,7 @@ Quota::Application.routes.draw do
     match '/member', to: 'members#show'
     match '/user', to: 'users#show'
     match '/contacts/:id/phones', to: 'contact_phones#index'
+    match '/companies', to: 'contacts#companies'
     
   end
   

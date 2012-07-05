@@ -86,4 +86,17 @@ class ContactsController < ApplicationController
       }
     end
   end
+  
+  
+  def companies
+    respond_to do |format|
+      format.html {
+        @companies = current_member.account.contacts.companies
+      }
+      format.json { 
+        @companies = current_member.account.contacts.companies
+        render :json => @companies
+      }
+    end
+  end
 end

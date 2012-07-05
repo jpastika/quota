@@ -11,6 +11,7 @@ class Contact < ActiveRecord::Base
   has_many :urls, :class_name => "ContactUrl", :primary_key => "pub_key", :foreign_key => "contact_key"
   has_many :addresses, :class_name => "ContactAddress", :primary_key => "pub_key", :foreign_key => "contact_key"
   
+  scope :companies, where(:contact_type_key => ContactType.find_by_name("Company").pub_key)
   
   before_create :generate_keys
   

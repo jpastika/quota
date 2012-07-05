@@ -8,11 +8,10 @@ class Quota.Views.NewContactPhones extends Backbone.View
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
-		@collection.on('reset', @handle_collection_reset, @)
-		@collection.on('destroy:error', @remove_failed, @)
-		@collection.on('destroy:success', @remove_success, @)
 		@_phoneViews = []
-		@handle_collection_reset()
+		@collection.on('reset', @collectionReset, @)
+		@collection.on('destroy:error', @removeFailed, @)
+		@collection.on('destroy:success', @removeSuccess, @)
 	
 	render: ->
 		$(@el).empty()
@@ -32,15 +31,15 @@ class Quota.Views.NewContactPhones extends Backbone.View
 		@_phoneViews.push(view)
 		view
 
-	handle_collection_reset: ->
+	collectionReset: ->
 		@render()
 		
-	setup_empty: ->
-		@collection.reset([{name:'', val:''}])
+	# setupEmpty: ->
+	# 		@collection.reset([{name:'', val:''}])
 	
-	remove_failed: (evt) ->
+	removeFailed: (evt) ->
 		view = _.find(@_phoneViews, (view) -> view.model == evt.model)
 		view.toggle()
 		
-	remove_success: (evt) ->
+	removeSuccess: (evt) ->
 		console.log "got here"

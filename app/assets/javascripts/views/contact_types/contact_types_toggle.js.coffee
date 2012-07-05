@@ -2,9 +2,8 @@ class Quota.Views.ContactTypesToggle extends Backbone.View
 
 	template: HandlebarsTemplates['contact_types/contact_type_toggle'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events: {
-		"click input:radio":		"clicked"
-	}
+	events:
+		"click input:radio": "clicked"
 	
 	initialize: (options)->
 		_.bindAll(@)

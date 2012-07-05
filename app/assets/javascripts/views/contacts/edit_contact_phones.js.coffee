@@ -9,11 +9,11 @@ class Quota.Views.EditContactPhones extends Backbone.View
 		_.bindAll(@)
 		@vent = options.vent
 		@_phoneViews = []
-		@collection.on('reset', @handle_collection_reset, @)
-		@collection.on('destroy:error', @remove_failed, @)
-		@collection.on('destroy:success', @remove_success, @)
-		options.vent.on('contact_method_phone_empty:not_empty', @empty_not_empty, @)
-		options.vent.on('contact_method_phone_empty:empty', @empty_empty, @)
+		@collection.on('reset', @collectionReset, @)
+		@collection.on('destroy:error', @removeFailed, @)
+		@collection.on('destroy:success', @removeSuccess, @)
+		options.vent.on('contact_method_phone_empty:not_empty', @emptyNotEmpty, @)
+		options.vent.on('contact_method_phone_empty:empty', @emptyEmpty, @)
 		
 	render: ->
 		$(@el).empty()
@@ -35,21 +35,21 @@ class Quota.Views.EditContactPhones extends Backbone.View
 		# 		_.last(@_phoneViews).on('val:empty', if view != _.last(@_phoneViews) then _.last(@_phoneViews).remove())
 		view
 	
-	handle_collection_reset: ->
+	collectionReset: ->
 		@render()
 		
-	setup_empty: ->
-		@collection.reset([{name:'', val:''}])
+	# setupEmpty: ->
+	# 		@collection.reset([{name:'', val:''}])
 	
-	remove_failed: (evt) ->
+	removeFailed: (evt) ->
 		view = _.find(@_phoneViews, (view) -> view.model == evt.model)
 		view.toggle()
 		
-	remove_success: (evt) ->
+	removeSuccess: (evt) ->
 		console.log "got here"
 		
-	empty_not_empty: (evt) ->
+	emptyNotEmpty: (evt) ->
 		console.log "empty is not empty"
 		
-	empty_empty: (evt) ->
+	emptyEmpty: (evt) ->
 		console.log "empty is empty"
