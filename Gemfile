@@ -10,6 +10,7 @@ gem 'bootstrap-will_paginate'
 gem 'simple_form'
 gem 'jquery-rails'
 gem 'backbone-on-rails'
+gem 'gon'
 
 
 group :development do

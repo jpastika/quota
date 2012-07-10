@@ -11,11 +11,14 @@ class Quota.Views.EditableContactPhoneEmpty extends Backbone.View
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
+		@hideRemove = if options.hideRemove then options.hideRemove else false
+		console.log @hideRemove
 		@model.on('change', @render, @)
 		@model.on('destroy', @remove, @)
 		
 	render: ->
 		$(@el).html(@template({contact_phone:@model.toJSON()}))
+		@$('.contact_method_remove').hide()
 		@
 		
 	valClicked: (evt) ->

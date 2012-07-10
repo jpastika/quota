@@ -81,6 +81,9 @@ GEM
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    gon (3.0.5)
+      actionpack (>= 2.3.0)
+      json
     growl (1.0.3)
     guard (1.0.3)
       ffi (>= 0.5.0)
@@ -221,6 +224,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-sass-rails
+  gon
   growl
   guard-rspec
   guard-spork

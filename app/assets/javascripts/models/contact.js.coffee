@@ -8,7 +8,7 @@ class Quota.Models.Contact extends Backbone.Model
 	validation:
 		name:
 			required: true
-			msg: 'Name is required'
+			msg: "can't be blank"
 	
 	initialize: ->
 		@phones = new Quota.Collections.ContactPhones

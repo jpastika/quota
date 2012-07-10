@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   before_filter :signed_in_member!, :check_disabled!
+  respond_to :html, :json
   
   def index
     respond_to do |format|
@@ -8,7 +9,7 @@ class ContactsController < ApplicationController
       }
       format.json { 
         @contacts = current_member.account.contacts
-        render :json => @contacts
+        render :json => @contacts.to_json(:include => :contact_type)
       }
     end
   end
@@ -26,6 +27,10 @@ class ContactsController < ApplicationController
   end
   
   def new
+    gon.contact_types = current_member.account.contact_types.all
+    gon.contact = current_member.account.contacts.new()
+    gon.companies = current_member.account.contacts.companies.all
+    
     respond_to do |format|
       format.html {
         @contact = current_member.account.contacts.build(contact_type_key: current_member.account.contact_types.find_by_name("Person").pub_key)
@@ -41,7 +46,6 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html {
         @contact = current_member.account.contacts.build(params[:contact])
-    
         if @contact.save
           flash[:success] = "#{@contact.name} is now a contact on your Quota account."
           redirect_to contacts_path
@@ -51,21 +55,25 @@ class ContactsController < ApplicationController
       }
       format.json {
         @contact = current_member.account.contacts.build(params[:contact])
+        # @contact.save
         if @contact.save
           render :json => @contact.to_json(:include => :contact_type)
+        else
+          render :json => "false"
         end
       }
     end
   end
   
   def edit
-    @contact_types = current_member.account.contact_types.all
+    gon.contact_types = current_member.account.contact_types.all
     @contact = Contact.find_by_pub_key(params[:id])
+    gon.contact = @contact
+    gon.companies = current_member.account.contacts.companies.all
+    gon.contact_phones = @contact.phones
   end
   
   def update
-    
-    
     respond_to do |format|
       format.html {
         @contact = Contact.find_by_pub_key(params[:id])
@@ -77,11 +85,11 @@ class ContactsController < ApplicationController
         end
       }
       format.json {
-        @contact = Contact.find_by_pub_key(params[:id])
+        @contact = Contact.find_by_pub_key(params[:id])      
         if @contact.update_attributes(name: params[:contact][:name], title: params[:contact][:title], company_key: params[:contact][:company_key], contact_type_key: params[:contact][:contact_type_key])
           render :json => @contact.to_json(:include => :contact_type)
         else
-          
+          render :json => "false"
         end
       }
     end
