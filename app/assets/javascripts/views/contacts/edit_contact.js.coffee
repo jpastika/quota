@@ -3,11 +3,9 @@ class Quota.Views.EditContact extends Backbone.View
 	template: HandlebarsTemplates['contacts/editable_contact'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		# "blur .company_name input": "companyNameChanged"
 		"blur .contact_name input": "contactNameChanged"
 		"blur .contact_title input": "contactTitleChanged"
-		# "blur .company_name input": "contactCompanyNameChanged"
-	
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -23,6 +21,7 @@ class Quota.Views.EditContact extends Backbone.View
 		@contact_types = options.contact_types
 		@companies = options.companies
 		@_contactTypesView = null
+		@_contactPhonesView = null
 		@model.on('change', @render, @)
 		@vent.on('contact_type:clicked', @contactTypeClicked, @)
 		@vent.on('contact_type:selected', @contactTypeSelected, @)
@@ -46,8 +45,10 @@ class Quota.Views.EditContact extends Backbone.View
 		@_companySelectView = new Quota.Views.CompanySelectView({contact:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
 		@contact_company_name.html(@_companySelectView.render().el)
 		
-		@input_contact_company_name = @$('.company_name input');
+		@_contactPhonesView = new Quota.Views.EditContactPhones({model:@model, collection:@model.phones, vent: vent})
+		$('#contact_phones').html(@_contactPhonesView.render().el)
 		
+		@input_contact_company_name = @$('.company_name input');
 		@
 		
 	contactNameChanged: ->
@@ -58,12 +59,8 @@ class Quota.Views.EditContact extends Backbone.View
 		@model.set("title", @input_contact_title.val(), {silent: true})
 		@save()
 		
-	# contactCompanyNameChanged: ->
-	# 		if @input_contact_company_name.val() == ''
-	# 			@model.set("company_key", '', {silent: true})
-	# 			@save()
-		
 	save: ->
+		self = @
 		modelid = @model.id
 		@model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
 		if @model.isValid(true)
@@ -79,6 +76,8 @@ class Quota.Views.EditContact extends Backbone.View
 					success: (model) -> 
 						if modelid != model.id
 							Backbone.history.navigate("contacts/" + model.get("pub_key") + "/edit", {trigger: false, replace: true})
+							console.log self.model.phones.models
+							_.each(self._contactPhonesView._phoneViews, (v) -> if v.model.hasChanged() and v.model.isValid(true) then v.save())
 					silent: true
 				}
 			)
@@ -96,16 +95,8 @@ class Quota.Views.EditContact extends Backbone.View
 		@$el.find(".control-group.#{attribute}").removeClass('error').find('.help-inline').remove()
 				
 	companyNameChanged: (evt) ->
-		# typeahead dropdown-menu
-		
-		# console.log evt
-		# console.log @input_contact_company_name.val()
-		
-		# console.log evt
-		
 		self = @
 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
-		# console.log evt.company_name
 		if company
 			@model.set("company_key", company.get("pub_key"), {silent: true})
 			@save()
@@ -133,9 +124,13 @@ class Quota.Views.EditContact extends Backbone.View
 				@save()
 
 	contactTypeClicked: ->
-		@model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
-		@setContactTypeRelatedFields()
-		@save()
+		if @model.get("contact_type_key") != @_contactTypesView.getSelected().model.get("pub_key")
+			@model.unset("company_key", {silent: true})
+			@_companySelectView.$el.attr('value', '')
+			@model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
+		
+			@setContactTypeRelatedFields()
+			@save()
 	
 	contactTypeSelected: ->
 		@setContactTypeRelatedFields()

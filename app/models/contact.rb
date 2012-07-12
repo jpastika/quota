@@ -6,10 +6,10 @@ class Contact < ActiveRecord::Base
   belongs_to :contact_type, :primary_key => "pub_key", :foreign_key => "contact_type_key"
   
   has_many :people, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"
-  has_many :phones, :class_name => "ContactPhone", :primary_key => "pub_key", :foreign_key => "contact_key"
-  has_many :emails, :class_name => "ContactEmail", :primary_key => "pub_key", :foreign_key => "contact_key"
-  has_many :urls, :class_name => "ContactUrl", :primary_key => "pub_key", :foreign_key => "contact_key"
-  has_many :addresses, :class_name => "ContactAddress", :primary_key => "pub_key", :foreign_key => "contact_key"
+  has_many :phones, dependent: :destroy, :class_name => "ContactPhone", :primary_key => "pub_key", :foreign_key => "contact_key"
+  has_many :emails, dependent: :destroy, :class_name => "ContactEmail", :primary_key => "pub_key", :foreign_key => "contact_key"
+  has_many :urls, dependent: :destroy, :class_name => "ContactUrl", :primary_key => "pub_key", :foreign_key => "contact_key"
+  has_many :addresses, dependent: :destroy, :class_name => "ContactAddress", :primary_key => "pub_key", :foreign_key => "contact_key"
   
   scope :companies, where(:contact_type_key => ContactType.find_by_name("Company").pub_key)
   

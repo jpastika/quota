@@ -4,7 +4,13 @@ Quota::Application.routes.draw do
   
   resources :accounts
   resources :catalog_items
-  resources :contacts
+  resources :contacts do
+    resources :phones, :controller => "contact_phones"
+  end
+  resources :contact_phones
+  resources :contact_emails
+  resources :contact_addresses
+  resources :contact_urls
   resources :docs, :controller => "documents"
   resources :documents
   resources :members
@@ -17,12 +23,15 @@ Quota::Application.routes.draw do
   scope "api" do
     resources :accounts
     resources :catalog_items
-    resources :contacts
+    resources :contacts do
+      resources :phones, :controller => "contact_phones"
+    end
     resources :contact_types
     resources :contact_phones
     resources :contact_emails
     resources :contact_addresses
     resources :contact_urls
+    resources :docs, :controller => "documents"
     resources :documents
     resources :members
     resources :opportunities

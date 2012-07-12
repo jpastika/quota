@@ -12,6 +12,7 @@ class Quota.Views.EditContactPhones extends Backbone.View
 		@collection.on('reset', @collectionReset, @)
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
+		@vent.on('contact_phones:check_empty', @checkEmpty, @)
 		
 	render: ->
 		$(@el).empty()
@@ -22,24 +23,26 @@ class Quota.Views.EditContactPhones extends Backbone.View
 		@
 	
 	addOne: (phone)->
-		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', vent: vent})
+		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: vent})
 		@_phoneViews.push(view)
 		view
 		
 	addEmpty: (phone)->
-		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', vent: vent, hideRemove: true})
+		@collection.add(phone)
+		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: vent, hideRemove: true})
 		@_phoneViews.push(view)
 		view
+		
+	checkEmpty: ->
+		if !_.find(@collection.models, (m) -> m.isNew())
+			$(@el).append(@addEmpty(new Quota.Models.ContactPhone({name:'', val:''})).render().el)
 	
 	collectionReset: ->
 		@render()
 		
-	# setupEmpty: ->
-	# 		@collection.reset([{name:'', val:''}])
-	
 	removeFailed: (evt) ->
 		view = _.find(@_phoneViews, (view) -> view.model == evt.model)
 		view.toggle()
 		
 	removeSuccess: (evt) ->
-		console.log "got here"
+		# console.log "got here"

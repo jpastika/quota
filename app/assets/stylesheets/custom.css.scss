@@ -406,6 +406,7 @@ label.required{
 
 .contact_phone .contact_method_name{
 	margin-left: 25px;
+	margin-right: 0px;
 }
 
 .contact_phone .contact_method_name input{
@@ -439,6 +440,11 @@ label.required{
 .contact_type{
 	display:inline-block;
 	padding-right:20px;
+}
+
+.control-group .help-inline{
+	position:relative;
+	top:-7px;
 }
 
 

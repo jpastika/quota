@@ -30,9 +30,11 @@
     this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
     this.onselect = this.options.onselect
+	this.showAdd = this.options.showAdd || false
     this.strings = true
     this.shown = false
     this.listen()
+	console.log(this.showAddOption)
   }
 
   Typeahead.prototype = {
@@ -153,6 +155,8 @@
   , render: function (items) {
       var that = this
 
+	
+
       items = $(items).map(function (i, item) {
         i = $(that.options.item).attr('data-value', JSON.stringify(item))
         if (!that.strings)
@@ -160,9 +164,19 @@
         i.find('a').html(that.highlighter(item))
         return i[0]
       })
-
+		
+		if(!that.showAdd){
+			matches = $(items).map(function (i, item) {
+		        	i = $(that.options.item).attr('data-value', this.query)
+			        return i[0]
+			      })
+			if(!matches.length){}
+				var x = $('<li><a href="#">'+ that.highlighter(this.query) +'</a></li>')
+				items = x.add(items)
+			}
+		}
       items.first().addClass('active')
-      this.$menu.html(items)
+	  this.$menu.html(items)
       return this
     }
 

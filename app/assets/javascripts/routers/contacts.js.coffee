@@ -31,9 +31,9 @@ class Quota.Routers.Contacts extends Backbone.Router
 		@contact_phones = @contact.phones
 		
 		view_contact = new Quota.Views.EditContact({model:@contact, contact_types: @contact_types, companies: @companies, vent: vent})
-		view_contact_phones = new Quota.Views.EditContactPhones({model:@contact, collection:@contact_phones, vent: vent})
+		# view_contact_phones = new Quota.Views.EditContactPhones({model:@contact, collection:@contact_phones, vent: vent})
 		$('#contact').html(view_contact.render().el)
-		$('#contact_phones').html(view_contact_phones.render().el)
+		# $('#contact_phones').html(view_contact_phones.render().el)
 		
 	edit: (id) ->
 		if gon
@@ -53,6 +53,5 @@ class Quota.Routers.Contacts extends Backbone.Router
 			@contact_phones.fetch()
 		
 		view_contact = new Quota.Views.EditContact({model:@contact, contact_types: @contact_types, companies: @companies, vent: vent})
-		view_contact_phones = new Quota.Views.EditContactPhones({model:@contact, collection:@contact_phones, vent: vent})
 		$('#contact').html(view_contact.render().el)
-		$('#contact_phones').html(view_contact_phones.render().el)
+		

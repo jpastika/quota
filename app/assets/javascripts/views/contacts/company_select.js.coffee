@@ -28,7 +28,7 @@ class Quota.Views.CompanySelectView extends Backbone.View
 		options = _.extend @options, 
 			source: @collection.pluck @source
 			onselect: (obj) -> self.selected(obj)
-			li_class: 'lalalala'
+			showAdd: true
 		@$el.typeahead options
 		
 		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.contact.get("company_key"))
@@ -42,13 +42,8 @@ class Quota.Views.CompanySelectView extends Backbone.View
 			obj.stopImmediatePropagation()
 			obj.preventDefault()
 		else
-			# @vent.trigger('company_name:changed', obj)
-		# console.log obj
-		# console.log obj
 			company = _.find(@collection.models, (m) -> m.get("name") == obj)
 			if company
 				@vent.trigger('company_name:changed',{company_name: obj})
 			else
 				@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
-		# @vent.trigger('company_name:changed', obj)
-		# console.log @collection.where({name: obj})

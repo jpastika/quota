@@ -1,11 +1,16 @@
 class Quota.Models.ContactPhone extends Backbone.Model
 	idAttribute: 'pub_key'
-	urlRoot: '/api/contact_phones'
+	
+	validation:
+		val:
+			required: true
+			msg: "can't be blank"
 	
 	initialize: ->
 		self = @
+		
 	
-	clear: ->
+	remove: ->
 		self = @
 		@destroy({
 			wait: false
