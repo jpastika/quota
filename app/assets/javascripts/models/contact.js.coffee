@@ -13,4 +13,10 @@ class Quota.Models.Contact extends Backbone.Model
 	initialize: ->
 		@phones = new Quota.Collections.ContactPhones
 		@phones.url = '/api/contacts/' + @id + '/phones'
+		@emails = new Quota.Collections.ContactEmails
+		@emails.url = '/api/contacts/' + @id + '/emails'
+		@urls = new Quota.Collections.ContactUrls
+		@urls.url = '/api/contacts/' + @id + '/urls'
+		@addresses = new Quota.Collections.ContactAddresses
+		@addresses.url = '/api/contacts/' + @id + '/addresses'
 	    # this.phones.on("reset", this.updateCounts)

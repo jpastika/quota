@@ -43,7 +43,7 @@ class Quota.Views.CompanySelectView extends Backbone.View
 			obj.preventDefault()
 		else
 			company = _.find(@collection.models, (m) -> m.get("name") == obj)
-			if company
+			if company || !$(obj.target).val()
 				@vent.trigger('company_name:changed',{company_name: obj})
 			else
 				@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})

@@ -71,6 +71,9 @@ class ContactsController < ApplicationController
     gon.contact = @contact
     gon.companies = current_member.account.contacts.companies.all
     gon.contact_phones = @contact.phones
+    gon.contact_emails = @contact.emails
+    gon.contact_urls = @contact.urls
+    gon.contact_addresses = @contact.addresses
   end
   
   def update

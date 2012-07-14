@@ -1,0 +1,22 @@
+<div class="control-group radio_buttons required">
+	<label class="radio_buttons required control-label"></label>
+	<div class="controls" id="contact_types">
+	</div>
+</div>
+<div class="control-group name required">
+	<div class="controls contact_name">
+		<input type="text" value="{{contact.name}}" name="contact[name]" id="contact_name" class="string required input-xlarge" placeholder="First Last">
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls contact_title">
+		<input type="text" value="{{contact.title}}" name="contact[title]" id="contact_title" class="string input-xlarge" placeholder="Title">
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls company_name">
+		<input type="text" value="" name="company_name" id="contact_company_name" class="string input-xlarge" placeholder="Company">
+	</div>
+</div>
+<input type="hidden" value="{{contact.company_key}}" name="contact[company_key]" id="contact_company_key" class="company_key">
+<input type="hidden" value="{{contact.contact_type_key}}" name="contact[contact_type_key]" id="contact_type_key" class="contact_type_key">

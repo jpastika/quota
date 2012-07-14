@@ -1,7 +1,5 @@
 class Quota.Views.EditContactPhones extends Backbone.View
 
-	# template: HandlebarsTemplates['contacts/edit_contact_phones'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	# 
 	tagName: 'ul'
 	className: 'unstyled form-vertical'
 	
@@ -17,19 +15,19 @@ class Quota.Views.EditContactPhones extends Backbone.View
 	render: ->
 		$(@el).empty()
 		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(phone).render().el) for phone in @collection.models
+		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		frag.appendChild(@addEmpty(new Quota.Models.ContactPhone({name:'', val:''})).render().el)
 		$(@el).append(frag)
 		@
 	
-	addOne: (phone)->
-		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: vent})
+	addOne: (item)->
+		view = new Quota.Views.EditContactPhone({model: item, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: @vent})
 		@_phoneViews.push(view)
 		view
 		
-	addEmpty: (phone)->
-		@collection.add(phone)
-		view = new Quota.Views.EditableContactPhone({model: phone, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: vent, hideRemove: true})
+	addEmpty: (item)->
+		@collection.add(item)
+		view = new Quota.Views.EditContactPhone({model: item, tagName:'li', className:'contact_method contact_phone', contact: @model, vent: @vent, hideRemove: true})
 		@_phoneViews.push(view)
 		view
 		

@@ -1,6 +1,6 @@
-class Quota.Collections.ContactAddresses extends Backbone.Collection
+class Quota.Collections.ContactEmails extends Backbone.Collection
 	
-	model: Quota.Models.ContactAddress
+	model: Quota.Models.ContactEmail
 	
 	comparator: (c) ->
 	  return c.get("name").toLowerCase()

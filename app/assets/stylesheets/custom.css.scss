@@ -404,22 +404,39 @@ label.required{
 
 
 
-.contact_phone .contact_method_name{
+.contact_phone .contact_method_name, .contact_email .contact_method_name, .contact_url .contact_method_name, .contact_address .contact_method_name{
 	margin-left: 25px;
 	margin-right: 0px;
 }
 
-.contact_phone .contact_method_name input{
+.contact_phone .contact_method_name input, .contact_email .contact_method_name input, .contact_url .contact_method_name input, .contact_address .contact_method_name input{
 	text-align:right;
-	border:none;
+	border:1px solid #fff;
+	margin-bottom:0px;
 	@include no-inner-shadow;
+	padding:2px;
 }
 
-.contact_phone .contact_method_name input:focus{
+.contact_phone .contact_method_val input, .contact_email .contact_method_val input, .contact_url .contact_method_val input, .contact_address .contact_method_address input{
+	border:1px solid #fff;
+	margin-bottom:0px;
+	@include no-inner-shadow;
+	width:auto;
+	padding:2px;
+}
+
+.contact_phone .contact_method_name input:focus, .contact_email .contact_method_name input:focus, .contact_url .contact_method_name input:focus, .contact_address .contact_method_name input:focus{
 	text-align:right;
 	border:1px solid #bbb;
 	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
 }
+
+.contact_phone .contact_method_val input:focus, .contact_email .contact_method_val input:focus, .contact_url .contact_method_val input:focus, .contact_address .contact_method_address input:focus{
+	border:1px solid #bbb;
+	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
+}
+
+
 
 .contact_method .contact_method_remove{
 	position:relative;
@@ -445,6 +462,21 @@ label.required{
 .control-group .help-inline{
 	position:relative;
 	top:-7px;
+}
+
+.contact_method_address{
+	display:inline-block;
+	vertical-align:top;
+}
+
+.contact_method_address .span2, .contact_method_address .span3, .contact_method_address .span4{
+	display:inline;
+	border:1px solid #fff;
+	margin-bottom:0px;
+	@include no-inner-shadow;
+	width:auto;
+	padding:2px;
+	min-height:0px;
 }
 
 

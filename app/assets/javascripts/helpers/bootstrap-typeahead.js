@@ -34,7 +34,6 @@
     this.strings = true
     this.shown = false
     this.listen()
-	console.log(this.showAddOption)
   }
 
   Typeahead.prototype = {
@@ -51,8 +50,8 @@
 
       this.$element.val(text)
 
-      if (typeof this.onselect == "function")
-          this.onselect(val)
+	  if (typeof this.onselect == "function")
+      	 this.onselect(val)
 
       return this.hide()
     }
@@ -156,8 +155,7 @@
       var that = this
 
 	
-
-      items = $(items).map(function (i, item) {
+	items = $(items).map(function (i, item) {
         i = $(that.options.item).attr('data-value', JSON.stringify(item))
         if (!that.strings)
             item = item[that.options.property]
@@ -165,13 +163,15 @@
         return i[0]
       })
 		
-		if(!that.showAdd){
-			matches = $(items).map(function (i, item) {
-		        	i = $(that.options.item).attr('data-value', this.query)
-			        return i[0]
-			      })
-			if(!matches.length){}
-				var x = $('<li><a href="#">'+ that.highlighter(this.query) +'</a></li>')
+		if(that.showAdd){
+			var matches = $.grep(items, function (item) {
+				if (!that.strings)
+					item = item[that.options.property]
+				if (that.query.toLowerCase() == $(item).attr('data-value').toLowerCase().replace(/"/g,''))
+					return item
+			})
+			if(!matches.length){
+				var x = $('<li><a href="#">'+ that.highlighter(this.query) +'</a></li>').attr('data-value', JSON.stringify(this.query))
 				items = x.add(items)
 			}
 		}

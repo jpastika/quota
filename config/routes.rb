@@ -6,6 +6,9 @@ Quota::Application.routes.draw do
   resources :catalog_items
   resources :contacts do
     resources :phones, :controller => "contact_phones"
+    resources :emails, :controller => "contact_emails"
+    resources :urls, :controller => "contact_urls"
+    resources :addresses, :controller => "contact_addresses"
   end
   resources :contact_phones
   resources :contact_emails
@@ -25,6 +28,9 @@ Quota::Application.routes.draw do
     resources :catalog_items
     resources :contacts do
       resources :phones, :controller => "contact_phones"
+      resources :emails, :controller => "contact_emails"
+      resources :urls, :controller => "contact_urls"
+      resources :addresses, :controller => "contact_addresses"
     end
     resources :contact_types
     resources :contact_phones
