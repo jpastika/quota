@@ -29,18 +29,19 @@ class Quota.Views.EditContact extends Backbone.View
 		@vent.on('contact_type:clicked', @contactTypeClicked, @)
 		@vent.on('contact_type:selected', @contactTypeSelected, @)
 		@vent.on('company_name:changed', @companyNameChanged, @)
+		@vent.on('contact:rendered', @rendered, @)
 		
 	render: ->
 		$(@el).html(@template({contact:@model.toJSON()}))
 		
-		@contact_name = @$('.contact_name');
-		@contact_title = @$('.contact_title');
-		@contact_company_name = @$('.company_name');
-		@input_contact_name = @$('.contact_name input');
-		@input_contact_title = @$('.contact_title input');
-		@input_contact_company_key = @$('.company_key');
-		@input_contact_type_key = @$('.contact_type_key');
-		@container_contact_types = @$('#contact_types');
+		@contact_name = @$('.contact_name')
+		@contact_title = @$('.contact_title')
+		@contact_company_name = @$('.company_name')
+		@input_contact_name = @$('.contact_name input')
+		@input_contact_title = @$('.contact_title input')
+		@input_contact_company_key = @$('.company_key')
+		@input_contact_type_key = @$('.contact_type_key')
+		@container_contact_types = @$('#contact_types')
 		
 		@_contactTypesView = new Quota.Views.ContactTypesToggles({contact:@model, collection:@contact_types, vent: @vent})
 		@container_contact_types.html(@_contactTypesView.render().el)
@@ -60,8 +61,13 @@ class Quota.Views.EditContact extends Backbone.View
 		@_contactAddressesView = new Quota.Views.EditContactAddresses({model:@model, collection:@model.addresses, vent: vent})
 		$('#contact_addresses').html(@_contactAddressesView.render().el)
 		
-		@input_contact_company_name = @$('.company_name input');
+		@input_contact_company_name = @$('.company_name input')
+		@vent.trigger("contact:rendered")
 		@
+	
+	rendered: ->
+		$('input[placeholder]').placeholder()
+		
 		
 	contactNameChanged: ->
 		@model.set("name", @input_contact_name.val(), {silent: true})
@@ -87,9 +93,14 @@ class Quota.Views.EditContact extends Backbone.View
 					error: @handleError
 					success: (model) -> 
 						if modelid != model.id
-							Backbone.history.navigate("contacts/" + model.get("pub_key") + "/edit", {trigger: false, replace: true})
-							console.log self.model.phones.models
-							_.each(self._contactPhonesView._phoneViews, (v) -> if v.model.hasChanged() and v.model.isValid(true) then v.save())
+							enablePushState = true  
+							pushState = !!(enablePushState and window.history and window.history.pushState)
+							if pushState
+								Backbone.history.navigate("contacts/" + model.get("pub_key") + "/edit", {trigger: false, replace: true})
+								_.each(self._contactPhonesView._phoneViews, (v) -> if v.shouldSave() then v.save())
+							else
+								_.each(self._contactPhonesView._phoneViews, (v) -> if v.shouldSave() then v.save())
+								window.location.replace(model.get("pub_key") + "/edit")
 					silent: true
 				}
 			)

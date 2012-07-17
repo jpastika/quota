@@ -28,18 +28,19 @@ class Quota.Views.EditContactAddress extends Backbone.View
 	render: ->
 		$(@el).html(@template({contact_address:@model.toJSON()}))
 		if @hideRemove
-			@$('.contact_method_remove').hide()
+			@$('.contact_method_remove').css('visibility', 'hidden')
 		
 		@contact_method_name = @$('.contact_method_name');
 		@contact_method_val = @$('.contact_method_val');
 		@input_contact_method_name = @$('.contact_method_name input');
-		@input_contact_method_street1 = @$('.contact_method_address input[name="contact_address[street1]"]');
+		@input_contact_method_street1 = @$('.contact_method_address textarea[name="contact_address[street1]"]');
 		@input_contact_method_city = @$('.contact_method_address input[name="contact_address[city]"]');
 		@input_contact_method_state = @$('.contact_method_address input[name="contact_address[state]"]');
 		@input_contact_method_zip = @$('.contact_method_address input[name="contact_address[zip]"]');
 		@input_contact_method_country = @$('.contact_method_address input[name="contact_address[country]"]');
 		
 		@$el.find('input').autoGrowInput()
+		@$el.find('textarea').autosize()
 		@
 		
 	save: ->
@@ -108,8 +109,8 @@ class Quota.Views.EditContactAddress extends Backbone.View
 		
 	hideRemoveButton: () ->
 		@hideRemove = true
-		$(@el).find('.contact_method_remove').hide()
+		$(@el).find('.contact_method_remove').css('visibility', 'hidden')
 		
 	showRemoveButton: () ->
 		@hideRemove = false
-		$(@el).find('.contact_method_remove').show()
+		$(@el).find('.contact_method_remove').css('visibility', '')

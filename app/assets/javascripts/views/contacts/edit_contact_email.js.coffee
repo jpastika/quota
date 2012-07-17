@@ -28,14 +28,14 @@ class Quota.Views.EditContactEmail extends Backbone.View
 	render: ->
 		$(@el).html(@template({contact_email:@model.toJSON()}))
 		if @hideRemove
-			@$('.contact_method_remove').hide()
+			@$('.contact_method_remove').css('visibility', 'hidden')
 		
 		@contact_method_name = @$('.contact_method_name');
 		@contact_method_val = @$('.contact_method_val');
 		@input_contact_method_name = @$('.contact_method_name input');
 		@input_contact_method_val = @$('.contact_method_val input');
 		
-		@$el.find('input').autoGrowInput()
+		# @$el.find('input').autoGrowInput()
 		@
 		
 	save: ->
@@ -80,8 +80,9 @@ class Quota.Views.EditContactEmail extends Backbone.View
 		@$el.find(".control-group.#{attribute}").removeClass('error').find('.help-inline').remove()
 		
 	valChanged: ->
-		@model.set("val", @input_contact_method_val.val(), {silent: true})
-		@save()
+		if @input_contact_method_val.val() != '' or !@model.isNew()
+			@model.set("val", @input_contact_method_val.val(), {silent: true})
+			@save()
 	
 	nameChanged: ->
 		@model.set("name", @input_contact_method_name.val(), {silent: true})
@@ -98,8 +99,8 @@ class Quota.Views.EditContactEmail extends Backbone.View
 		
 	hideRemove: () ->
 		@hideRemove = true
-		$(@el).find('.contact_method_remove').hide()
+		$(@el).find('.contact_method_remove').css('visibility', 'hidden')
 		
 	showRemove: () ->
 		@hideRemove = false
-		$(@el).find('.contact_method_remove').show()
+		$(@el).find('.contact_method_remove').css('visibility', '')

@@ -405,7 +405,7 @@ label.required{
 
 
 .contact_phone .contact_method_name, .contact_email .contact_method_name, .contact_url .contact_method_name, .contact_address .contact_method_name{
-	margin-left: 25px;
+	margin-left: 5px;
 	margin-right: 0px;
 }
 
@@ -417,12 +417,15 @@ label.required{
 	padding:2px;
 }
 
-.contact_phone .contact_method_val input, .contact_email .contact_method_val input, .contact_url .contact_method_val input, .contact_address .contact_method_address input{
+.contact_phone .contact_method_val input, .contact_email .contact_method_val input, .contact_url .contact_method_val input, .contact_address .contact_method_address textarea, .contact_address .contact_method_address input{
 	border:1px solid #fff;
 	margin-bottom:0px;
 	@include no-inner-shadow;
-	width:auto;
 	padding:2px;
+}
+
+.contact_address .contact_method_address input{
+	width:auto;
 }
 
 .contact_phone .contact_method_name input:focus, .contact_email .contact_method_name input:focus, .contact_url .contact_method_name input:focus, .contact_address .contact_method_name input:focus{
@@ -431,27 +434,35 @@ label.required{
 	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
 }
 
-.contact_phone .contact_method_val input:focus, .contact_email .contact_method_val input:focus, .contact_url .contact_method_val input:focus, .contact_address .contact_method_address input:focus{
+.contact_phone .contact_method_val input:focus, .contact_email .contact_method_val input:focus, .contact_url .contact_method_val input:focus, .contact_address .contact_method_address textarea:focus, .contact_address .contact_method_address input:focus{
 	border:1px solid #bbb;
 	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
+}
+
+.contact_phone .error .contact_method_val input, .contact_email .error .contact_method_val input, .contact_url .error .contact_method_val input{
+	border:1px solid #B94A48;
 }
 
 
 
 .contact_method .contact_method_remove{
-	position:relative;
-	width:0;
-	float:left;
-	top:1px;
+	float: left;
+	height: 10px;
+	padding: 3px;
+	position: relative;
+	top: 2px;
+	width: 10px;
 }
 
 .contact_method .contact_method_remove i{
-	width:1em;
+	position: relative;
+	top: -2px;
+	width: 1em;
 }
 
 
 .contact_method.no_remove{
-	margin-left:25px;
+	margin-left:10px;
 }
 
 .contact_type{
@@ -459,10 +470,6 @@ label.required{
 	padding-right:20px;
 }
 
-.control-group .help-inline{
-	position:relative;
-	top:-7px;
-}
 
 .contact_method_address{
 	display:inline-block;
