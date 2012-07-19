@@ -1,0 +1,203 @@
+<% provide(:title, "Contact")%>
+<div class="span8">
+	<div class="row-fluid">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
+	</div>
+	<div class="parent-page">
+		<div class="row-fluid">
+			<div class="span6">
+				<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      	<th></th>
+						<th>Name</th>
+				      <th>Actions</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <% @contacts.each do |contact| %>
+				      <tr>
+				        <td><% if contact.contact_type == "PERSON"%><i class="icon-user"></i><% else %><i class="icon-reorder"></i><% end %></td>
+						<td><%= link_to contact.name, contact_path(contact.pub_key) %></td>
+				        <td>
+				          <%= link_to 'Edit', edit_contact_path(contact.pub_key), :class => 'btn btn-mini' %>
+				          <%= link_to 'Delete', contact_path(contact.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+				        </td>
+				      </tr>
+				    <% end %>
+				  </tbody>
+				</table>
+
+				<div>
+					<%= link_to 'Add contact', new_contact_path %>
+				</div>
+			</div>
+			<div class="span6">
+				<div id="contact">
+					<div class="control-group radio_buttons required">
+						<label class="radio_buttons required control-label"></label>
+						<div class="controls" id="contact_types">
+						</div>
+					</div>
+					<div class="control-group name required">
+						<div class="controls contact_name">
+							<%= @contact.name %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls contact_title">
+							<%= @contact.title %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls company_name">
+							<%= @contact.company.name unless @contact.company.nil? %>
+						</div>
+					</div>
+					<br>
+					<div id="contact_phones">
+						<% @contact.phones.each do |phone| %>
+							<span><%= phone.name %></span> <span><%= phone.val %></span>
+						<% end %>
+					</div>
+					<br>
+					<div id="contact_emails">
+						<% @contact.emails.each do |email| %>
+							<span><%= email.name %></span> <span><%= email.val %></span>
+						<% end %>
+					</div>
+					<br>
+					<div id="contact_urls">
+						<% @contact.urls.each do |url| %>
+							<span><%= url.name %></span> <span><%= url.val %></span>
+						<% end %>
+					</div>
+					<br>
+					<div id="contact_addresses">
+						<% @contact.addresses.each do |address| %>
+							<span><%= address.name %></span> <span><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% content_for :sidebar_right do %>
+<div class="span2">
+	<div>
+		<div class="row-fluid">
+			<%= link_to "Edit #{ @contact.name }", edit_contact_path(@contact.pub_key), :class => 'btn btn-primary' %>
+		</div>
+		<div class="row-fluid">
+			<% if @contact_type == "Company" %>
+				<% @contact.people.each do |contact| %>				
+				<div class="show-field">
+					<%= link_to "#{ contact.name }", contact_path(contact.pub_key) %>
+				</div>
+				<% end %>
+			<% else %>
+				<div class="row-fluid">
+					<%= link_to "#{ @company.name }", contact_path(@company.pub_key) %>
+				</div>
+				<% @company.phones.each do |phone| %>				
+				<div class="show-field">
+					<span class="show-label"><%= phone.name %></span>
+					<span class="show-value"><%= phone.val %></span>
+				</div>
+				<% end %>
+				
+				<% @company.emails.each do |email| %>				
+				<div class="show-field">
+					<span class="show-label"><%= email.name %></span>
+					<span class="show-value"><%= email.val %></span>
+				</div>
+				<% end %>
+				
+				<% @company.urls.each do |url| %>				
+				<div class="show-field">
+					<span class="show-label"><%= url.name %></span>
+					<span class="show-value"><%= url.val %></span>
+				</div>
+				<% end %>
+				
+				<% @company.addresses.each do |address| %>				
+				<div class="show-field">
+					<span class="show-label"><%= address.name %></span>
+					<span class="show-value"><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
+				</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<script language="javascript">
+	$(function(){
+			// if(gon.contact_types){
+			// 		  		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+			// 			}
+			// 			else{
+			// 				this.contact_types = new Quota.Collections.ContactTypes();
+			// 				this.contact_types.fetch();
+			// 			}
+			// 			
+			// 			if(gon.companies){
+			// 				this.companies = new Quota.Collections.Companies(gon.companies);
+			// 			}
+			// 			else{
+			// 				this.companies = new Quota.Collections.Companies();
+			// 				this.companies.fetch();
+			// 			}
+			// 			
+			// 			if(gon.contact){
+			// 				this.contact = new Quota.Models.Contact(gon.contact);
+			// 				// if(gon.contact_phones){
+			// 				// 					this.contact.phones.add(gon.contact_phones);
+			// 				// 				}
+			// 				// 				else{
+			// 					// this.contact.phones = new Quota.Collections.ContactPhones();
+			// 					this.contact.phones.fetch();
+			// 				// }
+			// 				// 				if(gon.contact_emails){
+			// 				// 					this.contact.emails.add(gon.contact_emails);
+			// 				// 				}
+			// 				// 				else{
+			// 					// this.contact.emails = new Quota.Collections.ContactEmails();
+			// 					this.contact.emails.fetch();
+			// 				// }
+			// 				// 				if(gon.contact_urls){
+			// 				// 					this.contact.urls.add(gon.contact_urls);
+			// 				// 				}
+			// 				// 				else{
+			// 					// this.contact.urls = new Quota.Collections.ContactUrls();
+			// 					this.contact.urls.fetch();
+			// 				// }
+			// 				// 				if(gon.contact_addresses){
+			// 				// 					this.contact.addresses.add(gon.contact_addresses);
+			// 				// 				}
+			// 				// 				else{
+			// 					// this.contact.addresses = new Quota.Collections.ContactAddresses();
+			// 					this.contact.addresses.fetch();
+			// 				// }
+			// 			}
+			// 			else{
+			// 				this.contact = new Quota.Models.Contact();
+			// 				this.contact.fetch();
+			// 			}
+			// 			
+			// 			
+			// 			window.vent = _.extend({}, Backbone.Events);
+			// 			
+			// 			var view_contact = new Quota.Views.ShowContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
+			// 			$('#contact').html(view_contact.render().el);
+	});	
+</script>

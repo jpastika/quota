@@ -18,6 +18,7 @@ class Account < ActiveRecord::Base
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :document_item_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
   has_many :contact_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
+  has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   
   accepts_nested_attributes_for :users
   
@@ -62,6 +63,13 @@ class Account < ActiveRecord::Base
     self.contact_types.create!(name: "Company", icon_class: "icon-reorder")
   end
   
+  def generate_data
+    generate_document_types
+    generate_default_templates
+    generate_document_item_types
+    generate_contact_types
+  end
+  
   private
     def generate_token(column)
       begin
@@ -73,12 +81,7 @@ class Account < ActiveRecord::Base
       generate_token(:pub_key)
     end
     
-    def generate_data
-      generate_document_types
-      generate_default_templates
-      generate_document_item_types
-      generate_contact_types
-    end
+    
     
     def generate_document_types
       self.document_types.create!(name: "Quote")

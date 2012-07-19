@@ -18,6 +18,8 @@ class Quota.Views.EditContactUrls extends Backbone.View
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		frag.appendChild(@addEmpty(new Quota.Models.ContactUrl({name:'', val:''})).render().el)
 		$(@el).append(frag)
+		@$('input[placeholder]').placeholder()
+		@$('textarea[placeholder]').placeholder()
 		@
 	
 	addOne: (item)->

@@ -1,40 +1,81 @@
 <% provide(:title, "Update Contact")%>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<div id="contact">
+<div class="span8">
+	<div class="row-fluid">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<br>
-	<div id="contact_phones">
-	</div>
-	<br>
-	<div id="contact_emails">
-	</div>
-	<br>
-	<div id="contact_urls">
-	</div>
-	<br>
-	<div id="contact_addresses">
+	<div class="parent-page">
+		<div class="row-fluid">
+			<div id="contact">
+			</div>
+		</div>
 	</div>
 </div>
 
 <script language="javascript">
 	$(function(){
-		  	this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
-			this.companies = new Quota.Collections.Companies(gon.companies);
-			this.contact = new Quota.Models.Contact(gon.contact);
-			this.contact.phones.add(gon.contact_phones);
-			this.contact.emails.add(gon.contact_emails);
-			this.contact.urls.add(gon.contact_urls);
-			this.contact.addresses.add(gon.contact_addresses);
+			if(gon.contact_types){
+		  		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+			}
+			else{
+				this.contact_types = new Quota.Collections.ContactTypes();
+				this.contact_types.fetch();
+			}
+			
+			if(gon.companies){
+				this.companies = new Quota.Collections.Companies(gon.companies);
+			}
+			else{
+				this.companies = new Quota.Collections.Companies();
+				this.companies.fetch();
+			}
+			
+			if(gon.contact){
+				this.contact = new Quota.Models.Contact(gon.contact);
+				// if(gon.contact_phones){
+				// 					this.contact.phones.add(gon.contact_phones);
+				// 				}
+				// 				else{
+					// this.contact.phones = new Quota.Collections.ContactPhones();
+					this.contact.phones.fetch();
+				// }
+				// 				if(gon.contact_emails){
+				// 					this.contact.emails.add(gon.contact_emails);
+				// 				}
+				// 				else{
+					// this.contact.emails = new Quota.Collections.ContactEmails();
+					this.contact.emails.fetch();
+				// }
+				// 				if(gon.contact_urls){
+				// 					this.contact.urls.add(gon.contact_urls);
+				// 				}
+				// 				else{
+					// this.contact.urls = new Quota.Collections.ContactUrls();
+					this.contact.urls.fetch();
+				// }
+				// 				if(gon.contact_addresses){
+				// 					this.contact.addresses.add(gon.contact_addresses);
+				// 				}
+				// 				else{
+					// this.contact.addresses = new Quota.Collections.ContactAddresses();
+					this.contact.addresses.fetch();
+				// }
+			}
+			else{
+				this.contact = new Quota.Models.Contact();
+				this.contact.fetch();
+			}
+			
 			
 			window.vent = _.extend({}, Backbone.Events);
 			
 			var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
 			$('#contact').html(view_contact.render().el);
 	});	
+	
+	$.fn.placeholder();
 </script>

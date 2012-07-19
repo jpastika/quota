@@ -6,6 +6,9 @@ class Opportunity < ActiveRecord::Base
   belongs_to :created_by, :class_name => "Member", :primary_key => "pub_key", :foreign_key => "creator_key"
   # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
   has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
+  has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
+  has_many :contacts, through: :opportunity_contacts, :source => :contacts
+  
   
   before_create :generate_keys
   

@@ -5,10 +5,17 @@ class ContactsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @contacts = current_member.account.contacts
+        @account_key = @current_member.account.pub_key
+        @contacts = Contact.where(:account_key => @account_key)
+        @contact_types = ContactType.where(:account_key => @account_key)
+        
+        # @contacts = current_member.account.contacts
+        gon.contact_types = @contact_types
+        gon.contacts = @contacts
       }
       format.json { 
-        @contacts = current_member.account.contacts
+        @contacts = Contact.where(:account_key => @current_member.account.pub_key)
+        # @contacts = current_member.account.contacts
         render :json => @contacts.to_json(:include => :contact_type)
       }
     end
@@ -17,26 +24,54 @@ class ContactsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
+        @account_key = @current_member.account.pub_key
+        @contacts = Contact.where(:account_key => @account_key)
+        @contact_types = ContactType.where(:account_key => @account_key)
+        
         @contact = Contact.find_by_pub_key(params[:id])
+        if @contact.contact_type.name == "Company"
+          @contact_type = "Company"
+          @company_contacts = Contact.find_by_company_key(@contact.pub_key)
+        else
+          @contact_type = "Person"
+          @company = @contact.company
+        end
+        
+        gon.contact_types = @contact_types
+        gon.contacts = @contacts
       }
       format.json {
-        @contact = Contact.find_by_pub_key(params[:id]) 
+        @contact = Contact.find_by_pub_key(params[:id])
+        gon.contact_types = current_member.account.contact_types.all
+        gon.contact = @contact
+        gon.companies = current_member.account.contacts.companies.all
+        gon.contact_phones = @contact.phones
+        gon.contact_emails = @contact.emails
+        gon.contact_urls = @contact.urls
+        gon.contact_addresses = @contact.addresses
+        
+         
         render :json => @contact.to_json(:include => :contact_type)
       }
     end
   end
   
   def new
-    gon.contact_types = current_member.account.contact_types.all
+    @account_key = @current_member.account.pub_key
+    @contacts = Contact.where(:account_key => @account_key)
+    @contact_types = ContactType.where(:account_key => @account_key)
+    @companies = Contact.companies.where(:account_key => @account_key)
+    
+    gon.contact_types = @contact_types
     gon.contact = current_member.account.contacts.new()
-    gon.companies = current_member.account.contacts.companies.all
+    gon.companies = @companies
     
     respond_to do |format|
       format.html {
-        @contact = current_member.account.contacts.build(contact_type_key: current_member.account.contact_types.find_by_name("Person").pub_key)
+        @contact = current_member.account.contacts.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
       }
       format.json {
-        @contact = current_member.account.contacts.build(contact_type_key: current_member.account.contact_types.find_by_name("Person").pub_key)
+        @contact = current_member.account.contacts.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
         render :json => @contact.to_json()
       }
     end
@@ -66,10 +101,18 @@ class ContactsController < ApplicationController
   end
   
   def edit
-    gon.contact_types = current_member.account.contact_types.all
+    @account_key = @current_member.account.pub_key
+    @contacts = Contact.where(:account_key => @account_key)
+    @contact_types = ContactType.where(:account_key => @account_key)
+    @companies = Contact.companies.where(:account_key => @account_key)
+    
+    gon.contact_types = @contact_types
+    gon.contact = current_member.account.contacts.new()
+    gon.companies = @companies
+    
+    
     @contact = Contact.find_by_pub_key(params[:id])
     gon.contact = @contact
-    gon.companies = current_member.account.contacts.companies.all
     gon.contact_phones = @contact.phones
     gon.contact_emails = @contact.emails
     gon.contact_urls = @contact.urls

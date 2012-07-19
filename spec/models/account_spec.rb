@@ -26,6 +26,7 @@ describe Account do
   it { should respond_to(:document_types) }
   it { should respond_to(:templates) }
   it { should respond_to(:template_items) }
+  it { should respond_to(:opportunity_contacts) }
   it { should respond_to(:memberize!) }
   
   it { should be_valid }

@@ -1,26 +1,33 @@
 <% provide(:title, "Add Contact")%>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<div id="contact">
+
+<div class="span8">
+	<div class="row-fluid">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<br>
-	<div id="contact_phones">
-	</div>
-	<br>
-	<div id="contact_emails">
-	</div>
-	<br>
-	<div id="contact_urls">
-	</div>
-	<br>
-	<div id="contact_addresses">
+	<div class="parent-page">
+		<div class="row-fluid">
+			<div id="contact">
+			</div>
+		</div>
 	</div>
 </div>
+<% content_for :sidebar_right do %>
+<div class="span2">
+	<div>
+		<div class="row-fluid">
+			<span class="btn btn-primary">Save</span>
+		</div>
+		<div class="row-fluid">
+			
+		</div>
+	</div>
+</div>
+<% end %>
 
 <script language="javascript">
 	$(function(){

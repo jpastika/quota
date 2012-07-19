@@ -50,16 +50,16 @@ class Quota.Views.EditContact extends Backbone.View
 		@contact_company_name.html(@_companySelectView.render().el)
 		
 		@_contactPhonesView = new Quota.Views.EditContactPhones({model:@model, collection:@model.phones, vent: vent})
-		$('#contact_phones').html(@_contactPhonesView.render().el)
+		@$('#contact_phones').html(@_contactPhonesView.render().el)
 		
 		@_contactEmailsView = new Quota.Views.EditContactEmails({model:@model, collection:@model.emails, vent: vent})
-		$('#contact_emails').html(@_contactEmailsView.render().el)
+		@$('#contact_emails').html(@_contactEmailsView.render().el)
 		
 		@_contactUrlsView = new Quota.Views.EditContactUrls({model:@model, collection:@model.urls, vent: vent})
-		$('#contact_urls').html(@_contactUrlsView.render().el)
+		@$('#contact_urls').html(@_contactUrlsView.render().el)
 		
 		@_contactAddressesView = new Quota.Views.EditContactAddresses({model:@model, collection:@model.addresses, vent: vent})
-		$('#contact_addresses').html(@_contactAddressesView.render().el)
+		@$('#contact_addresses').html(@_contactAddressesView.render().el)
 		
 		@input_contact_company_name = @$('.company_name input')
 		@vent.trigger("contact:rendered")
@@ -67,6 +67,7 @@ class Quota.Views.EditContact extends Backbone.View
 	
 	rendered: ->
 		$('input[placeholder]').placeholder()
+		$('textarea[placeholder]').placeholder()
 		
 		
 	contactNameChanged: ->

@@ -4,12 +4,13 @@ class ContactAddressesController < ApplicationController
   
   def index
     respond_to do |format|
-      @contact = Contact.find_by_pub_key(params[:id])
-      @contact_addresses = @contact.addresses
       format.html {
-        
+        @contact = Contact.find_by_pub_key(params[:id])
+        @contact_addresses = @contact.addresses
       }
       format.json { 
+        @contact = Contact.find_by_pub_key(params[:contact_id])
+        @contact_addresses = @contact.addresses
         render :json => @contact_addresses
       }
     end

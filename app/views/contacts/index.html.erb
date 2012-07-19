@@ -7,6 +7,10 @@
 	    </div>
 	<% end %>
 	<h1>Contacts</h1>
+	<div id="page"></div>
+	
+	
+	
 	<table class="table table-striped">
 	  <thead>
 	    <tr>
@@ -35,7 +39,16 @@
 </div>
 
 <script language="javascript">
-	// $(function(){
-	// 	  Quota.init();
-	// 	});	
+	$(function(){
+		// Quota.init();
+		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+		this.contacts = new Quota.Collections.Contacts(gon.contacts);
+	
+		window.vent = _.extend({}, Backbone.Events);
+		
+		var view_page = new Quota.Views.PageListContacts({contacts: this.contacts, contact_types: this.contact_types, vent: vent});
+		$('#page').html(view_page.render().el);
+	});	
+	
+	$.fn.placeholder();
 </script>

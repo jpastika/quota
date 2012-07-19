@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627201213) do
+ActiveRecord::Schema.define(:version => 20120718170040) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -300,6 +300,21 @@ ActiveRecord::Schema.define(:version => 20120627201213) do
   add_index "opportunities", ["company_key"], :name => "index_opportunities_on_company_key"
   add_index "opportunities", ["creator_key"], :name => "index_opportunities_on_creator_key"
   add_index "opportunities", ["pub_key"], :name => "index_opportunities_on_pub_key"
+
+  create_table "opportunity_contacts", :force => true do |t|
+    t.string   "opportunity_key"
+    t.string   "contact_key"
+    t.string   "is_disabled",     :default => "f"
+    t.string   "boolean"
+    t.string   "pub_key"
+    t.string   "account_key"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "opportunity_contacts", ["account_key"], :name => "index_opportunity_contacts_on_account_key"
+  add_index "opportunity_contacts", ["contact_key"], :name => "index_opportunity_contacts_on_contact_key"
+  add_index "opportunity_contacts", ["opportunity_key"], :name => "index_opportunity_contacts_on_opportunity_key"
 
   create_table "quotes", :force => true do |t|
     t.string   "name"

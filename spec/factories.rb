@@ -71,11 +71,22 @@ FactoryGirl.define do
     account
     
     factory :person do
-      contact_type "PERSON"
+      contact_type { FactoryGirl.create(:contact_type_person) }
     end
     
     factory :company do
-      contact_type "COMPANY"
+      contact_type { FactoryGirl.create(:contact_type_company) }
+    end
+  end
+  
+  factory :contact_type do
+    account
+    factory :contact_type_person do
+      name "Person"
+    end
+    
+    factory :contact_type_company do
+      name "Company"
     end
   end
   
