@@ -4,6 +4,7 @@ window.Quota =
 	Views: {}
 	Routers: {}
 	init: ->
+		@vent = _.extend({}, Backbone.Events);
 		# enablePushState = true  
 		# 		pushState = !!(enablePushState and window.history and window.history.pushState)
 		# 		window.Documents = new Quota.Routers.Documents()

@@ -19,6 +19,7 @@ class Account < ActiveRecord::Base
   has_many :document_item_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
   has_many :contact_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
   has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :milestones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'probability'
   
   accepts_nested_attributes_for :users
   
@@ -40,7 +41,12 @@ class Account < ActiveRecord::Base
     sales_reps.create!(member_key: member.pub_key, name: member.user.name, email: member.user.email)
   end
   
-  
+  def generate_document_types
+    self.document_types.create!(name: "Quote")
+    self.document_types.create!(name: "Sale")
+    self.document_types.create!(name: "Rental")
+    self.document_types.create!(name: "Proposal")
+  end
   
   def generate_default_templates
     self.document_types.each do |doc_type|
@@ -63,11 +69,17 @@ class Account < ActiveRecord::Base
     self.contact_types.create!(name: "Company", icon_class: "icon-reorder")
   end
   
+  def generate_milestones
+    self.milestones.create!(name: "Quote", probability: "0.25")
+    self.milestones.create!(name: "Sale", probability: "1")
+  end
+  
   def generate_data
     generate_document_types
     generate_default_templates
     generate_document_item_types
     generate_contact_types
+    generate_milestones
   end
   
   private
@@ -80,18 +92,4 @@ class Account < ActiveRecord::Base
     def generate_keys
       generate_token(:pub_key)
     end
-    
-    
-    
-    def generate_document_types
-      self.document_types.create!(name: "Quote")
-      self.document_types.create!(name: "Sale")
-      self.document_types.create!(name: "Rental")
-      self.document_types.create!(name: "Proposal")
-    end
-    
-    
-    
-    
-    
 end

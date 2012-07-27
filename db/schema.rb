@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718170040) do
+ActiveRecord::Schema.define(:version => 20120726134409) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -281,6 +281,19 @@ ActiveRecord::Schema.define(:version => 20120718170040) do
   add_index "members", ["pub_key"], :name => "index_members_on_pub_key", :unique => true
   add_index "members", ["remember_token"], :name => "index_members_on_remember_token"
   add_index "members", ["user_key"], :name => "index_members_on_user_key"
+
+  create_table "milestones", :force => true do |t|
+    t.string   "name"
+    t.string   "pub_key"
+    t.string   "account_key"
+    t.float    "probability"
+    t.boolean  "is_disabled"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "milestones", ["account_key"], :name => "index_milestones_on_account_key"
+  add_index "milestones", ["pub_key"], :name => "index_milestones_on_pub_key"
 
   create_table "opportunities", :force => true do |t|
     t.string   "name"

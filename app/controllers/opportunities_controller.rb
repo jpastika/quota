@@ -1,14 +1,40 @@
 class OpportunitiesController < ApplicationController
   before_filter :signed_in_member!, :check_disabled!
+  respond_to :html, :json
   
   def index
     @opportunities = current_member.account.opportunities
-    @my_created_opportunities = @opportunities.where(:owner_key => current_member.pub_key)
-    @my_owned_opportunities = @opportunities.where(:creator_key => current_member.pub_key)
+    respond_to do |format|
+      format.html {
+        @account_key = @current_member.account.pub_key
+        @opportunities = Opportunity.where(:account_key => @account_key)
+        
+        gon.opportunities = @opportunities
+        gon.current_member = @current_member
+      }
+      format.json { 
+        @account_key = @current_member.account.pub_key
+        @opportunities = Opportunity.where(:account_key => @account_key)
+        
+        render :json => @opportunities.to_json()
+      }
+    end
   end
   
   def show
     @opportunity = Opportunity.find_by_pub_key(params[:id])
+    respond_to do |format|
+      format.html {
+        @opportunity = Opportunity.find_by_pub_key(params[:id])
+        
+        gon.opportunity = Opportunity.find_by_pub_key(params[:id])
+      }
+      format.json {
+        @opportunity = Opportunity.find_by_pub_key(params[:id])
+        
+        render :json => @opportunity
+      }
+    end
   end
   
   def new

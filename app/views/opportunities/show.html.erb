@@ -8,6 +8,9 @@
 		    </div>
 		<% end %>
 	</div>
+	<div class="row-fluid">
+		<div id="main_body"></div>
+	</div>
 	<div class="parent-page">
 		<div class="row-fluid">
 			<h1><%= @opportunity.name %></h1>
@@ -151,6 +154,9 @@
 
 <% content_for :sidebar_right do %>
 <div class="span2">
+	<div class="row-fluid">
+		<%= link_to "Edit this opportunity", edit_opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
+	</div>
 	<div class="row-fluid">
 		<div class="show-field">
 			<span class="show-label">Current Milestone</span>

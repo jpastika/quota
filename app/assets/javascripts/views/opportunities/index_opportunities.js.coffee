@@ -1,4 +1,4 @@
-class Quota.Views.ListContacts extends Backbone.View
+class Quota.Views.IndexOpportunities extends Backbone.View
 
 	tagName: 'ul'
 	className: 'unstyled form-vertical'
@@ -12,12 +12,11 @@ class Quota.Views.ListContacts extends Backbone.View
 		_.bindAll(@)
 		
 		@vent = options.vent
-		@contact_types = options.contact_types
-		@_contactViews = []
+		@_opportunityViews = []
 		@collection.on('reset', @collectionReset, @)
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
-		@vent.on('contact_link:clicked', @contactLinkClicked, @)
+		@vent.on('opportunity_link:clicked', @opportunityLinkClicked, @)
 		
 	render: ->
 		$(@el).empty()
@@ -27,19 +26,19 @@ class Quota.Views.ListContacts extends Backbone.View
 		@
 	
 	addOne: (item)->
-		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, vent: @vent})
-		@_contactViews.push(view)
+		view = new Quota.Views.IndexOpportunity({model: item, tagName:'li', className:'opportunity', opportunity: @model, vent: @vent})
+		@_opportunityViews.push(view)
 		view
 	
 	collectionReset: ->
 		@render()
 
 	removeFailed: (evt) ->
-		view = _.find(@_contactViews, (view) -> view.model == evt.model)
+		view = _.find(@_opportunityViews, (view) -> view.model == evt.model)
 		view.toggle()
 
 	removeSuccess: (evt) ->
 	
-	contactLinkClicked: (evt) ->
+	opportunityLinkClicked: (evt) ->
 		# console.log evt.view.model.get("name")
 	# 		@setContactTypeRelatedFields()
