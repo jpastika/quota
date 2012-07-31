@@ -24,7 +24,7 @@
 
 <script language="javascript">
 	$(function(){
-		var view_page = new Quota.Views.PageIndexOpportunities({opportunities: new Quota.Collections.Opportunities(gon.opportunities), vent: Quota.vent});
+		var view_page = new Quota.Views.PageIndexOpportunities({opportunities: new Quota.Collections.Opportunities($.parseJSON(gon.opportunities)), vent: Quota.vent});
 		$('#main_body').html(view_page.render().el);
 	});	
 	

@@ -95,7 +95,7 @@
 				    		<span class="caret"></span>
 				    	</a>
 				    	<ul class="dropdown-menu">
-							<% @current_member.account.document_types.each do | doc_type | %>
+							<% @current_user.account.document_types.each do | doc_type | %>
 								<li><%= link_to "#{doc_type.name}", new_document_path(id: @opportunity.pub_key, document_type: "#{doc_type.pub_key}") %></li>
 							<% end %>
 				    		<li class="divider"></li>

@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   
   def new
     @opportunity = Opportunity.find_by_pub_key(params[:id])
-    @quote = @opportunity.quotes.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key)
+    @quote = @opportunity.quotes.build(account_key: current_user.account_key, creator_key: current_user.pub_key)
     
     @quote.name = "Quote - #{@opportunity.name}"
     
@@ -16,8 +16,8 @@ class QuotesController < ApplicationController
   
   def create
     @quote = Quote.new(params[:quote])
-    @quote.account = current_member.account
-    @quote.created_by = current_member
+    @quote.account = current_user.account
+    @quote.created_by = current_user
     if @quote.save
       flash[:success] = "Quote created!"
       redirect_to opportunity_path(@quote.opportunity.pub_key)

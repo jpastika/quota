@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe OpportunityContact do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @person = FactoryGirl.create(:person)
-     @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
+     @opp = @user.created_opportunities.build(name: "Opportunity 1", owner_key: @user.pub_key, account_key: @account.pub_key)
      @opp.save
      @opp_contact = @account.opportunity_contacts.build(opportunity_key: @opp.pub_key, contact_key: @person.pub_key)
   end

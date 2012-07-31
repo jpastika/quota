@@ -2,10 +2,9 @@ require 'spec_helper'
 
 describe Opportunity do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
-     @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
+     @opp = @user.created_opportunities.build(name: "Opportunity 1", owner_key: @user.pub_key, account_key: @account.pub_key)
   end
   
   
@@ -38,18 +37,18 @@ describe Opportunity do
     its(:account) { should == @account }
   end
   
-  describe "owned by member" do
+  describe "owned by user" do
     before { @opp.save }
     
     it { should respond_to(:owner) }
-    its(:owner) { should == @member }
+    its(:owner) { should == @user }
   end
   
-  describe "created by member" do
+  describe "created by user" do
     before { @opp.save }
     
     it { should respond_to(:created_by) }
-    its(:created_by) { should == @member }
+    its(:created_by) { should == @user }
   end
   
   describe "when account key is not present" do

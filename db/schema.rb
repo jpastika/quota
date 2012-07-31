@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726134409) do
+ActiveRecord::Schema.define(:version => 20120730145022) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20120726134409) do
     t.string   "pub_key"
     t.string   "creator_key"
     t.string   "company_key"
+    t.float    "estimated_value"
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
@@ -386,14 +387,13 @@ ActiveRecord::Schema.define(:version => 20120726134409) do
     t.string   "pub_key"
     t.string   "email"
     t.string   "account_key"
-    t.string   "member_key"
     t.boolean  "is_disabled", :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.string   "user_key"
   end
 
   add_index "sales_reps", ["account_key"], :name => "index_sales_reps_on_account_key"
-  add_index "sales_reps", ["member_key"], :name => "index_sales_reps_on_member_key"
   add_index "sales_reps", ["pub_key"], :name => "index_sales_reps_on_pub_key"
 
   create_table "template_items", :force => true do |t|
@@ -456,8 +456,11 @@ ActiveRecord::Schema.define(:version => 20120726134409) do
     t.string   "pub_key"
     t.string   "password_digest"
     t.boolean  "is_disabled",     :default => false
+    t.string   "remember_token"
+    t.string   "account_key"
   end
 
+  add_index "users", ["account_key"], :name => "index_users_on_account_key"
   add_index "users", ["pub_key"], :name => "index_users_on_pub_key", :unique => true
 
 end

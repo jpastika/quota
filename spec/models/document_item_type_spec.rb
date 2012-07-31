@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe DocumentItemType do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @doc_item_type = @account.document_item_types.build(name: "Product")
   end
   

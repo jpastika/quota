@@ -2,12 +2,11 @@ require 'spec_helper'
 
 describe DocumentItem do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
-     @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
+     @opp = @user.created_opportunities.build(name: "Opportunity 1", owner_key: @user.pub_key, account_key: @account.pub_key)
      @opp.save
-     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @member.pub_key, document_type: @account.document_types.first)
+     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @user.pub_key, document_type: @account.document_types.first)
      @document.save
      @item = @account.document_items.build(name: "Item 1", unit_price: "50", document_key: @document.pub_key)
   end

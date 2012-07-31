@@ -1,8 +1,8 @@
 class SalesRep < ActiveRecord::Base
-  attr_accessible :email, :is_disabled, :member_key, :name
+  attr_accessible :email, :is_disabled, :user_key, :name
 
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
-  belongs_to :member, :primary_key => "pub_key", :foreign_key => "member_key"
+  belongs_to :user, :primary_key => "pub_key", :foreign_key => "user_key"
   
   before_create :generate_keys
   

@@ -6,7 +6,7 @@ describe SalesRep do
   before(:each) do
      @salesrep = FactoryGirl.create(:sales_rep)
      @account = @salesrep.account
-     @member = @salesrep.member
+     @user = @salesrep.user
   end
   
   
@@ -17,7 +17,7 @@ describe SalesRep do
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:account_key) }
-  it { should respond_to(:member_key) }
+  it { should respond_to(:user_key) }
   it { should respond_to(:is_disabled) }
   
   it { should be_valid }
@@ -34,9 +34,9 @@ describe SalesRep do
     before { @salesrep.save }
     
     it { should respond_to(:account) }
-    it { should respond_to(:member) }
+    it { should respond_to(:user) }
     its(:account) { should == @account }
-    its(:member) { should == @member }
+    its(:user) { should == @user }
   end
   
   describe "when account key is not present" do

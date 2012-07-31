@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.7'
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'bcrypt-ruby'
@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'jquery-rails'
 gem 'backbone-on-rails'
 gem 'gon'
+gem 'timeliness'
 
 
 group :development do

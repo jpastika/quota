@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe Template do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @tpl = @account.templates.build(name: "Template 1", document_type: @account.document_types.first)
   end
   

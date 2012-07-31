@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe Milestone do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @milestone = @account.milestones.build(name: "Quote", probability: "0.25")
   end
   

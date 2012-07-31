@@ -12,28 +12,13 @@ class SessionsController < ApplicationController
         flash[:error] = "You are not able to access this account."
         render 'new'
       else
-        if user && user.authenticate(params[:session][:password])
-          if current_member != nil && current_member.user == user
-            if current_member.is_disabled? || current_member.account.is_disabled?
-              flash[:error] = "You are not able to access this account."
-              render 'new'
-            else
-              sign_in current_member
-              redirect_back_or dashboard_path
-            end
+        if user.authenticate(params[:session][:password])
+          if current_user && (current_user.is_disabled? || current_user.account.is_disabled?)
+            flash[:error] = "You are not able to access this account."
+            render 'new'
           else
-            if user.members.count > 1
-              set_current_user user
-              redirect_to choose_account_path 
-            else
-              if user.members.first.is_disabled? || user.members.first.account.is_disabled?
-                flash[:error] = "You are not able to access this account."
-                render 'new'
-              else
-                sign_in user.members.first
-                redirect_back_or dashboard_path
-              end
-            end
+            sign_in user
+            redirect_back_or dashboard_path
           end
         else
           flash.now[:error] = 'Invalid email/password combination'
@@ -41,7 +26,7 @@ class SessionsController < ApplicationController
         end
       end
     else
-      flash.now[:error] = 'Invalid email/password combination'
+      flash.now[:error] = 'Invalid email/password combination123'
       render 'new'
     end
   end
@@ -53,25 +38,5 @@ class SessionsController < ApplicationController
   
   def choose
     
-  end
-  
-  def switch_account
-    if current_user != nil
-      account = Account.find_by_pub_key(params[:id])
-      
-      if account != nil
-        member = account.members.find_by_user_key(current_user.pub_key)
-        if member.is_disabled? || account.is_disabled?
-          flash[:error] = "You are not able to access this account."
-          render 'new'
-        else
-          sign_in member
-        
-          redirect_to dashboard_path
-        end
-      end
-    else
-      redirect_to signin_path
-    end
   end
 end

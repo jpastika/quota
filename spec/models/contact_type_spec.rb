@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe ContactType do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @contact_type = @account.contact_types.build(name: "Company")
   end
   

@@ -1,16 +1,16 @@
 class SalesRepsController < ApplicationController
-  before_filter :signed_in_member!, :check_disabled!
+  before_filter :signed_in!, :check_disabled!
   
   def index
-    @reps = current_member.account.sales_reps
+    @reps = current_user.account.sales_reps
   end
   
   def new
-    @rep = current_member.account.sales_reps.build()
+    @rep = current_user.account.sales_reps.build()
   end
   
   def create
-    @rep = current_member.account.sales_reps.build(params[:sales_rep])
+    @rep = current_user.account.sales_reps.build(params[:sales_rep])
     
     if @rep.save
       flash[:success] = "#{@rep.name} is now a rep on your Quota account."

@@ -3,9 +3,8 @@ require 'spec_helper'
 describe CatalogItem do
   
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @item = @account.catalog_items.build(name: "Item 1", list_price: "50")
   end
   

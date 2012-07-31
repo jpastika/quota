@@ -1,8 +1,8 @@
 class CatalogItemsController < ApplicationController
-  before_filter :signed_in_member!, :check_disabled!
+  before_filter :signed_in!, :check_disabled!
   
   def index
-    @catalog_items = current_member.account.catalog_items
+    @catalog_items = current_user.account.catalog_items
   end
   
   def new
@@ -10,7 +10,7 @@ class CatalogItemsController < ApplicationController
   end
   
   def create
-    @catalog_item = current_member.account.catalog_items.build(params[:catalog_item])
+    @catalog_item = current_user.account.catalog_items.build(params[:catalog_item])
     if @catalog_item.save
       flash[:success] = "Item created!"
       redirect_to catalog_items_path

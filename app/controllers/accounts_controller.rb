@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_filter [:signed_in_member!, :check_disabled!], :only => :show 
+  before_filter [:signed_in!, :check_disabled!], :only => :show 
   
   def new
     @account = Account.new
@@ -16,9 +16,8 @@ class AccountsController < ApplicationController
       params[:account].delete :users_attributes
       @account = Account.new(params[:account])
       if @account.save
-        @account.memberize!(user)
-        @account.repize!(@account.members.last)
-        sign_in @account.members.last
+        @account.repize!(user)
+        sign_in user
         flash[:success] = "Welcome to Quota..."
         redirect_to dashboard_path
       else
@@ -27,8 +26,8 @@ class AccountsController < ApplicationController
     else
       @account = Account.new(params[:account])
       if @account.save
-        sign_in @account.members.last
-        @account.repize!(@account.members.last)
+        sign_in @account.users.last
+        @account.repize!(@account.users.last)
         flash[:success] = "Welcome to Quota!!!"
         redirect_to dashboard_path
       else
@@ -40,10 +39,10 @@ class AccountsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        @account = current_member.account
+        @account = current_user.account
       }
       format.json {
-        @account = current_member.account 
+        @account = current_user.account 
         render :json => @account.to_json
       }
     end

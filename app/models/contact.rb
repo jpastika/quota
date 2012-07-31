@@ -11,13 +11,19 @@ class Contact < ActiveRecord::Base
   has_many :urls, dependent: :destroy, :class_name => "ContactUrl", :primary_key => "pub_key", :foreign_key => "contact_key"
   has_many :addresses, dependent: :destroy, :class_name => "ContactAddress", :primary_key => "pub_key", :foreign_key => "contact_key"
   
-  scope :companies, where(:contact_type_key => (ContactType.find_by_name("Company").pub_key unless ContactType.find_by_name("Company").nil?))
+  # scope :companies, where(:contact_type_key => (ContactType.find_by_name("Company").pub_key unless ContactType.find_by_name("Company").nil?))
   
   before_create :generate_keys
   
   validates :name, presence: true
   validates :account_key, presence: true
   validates :contact_type_key, presence: true
+  
+  class << self
+    def companies(account)
+      where(:contact_type_key => (ContactType.where(:name => "Company", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Company", :account_key => account.pub_key).nil?))
+    end
+  end
   
   private
     def generate_token(column)

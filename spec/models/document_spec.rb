@@ -2,12 +2,11 @@ require 'spec_helper'
 
 describe Document do
   before do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
-     @opp = @member.created_opportunities.build(name: "Opportunity 1", owner_key: @member.pub_key, account_key: @account.pub_key)
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
+     @opp = @user.created_opportunities.build(name: "Opportunity 1", owner_key: @user.pub_key, account_key: @account.pub_key)
      @opp.save
-     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @member.pub_key, document_type: @account.document_types.first)
+     @document = @opp.documents.build(name: "Quote 1", account_key: @account.pub_key, creator_key: @user.pub_key, document_type: @account.document_types.first)
   end
   
   subject { @document }
@@ -72,11 +71,11 @@ describe Document do
     its(:account) { should == @account }
   end
   
-  describe "created by member" do
+  describe "created by user" do
     before { @document.save }
     
     it { should respond_to(:created_by) }
-    its(:created_by) { should == @member }
+    its(:created_by) { should == @user }
   end
   
   describe "when account key is not present" do

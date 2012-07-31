@@ -14,16 +14,17 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@example.com" }
     password "foobar"
     password_confirmation "foobar"
+    account
     
     #factory :admin do
     #  admin true
     #end
   end
   
-  factory :member do
-    account
-    user
-  end
+  # factory :member do
+  #     account
+  #     user
+  #   end
   
   
   factory :catalog_item do
@@ -34,21 +35,21 @@ FactoryGirl.define do
   
   factory :opportunity do
     sequence(:name)  { |n| "Opportunity #{n}" }
-    created_by { FactoryGirl.create(:member) }
-    owner { FactoryGirl.create(:member) }
+    created_by { FactoryGirl.create(:user) }
+    owner { FactoryGirl.create(:user) }
     account
   end
   
   factory :document do
     sequence(:name)  { |n| "Document #{n}" }
-    created_by { FactoryGirl.create(:member) }
+    created_by { FactoryGirl.create(:user) }
     opportunity
     account
   end
   
   factory :document_type do
     sequence(:name)  { |n| "Quote" }
-    created_by { FactoryGirl.create(:member) }
+    created_by { FactoryGirl.create(:user) }
     account
   end
   
@@ -61,7 +62,7 @@ FactoryGirl.define do
   
   factory :sales_rep do
     sequence(:name)  { |n| "Rep #{n}" }
-    member
+    user
     account
   end
   

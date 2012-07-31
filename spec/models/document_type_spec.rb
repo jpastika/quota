@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe DocumentType do
   before(:each) do
-     @member = FactoryGirl.create(:member)
-     @account = @member.account
-     @user = @member.user
+     @user = FactoryGirl.create(:user)
+     @account = @user.account
      @doc_type = @account.document_types.build(name: "Quote")
   end
   

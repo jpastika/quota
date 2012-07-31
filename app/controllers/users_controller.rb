@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter [:signed_in_member!, :check_disabled!], :only => :show 
+  before_filter [:signed_in!, :check_disabled!], :only => :show 
   
   def show
     respond_to do |format|
