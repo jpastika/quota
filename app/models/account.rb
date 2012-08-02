@@ -33,7 +33,7 @@ class Account < ActiveRecord::Base
   
   
   def repize!(user)
-    sales_reps.create!(user_key: user.pub_key, name: user.name, email: user.email)
+    self.sales_reps.create!(user_key: user.pub_key, name: user.name, email: user.email)
   end
   
   def generate_document_types

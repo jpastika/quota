@@ -40,6 +40,7 @@ Quota::Application.routes.draw do
     resources :docs, :controller => "documents"
     resources :documents
     resources :members
+    resources :milestones
     resources :opportunities
     resources :sales_reps
     resources :users

@@ -222,10 +222,27 @@ footer {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+.control-group{
+	margin-bottom:0px;
+}
+
+.controls{
+	margin-bottom:5px;
+}
+
+input, textarea, .uneditable-input, {
   border: 1px solid #bbb;
   width: 100%;
   padding: 5px;
+  height: auto;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+select {
+  border: 1px solid #bbb;
+  width: 100%;
+  padding: 3px;
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;
@@ -256,6 +273,41 @@ label.required{
 	font-weight:bold;
 }
 
+.input-min{
+	width:60px;
+}
+
+.input-prepend, .input-append{
+	margin-bottom:15px;
+}
+
+.input-append input{
+	display:inline-block;
+}
+
+.input-append .add-on{
+	height: 16px;
+	line-height: 18px;
+	min-width: 16px;
+	padding: 4px 5px 5px;
+	margin-left:-4px;
+	color:#555;
+}
+
+.input-prepend .add-on{
+	height: 16px;
+	line-height: 18px;
+	min-width: 16px;
+	padding: 4px 5px 5px;
+	margin-right:-4px;
+	color:#555;
+}
+
+
+
+.control-group #probability{
+	margin-left:-25px;
+}
 
 /* nav */
 .navbar-inner{

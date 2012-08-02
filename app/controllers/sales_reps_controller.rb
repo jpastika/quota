@@ -2,7 +2,27 @@ class SalesRepsController < ApplicationController
   before_filter :signed_in!, :check_disabled!
   
   def index
-    @reps = current_user.account.sales_reps
+    respond_to do |format|
+      format.html {
+        @reps = current_user.account.sales_reps
+      }
+      format.json { 
+        @reps = current_user.account.sales_reps
+        render :json => @reps
+      }
+    end
+  end
+  
+  def show
+    respond_to do |format|
+      format.html {
+        @rep = SalesRep.find_by_pub_key(params[:id])
+      }
+      format.json {
+        @rep = SalesRep.find_by_pub_key(params[:id]) 
+        render :json => @rep
+      }
+    end
   end
   
   def new

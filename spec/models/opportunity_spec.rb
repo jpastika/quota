@@ -12,6 +12,8 @@ describe Opportunity do
   
   it { should respond_to(:name) }
   it { should respond_to(:estimated_close) }
+  it { should respond_to(:estimated_value_interval) }
+  it { should respond_to(:actual_close) }
   it { should respond_to(:milestone_key) }
   it { should respond_to(:probability) }
   it { should respond_to(:owner_key) }

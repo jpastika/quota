@@ -38,31 +38,100 @@ class OpportunitiesController < ApplicationController
   end
   
   def new
+    @account_key = @current_user.account_key
+    @companies = Contact.companies(@current_user.account)
+    @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
+    @sales_reps = SalesRep.where(:account_key => @current_user.account.pub_key)
+    
+    gon.companies = @companies
+    gon.milestones = @milestones
+    gon.sales_reps = @sales_reps
+    
     @opportunity = Opportunity.new
+    
+    gon.opportunity = @opportunity
   end
   
   def create
     @opportunity = current_user.created_opportunities.build(params[:opportunity])
     @opportunity.account = current_user.account
     @opportunity.owner = current_user
+    
+    if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
+      @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
+      if @company.save
+        @opportunity.company_key = @company.pub_key
+      end
+    end
+    
     if @opportunity.save
       flash[:success] = "Item created!"
-      redirect_to opportunities_path
+      redirect_to opportunity_path(@opportunity.pub_key)
     else
+      @account_key = @current_user.account_key
+      @companies = Contact.companies(@current_user.account)
+      @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
+      @sales_reps = SalesRep.where(:account_key => @current_user.account.pub_key)
+
+      gon.companies = @companies
+      gon.milestones = @milestones
+      gon.sales_reps = @sales_reps
+      
+      gon.opportunity = @opportunity
+      
       render 'new'
     end
   end
   
   def edit
+    @account_key = @current_user.account_key
+    @companies = Contact.companies(@current_user.account)
+    @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
+    @sales_reps = SalesRep.where(:account_key => @current_user.account.pub_key)
+    
+    gon.companies = @companies
+    gon.milestones = @milestones
+    gon.sales_reps = @sales_reps
+    
     @opportunity = Opportunity.find_by_pub_key(params[:id])
+    
+    gon.opportunity = @opportunity
   end
   
   def update
     @opportunity = Opportunity.find_by_pub_key(params[:id])
+    
+    # if @opportunity.company_key.nil?
+      # if !params[:opportunity][:company_name].nil? && params[:opportunity][:company_name] != ""
+        
+      # end
+    # end
+    
     if @opportunity.update_attributes(params[:opportunity])
-      flash[:success] = "Opportunity updated"
-      redirect_to opportunities_path
+      if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
+        @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
+        if @company.save
+          @opportunity.company_key = @company.pub_key
+        
+          if @opportunity.save
+            flash[:success] = "Opportunity updated"
+            redirect_to opportunity_path(@opportunity.pub_key)
+          end
+        end
+      else
+        flash[:success] = "Opportunity updated"
+        redirect_to opportunity_path(@opportunity.pub_key)
+      end
     else
+      @account_key = @current_user.account_key
+      @companies = Contact.companies(@current_user.account)
+      @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
+      @sales_reps = SalesRep.where(:account_key => @current_user.account.pub_key)
+
+      gon.companies = @companies
+      gon.milestones = @milestones
+      gon.sales_reps = @sales_reps
+      gon.opportunity = @opportunity
       render 'edit'
     end
   end

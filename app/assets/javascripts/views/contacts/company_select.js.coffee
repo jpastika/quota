@@ -7,7 +7,7 @@ class Quota.Views.CompanySelectView extends Backbone.View
 	initialize: (options) ->
 		_.bindAll(@)
 		@vent = options.vent
-		@contact = options.contact
+		@parent_model = options.parent_model
 		@source = options.source if options.source?
 		@val = options.val if options.val?
 		@
@@ -31,7 +31,7 @@ class Quota.Views.CompanySelectView extends Backbone.View
 			showAdd: true
 		@$el.typeahead options
 		
-		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.contact.get("company_key"))
+		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("company_key"))
 		if company
 			@$el.attr('value', company.get("name"))
 		@$el.attr('placeholder', 'Company')
@@ -41,6 +41,7 @@ class Quota.Views.CompanySelectView extends Backbone.View
 		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
 			obj.stopImmediatePropagation()
 			obj.preventDefault()
+			@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
 		else
 			company = _.find(@collection.models, (m) -> m.get("name") == obj)
 			if company || !$(obj.target).val()

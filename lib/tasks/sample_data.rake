@@ -3,6 +3,7 @@ namespace :db do
   task populate: :environment do
     make_accounts
     make_users
+    make_sales_reps
     make_catalog_items
     make_contacts
     make_opportunities
@@ -18,13 +19,19 @@ def make_accounts
 end
 
 def make_users
-  user = Account.first.users.create!(name:     "User One",
+  user1 = Account.first.users.create!(name:     "User One",
                        email:    "user1@example.com",
                        password: "foobar")
-  user = Account.first.users.create!(name:     "User Two",
+  user2 = Account.first.users.create!(name:     "User Two",
                       email:    "user2@example.com",
                        password: "foobar")
   #admin.toggle!(:admin)
+end
+
+def make_sales_reps
+  rep = Account.first.repize!(Account.first.users[0])
+  rep = Account.first.repize!(Account.first.users[1])
+  
 end
 
 def make_catalog_items
