@@ -23,6 +23,7 @@ describe Opportunity do
   it { should respond_to(:owner) }
   it { should respond_to(:created_by) }
   it { should respond_to(:documents) }
+  it { should respond_to(:description) }
   
   it { should be_valid }
   

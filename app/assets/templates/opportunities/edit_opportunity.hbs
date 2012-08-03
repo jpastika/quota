@@ -4,6 +4,12 @@
 		<input type="text" value="{{opportunity.name}}" size="30" name="opportunity[name]" id="opportunity_name" class="string required span7">
 	</div>
 </div>
+<div class="control-group string">
+	<label for="opportunity_description" class="string required control-label">Description</label>
+	<div class="controls">
+		<textarea name="opportunity[description]" id="opportunity_description" class="string span7">{{opportunity.description}}</textarea>
+	</div>
+</div>
 <div class="control-group">
 	<label for="company_name" class="string control-label">Customer</label>
 	<div class="controls company_name">
@@ -29,7 +35,7 @@
 		<div class="input-prepend">
 			<span class="add-on">$</span>
 			<input type="text" value="{{opportunity.estimated_value}}" name="opportunity[estimated_value]" id="opportunity_estimated_value" class="string input-small">
-			<select class="input-medium" name="opportunity[estimated_value_interval]">
+			<select class="input-medium" name="opportunity[estimated_value_interval]" value="{{opportunity.estimated_value_interval}}">
 				<option value="FIXED">fixed</option>
 				<option value="HOUR">per hour</option>
 				<option value="DAY">per day</option>
@@ -63,6 +69,6 @@
 </div>
 <div class="control-group">
 	<label for="opportunity_owner_key" class="string required control-label">Owner</label>
-	<div class="controls opportunity_owner_key" id="sales_reps"></div>
+	<div class="controls opportunity_owner_key" id="users"></div>
 </div>
 <input type="hidden" value="{{opportunity.company_key}}" name="opportunity[company_key]" id="opportunity_company_key" class="company_key">

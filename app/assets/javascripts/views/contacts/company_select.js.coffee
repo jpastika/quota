@@ -1,5 +1,6 @@
 class Quota.Views.CompanySelectView extends Backbone.View
-	tagName: 'input'
+	tagName: 'span'
+	template: HandlebarsTemplates['contacts/company_select'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
 		"blur": "selected"
@@ -24,17 +25,23 @@ class Quota.Views.CompanySelectView extends Backbone.View
 
 	# Render the input and call Bootstrap's .typeahead() plugin
 	render: ->
+		# $(@el).html(@template({company:@collection.toJSON(), field_name:@field_name}))
 		self = @
+		$(@el).html(@template())
+		
+		
+			# @$el.attr('value', company.get("name"))
+		# @$el.attr('placeholder', 'Company')
+		# 
 		options = _.extend @options, 
 			source: @collection.pluck @source
 			onselect: (obj) -> self.selected(obj)
 			showAdd: true
-		@$el.typeahead options
+		@$('input').typeahead options
 		
 		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("company_key"))
 		if company
-			@$el.attr('value', company.get("name"))
-		@$el.attr('placeholder', 'Company')
+			@$('input').attr('value', company.get("name"))
 		@
 		
 	selected: (obj) ->

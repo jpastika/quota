@@ -21,8 +21,10 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		@milestones = options.milestones
 		@companies = options.companies
 		@sales_reps = options.sales_reps
-		@_milestonesView = null
-		@_salesRepsView = null
+		@users = options.users
+		@_milestonesView = new Quota.Views.MilestoneSelect({parent_model:@model, parent_child_key: @model.get("milestone_key"), collection:@milestones, field_name:"opportunity[milestone_key]", vent: @vent})
+		@_usersView = new Quota.Views.UserSelect({parent_model:@model, parent_child_key: @model.get("owner_key"), collection:@users, field_name:"opportunity[owner_key]", vent: @vent})
+		@_companySelectView = new Quota.Views.CompanySelectView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
 		@model.on('change', @render, @)
 		@vent.on('milestone:changed', @milestoneChanged, @)
 		@vent.on('company_name:changed', @companyNameChanged, @)
@@ -40,22 +42,24 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		@input_opportunity_probability = @$('.opportunity_probability input')
 		@input_opportunity_estimated_close = @$('.opportunity_estimated_close input')
 		@input_opportunity_estimated_value = @$('.opportunity_estimated_value input').first()
-		@input_opportunity_estimated_value_interval = @$('.opportunity_estimated_value_interval select')
+		@input_opportunity_estimated_value_interval = @$('.opportunity_estimated_close select')
+		@input_opportunity_owner_key = @$('.opportunity_owner_key select')
 		@input_opportunity_actual_close = @$('.opportunity_actual_close input')
 		@container_milestones = @$('#milestones')
-		@container_sales_reps = @$('#sales_reps')
+		@container_users = @$('#users')
 		
-		@_milestonesView = new Quota.Views.MilestoneSelect({parent_model:@model, parent_child_key: @model.get("milestone_key"), collection:@milestones, field_name:"opportunity[milestone_key]", vent: @vent})
-		@container_milestones.html(@_milestonesView.render().el)
 		
-		@_salesRepsView = new Quota.Views.SalesRepSelect({parent_model:@model, parent_child_key: @model.get("owner_key"), collection:@sales_reps, field_name:"opportunity[owner_key]", vent: @vent})
-		@container_sales_reps.html(@_salesRepsView.render().el)
 		
-		@_companySelectView = new Quota.Views.CompanySelectView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
+		@_milestonesView.setElement(@container_milestones).render()
+		# @container_milestones.html(@_milestonesView.render().el)
+		
+		@container_users.html(@_usersView.render().el)
+		
 		company_name_field_name = @input_opportunity_company_name.attr('name')
 		company_name_field_id = @input_opportunity_company_name.attr('id')
 		
-		@opportunity_company_name.html(@_companySelectView.render().el)
+		@_companySelectView.setElement(@opportunity_company_name).render()
+		# @opportunity_company_name.html(@_companySelectView.render().el)
 		
 		@input_opportunity_company_name = @$('.company_name input')
 		
@@ -78,14 +82,17 @@ class Quota.Views.EditOpportunity extends Backbone.View
 				altField: @$(".opportunity_actual_close .altfield")
 				showAnim: ""
 		
-		@$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")	
-
+		@$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+		
+		@input_opportunity_estimated_value_interval.val(@model.get("estimated_value_interval"))
+		@input_opportunity_owner_key.val(@model.get("owner_key"))
+		
 		@vent.trigger("opportunity:rendered")
 		@
 	
 	rendered: ->
-		$('input[placeholder]').placeholder()
-		$('textarea[placeholder]').placeholder()
+		# $('input[placeholder]').placeholder()
+		# 		$('textarea[placeholder]').placeholder()
 		
 		
 	opportunityNameChanged: ->
@@ -148,10 +155,8 @@ class Quota.Views.EditOpportunity extends Backbone.View
 			@input_opportunity_probability.attr('value', (milestone.get("probability") * 100))
 	
 	companyNameChanged: (evt) ->
-		console.log "company changed"
 		self = @
 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
-		console.log company
 		if company
 			@model.set("company_key", company.get("pub_key"), {silent: true})
 			@input_opportunity_company_key.val(company.get("pub_key"))

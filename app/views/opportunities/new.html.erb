@@ -44,7 +44,7 @@
 		// this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.companies = new Quota.Collections.Companies(gon.companies);
 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
-		this.sales_reps = new Quota.Collections.SalesReps(gon.sales_reps);
+		this.users = new Quota.Collections.Users(gon.users);
 	
 		if(gon.opportunity){
 			this.opportunity = new Quota.Models.Opportunity(gon.opportunity);
@@ -56,7 +56,7 @@
 		
 		window.vent = _.extend({}, Backbone.Events);
 	
-		var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, sales_reps: this.sales_reps, vent: vent});
+		var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});
 		$('#opportunity').html(view_opportunity.render().el);
 	});	
 	

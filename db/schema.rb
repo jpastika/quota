@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120801130149) do
+ActiveRecord::Schema.define(:version => 20120803143119) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -310,6 +310,7 @@ ActiveRecord::Schema.define(:version => 20120801130149) do
     t.float    "estimated_value"
     t.date     "actual_close"
     t.string   "estimated_value_interval"
+    t.text     "description"
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"

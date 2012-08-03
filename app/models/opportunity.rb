@@ -1,5 +1,5 @@
 class Opportunity < ActiveRecord::Base
-  attr_accessible :estimated_close, :estimated_value, :estimated_value_interval, :actual_close, :milestone_key, :name, :owner_key, :probability, :creator_key, :account_key, :company_key, :company
+  attr_accessible :estimated_close, :estimated_value, :estimated_value_interval, :actual_close, :milestone_key, :name, :owner_key, :probability, :creator_key, :account_key, :company_key, :company, :description
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :owner, :class_name => "User", :primary_key => "pub_key", :foreign_key => "owner_key"
@@ -8,7 +8,7 @@ class Opportunity < ActiveRecord::Base
   # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
   has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
   has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "opportunity_key"
-  has_many :contacts, through: :opportunity_contacts, :source => :contacts
+  has_many :contacts, through: :opportunity_contacts, :source => :contact
   has_one :milestone, :primary_key => "milestone_key", :foreign_key => "pub_key"
   
   default_scope :include => :milestone, :order => ["name ASC"]
