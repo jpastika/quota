@@ -46,7 +46,7 @@ class Quota.Views.EditContact extends Backbone.View
 		@_contactTypesView = new Quota.Views.ContactTypesToggles({contact:@model, collection:@contact_types, vent: @vent})
 		@container_contact_types.html(@_contactTypesView.render().el)
 		
-		@_companySelectView = new Quota.Views.CompanySelectView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
+		@_companySelectView = new Quota.Views.CompanyComboView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
 		@contact_company_name.html(@_companySelectView.render().el)
 		
 		@_contactPhonesView = new Quota.Views.EditContactPhones({model:@model, collection:@model.phones, vent: vent})

@@ -1,1 +1,5 @@
-<input type="text" value="" name="company_name" id="contact_company_name" class="string input-xlarge" autocomplete="off">
+<select class="input-medium" name="{{field_name}}" >
+{{#each companies}}
+	<option value="{{pub_key}}">{{name}}
+{{/each}}
+</select>

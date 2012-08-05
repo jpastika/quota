@@ -28,6 +28,7 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		
 		@container_add_contact = @$('.section-form')
 		@_addContactView.setElement(@container_add_contact).render().hide()
+		@_addContactView.companies.fetch()
 		
 		@
 
