@@ -7,16 +7,14 @@ class Quota.Views.CompanyContactAdd extends Backbone.View
 		
 	initialize: (options)->
 		_.bindAll(@)
-		@contact = options.contact
 		@vent = options.vent
-		@contact = options.contact
 		
 	render: ->
 		$(@el).html(@template({contact:@model.toJSON()}))
 		@
 		
 	addContact: ->
-		@vent.trigger("add_contact", {contact:@model})
+		@vent.trigger("company_contacts:add_contact", {contact:@model, view: @})
 		
 	save: ->
 		# self = @

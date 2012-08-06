@@ -67,7 +67,7 @@
 		}
 		
 		if(gon.opportunity_contacts){
-			this.opportunity_contacts = new Quota.Collections.OpportunityContacts(gon.opportunity_contacts);
+			this.opportunity_contacts = new Quota.Collections.OpportunityContacts($.parseJSON(gon.opportunity_contacts));
 		}
 		else{
 			this.opportunity_contacts = new Quota.Collections.OpportunityContacts();
@@ -82,7 +82,7 @@
 			this.opportunity_documents.fetch();
 		}
 		
-		this.opportunity.set("contacts", this.opportunity_contacts);
+		this.opportunity.set("opportunity_contacts", this.opportunity_contacts);
 		this.opportunity.set("documents", this.opportunity_documents);
 		
 		

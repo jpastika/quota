@@ -15,7 +15,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		
 		@opportunity = options.parent_model
 		@_companiesView = new Quota.Views.CompanySelect({parent_model:@opportunity, parent_child_key: @opportunity.get("company_key"), collection:@companies, field_name:"add_contact[company_key]", vent: @vent})
-		@_contactsView = new Quota.Views.CompanyContactsAdd({parent_model:@opportunity, parent_child_key: @opportunity.get("company_key"), vent: @vent})
+		@_contactsView = new Quota.Views.CompanyContactsAdd({parent_child_key: @opportunity.get("company_key"), vent: @vent, include_company:true})
 		
 	render: ->
 		$(@el).html(@template({opportunity:@opportunity}))
@@ -48,9 +48,11 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 	
 	companiesLoaded: ->
 		@hideLoading
+		@_contactsView.parent_model = _.first(@companies.where({pub_key: @opportunity.get("company_key")}))
 		@_contactsView.setElement(@container_contacts).render()
 		
 	companyChanged: (evt)->
-		@_contactsView.setElement(@container_contacts).render()
+		# @_contactsView.parent_model = _.first(@companies.where({pub_key: @opportunity.get("company_key")}))
+		# @_contactsView.setElement(@container_contacts).render()
 		
 		

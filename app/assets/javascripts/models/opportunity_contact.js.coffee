@@ -5,11 +5,11 @@ class Quota.Models.OpportunityContact extends Backbone.Model
 	defaults: {
 	}
 	
-	validation:
-		name:
-			required: true
-			msg: "can't be blank"
-	
+	# validation:
+	# 		name:
+	# 			required: true
+	# 			msg: "can't be blank"
+	# 	
 	initialize: ->
 		# @phones = new Quota.Collections.ContactPhones
 		# 		@phones.url = '/api/contacts/' + @id + '/phones'

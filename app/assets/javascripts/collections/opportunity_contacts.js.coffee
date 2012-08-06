@@ -4,4 +4,4 @@ class Quota.Collections.OpportunityContacts extends Backbone.Collection
 	url: '/api/opportunity_contacts'
 	
 	comparator: (c) ->
-	  return c.get("name").toLowerCase()
+		return c.get("contact").name.toLowerCase()

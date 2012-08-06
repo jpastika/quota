@@ -144,7 +144,7 @@ class CompaniesController < ApplicationController
       }
       format.json { 
         @contacts = Contact.find_by_company_key(params[:id])
-        render :json => @contacts
+        render :json => @contacts.to_json(:include => :contact_type)
       }
     end
   end

@@ -6,10 +6,10 @@ class Quota.Views.ShowOpportunity extends Quota.Views.PageBodyBlock
 		self = @
 		_.bindAll(@)
 		@vent = options.vent
-		@contacts = @model.get("contacts")
+		@opportunity_contacts = @model.get("opportunity_contacts")
 		@documents = @model.get("documents")
 		
-		@_contactsView = new Quota.Views.ShowOpportunityContacts({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@contacts, vent: @vent})
+		@_contactsView = new Quota.Views.ShowOpportunityContacts({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@opportunity_contacts, vent: @vent})
 		@_documentsView = new Quota.Views.ShowOpportunityDocuments({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@documents, vent: @vent})
 		
 	render: ->

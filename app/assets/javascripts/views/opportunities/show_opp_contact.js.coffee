@@ -14,7 +14,7 @@ class Quota.Views.ShowOpportunityContact extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({contact:@model.toJSON()}))
+		$(@el).html(@template({opportunity_contact:@model.toJSON()}))
 		if @hideRemove
 			@$('.contact_remove').css('visibility', 'hidden')
 		@
