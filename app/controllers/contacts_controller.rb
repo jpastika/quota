@@ -153,16 +153,5 @@ class ContactsController < ApplicationController
       }
     end
   end
-  
-  def company_contacts
-    respond_to do |format|
-      format.html {
-        @contacts = Contact.where({:account_key => @account_key, :company_key => params[:id]})
-      }
-      format.json { 
-        @contacts = Contact.where({:account_key => @account_key, :company_key => params[:id]})
-        render :json => @contacts
-      }
-    end
-  end
+
 end

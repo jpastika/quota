@@ -15,4 +15,3 @@ class Quota.Views.PageBodyBlock extends Backbone.View
 		@
 		
 	pageBodyClicked: ->
-		console.log "Page Body Clicked"

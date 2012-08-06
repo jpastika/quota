@@ -20,7 +20,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 	render: ->
 		$(@el).html(@template({opportunity:@opportunity}))
 		@container_companies = @$('#companies_select')
-		@container_contacts = @$('#company_contacts')
+		@container_contacts = @$('#company_contacts_container')
 		@loading = @$('.section-loading')
 		@
 		

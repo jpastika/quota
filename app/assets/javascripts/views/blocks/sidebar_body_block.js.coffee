@@ -15,4 +15,3 @@ class Quota.Views.SidebarBodyBlock extends Backbone.View
 		@
 		
 	sidebarBodyClicked: ->
-		console.log "Sidebar Body Clicked"

@@ -10,6 +10,7 @@ Quota::Application.routes.draw do
     resources :urls, :controller => "contact_urls"
     resources :addresses, :controller => "contact_addresses"
   end
+  resources :companies
   resources :contact_phones
   resources :contact_emails
   resources :contact_addresses
@@ -18,6 +19,7 @@ Quota::Application.routes.draw do
   resources :documents
   resources :members
   resources :opportunities
+  resources :opportunity_contacts
   # resources :quotes
   resources :sales_reps
   resources :sessions, only: [:new, :create, :destroy, :choose]
@@ -32,6 +34,7 @@ Quota::Application.routes.draw do
       resources :urls, :controller => "contact_urls"
       resources :addresses, :controller => "contact_addresses"
     end
+    resources :companies
     resources :contact_types
     resources :contact_phones
     resources :contact_emails
@@ -42,6 +45,7 @@ Quota::Application.routes.draw do
     resources :members
     resources :milestones
     resources :opportunities
+    resources :opportunity_contacts
     resources :sales_reps
     resources :users
     
@@ -51,6 +55,7 @@ Quota::Application.routes.draw do
     match '/user', to: 'users#show'
     match '/contacts/:id/phones', to: 'contact_phones#index'
     match '/companies', to: 'contacts#companies'
+    match '/companies/:id/contacts', to: 'companies#contacts'
     
   end
   
