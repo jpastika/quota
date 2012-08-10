@@ -1,3 +1,7 @@
 <td>{{opportunity_contact.contact.name}}</td>
-<td>813-123-1234</td>
-<td>john@doe.com</td>
+<td>{{#each opportunity_contact.contact.phones}}
+  <div>{{name}}: {{val}}</div>
+  {{/each}}</td>
+<td>{{#each opportunity_contact.contact.emails}}
+  <div>{{name}}: {{val}}</div>
+  {{/each}}</td>

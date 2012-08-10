@@ -89,9 +89,28 @@ class ContactsController < ApplicationController
         end
       }
       format.json {
-        @contact = current_user.account.contacts.build(params[:contact])
+        if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
+          @company = current_user.account.contacts.companies(current_user.account).build(name: params[:company_name])
+          @company.save
+          @company_key = @company.pub_key
+        else
+          @company_key = params[:company_key]
+        end
+        
+        @contact = current_user.account.contacts.people(current_user.account).build(name: params[:name], company_key: @company_key)
+        
         # @contact.save
         if @contact.save
+          if (!params[:contact_phone].nil? && params[:contact_phone] != "")
+            @contact_phone = current_user.account.contact_phones.build(contact_key: @contact.pub_key, name: "phone", val: params[:contact_phone])
+            @contact_phone.save
+          end
+          
+          if (!params[:contact_email].nil? && params[:contact_email] != "")
+            @contact_email = current_user.account.contact_emails.build(contact_key: @contact.pub_key, name: "email", val: params[:contact_email])
+            @contact_email.save
+          end
+          
           render :json => @contact.to_json(:include => :contact_type)
         else
           render :json => "false"

@@ -15,8 +15,9 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
+		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		@opportunity = options.parent_model
-		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent})
+		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent})
 		
 		
 	render: ->
@@ -50,11 +51,13 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 	
 	addContactClicked: ->
 		@vent.trigger('add_contact:clicked')
+		@_addContactView.resetAddNewContactForm()
 		@hideAddBtn()
 		@showDoneLink()
 		
 	doneAddContactClicked: ->
 		@vent.trigger('done_add_contact:clicked')
+		@_addContactView.resetAddNewContactForm()
 		@hideDoneLink()
 		@showAddBtn()
 		
@@ -82,13 +85,20 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 			{
 				error: @handleError
 				success: (model) -> 
-					self.collection.add(model)
-					frag = document.createDocumentFragment()
-					frag.appendChild(self.addOne(model).render().el)
-					self.$('tbody').append(frag)
+					self.addCompanyContact_Success(model)
 				# silent: true
 			}
 		)
+		
+	addNewContact_Success: (obj)->
+		@addCompanyContact_Success(obj.model)
+		
+	addCompanyContact_Success: (model)->
+		self = @
+		self.collection.add(model)
+		frag = document.createDocumentFragment()
+		frag.appendChild(self.addOne(model).render().el)
+		self.$('tbody').append(frag)
 	
 	handleError: (attribute, message) ->
 		console.log message
