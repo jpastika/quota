@@ -5,7 +5,7 @@
 		<%= include_gon %>
 		<%= stylesheet_link_tag    "application", media: "all" %>
 		<link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
-		<%= javascript_include_tag "application" %>
+		<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Droid+Sans:400,700' rel='stylesheet' type='text/css'><%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
 		<%= render 'layouts/shim' %>
 	</head>
@@ -13,21 +13,6 @@
 		<%= render 'layouts/header' %>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2">
-					<div class="sidebar-nav">
-						<ul class="nav nav-list">
-							<li><%= link_to raw("<i class=""icon-home""></i> Dashboard"), dashboard_path %></li>
-							<li><%= link_to raw("<i class=""icon-folder-open""></i> Opportunities"), opportunities_path %></li>
-							<li><%= link_to raw("<i class=""icon-user""></i> Contacts"), contacts_path %></li>
-							<li><%= link_to raw("<i class=""icon-calendar""></i> Calendar"), "#" %></li>
-							<li><%= link_to raw("<i class=""icon-book""></i> Catalog"), catalog_items_path %></li>
-						</ul>
-						<ul class="nav nav-list">
-							<li class="divider"></li>
-							<li class="nav-header">Recently Viewed</li>
-						</ul>
-					</div>
-				</div>
 				<%= yield %>
 				<%= yield :sidebar_right %>
 			</div>

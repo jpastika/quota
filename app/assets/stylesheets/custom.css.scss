@@ -1,7 +1,7 @@
 @import "bootstrap";
 body { padding-top: 0px; }
 
-@import "bootstrap-responsive";
+/* @import "bootstrap-responsive"; */
 @import 'font-awesome';
 
 /* mixins, variables, etc. */
@@ -9,6 +9,15 @@ body { padding-top: 0px; }
 $grayMediumLight: #eaeaea;
 $grayMedium: #aaaaaa;
 $grayDark: #333333;
+
+$ss_darkGray: #1E232A;
+$ss_nearBlack: #13161D;
+$ss_nearWhite: #F3F3EE;
+$ss_lightGray: #E7E6E0;
+$ss_limeGreen: #AFD93B;
+$ss_burntOrange: #E3592B;
+$ss_coolBlue: #448AC6;
+$ss_logoGray: #484D4F;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -124,6 +133,9 @@ html {
   overflow-y: scroll;
 }
 
+body{
+	background:$ss_nearWhite;
+}
 
 section {
   overflow: auto;
@@ -138,6 +150,14 @@ textarea {
   h1 {
     margin-bottom: 10px;
   }
+}
+
+.row-fluid [class*="span"]{
+	margin:0px;
+}
+
+.row{
+	margin:0px;
 }
 
 /* typography */
@@ -167,20 +187,122 @@ p {
 
 
 /* header */
+header{
+	background: $ss_darkGray;
+	width:100%;
+}
+
+.navbar{
+  margin-bottom:20px;
+}
+
+.navbar .nav > li > a{
+	font-family: 'Droid Sans',sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	letter-spacing: 0.02em;
+}
+
+.navbar .user-nav > li > a{
+	color: $ss_lightGray;
+	font-size:10px;
+	padding: 4px 30px 3px 10px;
+}
+
+.navbar .user-nav{
+	margin: 10px 0 0 10px;
+}
+
+.navbar .alternate-nav > li > a{
+	color: $ss_burntOrange;
+	padding: 5px 30px 10px 10px;
+}
+
+.navbar .primary-nav{
+	clear:left;
+}
+
+.navbar .primary-nav > li > a{
+	color: $ss_limeGreen;
+	padding: 5px 30px 10px 10px;
+}
+
+.navbar .primary-nav > li:last-child a{
+	padding: 5px 0px 10px 10px;
+}
+
+
+.navbar .navbar-search{
+	margin: 10px 10px 0 0;
+}
+
+
+
 
 #logo {
   float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  padding-top: 9px;
-  font-family: 'Russo One', serif;
+  margin-left: 0px;
+  font-size: 1.6em;
+  color: $ss_logoGray;
+  padding: 8px 10px 7px;
+	font-family: 'Droid Sans', sans-serif;
   line-height: 1;
+  font-weight: normal;
+	text-transform:uppercase;
   &:hover {
-    color: white;
+    color: $ss_nearWhite;
     text-decoration: none;
   }
 }
+
+.navbar .brand{
+	margin-left:0px;
+}
+
+.navbar .brand a{
+	padding:0;
+}
+
+
+.header-left{
+	background: $ss_darkGray;
+}
+
+.header-right{
+	background: $ss_nearBlack;
+	width:250px;
+}
+
+.navbar .primary-nav > li.primary-nav-current > a,
+.navbar .alternate-nav > li.alternate-nav-current > a{
+	position:relative;
+	
+}
+
+.navbar .primary-nav > li.primary-nav-current > a:before,
+.navbar .primary-nav > li.primary-nav-current > a:after,
+.navbar .alternate-nav > li.alternate-nav-current > a:before,
+.navbar .alternate-nav > li.alternate-nav-current > a:after{
+            content:"";
+            display:block;
+            width:0.7em; /* Let's call this our magic number... */
+            height:0.7em; /* ...our notch will be half this size. We define it in ems to scale it up with the text size. */
+            position:absolute;
+            bottom:0;
+            left:50%;
+            margin-left:-1.0em; /* Half of our magic number. */
+        }
+
+
+.navbar .primary-nav > li.primary-nav-current a:after,
+.navbar .alternate-nav > li.alternate-nav-current a:after{
+	width:0;
+	height:0;
+	border:0.35em solid $ss_darkGray; /* Half of our magic number and same colours as our nav's background. */
+	border-bottom-color:$ss_nearWhite;
+}
+
+
 
 /* footer */
 
@@ -373,8 +495,9 @@ label.required{
 
 
 .parent-page {
-	border: 1px solid #ccc;
+	border: 1px solid $ss_lightGray;
 	padding: 10px;
+	background:#fff;
 }
 
 .parent-page h3 {
@@ -383,7 +506,7 @@ label.required{
 
 .child-page {
 	background: none repeat scroll 0 0 #FFFFFF;
-	border: 1px solid #ccc;
+	border: 1px solid $ss_lightGray;
 	margin-bottom: -30px;
 	margin-right: -20px;
 	padding: 10px;
