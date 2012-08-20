@@ -6,7 +6,7 @@
 					<% if signed_in? %>
 						<li id="member-menu" class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<%= current_user.name || current_user.email %>
+								<%= current_user.name || current_user.email %> <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><%= link_to "Profile", current_user %></li>
@@ -24,7 +24,7 @@
 			</div>
 			<div class="">
 				<ul class="nav alternate-nav">
-					<li class="alternate-nav-current"><%= link_to raw("Help"), "#" %></li>
+					<li><%= link_to raw("Help"), "#" %></li>
 					<li id="admin-menu" class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							Administration
@@ -46,7 +46,7 @@
 			</div>
 			<div class="">
 				<ul class="nav primary-nav">
-					<li class="primary-nav-current"><%= link_to raw("Opportunities"), opportunities_path %></li>
+					<li class="current"><%= link_to raw("Opportunities"), opportunities_path %></li>
 					<li><%= link_to raw("Templates"), "#" %></li>
 					<li><%= link_to raw("Contacts"), contacts_path %></li>
 					<li><%= link_to raw("Catalog"), catalog_items_path %></li>

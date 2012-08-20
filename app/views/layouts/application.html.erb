@@ -11,12 +11,7 @@
 	</head>
 	<body>
 		<%= render 'layouts/header' %>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<%= yield %>
-				<%= yield :sidebar_right %>
-			</div>
-		</div>
+		<%= yield %>
 		<%= render 'layouts/footer' %>
 		
 		<script language="javascript">

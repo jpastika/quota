@@ -1,43 +1,36 @@
 <% provide(:title, "Update Opportunity") %>
-<div class="span10">
-	<div class="row-fluid">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %> fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= value %>
-		    </div>
-		<% end %>
+<div class="body row">
+	<div class="body-right pull-right">
+		<span class="btn btn-primary">Save</span>
 	</div>
-	<div class="parent-page">
-		<div class="row-fluid">
-			<%= simple_form_for(@opportunity, :url => opportunity_path(@opportunity.pub_key)) do |f| %>
-				<div class="row-fluid">
-					<% if f.error_notification %>
-					    <div class="alert alert-error fade in">
-					      <a class="close" data-dismiss="alert" href="#">&times;</a>
-					      <%= f.error_notification %>
-					    </div>
-					<% end %>
-				</div>
-				<div id="opportunity">
-				</div>
-				<%= f.button :submit, "Update Opportunity", class: "btn btn-large btn-primary" %>	
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
 			<% end %>
 		</div>
+		<div class="parent-page">
+			<div class="">
+				<%= simple_form_for(@opportunity, :url => opportunity_path(@opportunity.pub_key)) do |f| %>
+					<div class="">
+						<% if f.error_notification %>
+						    <div class="alert alert-error fade in">
+						      <a class="close" data-dismiss="alert" href="#">&times;</a>
+						      <%= f.error_notification %>
+						    </div>
+						<% end %>
+					</div>
+					<div id="opportunity">
+					</div>
+					<%= f.button :submit, "Update Opportunity", class: "btn btn-large btn-primary" %>	
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>
-<% content_for :sidebar_right do %>
-<div class="span2">
-	<div>
-		<div class="row-fluid">
-			<span class="btn btn-primary">Save</span>
-		</div>
-		<div class="row-fluid">
-			
-		</div>
-	</div>
-</div>
-<% end %>
 
 <script language="javascript">
 	$(function(){
