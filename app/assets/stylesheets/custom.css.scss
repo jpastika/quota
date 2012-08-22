@@ -18,6 +18,9 @@ $ss_limeGreen: #AFD93B;
 $ss_burntOrange: #E3592B;
 $ss_coolBlue: #448AC6;
 $ss_logoGray: #484D4F;
+$ss_khakiGray: #D2D0C3;
+$ss_mediumGray: #A2A19C;
+
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -137,10 +140,6 @@ body{
 	background:$ss_nearWhite;
 }
 
-html, body 
-{ 
-    height: 100%; 
-}
 
 section {
   overflow: auto;
@@ -211,7 +210,7 @@ header{
 .navbar .user-nav > li > a{
 	color: $ss_lightGray;
 	font-size:10px;
-	padding: 4px 30px 3px 10px;
+	padding: 4px 40px 3px 0px;
 }
 
 
@@ -221,12 +220,12 @@ header{
 }
 
 .navbar .user-nav{
-	margin: 10px 0 0 10px;
+	margin: 10px 0 0 0px;
 }
 
 .navbar .alternate-nav > li > a{
 	color: $ss_burntOrange;
-	padding: 5px 30px 10px 10px;
+	padding: 5px 40px 10px 0px;
 }
 
 .navbar .primary-nav{
@@ -235,11 +234,11 @@ header{
 
 .navbar .primary-nav > li > a{
 	color: $ss_limeGreen;
-	padding: 5px 30px 10px 10px;
+	padding: 5px 40px 10px 0px;
 }
 
 .navbar .primary-nav > li:last-child a{
-	padding: 5px 0px 10px 10px;
+	padding: 5px 0px 10px 0px;
 }
 
 
@@ -302,7 +301,7 @@ header{
             position:absolute;
             bottom:0;
             left:50%;
-            margin-left:-1.0em; /* Half of our magic number. */
+            margin-left:-1.7em; /* Half of our magic number. */
         }
 
 
@@ -312,6 +311,19 @@ header{
 	border:0.35em solid $ss_darkGray; /* Half of our magic number and same colours as our nav's background. */
 	border-bottom-color:$ss_nearWhite;
 }
+
+.navbar .user-nav,
+.navbar .alternate-nav{
+	padding-left:20px;
+	padding-right:10px;
+}
+
+.navbar .primary-nav{
+	padding-left:10px;
+	padding-right:20px;
+}
+
+
 
 .navbar .alternate-nav > li.current a:after{
 	width:0;
@@ -324,22 +336,20 @@ header{
 /* body */
 
 .body{
-	background: $ss_nearWhite;
+	background: $ss_lightGray;
 	width:100%;
-	display:block;
-	height: 100%;
 }
 
 .body-left{
 	background: $ss_nearWhite;
 	margin-right:250px;
+	/* padding:20px; */
 }
 
 .body-right{
 	background: $ss_lightGray;
-	width:250px;
-	bottom: 0;
-	height: 100%;
+	width:210px;
+	padding:20px;
 }
 
 
@@ -498,6 +508,42 @@ label.required{
 }
 
 /* page body */
+
+.page-title{
+	margin:0 20px 20px;
+	color:$ss_nearBlack;
+	border-bottom:1px solid $ss_khakiGray;
+	font-size:18px;
+	text-align:right;
+	padding:20px 0 5px 0;
+}
+
+.page-title-container .return-nav{
+	margin:0 20px 20px;
+	color:$ss_mediumGray;
+	font-size:11px;
+	text-align:left;
+	padding:20px 0 5px 0;
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.page-title-container .return-nav a{
+	color:$ss_mediumGray;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+
+.page-title-container .return-nav i{
+	color:$ss_mediumGray;
+	background: $ss_nearWhite;
+	font-size: 23px;
+	margin-top: 6px;
+	padding: 0 8px 0 0;
+	vertical-align: middle;
+}
+
+
 .nav-body{
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #333;
