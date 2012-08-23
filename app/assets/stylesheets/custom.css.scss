@@ -322,7 +322,7 @@ header{
 
 .navbar .user-nav,
 .navbar .alternate-nav{
-	padding-left:20px;
+	padding-left:10px;
 	padding-right:10px;
 }
 
@@ -356,8 +356,8 @@ header{
 
 .body-right{
 	background: $ss_lightGray;
-	width:210px;
-	padding:20px;
+	width:230px;
+	padding:10px;
 }
 
 
@@ -397,6 +397,19 @@ footer {
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
+}
+
+
+.btn{
+	@include round-corners(0);
+	font-family: 'Droid Sans', sans-serif;
+	border:none;
+}
+
+.btn.btn-primary{
+	background: $ss_nearBlack;
+	padding:6px 10px;
+	border-bottom:2px solid $ss_mediumGray;
 }
 
 
@@ -524,6 +537,7 @@ label.required{
 	font-size:18px;
 	text-align:right;
 	padding:20px 0 5px 0;
+	text-shadow: 1px 1px 1px $ss_khakiGray;
 }
 
 .page-title-container .return-nav{

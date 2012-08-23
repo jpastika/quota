@@ -1,54 +1,70 @@
 <% provide(:title, "Opportunity - #{@opportunity.name}") %>
-<div class="span10">
-	<div class="row-fluid">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %> fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= value %>
-		    </div>
-		<% end %>
-	</div>
-	<div id="main_body_container" class="row-fluid">
-	</div>
-</div>
-
-<div class="span2">
-	<div class="row-fluid">
-		<%= link_to "Edit this opportunity", edit_opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
-	</div>
-	<div id="sidebar_app_fields_container"class="row-fluid">
-		<div class="show-field">
-			<span class="show-label">Current Milestone</span>
-			<br>
-			<span class="show-value"><%= @opportunity.milestone.name %></span>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="">
+			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Edit this opportunity"), edit_opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
 		</div>
-		<div class="show-field">
-			<span class="show-label">Owner</span>
-			<br>
-			<span class="show-value"><%= @opportunity.owner.name %></span>
+		<div id="sidebar_app_fields_container"class="">
+			<div class="show-field">
+				<span class="show-label">Current Milestone</span>
+				<br>
+				<span class="show-value"><%= @opportunity.milestone.name %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Customer</span>
+				<br>
+				<span class="show-value"><%= @opportunity.company.name %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Owner</span>
+				<br>
+				<span class="show-value"><%= @opportunity.owner.name %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Estimated Value</span>
+				<br>
+				<span class="show-value">$<%= @opportunity.estimated_value %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Estimated Close Date</span>
+				<br>
+				<span class="show-value"><%= @opportunity.estimated_close %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Actual Close Date</span>
+				<br>
+				<span class="show-value"><%= @opportunity.actual_close %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Description</span>
+				<br>
+				<span class="show-value"><%= @opportunity.description %></span>
+			</div>
 		</div>
-		<div class="show-field">
-			<span class="show-label">Estimated Value</span>
-			<br>
-			<span class="show-value">$<%= @opportunity.estimated_value %></span>
-		</div>
-		<div class="show-field">
-			<span class="show-label">Estimated Close Date</span>
-			<br>
-			<span class="show-value"><%= @opportunity.estimated_close %></span>
-		</div>
-		<div class="show-field">
-			<span class="show-label">Actual Close Date</span>
-			<br>
-			<span class="show-value"><%= @opportunity.actual_close %></span>
-		</div>
-		<div class="show-field">
-			<span class="show-label">Description</span>
-			<br>
-			<span class="show-value"><%= @opportunity.description %></span>
+		<div id="sidebar_body_container" class="">
 		</div>
 	</div>
-	<div id="sidebar_body_container" class="row-fluid">
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunities"), opportunities_path %>
+			</div>
+			<div class="page-title">
+				<%= @opportunity.name %>
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body_container" class="">
+			</div>
+		</div>
 	</div>
 </div>
 

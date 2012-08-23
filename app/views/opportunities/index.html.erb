@@ -1,23 +1,27 @@
 <% provide(:title, "Opportunities") %>
-<div class="span10">
-	<div class="row-fluid">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %> fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= value %>
-		    </div>
-		<% end %>
+<div class="body">
+	<div class="body-right pull-right">
+		<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
 	</div>
-	<div class="row-fluid">
-		<div id="main_body"></div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="page-title">
+				Opportunities
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body"></div>
+		</div>
 	</div>
 </div>
-
-
-<div class="span2">
-	<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
-</div>
-
 
 
 <script language="javascript">
