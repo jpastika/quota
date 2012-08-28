@@ -1,7 +1,11 @@
 <% provide(:title, "Update Opportunity") %>
 <div class="body">
 	<div class="body-right pull-right">
-		<%= link_to raw("<i class=""icon-save""></i>&nbsp;&nbsp;Save changes"), opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-save""></i>&nbsp;&nbsp;Save changes"), opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+		</div>
 	</div>
 	<div class="body-left">
 		<div class="">

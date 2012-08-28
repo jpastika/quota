@@ -1,7 +1,9 @@
 <% provide(:title, "Opportunities") %>
 <div class="body">
 	<div class="body-right pull-right">
-		<%= link_to 'Add opportunity', new_opportunity_path, :class => 'btn btn-primary' %>
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new opportunity"), new_opportunity_path, :class => 'btn btn-primary' %>
+		</div>
 	</div>
 	<div class="body-left">
 		<div class="">

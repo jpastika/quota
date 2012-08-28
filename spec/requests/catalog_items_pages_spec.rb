@@ -4,12 +4,12 @@ describe "Catalog Item Pages" do
   
   subject { page }
   
-  let(:member){ FactoryGirl.create(:member) }
-  before {sign_in member}
+  let(:user){ FactoryGirl.create(:user) }
+  before {sign_in user}
   
   describe "index" do
     before do
-      FactoryGirl.create(:catalog_item, account: member.account)
+      FactoryGirl.create(:catalog_item, account: user.account)
       visit catalog_items_path
     end
     

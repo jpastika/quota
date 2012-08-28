@@ -35,21 +35,21 @@ FactoryGirl.define do
   
   factory :opportunity do
     sequence(:name)  { |n| "Opportunity #{n}" }
-    created_by { FactoryGirl.create(:user) }
-    owner { FactoryGirl.create(:user) }
+    creator_key { FactoryGirl.create(:user).pub_key }
+    owner_key { FactoryGirl.create(:user).pub_key }
     account
   end
   
   factory :document do
     sequence(:name)  { |n| "Document #{n}" }
-    created_by { FactoryGirl.create(:user) }
+    creator_key { FactoryGirl.create(:user).pub_key }
     opportunity
     account
   end
   
   factory :document_type do
     sequence(:name)  { |n| "Quote" }
-    created_by { FactoryGirl.create(:user) }
+    # created_by { FactoryGirl.create(:user) }
     account
   end
   
@@ -72,11 +72,11 @@ FactoryGirl.define do
     account
     
     factory :person do
-      contact_type { FactoryGirl.create(:contact_type_person) }
+      contact_type_key { FactoryGirl.create(:contact_type_person).pub_key }
     end
     
     factory :company do
-      contact_type { FactoryGirl.create(:contact_type_company) }
+      contact_type_key { FactoryGirl.create(:contact_type_company).pub_key }
     end
   end
   

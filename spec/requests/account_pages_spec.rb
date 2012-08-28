@@ -24,9 +24,9 @@ describe "Account pages" do
         expect { click_button submit }.not_to change(User, :count)
       end
       
-      it "should not create an member" do
-        expect { click_button submit }.not_to change(Member, :count)
-      end
+      # it "should not create an member" do
+      #         expect { click_button submit }.not_to change(Member, :count)
+      #       end
     end
     
     describe "with valid information" do
@@ -46,9 +46,9 @@ describe "Account pages" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
       
-      it "should create a member" do
-        expect { click_button submit }.to change(Member, :count).by(1)
-      end
+      # it "should create a member" do
+      #         expect { click_button submit }.to change(Member, :count).by(1)
+      #       end
     end
   end
 end

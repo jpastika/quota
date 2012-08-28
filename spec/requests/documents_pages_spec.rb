@@ -3,20 +3,20 @@ require 'spec_helper'
 describe "Document Pages" do
   subject { page }
   
-  let(:member){ FactoryGirl.create(:member) }
-  let(:opportunity){FactoryGirl.create(:opportunity, account: member.account)}
+  let(:user){ FactoryGirl.create(:user) }
+  let(:opportunity){FactoryGirl.create(:opportunity, account: user.account)}
   
   before do
-    sign_in member
+    sign_in user
     visit opportunity_path(opportunity.pub_key)
   end
   
   describe "new" do
-    before do
-      click_link "Quote"
-    end
-    
-    it { should have_selector('h3', text: opportunity.name) }
+    # before do
+    #       click_link "Quote"
+    #     end
+    #     
+    #     it { should have_selector('h3', text: opportunity.name) }
     # describe "when delete link is clicked" do
     #       
     #       it "should delete an opportunity" do

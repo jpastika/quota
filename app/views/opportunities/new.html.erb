@@ -1,38 +1,53 @@
 <% provide(:title, "Add Opportunity") %>
-<div class="span10">
-	<div class="row-fluid">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %> fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= value %>
-		    </div>
-		<% end %>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+		</div>
 	</div>
-	<div class="parent-page">
-		<div class="row-fluid">
-			<%= simple_form_for(@opportunity) do |f| %>
-				<div class="row-fluid">
-					<% if f.error_notification %>
-					    <div class="alert alert-error fade in">
-					      <a class="close" data-dismiss="alert" href="#">&times;</a>
-					      <%= f.error_notification %>
-					    </div>
-					<% end %>
-				</div>
-				<div id="opportunity">
-				</div>
-				<%= f.button :submit, "Create Opportunity", class: "btn btn-large btn-primary" %>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
 			<% end %>
 		</div>
-	</div>
-</div>
-<div class="span2">
-	<div>
-		<div class="row-fluid">
-			<span class="btn btn-primary">Save</span>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunities"), opportunities_path %>
+			</div>
+			<div class="page-title">
+				Create a New Opportunity
+			</div>
 		</div>
-		<div class="row-fluid">
-			
+		<div class="process-steps-container">
+			<dl class="process-steps">
+				<dt class="current">1</dt>
+				<dd class="current">Fill-in opportunity details</dd>
+				<dt class="">2</dt>
+				<dd>Add opportunity components</dd>
+			</dl>
+		</div>
+		<div class="parent-page">
+			<div class="">
+				<%= simple_form_for(@opportunity) do |f| %>
+					<div class="row-fluid">
+						<% if f.error_notification %>
+						    <div class="alert alert-error fade in">
+						      <a class="close" data-dismiss="alert" href="#">&times;</a>
+						      <%= f.error_notification %>
+						    </div>
+						<% end %>
+					</div>
+					<div id="opportunity">
+					</div>
+					<%= f.button :submit, "Create Opportunity", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>

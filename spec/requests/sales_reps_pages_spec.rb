@@ -4,7 +4,7 @@ describe "Sales Reps Pages" do
   
   subject { page }
   
-  before {sign_in FactoryGirl.create(:member)}
+  before {sign_in FactoryGirl.create(:user)}
   
   describe "index" do
     before { visit sales_reps_path }

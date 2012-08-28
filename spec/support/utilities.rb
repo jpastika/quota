@@ -1,11 +1,11 @@
 include ApplicationHelper
 
 
-def sign_in(member)
+def sign_in(user)
   visit signin_path
-  fill_in "Email",    with: member.user.email
-  fill_in "Password", with: member.user.password
+  fill_in "Email",    with: user.email
+  fill_in "Password", with: user.password
   click_button "Sign in"
   # Sign in when not using Capybara as well.
-  cookies[:remember_token] = member.remember_token
+  cookies[:remember_token] = user.remember_token
 end

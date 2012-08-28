@@ -1,8 +1,8 @@
 <% provide(:title, "Opportunity - #{@opportunity.name}") %>
 <div class="body">
 	<div class="body-right pull-right">
-		<div class="">
-			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Edit this opportunity"), edit_opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change opportunity details"), edit_opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
 		</div>
 		<div id="sidebar_app_fields_container"class="">
 			<div class="show-field">
