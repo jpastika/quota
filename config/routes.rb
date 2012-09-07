@@ -67,6 +67,8 @@ Quota::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   
+  match '/map_test', to: 'static_pages#map_test'
+  match '/bridge', to: 'static_pages#bridge'
   
   root to: 'static_pages#home'
   

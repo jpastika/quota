@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Load the AJAX API-->
+	<style type="text/css" >
+		path {
+			stroke: #000 !important;
+		}
+	</style>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript">
+	var data;
+	var geochart;
+	var options;
+	var view;
+
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1', {'packages':['geochart']});
+
+	// Set a callback to run when the Google Visualization API is loaded.
+	google.setOnLoadCallback(drawVisualization);
+
+	// Callback that creates and populates a data table,
+	// instantiates the pie chart, passes in the data and
+	// draws it.
+	function drawVisualization() {
+		data = new google.visualization.DataTable();
+		
+		// data = google.visualization.arrayToDataTable([
+		// 			['Latitude', 'Longitude', '', 'Dealers'],
+		// 			[45.828799,-101.660163,'The Americas',30],
+		// 			[61.773123,43.535149,'Europe',10],
+		// 			[11.867351,25.605462,'Africa',5],
+		// 			[39.095963,99.433587,'Asia',4],
+		// 			[-24.527135,134.941399,'Australia',3]]);
+			
+			// data = google.visualization.arrayToDataTable([
+			// 			['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+			// 			[45.828799,-101.660163,'The Americas',30, 2, 1],
+			// 			[61.773123,43.535149,'Europe',10, 3, 1],
+			// 			[11.867351,25.605462,'Africa',5, 4, 1],
+			// 			[39.095963,99.433587,'Asia',4, 5, 1],
+			// 			[-24.527135,134.941399,'Australia',3, 6, 1]]);
+			// 
+			// 
+		// var formatter = new google.visualization.PatternFormat(null);
+		// 		formatter.format(data, [0,1,2], 2);
+		
+		// var formatter = new google.visualization.PatternFormat("{0}");
+		// 		formatter.format(data, [1], 0);
+		// 		
+		// var formatter = new google.visualization.PatternFormat("{0}");
+		// 		formatter.format(data, [2], 0);
+		// 								
+		// 		var formatter = new google.visualization.PatternFormat(null);
+		// 		formatter.format(data, [2], 2);
+		// 		
+		// 		var formatter = new google.visualization.PatternFormat(null);
+		// 		formatter.format(data, [1]);
+		
+		// view = new google.visualization.DataView(data);
+		// 		view.setColumns([0, 1, 2, 3]);
+		// 		
+		// var formatter = new google.visualization.PatternFormat(null);  
+		// 		formatter.format(data, [2], 2);
+
+		
+		options = {
+			width: 800, 
+			height: 600,
+			displayMode: 'markers',
+			region: 'world', 
+			resolution: 'continents',
+			backgroundColor: {fill: '#1e232a'},
+			datalessRegionColor: '#292e35',
+			colorAxis: {colors:['#22b0f2', '#22b0f2'], minValue: 1, maxValue: 999999999},
+			sizeAxis: {minSize: 10,  maxSize: 10},
+			legend: 'none'
+		};
+		
+		
+
+		geochart = new google.visualization.GeoChart(document.getElementById('chartArea'));
+		google.visualization.events.addListener(geochart, 'select', handleMarkerClick);
+		google.visualization.events.addListener(geochart, 'ready', formatChart);
+		// google.visualization.events.addListener(geochart, 'regionClick', handleRegionClick);
+		// geochart.draw(view, options);
+		drawChart(1);
+		
+		
+	}
+	
+	function formatChart(){
+		//$('#chartArea').toggle();
+		$('#chartArea').find('iframe').contents().find('path').attr('stroke', '#484c52').attr('fill', '#292e35');
+		// 		$('#chartArea').toggle();
+		//var svg = $('#chartArea').svg('get');
+		// var svg = loadSVG($('#chartArea').val());
+		// console.log(svg);
+		// $('#chartArea', svg.root()).attr('stroke', '#000');
+		//console.log($("*[stroke]", svg.root()).length);
+		// $('#chartArea path').attr('stroke', '#000');
+	}
+	
+	function handleMarkerClick(){
+		var mapregion = data.getValue(geochart.getSelection()[0].row, data.getNumberOfColumns()-2);
+		// switch(data.getValue(geochart.getSelection()[0].row, 4)){
+		// 			case 1:
+		// 				drawChart(1);
+		// 				break;
+		// 			case 2:
+		// 				drawChart(2);
+		// 				break;
+		// 			case 3:
+		// 				drawChart(3);
+		// 				break;
+		// 			case 4:
+		// 				drawChart(4);
+		// 				break;
+		// 			case 5:
+		// 				drawChart(5);
+		// 				break;
+		// 			case 6:
+		// 				drawChart(6);
+		// 			case 7:
+		// 				drawChart(7);
+		// 				break;
+		// 		}
+		drawChart(mapregion);
+	}
+	
+	function drawChart(region){
+		setChartOptions(region);
+		setChartData(region);
+		geochart.draw(view, options);
+	}
+	
+	function setChartOptions(region){
+		var mapregion;
+		var mapresolution;
+		var mapdisplaymode;
+		
+		switch(region){
+			case 1:
+				mapregion = 'world';
+				mapresolution = 'continents';
+				mapdisplaymode = 'markers';
+				break;
+			case 2:
+				//Americas
+				mapregion = '019';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 3:
+				//Europe
+				mapregion = '150';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 4:
+				//Africa
+				mapregion = '002';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 5:
+				//Asia
+				mapregion = '142';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 6:
+				//Australia
+				mapregion = '009';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 7:
+				//North America
+				mapregion = '021';
+				mapresolution = 'countries';
+				mapdisplaymode = 'markers';
+				break;
+			case 8:
+				//Caribbean
+				mapregion = '029';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 9:
+				//Central America
+				mapregion = '013';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+			case 10:
+				//South America
+				mapregion = '005';
+				mapresolution = 'subcontinents';
+				mapdisplaymode = 'markers';
+				break;
+		}
+		
+		options['region'] = mapregion;
+		options['resolution'] = mapresolution;
+		options['displayMode'] = mapresolution;
+	}
+	
+	function setChartData(region){
+		switch(region){
+			case 1:
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',50, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 2:
+				//Americas
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[49.15297,-99.902351,'North America',35, 7, 2],
+					[25.165173,-73.183601,'Caribbean',10, 8, 2],
+					[10.141932,-84.785163,'Central America',5, 9, 2],
+					[-15.284185,-58.066413,'South America',8, 10, 2]]);
+				break;
+			case 3:
+				//Europe
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 4:
+				//Africa
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 5:
+				//Asia
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 6:
+				//Australia
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 7:
+				//North America
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[56.559482,-104.121101,'Canada',4, 11, 7],
+					[40.979898,-102.363288,'United States',30, 12, 7],
+					[22.268764,-102.714851,'Mexico',1, 13, 7]]);
+				break;
+			case 8:
+				//Caribbean
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 9:
+				//Central America
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+			case 10:
+				//South America
+				data = google.visualization.arrayToDataTable([
+					['Latitude', 'Longitude', '', 'Dealers', 'RegionID', 'ParentRegionID'],
+					[45.828799,-101.660163,'The Americas',30, 2, 1],
+					[61.773123,43.535149,'Europe',10, 3, 1],
+					[11.867351,25.605462,'Africa',5, 4, 1],
+					[39.095963,99.433587,'Asia',4, 5, 1],
+					[-24.527135,134.941399,'Australia',3, 6, 1]]);
+				break;
+		}
+		
+		
+			
+		view = new google.visualization.DataView(data);
+		view.setColumns([0, 1, 2, 3]);
+	}
+	
+	
+	
+	
+	function handleRegionClick(){
+		console.log(eventData.Region);
+	}
+    </script>
+  </head>
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chartArea"></div>
+	<div id="chartArea2"></div>
+  </body>
+</html>
