@@ -1,5 +1,5 @@
 class Opportunity < ActiveRecord::Base
-  attr_accessible :estimated_close, :estimated_value, :estimated_value_interval, :actual_close, :milestone_key, :name, :owner_key, :probability, :creator_key, :account_key, :company_key, :company, :description
+  attr_accessible :estimated_close, :estimated_value, :estimated_value_interval, :actual_close, :milestone_key, :name, :owner_key, :probability, :creator_key, :account_key, :company_key, :company, :description, :actual_cancel, :is_sold, :is_cancelled, :is_disabled
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :owner, :class_name => "User", :primary_key => "pub_key", :foreign_key => "owner_key"

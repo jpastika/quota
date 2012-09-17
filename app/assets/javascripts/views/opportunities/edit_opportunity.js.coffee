@@ -2,9 +2,10 @@ class Quota.Views.EditOpportunity extends Backbone.View
 
 	template: HandlebarsTemplates['opportunities/edit_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events:
-		"blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
-		"blur #opportunity_actual_close_dp": "checkActualCloseDate"
+	# events:
+	# 		"blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
+	# 		"blur #opportunity_actual_close_dp": "checkActualCloseDate"
+	# 		"blur #opportunity_actual_cancel_dp": "checkActualCancelDate"
 		
 	initialize: (options)->
 		self = @
@@ -29,8 +30,12 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		@vent.on('milestone:changed', @milestoneChanged, @)
 		@vent.on('company_name:changed', @companyNameChanged, @)
 		@vent.on('opportunity:rendered', @rendered, @)
+		@vent.on('estimated_close_date:blur', @checkEstimatedCloseDate, @)
+		@vent.on('actual_close_date:blur', @checkActualCloseDate, @)
+		@vent.on('actual_cancel_date:blur', @checkActualCancelDate, @)
 		
 	render: ->
+		self = @
 		$(@el).html(@template({opportunity:@model.toJSON()}))
 		
 		@opportunity_name = @$('.opportunity_name')
@@ -47,11 +52,12 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		@input_opportunity_actual_close = @$('.opportunity_actual_close input')
 		@container_milestones = @$('#milestones')
 		@container_users = @$('#users')
-		
-		
+		 		
+		@opportunity_estimated_close_datepicker_button = @$(".opportunity_estimated_close .icon-calendar")
+		@opportunity_actual_close_datepicker_button = @$(".opportunity_actual_close .icon-calendar")
+		@opportunity_actual_cancel_datepicker_button = @$(".opportunity_actual_cancel .icon-calendar")
 		
 		@_milestonesView.setElement(@container_milestones).render()
-		# @container_milestones.html(@_milestonesView.render().el)
 		
 		@container_users.html(@_usersView.render().el)
 		
@@ -75,6 +81,13 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		
 		@$(".opportunity_estimated_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")	
 		
+		@opportunity_estimated_close_datepicker_button.on(
+			"click"
+			() -> self.$(".opportunity_estimated_close .datepicker").datepicker("show")
+		)
+		
+		# self.$(".opportunity_estimated_close .datepicker").datepicker("show")
+		
 		@opportunity_actual_close_datepicker = @$(".opportunity_actual_close .datepicker")
 			.datepicker
 				altFormat: "yy-mm-dd"
@@ -83,14 +96,145 @@ class Quota.Views.EditOpportunity extends Backbone.View
 				showAnim: ""
 		
 		@$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+	
+		@opportunity_actual_close_datepicker_button.on(
+			"click"
+			() -> self.$(".opportunity_actual_close .datepicker").datepicker("show")
+		)
+		
+		@opportunity_actual_cancel_datepicker = @$(".opportunity_actual_cancel .datepicker")
+			.datepicker
+				altFormat: "yy-mm-dd"
+				dateFormat: "yy-mm-dd"
+				altField: @$(".opportunity_actual_cancel .altfield")
+				showAnim: ""
+		
+		@$(".opportunity_actual_cancel .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+		
+		@opportunity_actual_cancel_datepicker_button.on(
+			"click"
+			() -> self.$(".opportunity_actual_cancel .datepicker").datepicker("show")
+		)
 		
 		@input_opportunity_estimated_value_interval.val(@model.get("estimated_value_interval"))
 		@input_opportunity_owner_key.val(@model.get("owner_key"))
 		
 		@vent.trigger("opportunity:rendered")
 		@
+		
+	setup: ->
+		self = @
+		@opportunity_name = $('.opportunity_name')
+		@opportunity_company_name = $('.company_name')
+		@input_opportunity_name = $('.opportunity_name input')
+		@input_opportunity_company_name = $('.company_name input')
+		@input_opportunity_company_key = $('.company_key')
+		@input_opportunity_milestone_key = $('.opportunity_milestone_key input')
+		@input_opportunity_probability = $('.opportunity_probability input')
+		@input_opportunity_estimated_close = $('.opportunity_estimated_close input')
+		@input_opportunity_estimated_value = $('.opportunity_estimated_value input').first()
+		@input_opportunity_estimated_value_interval = $('.opportunity_estimated_close select')
+		@input_opportunity_owner_key = $('.opportunity_owner_key select')
+		@input_opportunity_actual_close = $('.opportunity_actual_close input')
+		@container_milestones = $('#milestones')
+		@container_users = $('#users')
+		
+		@opportunity_estimated_close_datepicker_button = $(".opportunity_estimated_close .icon-calendar")
+		@opportunity_actual_close_datepicker_button = $(".opportunity_actual_close .icon-calendar")
+		@opportunity_actual_cancel_datepicker_button = $(".opportunity_actual_cancel .icon-calendar")
+		
+		@_milestonesView.setElement(@container_milestones).render()
+		
+		@container_users.html(@_usersView.render().el)
+		
+		company_name_field_name = @input_opportunity_company_name.attr('name')
+		company_name_field_id = @input_opportunity_company_name.attr('id')
+		
+		@_companyComboView.setElement(@opportunity_company_name).render()
+		# @opportunity_company_name.html(@_companySelectView.render().el)
+		
+		@input_opportunity_company_name = $('.company_name input')
+		
+		@input_opportunity_company_name.attr('name', company_name_field_name)
+		@input_opportunity_company_name.attr('id', company_name_field_id)
+		
+		@opportunity_estimated_close_datepicker = $(".opportunity_estimated_close .datepicker")
+			.datepicker
+				dateFormat: "yy-mm-dd"
+				altFormat: "yy-mm-dd"
+				altField: $(".opportunity_estimated_close .altfield")
+				showAnim: ""
+		
+		$(".opportunity_estimated_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+		$(".opportunity_estimated_close .datepicker").on(
+			"blur"
+			() -> self.vent.trigger("estimated_close_date:blur")
+		)
+		# $(".opportunity_estimated_close .datepicker").on(
+		# 			"blur"
+		# 			self.vent.trigger("estimated_close_date:blur")
+		# 		)
+		
+		@opportunity_estimated_close_datepicker_button.on(
+			"click"
+			() -> $(".opportunity_estimated_close .datepicker").datepicker("show")
+		)
+		
+		# self.$(".opportunity_estimated_close .datepicker").datepicker("show")
+		
+		@opportunity_actual_close_datepicker = $(".opportunity_actual_close .datepicker")
+			.datepicker
+				altFormat: "yy-mm-dd"
+				dateFormat: "yy-mm-dd"
+				altField: $(".opportunity_actual_close .altfield")
+				showAnim: ""
+		
+		$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+		$(".opportunity_actual_close .datepicker").on(
+			"blur"
+			() -> self.vent.trigger("actual_close_date:blur")
+		)
+		
+		
+		@opportunity_actual_close_datepicker_button.on(
+			"click"
+			() -> $(".opportunity_actual_close .datepicker").datepicker("show")
+		)
+		
+		@opportunity_actual_cancel_datepicker = $(".opportunity_actual_cancel .datepicker")
+			.datepicker
+				altFormat: "yy-mm-dd"
+				dateFormat: "yy-mm-dd"
+				altField: $(".opportunity_actual_cancel .altfield")
+				showAnim: ""
+		
+		$(".opportunity_actual_cancel .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
+		$(".opportunity_actual_cancel .datepicker").on(
+			"blur"
+			() -> self.vent.trigger("actual_cancel_date:blur")
+		)
+		# $(".opportunity_actual_cancel .datepicker").on(
+		# 			"blur"
+		# 			self.vent.trigger("actual_cancel_date:blur")
+		# 		)
+		
+		@opportunity_actual_cancel_datepicker_button.on(
+			"click"
+			() -> $(".opportunity_actual_cancel .datepicker").datepicker("show")
+		)
+		
+		@input_opportunity_estimated_value_interval.val(@model.get("estimated_value_interval"))
+		@input_opportunity_owner_key.val(@model.get("owner_key"))
+		
+		@vent.trigger("opportunity:rendered")
+		
 	
 	rendered: ->
+		# self = @
+		# 		$(".opportunity_estimated_close .datepicker").on(
+		# 			"blur"
+		# 			() -> self.vent.trigger("estimated_close_date:blurred")
+		# 		)
 		# $('input[placeholder]').placeholder()
 		# 		$('textarea[placeholder]').placeholder()
 		
@@ -101,11 +245,15 @@ class Quota.Views.EditOpportunity extends Backbone.View
 	
 	checkEstimatedCloseDate: ->
 		if @opportunity_estimated_close_datepicker.val() == ""
-			@$(".opportunity_estimated_close .altfield").val("")
+			$(".opportunity_estimated_close .altfield").val("")
 	
 	checkActualCloseDate: ->
 		if @opportunity_actual_close_datepicker.val() == ""
-			@$(".opportunity_actual_close .altfield").val("")
+			$(".opportunity_actual_close .altfield").attr("value", "")
+			
+	checkActualCancelDate: ->
+		if @opportunity_actual_cancel_datepicker.val() == ""
+			$(".opportunity_actual_cancel .altfield").val("")
 		
 	save: ->
 		# self = @

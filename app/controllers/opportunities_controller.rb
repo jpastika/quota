@@ -55,6 +55,16 @@ class OpportunitiesController < ApplicationController
   end
   
   def create
+    # handle is_sold checkbox
+    if params[:opportunity][:is_sold] != "true"
+      params[:opportunity][:is_sold] = false
+    end
+    
+    # handle is_cancelled checkbox
+    if params[:opportunity][:is_cancelled] != "true"
+      params[:opportunity][:is_cancelled] = false
+    end
+    
     @opportunity = current_user.created_opportunities.build(params[:opportunity])
     @opportunity.account = current_user.account
     @opportunity.owner = current_user
@@ -71,7 +81,7 @@ class OpportunitiesController < ApplicationController
         current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
       end
       
-      flash[:success] = "Item created!"
+      flash[:success] = "Opportunity has been created"
       redirect_to opportunity_path(@opportunity.pub_key)
     else
       @account_key = @current_user.account_key
@@ -107,6 +117,16 @@ class OpportunitiesController < ApplicationController
   def update
     @opportunity = Opportunity.find_by_pub_key(params[:id])
     
+    # handle is_sold checkbox
+    if params[:opportunity][:is_sold] != "true"
+      params[:opportunity][:is_sold] = false
+    end
+    
+    # handle is_cancelled checkbox
+    if params[:opportunity][:is_cancelled] != "true"
+      params[:opportunity][:is_cancelled] = false
+    end
+    
     if @opportunity.update_attributes(params[:opportunity])
       if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
         @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
@@ -118,7 +138,7 @@ class OpportunitiesController < ApplicationController
               current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
             end
             
-            flash[:success] = "Opportunity updated"
+            flash[:success] = "Opportunity has been updated"
             redirect_to opportunity_path(@opportunity.pub_key)
           end
         end
@@ -127,7 +147,7 @@ class OpportunitiesController < ApplicationController
           current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
         end
         
-        flash[:success] = "Opportunity updated"
+        flash[:success] = "Opportunity has been updated"
         redirect_to opportunity_path(@opportunity.pub_key)
       end
     else

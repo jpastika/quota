@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806132241) do
+ActiveRecord::Schema.define(:version => 20120912135347) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -301,8 +301,8 @@ ActiveRecord::Schema.define(:version => 20120806132241) do
     t.string   "milestone_key"
     t.float    "probability"
     t.string   "owner_key"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "account_key"
     t.string   "pub_key"
     t.string   "creator_key"
@@ -311,6 +311,10 @@ ActiveRecord::Schema.define(:version => 20120806132241) do
     t.date     "actual_close"
     t.string   "estimated_value_interval"
     t.text     "description"
+    t.boolean  "is_cancelled",             :default => false
+    t.boolean  "is_sold",                  :default => false
+    t.date     "actual_cancel"
+    t.boolean  "is_disabled",              :default => false
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"

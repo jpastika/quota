@@ -1,8 +1,9 @@
 <% provide(:title, "Update Opportunity") %>
+<% provide(:css, raw("<link href='/assets/pages/opportunity.css' rel='stylesheet' type='text/css'>")) %>
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
-			<%= link_to raw("<i class=""icon-save""></i>&nbsp;&nbsp;Save changes"), opportunity_path(@opportunity.pub_key), :class => 'btn btn-primary' %>
+			
 		</div>
 		<div id="sidebar_app_fields_container"class="">
 		</div>
@@ -21,7 +22,7 @@
 				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunity"), opportunity_path(@opportunity.pub_key) %>
 			</div>
 			<div class="page-title">
-				<%= @opportunity.name %>
+				<span class="label label-info">Editing</span> <%= @opportunity.name %>
 			</div>
 		</div>
 		<div class="parent-page">
@@ -31,13 +32,18 @@
 						<% if f.error_notification %>
 						    <div class="alert alert-error fade in">
 						      <a class="close" data-dismiss="alert" href="#">&times;</a>
-						      <%= f.error_notification %>
+						      <%= f.error_notificationation %>
 						    </div>
 						<% end %>
 					</div>
 					<div id="opportunity">
+						<%= render 'form' %>
 					</div>
-					<%= f.button :submit, "Update Opportunity", class: "btn btn-large btn-primary" %>	
+					<div class="actions-bar">
+						<button type="submit" class="btn btn-primary">
+						  <i class="icon-save"></i>&nbsp;&nbsp;Save Changes to Opportunity Details
+						</button>
+					</div>	
 				<% end %>
 			</div>
 		</div>
@@ -50,7 +56,7 @@
 		this.companies = new Quota.Collections.Companies(gon.companies);
 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.users = new Quota.Collections.Users(gon.users);
-	
+		
 		if(gon.opportunity){
 			this.opportunity = new Quota.Models.Opportunity(gon.opportunity);
 		}
@@ -62,7 +68,8 @@
 		window.vent = _.extend({}, Backbone.Events);
 	
 		var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});
-		$('#opportunity').html(view_opportunity.render().el);
+		view_opportunity.setup();
+		// $('#opportunity').html(view_opportunity.render().el);
 	});	
 	
 	$.fn.placeholder();
