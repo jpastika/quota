@@ -62,10 +62,10 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@showAddBtn()
 		
 	hideAddBtn: ->
-		@$('.section-heading .btn').toggle(false)
+		@$('.actions-bar-left .btn').first().toggle(false)
 		
 	showAddBtn: ->
-		@$('.section-heading .btn').toggle(true)
+		@$('.actions-bar-left .btn').first().toggle(true)
 		
 	hideDoneLink: ->
 		@$('.cancel-link').toggle(false)

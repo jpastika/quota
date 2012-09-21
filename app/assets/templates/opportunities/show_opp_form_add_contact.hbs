@@ -1,38 +1,47 @@
-<div class="row-fluid">
-<span class="span6">
-<h3>Select Contacts</h3>
-<div class="controls add_contact_company_key" id="companies_select"></div>
-<div class="" id="company_contacts_container"></div>
-</span>
-<span class="span6">
-<h3>Add a New Contact</h3>
-<div class="control-group string required">
-	<label class="string required control-label" for="contact_name">Name</label>
-	<div class="controls contact_name">
-		<input type="text" class="string required span5" name="contact[name]" size="30" value="">
+<div class="row-fluid section-container">
+	<div class="span6">
+		<h3>Select Contacts</h3>
+		<label class="string control-label" for="contact_name">Company Name</label>
+		<div class="controls add_contact_company_key" id="companies_select"></div>
+		<label class="string control-label" for="contact_name">Contacts</label>
+		<div class="" id="company_contacts_container"></div>
 	</div>
-</div>
-<div class="control-group">
-	<label for="company_name" class="string control-label">Company</label>
-	<div class="controls company_name">
-		<input type="text" value="" name="contact[company_name]" id="contact_company_name" class="string span5">
+	<div class="content-column-divider">
+		<div class="label-container">
+			<span>OR</span>
+		</div>
 	</div>
-</div>
-<div class="control-group string">
-	<label class="string control-label" for="contact_phone">Phone</label>
-	<div class="controls contact_phone">
-		<input type="text" class="string span5" name="contact[phone]" size="20" value="">
+	<div class="span5">
+		<h3>Add a New Contact</h3>
+		<div class="control-group string required">
+			<label class="string required control-label" for="contact_name">Name</label>
+			<div class="controls contact_name">
+				<input type="text" class="string required input-large" name="contact[name]" size="30" value="">
+			</div>
+		</div>
+		<div class="control-group string">
+			<label for="company_name" class="string control-label">Company</label>
+			<div class="controls company_name">
+				<input type="text" value="" name="contact[company_name]" id="contact_company_name" class="string input-large">
+			</div>
+		</div>
+		<div class="control-group string">
+			<label class="string control-label" for="contact_phone">Phone</label>
+			<div class="controls contact_phone">
+				<input type="text" class="string input-medium" name="contact[phone]" size="20" value="">
+			</div>
+		</div>
+		<div class="control-group string">
+			<label class="string control-label" for="contact_email">Email</label>
+			<div class="controls contact_email">
+				<input type="text" class="string input-medium" name="contact[email]" size="30" value="">
+			</div>
+		</div>
+		<div class="actions-bar-left">
+			<button type="submit" class="btn btn-primary">
+			  <i class="icon-plus"></i>&nbsp;&nbsp;Add Contact
+			</button>
+		</div>
+		<input type="hidden" value="" name="contact[company_key]" id="contact_company_key" class="company_key">
 	</div>
-</div>
-<div class="control-group string">
-	<label class="string control-label" for="contact_email">Email</label>
-	<div class="controls contact_email">
-		<input type="text" class="string span5" name="contact[email]" size="30" value="">
-	</div>
-</div>
-<input type="hidden" value="" name="contact[company_key]" id="contact_company_key" class="company_key">
-<div class="form-actions">
-    <button type="submit" class="btn btn-primary">Add contact</button>
-</div>
-</span>
 </div>

@@ -23,9 +23,11 @@ $ss_lightGray: #E7E6E0;
 $ss_limeGreen: #AFD93B;
 $ss_burntOrange: #E3592B;
 $ss_coolBlue: #448AC6;
+$ss_brightBlue: #22b0f2;
 $ss_logoGray: #484D4F;
 $ss_khakiGray: #D2D0C3;
 $ss_mediumGray: #A2A19C;
+$ss_orange: #f28322;
 
 
 @mixin box_sizing {
@@ -259,7 +261,7 @@ header{
 }
 
 .navbar .alternate-nav > li > a{
-	color: $ss_burntOrange;
+	color: $ss_coolBlue;
 	padding: 5px 40px 10px 0px;
 }
 
@@ -268,7 +270,7 @@ header{
 }
 
 .navbar .primary-nav > li > a{
-	color: $ss_limeGreen;
+	color: $ss_orange;
 	padding: 5px 40px 10px 0px;
 }
 
@@ -380,13 +382,36 @@ header{
 }
 
 .content-column-divider {
-	background: none repeat scroll 0 0 $ss_khakiGray;
-	float: left;
-	margin: 0 30px;
-	text-indent: -14px;
-	width: 1px;
-	height: 300px;
-	
+/* 	background: none repeat scroll 0 0 $ss_khakiGray; */
+/* 	float: left; */
+/* 	margin: 0 30px; */
+/* 	text-indent: -14px; */
+/* 	width: 1px; */
+/* 	height: 100%; */
+/* 	display:block; */
+
+	border-left: 1px solid $ss_khakiGray;
+	height: 92%;
+	left: 45%;
+	position: absolute;
+	top: 4%;
+}
+
+.content-column-divider .label-container {
+  color: #999999;
+  font-weight: 900;
+  line-height: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.content-column-divider .label-container {
+  background: none repeat scroll 0 0 #fff;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  position: absolute;
+  top: 50%;
+  width: 30px;
 }
 
 .content-column-divider-no-line {
@@ -399,13 +424,7 @@ header{
 	
 }
 
-.content-column-divider span {
-	background: none repeat scroll 0 0 #FFFFFF;
-	padding: 5px 5px;
-	position: relative;
-	top: 50%;
-	color: $ss_khakiGray;
-}
+
 
 
 /* footer */
@@ -432,6 +451,11 @@ header{
 	background: $ss_nearBlack;
 	padding:6px 10px;
 	border-bottom:2px solid $ss_mediumGray;
+}
+
+.btn.btn-mini{
+	padding:3px 6px;
+	margin-bottom:1px;
 }
 
 
@@ -581,11 +605,16 @@ label.required{
 
 
 .actions-bar{
-	background:#e7e6e0;
+	background:$ss_lightGray;
 	padding:10px;
 	text-align:right;
 }
 
+.actions-bar-left{
+	background:$ss_lightGray;
+	padding:10px;
+	text-align:left;
+}
 
 
 .control-group #probability{
@@ -694,6 +723,19 @@ label.required{
 
 .section-content{
 	margin-bottom:50px;
+}
+
+.section-container{
+	display: table;
+	overflow:hidden;
+	height:100%;
+}
+
+.section-form{
+	background: none repeat scroll 0 0 #fff;
+	border: 1px solid $ss_lightGray;
+	padding: 10px;
+	position: relative;
 }
 
 

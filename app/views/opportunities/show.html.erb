@@ -63,6 +63,12 @@
 		</div>
 		<div class="parent-page">
 			<div id="main_body_container" class="">
+				<div>
+					<div id="contacts_container">
+					</div>
+					<div id="documents_container">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -103,7 +109,8 @@
 		// console.log($.parseJSON(gon.opportunity).milestone);
 	
 		var page_body_view = new Quota.Views.ShowOpportunity({model: this.opportunity, vent: vent});
-		$('#main_body_container').html(page_body_view.render().el);
+		page_body_view.setup();
+		// $('#main_body_container').html(page_body_view.render().el);
 		
 		var sidebar_body_view = new Quota.Views.ShowOpportunitySidebar({model: this.opportunity, vent: vent});
 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
