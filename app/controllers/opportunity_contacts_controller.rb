@@ -73,24 +73,24 @@ class OpportunityContactsController < ApplicationController
   end
   
   def destroy
-    # respond_to do |format|
-    #       format.html {
-    #         @contact_phone = ContactPhone.find_by_pub_key(params[:id])
-    #         if @contact_phone.destroy
-    #           flash[:success] = "Contact Phone updated"
-    #           redirect_to contacts_path
-    #         else
-    #           render 'edit'
-    #         end
-    #       }
-    #       format.json {
-    #         @contact_phone = ContactPhone.find_by_pub_key(params[:id])      
-    #         if @contact_phone.destroy
-    #           render :json => @contact_phone
-    #         else
-    #           render :json => "false"
-    #         end
-    #       }
-    #     end
+    respond_to do |format|
+      # format.html {
+      #         @opportunity_contact = OpportunityContact.find_by_pub_key(params[:id])
+      #         if @opportunity_contact.destroy
+      #           flash[:success] = "Contact removed"
+      #           redirect_to opportunities_path
+      #         else
+      #           render 'edit'
+      #         end
+      #       }
+      format.json {
+        @opportunity_contact = OpportunityContact.find_by_pub_key(params[:id])      
+        if @opportunity_contact.destroy
+          render :json => @opportunity_contact
+        else
+          render :json => "false"
+        end
+      }
+    end
   end
 end

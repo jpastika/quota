@@ -20,14 +20,14 @@ class Quota.Views.ShowOpportunityContact extends Backbone.View
 		@
 		
 	destroy: (evt) ->
-		@toggle()
+		$(@el).toggle()
 		# @model.trigger('removing', {view: @})
 		@model.remove()
 		
 	hideRemove: () ->
 		@hideRemove = true
-		$(@el).find('.contact_method_remove').css('visibility', 'hidden')
+		$(@el).find('.contact_remove').css('visibility', 'hidden')
 		
 	showRemove: () ->
 		@hideRemove = false
-		$(@el).find('.contact_method_remove').css('visibility', '')
+		$(@el).find('.contact_remove').css('visibility', '')

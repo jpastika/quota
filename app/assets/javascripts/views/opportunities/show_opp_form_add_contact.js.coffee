@@ -3,7 +3,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 	template: HandlebarsTemplates['opportunities/show_opp_form_add_contact'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .form-actions button": "clickAddNewContact"
+		"click .actions-bar-left button": "clickAddNewContact"
 		
 	initialize: (options)->
 		self = @

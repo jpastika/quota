@@ -4,7 +4,7 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 	template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .btn": "addContactClicked"
+		"click .actions-bar-left>.btn": "addContactClicked"
 		"click .cancel-link": "doneAddContactClicked"
 	
 	initialize: (options)->
