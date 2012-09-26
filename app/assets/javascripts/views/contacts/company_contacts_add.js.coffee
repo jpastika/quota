@@ -19,6 +19,8 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 		@contacts.on('reset', @contactsReset, @)
 		@contacts.fetch()
 		@include_company = options.include_company
+		@selected_contacts = options.selected_contacts
+		
 		# console.log @contacts.at[0].get("name")
 		# @parent_model = options.parent_model
 		# 		@parent_child_key = options.parent_child_key
@@ -27,12 +29,12 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 		
 	render: ->
 		$(@el).html(@template({}))
-		if @include_company && @parent_model
+		if @include_company && @parent_model && @selected_contacts.where({contact_key: @parent_model.get("pub_key")}).length == 0
 			frag = document.createDocumentFragment()
-			frag.appendChild(@addCompany(@parent_model).render().el)
+			frag.appendChild(@addOne(@parent_model).render().el)
 			@$('#company_contacts').append(frag)
 		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @contacts.models
+		frag.appendChild(@addOne(item).render().el) for item in @contacts.models when @selected_contacts.where({contact_key: item.get("pub_key")}).length == 0
 		@$('#company_contacts').append(frag)
 		@
 	
@@ -49,12 +51,10 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 		@_contactViews.push(view)
 		view
 		
-	addCompany: (item)->
-		view = new Quota.Views.CompanyContactAdd({model: item, vent: @vent})
-		@_contactViews.push(view)
-		
-		console.log 
-		view
+	# addCompany: (item)->
+	# 		view = new Quota.Views.CompanyContactAdd({model: item, vent: @vent})
+	# 		@_contactViews.push(view)
+	# 		view
 	
 	addCompanyContact: (obj)->
 		view = _.find(@_contactViews, (view) -> view.model == obj.contact)

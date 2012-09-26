@@ -17,8 +17,8 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		@opportunity = options.parent_model
-		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent})
-		
+		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@companies = options.companies
 		
 	render: ->
 		$(@el).html(@template({}))
@@ -35,7 +35,10 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, vent: @vent})
+		if item.get("contact").company_key
+			view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, company: _.first(@companies.where(pub_key: item.get("contact").company_key)), vent: @vent})
+		else
+			view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, vent: @vent})
 		@_contactViews.push(view)
 		view
 

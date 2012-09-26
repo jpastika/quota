@@ -406,7 +406,7 @@ header{
 }
 
 .content-column-divider .label-container {
-  background: none repeat scroll 0 0 #fff;
+  background: none repeat scroll 0 0 $ss_nearWhite;
   height: 30px;
   margin: -15px 0 0 -15px;
   position: absolute;
@@ -732,7 +732,7 @@ label.required{
 }
 
 .section-form{
-	background: none repeat scroll 0 0 #fff;
+	background: none repeat scroll 0 0 $ss_nearWhite;
 	border: 1px solid $ss_lightGray;
 	padding: 10px;
 	position: relative;

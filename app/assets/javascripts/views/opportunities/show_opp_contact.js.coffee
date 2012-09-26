@@ -9,12 +9,17 @@ class Quota.Views.ShowOpportunityContact extends Backbone.View
 		self = @
 		_.bindAll(@)
 		@contact = options.contact
+		@company = if options.company then options.company else null
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({opportunity_contact:@model.toJSON()}))
+		if @company
+			comp = @company.toJSON()
+		else
+			comp = null
+		$(@el).html(@template({opportunity_contact:@model.toJSON(), opportunity_contact_company: comp}))
 		if @hideRemove
 			@$('.contact_remove').css('visibility', 'hidden')
 		@

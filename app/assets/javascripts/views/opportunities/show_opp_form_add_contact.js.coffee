@@ -18,8 +18,10 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		@vent.on('company_name:changed', @companyNameChanged, @)
 		
 		@opportunity = options.parent_model
+		@opportunity_contacts = options.parent_collection
+		
 		@_companiesView = new Quota.Views.CompanySelect({parent_model:@opportunity, parent_child_key: @opportunity.get("company_key"), collection:@companies, field_name:"add_contact[company_key]", vent: @vent})
-		@_contactsView = new Quota.Views.CompanyContactsAdd({parent_child_key: @opportunity.get("company_key"), vent: @vent, include_company:true})
+		@_contactsView = new Quota.Views.CompanyContactsAdd({parent_child_key: @opportunity.get("company_key"), vent: @vent, include_company:true, selected_contacts:@opportunity_contacts})
 		
 		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@opportunity, collection:@companies, source: "name", val: "pub_key", className: 'string span5', vent: @vent})
 		
@@ -126,7 +128,6 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		)
 		
 	resetAddNewContactForm: ->
-		console.log @input_contact_company_name
 		@input_contact_name.val('')
 		@input_contact_company_name.val('')
 		@input_contact_company_key.val('')
