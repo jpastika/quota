@@ -5,7 +5,7 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 	
 	events:
 		"click .actions-bar-left>.btn": "addContactClicked"
-		"click .cancel-link": "doneAddContactClicked"
+		"click .form-cancel": "doneAddContactClicked"
 	
 	initialize: (options)->
 		_.bindAll(@)
@@ -71,10 +71,10 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@$('.actions-bar-left .btn').first().toggle(true)
 		
 	hideDoneLink: ->
-		@$('.cancel-link').toggle(false)
+		@$('.form-cancel').toggle(false)
 
 	showDoneLink: ->
-		@$('.cancel-link').toggle(true)
+		@$('.form-cancel').toggle(true)
 		
 	addCompanyContact: (obj)->
 		self = @

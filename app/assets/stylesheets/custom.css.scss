@@ -28,6 +28,8 @@ $ss_logoGray: #484D4F;
 $ss_khakiGray: #D2D0C3;
 $ss_mediumGray: #A2A19C;
 $ss_orange: #f28322;
+$ss_dangerRed: #a30000;
+$ss_successGreen: #7fa517;
 
 
 @mixin box_sizing {
@@ -391,10 +393,9 @@ header{
 /* 	display:block; */
 
 	border-left: 1px solid $ss_khakiGray;
-	height: 92%;
+	height: 94%;
 	left: 45%;
 	position: absolute;
-	top: 4%;
 }
 
 .content-column-divider .label-container {
@@ -450,8 +451,21 @@ header{
 .btn.btn-primary{
 	background: $ss_nearBlack;
 	padding:6px 10px;
-	border-bottom:2px solid $ss_mediumGray;
+	border-bottom:0px solid $ss_mediumGray;
 }
+
+.btn.btn-danger{
+	background: $ss_dangerRed;
+	padding:4px 8px;
+	border-bottom:0px solid $ss_mediumGray;
+}
+
+.btn.btn-success{
+	background: $ss_successGreen;
+	padding:4px 8px;
+	border-bottom:0px solid $ss_mediumGray;
+}
+
 
 .btn.btn-mini{
 	padding:3px 6px;
