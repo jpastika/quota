@@ -1,0 +1,931 @@
+@import "bootstrap";
+body { padding-top: 0px; }
+
+
+/* PIE */
+/* position:relative; */
+/* behavior: url(/assets/PIE.htc); */
+
+
+/* @import "bootstrap-responsive"; */
+@import 'font-awesome';
+
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+$grayMedium: #aaaaaa;
+$grayDark: #333333;
+
+$ss_darkGray: #1E232A;
+$ss_nearBlack: #13161D;
+$ss_nearWhite: #F3F3EE;
+$ss_lightGray: #E7E6E0;
+$ss_limeGreen: #AFD93B;
+$ss_burntOrange: #E3592B;
+$ss_coolBlue: #448AC6;
+$ss_brightBlue: #22b0f2;
+$ss_logoGray: #484D4F;
+$ss_khakiGray: #D2D0C3;
+$ss_mediumGray: #A2A19C;
+$ss_orange: #f28322;
+$ss_dangerRed: #a30000;
+$ss_successGreen: #7fa517;
+
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+@mixin drop-shadow($color: #333333) {
+  -moz-box-shadow: 0px 1px 2px $color;
+  -webkit-box-shadow: 0px 1px 2px $color;
+  box-shadow: 0px 1px 2px $color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color');
+}
+
+@mixin shadow($color: #333333) {
+  -moz-box-shadow: 0px 0px 2px $color;
+  -webkit-box-shadow: 0px 0px 2px $color;
+  box-shadow: 0px 0px 2px $color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='$color');
+}
+
+@mixin inner-shadow($color: #333333) {
+  -moz-box-shadow: inset 0px 0px 2px $color;
+  -webkit-box-shadow: inset 0px 0px 2px $color;
+  box-shadow: inset 0px 0px 2px $color;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=-90, Color='$color')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=-90, Color='$color');
+}
+
+@mixin full-inner-shadow($a, $b, $c, $color: #333333) {
+  -moz-box-shadow: inset $a $b $c $color;
+  -webkit-box-shadow: inset $a $b $c $color;
+  box-shadow: inset $a $b $c $color;
+}
+
+@mixin no-inner-shadow() {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -ms-filter: none;
+  filter: none;
+}
+
+@mixin full-shadow($a, $b, $c, $rgb_r, $rgb_g, $rgb_b, $rgb_a, $dir){
+	-moz-box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+	-webkit-box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+	box-shadow: $a $b $c rgba($rgb_r, $rgb_g, $rgb_b, $rgb_a) $dir;
+}
+
+@mixin inherit-inner-shadow() {
+  -moz-box-shadow: inherit;
+  -webkit-box-shadow: inherit;
+  box-shadow: inherit;
+  -ms-filter: inherit;
+  filter: inherit;
+}
+
+$default_rounded_amount: 5px;
+// Round corner at position by amount.
+@mixin round-corner($position, $amount: $default_rounded_amount){
+  border-#{$position}-radius: $amount;
+  -webkit-border-#{$position}-radius: $amount;
+}
+
+@mixin round-corner-mozilla($position, $amount: $default_rounded_amount){
+  -moz-border-radius-#{$position}: $amount;
+}
+
+// Round left corners by amount
+@mixin round-left-corners($amount: $default_rounded_amount){
+  @include round-corner("top-left", $amount);
+  @include round-corner("bottom-left", $amount);
+  @include round-corner-mozilla("topleft", $amount);
+  @include round-corner-mozilla("bottomleft", $amount);
+}
+
+// Round right corners by amount
+@mixin round-right-corners($amount: $default_rounded_amount){
+  @include round-corner("top-right", $amount);
+  @include round-corner("bottom-right", $amount);
+  @include round-corner-mozilla("topright", $amount);
+  @include round-corner-mozilla("bottomright", $amount);
+}
+
+// Round top corners by amount
+@mixin round-top-corners($amount: 5px){
+  @include round-corner("top-left", $amount);
+  @include round-corner("top-right", $amount);
+  @include round-corner-mozilla("topleft", $amount);
+  @include round-corner-mozilla("topright", $amount);
+}
+
+// Round bottom corners by amount
+@mixin round-bottom-corners($amount: $default_rounded_amount){
+  @include round-corner("bottom-left", $amount);
+  @include round-corner("bottom-right", $amount);
+  @include round-corner-mozilla("bottomleft", $amount);
+  @include round-corner-mozilla("bottomright", $amount);
+}
+
+// Round all corners by amount
+@mixin round-corners($amount: $default_rounded_amount){
+  border-radius: $amount;
+  -moz-border-radius: $amount;
+  -webkit-border-radius: $amount;
+}
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body{
+	background:$ss_nearWhite;
+}
+
+label{
+	color: $ss_mediumGray;
+	font-family: 'Droid Sans',sans-serif;
+	font-size:13px;
+}
+
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.alert {
+  border-radius: 0;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 8px 35px 8px 14px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+ 
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+.row-fluid [class*="span"]{
+	margin:0px;
+}
+
+.row{
+	margin:0px;
+}
+
+[class*="span"] {
+  float: left;
+  margin-left: 0px;
+}
+
+.offset1 {
+    margin-left: 180px;
+}
+
+
+.offset2 {
+    margin-left: 180px;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 2.5em;
+  letter-spacing: -2px;
+  
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+
+/* header */
+header{
+	background: $ss_darkGray;
+	width:100%;
+}
+
+.navbar{
+  margin-bottom:0px;
+}
+
+.navbar .nav > li > a{
+	font-family: 'Droid Sans',sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	letter-spacing: 0.02em;
+}
+
+.navbar .user-nav > li > a{
+	color: $ss_lightGray;
+	font-size:10px;
+	padding: 4px 40px 3px 0px;
+}
+
+
+.navbar .user-nav > li > a > b.caret{
+	opacity: 0.6;
+	margin-left: 8px;
+}
+
+.navbar .user-nav{
+	margin: 10px 0 0 0px;
+}
+
+.navbar .alternate-nav > li > a{
+	color: $ss_coolBlue;
+	padding: 5px 40px 10px 0px;
+}
+
+.navbar .primary-nav{
+	clear:left;
+}
+
+.navbar .primary-nav > li > a{
+	color: $ss_orange;
+	padding: 5px 40px 10px 0px;
+}
+
+.navbar .primary-nav > li:last-child a{
+	padding: 5px 0px 10px 0px;
+}
+
+
+.navbar .navbar-search{
+	margin: 10px 20px 0 0;
+}
+
+
+
+
+#logo {
+  float: left;
+  margin-left: 0px;
+  font-size: 1.6em;
+  color: $ss_logoGray;
+  padding: 8px 10px 7px;
+	font-family: 'Droid Sans', sans-serif;
+  line-height: 1;
+  font-weight: normal;
+	text-transform:uppercase;
+  &:hover {
+    color: $ss_nearWhite;
+    text-decoration: none;
+  }
+}
+
+.header-left{
+	background: $ss_darkGray;
+	margin-right:250px;
+}
+
+.header-right{
+	background: $ss_nearBlack;
+	width:250px;
+}
+
+.navbar .primary-nav > li.current > a,
+.navbar .alternate-nav > li.current > a{
+	position:relative;
+	
+}
+
+.navbar .primary-nav > li.current > a:before,
+.navbar .primary-nav > li.current > a:after,
+.navbar .alternate-nav > li.current > a:before,
+.navbar .alternate-nav > li.current > a:after{
+	content:"";
+	display:block;
+	width:0.7em; /* Let's call this our magic number... */
+	height:0.7em; /* ...our notch will be half this size. We define it in ems to scale it up with the text size. */
+	position:absolute;
+	bottom:0;
+	left:50%;
+	margin-left:-1.7em; /* Half of our magic number. */
+}
+
+
+.navbar .primary-nav > li.current a:after{
+	width:0;
+	height:0;
+	border:0.35em solid $ss_darkGray; /* Half of our magic number and same colours as our nav's background. */
+	border-bottom-color:$ss_nearWhite;
+}
+
+.navbar .user-nav,
+.navbar .alternate-nav{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.navbar .primary-nav{
+	padding-left:10px;
+	padding-right:20px;
+}
+
+.navbar .alternate-nav > li.current a:after{
+	width:0;
+	height:0;
+	border:0.35em solid $ss_nearBlack; /* Half of our magic number and same colours as our nav's background. */
+	border-bottom-color:$ss_lightGray;
+}
+
+
+/* body */
+
+.body{
+	background: $ss_lightGray;
+	width:100%;
+}
+
+.body-left{
+	background: $ss_nearWhite;
+	margin-right:250px;
+}
+
+.body-right{
+	background: $ss_lightGray;
+	width:230px;
+	padding:10px;
+}
+
+.body-right .action-buttons-container{
+	margin-bottom: 20px;
+}
+
+.content-column-divider {
+/* 	background: none repeat scroll 0 0 $ss_khakiGray; */
+/* 	float: left; */
+/* 	margin: 0 30px; */
+/* 	text-indent: -14px; */
+/* 	width: 1px; */
+/* 	height: 100%; */
+/* 	display:block; */
+
+	border-left: 1px solid $ss_khakiGray;
+	height: 94%;
+	left: 45%;
+	position: absolute;
+}
+
+.content-column-divider .label-container {
+  color: #999999;
+  font-weight: 900;
+  line-height: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.content-column-divider .label-container {
+  background: none repeat scroll 0 0 $ss_nearWhite;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  position: absolute;
+  top: 50%;
+  width: 30px;
+}
+
+.content-column-divider-no-line {
+	background: none;
+	float: left;
+	margin: 0 30px;
+	text-indent: -14px;
+	width: 1px;
+	height: 300px;
+	
+}
+
+
+
+
+/* footer */
+
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+
+.btn{
+	@include round-corners(0);
+	font-family: 'Droid Sans', sans-serif;
+	border:none;
+}
+
+.btn.btn-primary{
+	background: $ss_nearBlack;
+	padding:6px 10px;
+	border-bottom:0px solid $ss_mediumGray;
+}
+
+.btn.btn-danger{
+	background: $ss_dangerRed;
+	padding:4px 8px;
+	border-bottom:0px solid $ss_mediumGray;
+}
+
+.btn.btn-success{
+	background: $ss_successGreen;
+	padding:4px 8px;
+	border-bottom:0px solid $ss_mediumGray;
+}
+
+
+.btn.btn-mini{
+	padding:3px 6px;
+	margin-bottom:1px;
+}
+
+
+.process-steps-container{
+	clear:both;
+}
+
+.process-steps-container .process-steps{
+	list-style: none outside none;
+	font-family: 'Droid Sans', sans-serif;
+	color: $ss_mediumGray;
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0 20px 20px;
+}
+
+.process-steps-container .process-steps dt{
+	display: inline-block;
+	width:55px;
+	height:55px;
+	text-align:center;
+	background: url("step_circle.png");
+	font-size: 18px;
+	font-weight: normal;
+	line-height:53px;
+}
+
+.process-steps-container .process-steps dd{
+	display: inline-block;
+	vertical-align:abs_middle;
+	margin-left:0px;
+	padding:2px 30px 2px 0px;
+	/* background: $white;
+	border-top:1px solid $ss_khakiGray;
+	border-bottom:1px solid $ss_khakiGray; */
+}
+
+.process-steps-container .process-steps .current{
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: normal;
+	color: $ss_nearBlack;
+}
+
+.process-steps-container .process-steps dt.current{
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: normal;
+	color: $ss_nearBlack;
+	background: url("current_step_circle.png");
+}
+
+
+/* forms */
+form{
+	margin-bottom:0px;
+}
+
+
+.control-group{
+	margin-bottom:0px;
+}
+
+.controls{
+	margin-bottom:5px;
+}
+
+input, textarea, .uneditable-input, {
+  border: 1px solid #A2A19C;
+  width: 100%;
+  padding: 5px;
+  height: auto;
+  margin-bottom: 15px;
+  @include box_sizing;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+input, textarea, select{
+	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
+}
+
+select {
+  border: 1px solid #A2A19C;
+  width: 100%;
+  padding: 3px;
+  margin-bottom: 15px;
+  @include box_sizing;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.checkbox input[type="checkbox"] {
+  float:none;
+  padding: 5px;
+  height: auto;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+ }
+
+label.required{
+	font-weight:bold;
+}
+
+.input-min{
+	width:60px;
+}
+
+.input-prepend, .input-append{
+	margin-bottom:15px;
+}
+
+.input-append input{
+	display:inline-block;
+}
+
+.input-append .add-on{
+	height: 16px;
+	line-height: 18px;
+	min-width: 16px;
+	padding: 5px;
+	margin-left:-4px;
+	color:#555;
+}
+
+.input-prepend .add-on{
+	height: 16px;
+	line-height: 18px;
+	min-width: 16px;
+	padding: 4px 5px 5px;
+	margin-right:-4px;
+	color:#555;
+}
+
+
+.actions-bar{
+	background:$ss_lightGray;
+	padding:10px;
+	text-align:right;
+}
+
+.actions-bar-left{
+	background:$ss_lightGray;
+	padding:10px;
+	text-align:left;
+}
+
+
+.control-group #probability{
+	margin-left:-25px;
+}
+
+/* nav */
+.navbar-inner{
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.nav .nav-header {
+  color: #999999;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 3px 15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+
+.cancel-link{
+	font-size:11px;
+	color:#FF0000;
+	font-weight:normal;
+	text-decoration:none;
+}
+
+/* page body */
+
+.page-title{
+	margin:0 20px 20px;
+	color:$ss_nearBlack;
+	border-bottom:1px solid $ss_khakiGray;
+	font-size:18px;
+	text-align:right;
+	padding:20px 0 5px 0;
+	text-shadow: 1px 1px 0px $ss_khakiGray;
+}
+
+.page-title .label{
+	top: -3px;
+	position:relative;
+}
+
+.page-title-container .return-nav{
+	margin:0 20px 20px;
+	color:$ss_mediumGray;
+	font-size:11px;
+	text-align:left;
+	padding:20px 0 5px 0;
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.page-title-container .return-nav a{
+	color:$ss_mediumGray;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+
+.page-title-container .return-nav i{
+	color:$ss_mediumGray;
+	background: $ss_nearWhite;
+	font-size: 23px;
+	margin-top: 6px;
+	padding: 0 8px 0 0;
+	vertical-align: middle;
+}
+
+
+.nav-body{
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
+	margin: 10px 0 10px 0;
+	padding: 0 0 0 0;
+}
+
+.nav-body ul{
+  list-style: none outside none;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.show-field{
+	margin-bottom:20px;
+	line-height:1.5em;
+}
+
+.show-field .show-label{
+	font-weight:normal;
+	color: $grayMedium;
+}
+
+.show-field .show-value{
+	font-size:14px;
+}
+
+.section-heading{
+	margin-bottom:10px;
+}
+
+.section-content{
+	margin-bottom:50px;
+}
+
+.section-container{
+	display: table;
+	overflow:hidden;
+	height:100%;
+}
+
+.section-form{
+	background: none repeat scroll 0 0 $ss_nearWhite;
+	border: 1px solid $ss_lightGray;
+	padding: 10px;
+	position: relative;
+}
+
+
+.parent-page {
+	border: 1px solid $ss_lightGray;
+	padding: 10px;
+	background:#fff;
+	margin:20px;
+}
+
+.parent-page h3 {
+	padding-bottom: 10px;
+}
+
+.child-page {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid $ss_lightGray;
+	margin-bottom: -30px;
+	margin-right: -20px;
+	padding: 10px;
+	position: relative;
+}
+
+.child-page h3 {
+	padding: 0px;
+}
+
+.page-label {
+	padding: 5px;
+	position: relative;
+	top: -7px;
+	left: -12px;
+	
+}
+
+
+.subnav {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.document-title {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.row-clicked{
+	background: #ddd;
+}
+
+.row-column-toggle{
+	background: #ddd;
+	@include round-top-corners(3px);
+	padding:3px 10px;
+	float:left;
+}
+
+.row-actions{
+	background: #555;
+	@include round-corners(3px);
+	float:left;
+	margin-right:5px;
+	color:#ddd;
+}
+
+.row-actions i{
+	padding:0px 8px;
+	vertical-align:middle;
+	
+}
+
+.table tbody tr.row-clicked:hover td{
+	background-color: #ddd;
+}
+
+
+#items2 tbody tr td div, #items2 tbody tr td span{
+	overflow: hidden;
+	vertical-align:middle;
+}
+
+#items2 tbody tr td{
+	vertical-align:middle;
+}
+
+.icon-resize-vertical{
+	cursor: pointer;
+}
+
+.history-list{
+	padding-left:0;
+}
+
+
+
+
+.contact_phone .contact_method_name, .contact_email .contact_method_name, .contact_url .contact_method_name, .contact_address .contact_method_name{
+	margin-left: 5px;
+	margin-right: 0px;
+}
+
+.contact_phone .contact_method_name input, .contact_email .contact_method_name input, .contact_url .contact_method_name input, .contact_address .contact_method_name input{
+	text-align:right;
+	border:1px solid #fff;
+	margin-bottom:0px;
+	@include no-inner-shadow;
+	padding:2px;
+}
+
+.contact_phone .contact_method_val input, .contact_email .contact_method_val input, .contact_url .contact_method_val input, .contact_address .contact_method_address textarea, .contact_address .contact_method_address input{
+	border:1px solid #fff;
+	margin-bottom:0px;
+	@include no-inner-shadow;
+	padding:2px;
+}
+
+.contact_address .contact_method_address input{
+	width:auto;
+}
+
+.contact_phone .contact_method_name input:focus, .contact_email .contact_method_name input:focus, .contact_url .contact_method_name input:focus, .contact_address .contact_method_name input:focus{
+	text-align:right;
+	border:1px solid #bbb;
+	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
+}
+
+.contact_phone .contact_method_val input:focus, .contact_email .contact_method_val input:focus, .contact_url .contact_method_val input:focus, .contact_address .contact_method_address textarea:focus, .contact_address .contact_method_address input:focus{
+	border:1px solid #bbb;
+	@include full-shadow(0, 1px, 1px, 0, 0, 0, 0.075, inset);
+}
+
+.contact_phone .error .contact_method_val input, .contact_email .error .contact_method_val input, .contact_url .error .contact_method_val input{
+	border:1px solid #B94A48;
+}
+
+
+
+.contact_method .contact_method_remove{
+	float: left;
+	height: 10px;
+	padding: 3px;
+	position: relative;
+	top: 2px;
+	width: 10px;
+}
+
+.contact_method .contact_method_remove i{
+	position: relative;
+	top: -2px;
+	width: 1em;
+}
+
+
+.contact_method.no_remove{
+	margin-left:10px;
+}
+
+.contact_type{
+	display:inline-block;
+	padding-right:20px;
+}
+
+
+.contact_method_address{
+	display:inline-block;
+	vertical-align:top;
+}
+
+.contact_method_address .span2, .contact_method_address .span3, .contact_method_address .span4{
+	display:inline;
+	border:1px solid #fff;
+	margin-bottom:0px;
+	@include no-inner-shadow;
+	width:auto;
+	padding:2px;
+	min-height:0px;
+}
+
+

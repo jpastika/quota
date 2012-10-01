@@ -15,7 +15,7 @@
 	</div>
 	<div class="span5">
 		<div class="section-heading">
-			<h3>Add a New Contact</h3>
+			<h3>Create a New Contact</h3>
 		</div>
 		<div class="control-group string required">
 			<label class="string required control-label" for="contact_name">Name</label>
@@ -41,9 +41,11 @@
 				<input type="text" class="string input-large" name="contact[email]" size="30" value="">
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">
-			<i class="icon-plus"></i>&nbsp;&nbsp;Add Contact
-		</button>
-		<input type="hidden" value="" name="contact[company_key]" id="contact_company_key" class="company_key">
+		<div id="opportunity-add-new-contact-actions" class="section-actions">
+			<button type="submit" class="btn btn-primary">
+				<i class="icon-plus"></i>&nbsp;&nbsp;Add to Opportunity
+			</button>
+		</div>
+		<input type="hidden" value="{{opportunity.company_key}}" name="contact[company_key]" id="contact_company_key" class="company_key">
 	</div>
 </div>
