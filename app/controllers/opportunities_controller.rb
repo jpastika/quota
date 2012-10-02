@@ -30,6 +30,8 @@ class OpportunitiesController < ApplicationController
         gon.opportunity = @opportunity.to_json(:include => [:milestone, :owner, :company])
         gon.opportunity_contacts = @opportunity.opportunity_contacts.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
         gon.opportunity_documents = @opportunity.documents
+        gon.companies = Contact.companies(@current_user.account)
+        
       }
       format.json {
         @opportunity = Opportunity.find_by_pub_key(params[:id])

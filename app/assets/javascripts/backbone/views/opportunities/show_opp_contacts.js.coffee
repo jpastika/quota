@@ -11,13 +11,14 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		_.bindAll(@)
 		@vent = options.vent
 		@companies = options.companies
+		@companies.on('add', @companyAdded, @)
 		# @collection = options.opportunity_contacts
 		@opportunity = options.parent_model
 		@parent_child_key = options.parent_child_key
 		
-		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addContactView = new Quota.Views.ShowOpportunityFormAddContact({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @opportunity.get("pub_key"), vent: @vent, parent_collection: @collection, companies:@companies})
 		
-		@_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		@_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection, companies: @companies})
 		
 		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
@@ -37,11 +38,14 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		# 		
 		@container_add_contact = @$('.section-form')
 		@_addContactView.setElement(@container_add_contact).render().hide()
-		@_addContactView.companies.fetch()
+		# @_addContactView.companies.fetch()
 		
 		@hideDoneLink()
 		
 		@
+	
+	companyAdded: ->
+		@_addContactView.setElement(@container_add_contact).render()
 	
 	addContactClicked: ->
 		@vent.trigger('add_contact:clicked')

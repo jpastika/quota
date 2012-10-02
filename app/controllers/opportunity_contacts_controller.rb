@@ -38,7 +38,7 @@ class OpportunityContactsController < ApplicationController
       format.json {
         @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
         if @opportunity_contact.save
-          render :json => @opportunity_contact.to_json(:include => {:contact => {:include => [:phones, :emails]}})
+          render :json => @opportunity_contact.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
         else
           render :json => "false"
         end

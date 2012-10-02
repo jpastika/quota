@@ -3,7 +3,7 @@ class Quota.Views.CompanyComboView extends Backbone.View
 	template: HandlebarsTemplates['contacts/company_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"blur": "selected"
+		"blur input": "selected"
 	
 	initialize: (options) ->
 		_.bindAll(@)

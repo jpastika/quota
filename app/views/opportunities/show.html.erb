@@ -102,13 +102,21 @@
 			this.opportunity_documents.fetch();
 		}
 		
+		if(gon.companies){
+			this.companies = new Quota.Collections.Companies(gon.companies);
+		}
+		else{
+			this.companies = new Quota.Collections.Companies();
+			this.companies.fetch();
+		}
+		
 		this.opportunity.set("opportunity_contacts", this.opportunity_contacts);
 		this.opportunity.set("documents", this.opportunity_documents);
 		
 		
 		// console.log($.parseJSON(gon.opportunity).milestone);
 	
-		var page_body_view = new Quota.Views.ShowOpportunity({model: this.opportunity, vent: vent});
+		var page_body_view = new Quota.Views.ShowOpportunity({model: this.opportunity, vent: vent, companies: this.companies});
 		page_body_view.setup();
 		// $('#main_body_container').html(page_body_view.render().el);
 		

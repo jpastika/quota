@@ -13,8 +13,9 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		@vent.on('done_add_contact:clicked', @hideAddContact, @)
 		@vent.on('companies:loaded', @companiesLoaded, @)
 		@vent.on('company:changed', @companyChanged, @)
-		@companies = new Quota.Collections.Companies()
-		@companies.on('reset', @companiesReset, @)
+		@companies = options.companies
+		# @companies = new Quota.Collections.Companies()
+		#@companies.on('reset', @companiesReset, @)
 		@vent.on('company_name:changed', @companyNameChanged, @)
 		
 		@opportunity = options.parent_model
@@ -31,7 +32,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		@container_contacts = @$('#company_contacts_container')
 		@contact_company_name = @$('.company_name')
 		@input_contact_name = @$('.contact_name input')
-		@input_contact_company_name = @$('#contact_company_name')
+		@input_contact_company_name = @$('.company_name input')
 		@input_contact_company_key = @$('.company_key')
 		@input_contact_phone = @$('.contact_phone input')
 		@input_contact_email = @$('.contact_email input')
@@ -41,13 +42,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		company_name_field_name = @input_contact_company_name.attr('name')
 		company_name_field_id = @input_contact_company_name.attr('id')
 		
-		# @_companyComboView.setElement(@contact_company_name).render()
-		# 		
-		# @input_contact_company_name = @$('#contact_company_name')
-		# @_companyComboView.setElement(@contact_company_name).render()
-		# @opportunity_company_name.html(@_companySelectView.render().el)
-		
-		@input_opportunity_company_name = @$('.company_name input')
+		@companiesLoaded()
 		
 		@
 		
@@ -78,32 +73,42 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		@_contactsView.parent_model = _.first(@companies.where({pub_key: @opportunity.get("company_key")}))
 		@_contactsView.setElement(@container_contacts).render()
 		@_companyComboView.setElement(@contact_company_name).render()
+		@_companiesView.setElement(@container_companies).render()
+		
 		
 	companyChanged: (evt)->
-		# @_contactsView.parent_model = _.first(@companies.where({pub_key: @opportunity.get("company_key")}))
-		# 		@_contactsView.setElement(@container_contacts).render()
-		console.log "got here"
 		self = @
-		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
+		
+		@input_contact_company_name = @$('.company_name input')
+		
+		company = evt.company
 		if company
 			@model.set("company_key", company.get("pub_key"), {silent: true})
 			@input_contact_company_key.val(company.get("pub_key"))
+			@input_contact_company_name.val(company.get("name"))
 			# @save()
 		else
 			@model.unset("company_key", {silent: true})
 			@input_contact_company_key.val('')
+			@input_contact_company_name.val('')
 		
 	companyNameChanged: (evt) ->
-		console.log "got here"
 		self = @
+		
+		console.log evt.company_name
+		
 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
+		@input_contact_company_name = @$('.company_name input')
+		
 		if company
 			@model.set("company_key", company.get("pub_key"), {silent: true})
 			@input_contact_company_key.val(company.get("pub_key"))
+			@input_contact_company_name.val(company.get("name"))
 			# @save()
 		else
 			@model.unset("company_key", {silent: true})
-			@input_opportunity_company_key.val('')
+			@input_contact_company_key.val('')
+			# @input_contact_company_name.val('')
 			
 	clickAddNewContact: ->
 		self = @
@@ -132,6 +137,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 							error: ->
 								console.log "save error"
 							success: (model) -> 
+								self.opportunity_contacts.add(model)
 								self.vent.trigger('company_contacts:add_new_contact_successful', {model: model})
 						}
 					)

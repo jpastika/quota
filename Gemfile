@@ -35,7 +35,7 @@ group :assets do
   gem 'uglifier', '>= 1.2.3'
   gem 'font-awesome-sass-rails'
   gem 'handlebars_assets'
-  gwm 'yui-compressor', :require => 'yui/compressor'
+  gem 'yui-compressor', :require => 'yui/compressor'
 end
 
 

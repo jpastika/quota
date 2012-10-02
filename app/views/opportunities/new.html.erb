@@ -1,5 +1,5 @@
 <% provide(:title, "Add Opportunity") %>
-<% provide(:css, raw("<link href='/assets/pages/opportunity.css' rel='stylesheet' type='text/css'>")) %>
+<% provide(:css, raw("<link href='/assets/application/pages/opportunity.css' rel='stylesheet' type='text/css'>")) %>
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
@@ -64,8 +64,6 @@
 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.users = new Quota.Collections.Users(gon.users);
 		
-		console.log(gon.companies);
-		console.log(gon.milestones);
 		
 		if(gon.opportunity){
 			this.opportunity = new Quota.Models.Opportunity(gon.opportunity);

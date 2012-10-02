@@ -18,7 +18,7 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		
-		# @companies = options.companies
+		@companies = options.companies
 		
 	render: ->
 		$(@el).html(@template({}))
@@ -32,7 +32,7 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		# if item.get("contact").company_key
 		# 			view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, company: _.first(@companies.where(pub_key: item.get("contact").company_key)), vent: @vent})
 		# 		else
-		view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, vent: @vent})
+		view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, vent: @vent, company: _.first(@companies.where(pub_key: item.get("contact").company_key))})
 		@_contactViews.push(view)
 		view
 
@@ -81,10 +81,15 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 
 	addCompanyContact_Success: (model)->
 		self = @
+		
+		if model.get("contact").company_key and @companies.where(pub_key: model.get("contact").company_key).length == 0
+			@companies.add(model.get("contact").company)
+		
 		self.collection.add(model)
 		frag = document.createDocumentFragment()
 		frag.appendChild(self.addOne(model).render().el)
 		self.$('tbody').append(frag)
+		
 
 	handleError: (attribute, message) ->
 		console.log message
