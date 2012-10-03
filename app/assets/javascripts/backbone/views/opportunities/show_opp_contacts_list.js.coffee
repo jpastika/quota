@@ -85,7 +85,7 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		if model.get("contact").company_key and @companies.where(pub_key: model.get("contact").company_key).length == 0
 			@companies.add(model.get("contact").company)
 		
-		self.collection.add(model)
+		self.opportunity.get("opportunity_contacts").add(model)
 		frag = document.createDocumentFragment()
 		frag.appendChild(self.addOne(model).render().el)
 		self.$('tbody').append(frag)

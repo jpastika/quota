@@ -19,6 +19,7 @@ $grayDark: #333333;
 $ss_darkGray: #1E232A;
 $ss_nearBlack: #13161D;
 $ss_nearWhite: #F3F3EE;
+$ss_milkyWhite: #F8F7F1;
 $ss_lightGray: #E7E6E0;
 $ss_limeGreen: #AFD93B;
 $ss_burntOrange: #E3592B;
@@ -30,6 +31,7 @@ $ss_mediumGray: #A2A19C;
 $ss_orange: #f28322;
 $ss_dangerRed: #a30000;
 $ss_successGreen: #7fa517;
+$ss_mediumDarkGray: #656769;
 
 
 @mixin box_sizing {
@@ -144,10 +146,13 @@ $default_rounded_amount: 5px;
 
 html {
   overflow-y: scroll;
+
 }
 
 body{
 	background:$ss_nearWhite;
+	font-family: 'Droid Sans',sans-serif;
+	
 }
 
 label{
@@ -283,6 +288,37 @@ header{
 
 .navbar .navbar-search{
 	margin: 10px 20px 0 0;
+}
+
+
+.table-plain th{
+	color: $ss_mediumGray;
+	font-weight: normal;
+	font-size: 12px;
+	font-family: 'Droid Sans',sans-serif;
+}
+
+.table-plain thead{
+	border-bottom: 1px solid $ss_khakiGray;
+}
+
+.table-plain td{
+	border-top: none;
+	color: $ss_mediumDarkGray;
+	font-size: 13px;
+}
+
+.table-plain td a{
+	color: $ss_mediumDarkGray;
+}
+
+.table-plain td a:hover{
+	color: $ss_darkGray;
+	text-decoration: 'underline';
+}
+
+.table-plain tbody tr:hover td{
+	background:$ss_milkyWhite;
 }
 
 
@@ -667,7 +703,7 @@ label.required{
 	margin:0 20px 20px;
 	color:$ss_nearBlack;
 	border-bottom:1px solid $ss_khakiGray;
-	font-size:18px;
+	font-size:20px;
 	text-align:right;
 	padding:20px 0 5px 0;
 	text-shadow: 1px 1px 0px $ss_khakiGray;

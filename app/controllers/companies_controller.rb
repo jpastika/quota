@@ -140,10 +140,10 @@ class CompaniesController < ApplicationController
   def contacts
     respond_to do |format|
       format.html {
-        @contacts = Contact.find_by_company_key(params[:id])
+        @contacts = Contact.where(:company_key => params[:id])
       }
       format.json { 
-        @contacts = Contact.find_by_company_key(params[:id])
+        @contacts = Contact.where(:company_key => params[:id])
         render :json => @contacts.to_json(:include => :contact_type)
       }
     end

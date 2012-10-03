@@ -28,6 +28,8 @@ class Quota.Views.ShowOpportunityContact extends Backbone.View
 		$(@el).toggle()
 		# @model.trigger('removing', {view: @})
 		@model.remove()
+		@vent.trigger('opportunity_contacts:remove_contact', {model: @model})
+		
 
 	hideRemove: () ->
 		@hideRemove = true

@@ -30,12 +30,16 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 	render: ->
 		$(@el).html(@template({}))
 		if @include_company && @parent_model && @selected_contacts.where({contact_key: @parent_model.get("pub_key")}).length == 0
-			frag = document.createDocumentFragment()
-			frag.appendChild(@addOne(@parent_model).render().el)
-			@$('#company_contacts').append(frag)
-		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @contacts.models when @selected_contacts.where({contact_key: item.get("pub_key")}).length == 0
-		@$('#company_contacts').append(frag)
+			# frag = document.createDocumentFragment()
+			# 			frag.appendChild(@addOne(@parent_model).render().el)
+			# 			@$('#company_contacts').append(frag)
+			@appendOne(@addOne(@parent_model))
+		# frag = document.createDocumentFragment()
+		@appendOne(@addOne(item)) for item in @contacts.models when @selected_contacts.where({contact_key: item.get("pub_key")}).length == 0
+		# @$('#company_contacts').append(frag)
+		
+		if @$('#company_contacts tr').length == 0
+			@$('#company_contacts').html('All contacts from '+ @parent_model.get("name") + ' have been added to opportunity.')
 		@
 	
 	contactsReset: ->
@@ -49,7 +53,13 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 	addOne: (item)->
 		view = new Quota.Views.CompanyContactAdd({model: item, vent: @vent})
 		@_contactViews.push(view)
-		view
+		# view
+		frag = document.createDocumentFragment()
+		frag.appendChild(view.render().el)
+		frag
+		
+	appendOne: (frag)->
+		@$('#company_contacts').append(frag)
 		
 	# addCompany: (item)->
 	# 		view = new Quota.Views.CompanyContactAdd({model: item, vent: @vent})
@@ -57,6 +67,12 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 	# 		view
 	
 	addCompanyContact: (obj)->
-		view = _.find(@_contactViews, (view) -> view.model == obj.contact)
-		view.remove()
-	# 		console.log obj.contact.get("name")
+		# @parent_model = obj.company
+		@contacts.url='/api/companies/'+ @parent_model.get("pub_key") + '/contacts'
+		@contacts.fetch()
+		# view = _.find(@_contactViews, (view) -> view.model == obj.contact).remove()
+		# 	# console.log view
+		# 	# 		view.remove()
+		# 	if @$('#company_contacts div').length == 0
+		# 		@$('#company_contacts').html('All contacts from '+ @parent_model.get("name") + ' have been added to opportunity.')
+		# # 		console.log obj.contact.get("name")

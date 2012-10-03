@@ -1,8 +1,8 @@
 <td>
-	{{opportunity_contact.contact.name}}
+	<a href="/contacts/{{opportunity_contact.contact.pub_key}}">{{opportunity_contact.contact.name}}</a>
 </td>
 <td>
-	{{opportunity_contact_company.name}}
+	<a href="/contacts/{{opportunity_contact.contact.pub_key}}">{{opportunity_contact_company.name}}</a>
 </td>
 <td>{{#each opportunity_contact.contact.phones}}
   <div>{{name}}: {{val}}</div>
@@ -10,7 +10,7 @@
 <td>{{#each opportunity_contact.contact.emails}}
   <div>{{name}}: {{val}}</div>
   {{/each}}</td>
-<td><button class="btn btn-danger contact_remove">
+<td><button class="btn btn-mini btn-danger contact_remove">
   <i class="icon-remove"></i>
 </button>
 </td>

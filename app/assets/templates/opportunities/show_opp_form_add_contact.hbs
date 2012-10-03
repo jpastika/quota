@@ -3,10 +3,9 @@
 		<div class="section-heading">
 			<h3>Select From Saved Contacts</h3>
 		</div>
-		<label class="string control-label" for="contact_name">Company Name</label>
+		<label class="string control-label" for="contact_name">Select Company</label>
 		<div class="controls add_contact_company_key" id="companies_select"></div>
-		<label class="string control-label" for="contact_name">Contacts</label>
-		<div class="" id="company_contacts_container"></div>
+		<div class="span7" id="company_contacts_container"></div>
 	</div>
 	<div class="content-column-divider">
 		<div class="label-container">
@@ -42,8 +41,8 @@
 			</div>
 		</div>
 		<div id="opportunity-add-new-contact-actions" class="section-actions">
-			<button type="submit" class="btn btn-primary">
-				<i class="icon-plus"></i>&nbsp;&nbsp;Add to Opportunity
+			<button type="submit" class="btn btn-success">
+				<i class="icon-plus"></i>&nbsp;&nbsp;Add Contact
 			</button>
 		</div>
 		<input type="hidden" value="{{opportunity.company_key}}" name="contact[company_key]" id="contact_company_key" class="company_key">

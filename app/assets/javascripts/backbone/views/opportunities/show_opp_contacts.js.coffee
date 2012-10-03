@@ -24,6 +24,8 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		
 		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
+		@vent.on('opportunity_contacts:remove_contact', @removeOpportunityContact, @)
+		
 		
 		
 	render: ->
@@ -62,6 +64,8 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		@showAddBtn()
 		@hideAddForm()
 		
+	removeOpportunityContact: (item)->
+		@collection.remove(item)
 
 	hideAddBtn: ->
 		@$('#opportunity-contacts-actions>.btn-primary').toggle(false)

@@ -3,7 +3,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 	template: HandlebarsTemplates['opportunities/show_opp_form_add_contact'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click #opportunity-add-new-contact-actions .btn-primary": "clickAddNewContact"
+		"click #opportunity-add-new-contact-actions .btn-success": "clickAddNewContact"
 		
 	initialize: (options)->
 		self = @
@@ -13,6 +13,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 		@vent.on('done_add_contact:clicked', @hideAddContact, @)
 		@vent.on('companies:loaded', @companiesLoaded, @)
 		@vent.on('company:changed', @companyChanged, @)
+		@vent.on('opportunity_contacts:remove_contact', @removeOpportunityContact, @)
 		@companies = options.companies
 		# @companies = new Quota.Collections.Companies()
 		#@companies.on('reset', @companiesReset, @)
@@ -95,8 +96,6 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 	companyNameChanged: (evt) ->
 		self = @
 		
-		console.log evt.company_name
-		
 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
 		@input_contact_company_name = @$('.company_name input')
 		
@@ -139,10 +138,14 @@ class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyB
 							success: (model) -> 
 								self.opportunity_contacts.add(model)
 								self.vent.trigger('company_contacts:add_new_contact_successful', {model: model})
+								self._contactsView.contacts.add(model.get("contact"))
 						}
 					)
 			}
 		)
+	
+	removeOpportunityContact: (item)->
+		@_contactsView.setElement(@container_contacts).render()
 		
 	resetAddNewContactForm: ->
 		@input_contact_name.val('')
