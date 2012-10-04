@@ -1,7 +1,8 @@
 class Quota.Views.ShowOpportunityContacts extends Backbone.View
 
 	
-	template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	el: '#contacts_container .section-table'
 	
 	events:
 		"click #opportunity-contacts-actions>.btn-primary": "addContactClicked"
@@ -29,8 +30,8 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		
 		
 	render: ->
-		$(@el).html(@template({}))
-		@container_contact_list = @$('.section-table')
+		# $(@el).html(@template({}))
+		@container_contact_list = @$('.section-table tbody')
 		@_contactsListView.setElement(@container_contact_list).render()
 		# @_contactsListView.setElement(@container_contact_list).render().hide()
 		# @_addContactView.companies.fetch()

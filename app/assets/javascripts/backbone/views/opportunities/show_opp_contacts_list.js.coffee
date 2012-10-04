@@ -1,7 +1,9 @@
 class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 
 	
-	template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	
+	el: '#contacts_container .section-table tbody'
 	
 	# events:
 	# 		"click .contact_remove": "destroy"
@@ -21,17 +23,14 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		@companies = options.companies
 		
 	render: ->
-		$(@el).html(@template({}))
+		# $(@el).html(@template({}))
 		frag = document.createDocumentFragment()
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		@$('tbody').append(frag)
+		@$el.append(frag)
 		
 		@
 
 	addOne: (item)->
-		# if item.get("contact").company_key
-		# 			view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, company: _.first(@companies.where(pub_key: item.get("contact").company_key)), vent: @vent})
-		# 		else
 		view = new Quota.Views.ShowOpportunityContact({model: item, tagName:'tr', opportunity: @model, vent: @vent, company: _.first(@companies.where(pub_key: item.get("contact").company_key))})
 		@_contactViews.push(view)
 		view
@@ -53,11 +52,11 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 
 	hideRemove: () ->
 		@hideRemove = true
-		$(@el).find('.contact_remove').css('visibility', 'hidden')
+		@$el.find('.contact_remove').css('visibility', 'hidden')
 
 	showRemove: () ->
 		@hideRemove = false
-		$(@el).find('.contact_remove').css('visibility', '')
+		@$el.find('.contact_remove').css('visibility', '')
 		
 	addCompanyContact: (obj)->
 		self = @
@@ -88,7 +87,7 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		self.opportunity.get("opportunity_contacts").add(model)
 		frag = document.createDocumentFragment()
 		frag.appendChild(self.addOne(model).render().el)
-		self.$('tbody').append(frag)
+		self.$el.append(frag)
 		
 
 	handleError: (attribute, message) ->

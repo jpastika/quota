@@ -6,9 +6,10 @@ class Quota.Views.ShowOpportunityDocuments extends Backbone.View
 		self = @
 		_.bindAll(@)
 		@vent = options.vent
+		@opportunity = options.parent_model
 			
 	render: ->
-		$(@el).html(@template({}))
+		$(@el).html(@template({opportunity:@opportunity.toJSON()}))
 		
 		@
 	

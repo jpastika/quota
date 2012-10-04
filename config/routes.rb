@@ -69,6 +69,7 @@ Quota::Application.routes.draw do
   
   match '/map_test', to: 'static_pages#map_test'
   match '/bridge', to: 'static_pages#bridge'
+  match '/documents/choose_template/:id', to: 'documents#choose_template'
   
   root to: 'static_pages#home'
   

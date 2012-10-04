@@ -163,4 +163,13 @@ class DocumentsController < ApplicationController
     @document.destroy
     redirect_back_or opportunity_path(id: @document.opportunity.pub_key)
   end
+  
+  
+  
+  
+  
+  
+  def choose_template
+    @opportunity = Opportunity.find_by_pub_key(params[:id])
+  end
 end
