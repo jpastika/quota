@@ -14,6 +14,7 @@ class Quota.Views.CompanyContactAdd extends Backbone.View
 		@
 		
 	addContact: ->
+		@remove()
 		@vent.trigger("company_contacts:add_contact", {contact:@model, view: @})
 		
 	save: ->

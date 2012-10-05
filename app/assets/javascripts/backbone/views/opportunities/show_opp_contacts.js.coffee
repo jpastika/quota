@@ -40,10 +40,10 @@ class Quota.Views.ShowOpportunityContacts extends Backbone.View
 		# 		@$('.section-table').append(frag)
 		# 		
 		@container_add_contact = @$('.section-form')
-		@_addContactView.setElement(@container_add_contact).render().hide()
+		@_addContactView.setElement(@container_add_contact).render()
 		# @_addContactView.companies.fetch()
 		
-		@hideDoneLink()
+		# @hideDoneLink()
 		
 		@
 	

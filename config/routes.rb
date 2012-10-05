@@ -23,6 +23,7 @@ Quota::Application.routes.draw do
   # resources :quotes
   resources :sales_reps
   resources :sessions, only: [:new, :create, :destroy, :choose]
+  resources :templates
   resources :users
   
   scope "api" do
@@ -47,6 +48,7 @@ Quota::Application.routes.draw do
     resources :opportunities
     resources :opportunity_contacts
     resources :sales_reps
+    resources :templates
     resources :users
     
     match '/opportunities/:id/docs', to: 'documents#index'

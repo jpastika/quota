@@ -1,6 +1,8 @@
 class Quota.Views.ShowOpportunityDocuments extends Backbone.View
 
-	template: HandlebarsTemplates['opportunities/show_opp_documents'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['opportunities/show_opp_documents'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	el: '#documents_container .section-table'
+	
 	
 	initialize: (options)->
 		self = @
@@ -9,8 +11,7 @@ class Quota.Views.ShowOpportunityDocuments extends Backbone.View
 		@opportunity = options.parent_model
 			
 	render: ->
-		$(@el).html(@template({opportunity:@opportunity.toJSON()}))
-		
+		# $(@el).html(@template({opportunity:@opportunity.toJSON()}))
 		@
 	
 	rendered: ->

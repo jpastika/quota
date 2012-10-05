@@ -68,7 +68,9 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 				account_key: @opportunity.get("account_key")
 			},
 			{
-				error: @handleError
+				error:  ()-> 
+					@vent.trigger("company_contacts:add_contact_failed", {pub_key:obj.contact.get("pub_key")})
+					@handleError
 				success: (model) -> 
 					self.addCompanyContact_Success(model)
 				# silent: true

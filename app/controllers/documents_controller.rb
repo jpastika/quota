@@ -171,5 +171,10 @@ class DocumentsController < ApplicationController
   
   def choose_template
     @opportunity = Opportunity.find_by_pub_key(params[:id])
+    
+    @account_key = @current_user.account.pub_key
+    @templates = Template.find(:all, :conditions => {:account_key => @account_key})
+    
+    gon.templates = @templates.to_json(:include => [:document_type])
   end
 end

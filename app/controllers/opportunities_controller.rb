@@ -3,7 +3,7 @@ class OpportunitiesController < ApplicationController
   respond_to :html, :json
   
   def index
-    @opportunities = current_user.account.opportunities
+    # @opportunities = current_user.account.opportunities
     respond_to do |format|
       format.html {
         @account_key = @current_user.account.pub_key
@@ -22,7 +22,7 @@ class OpportunitiesController < ApplicationController
   end
   
   def show
-    @opportunity = Opportunity.find_by_pub_key(params[:id])
+    # @opportunity = Opportunity.find_by_pub_key(params[:id])
     respond_to do |format|
       format.html {
         @opportunity = Opportunity.find_by_pub_key(params[:id])

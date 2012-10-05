@@ -84,19 +84,44 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="section-form">
+							<div class="section-form" style="display:none;">
 							</div>
 							<div id="opportunity-contacts-actions" class="section-actions actions-bar-left">
 								<button type="submit" class="btn btn-primary form-submit">
 									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Contact
 								</button>
-								<a class="btn btn-danger form-cancel" href="#">
+								<a class="btn btn-danger form-cancel" href="#" style="display:none;">
 									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding contacts
 								</a>
 							</div>
 						</div>
 					</div>
 					<div id="documents_container">
+						<div class="section-heading">
+							<h3>Documents</h3>
+						</div>
+						<div class="section-content">
+							<div class="section-table">
+								<table class="table table-condensed table-plain">
+									<thead>
+										<tr>
+											<th  width="3%">Primary</th>
+											<th  width="10%">Type</th>
+											<th  width="60%">Name</th>
+											<th  width="24%">Created</th>
+											<th  width="3%">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div id="opportunity-documents-actions" class="section-actions actions-bar-left">
+								<a href="/documents/choose_template/<%= @opportunity.pub_key %>" class="btn btn-primary form-submit">
+									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Document
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

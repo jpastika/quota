@@ -25,6 +25,9 @@ class OpportunityContactsController < ApplicationController
   end
   
   def create
+    @opportunity = Opportunity.find_by_pub_key(params[:opportunity_key])
+    @contact = Contact.find_by_pub_key(params[:contact_key])
+    
     respond_to do |format|
       format.html {
         @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
@@ -36,11 +39,15 @@ class OpportunityContactsController < ApplicationController
         end
       }
       format.json {
-        @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
-        if @opportunity_contact.save
-          render :json => @opportunity_contact.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
+        if @opportunity and @contact
+          @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
+          if @opportunity_contact.save
+            render :json => @opportunity_contact.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
+          else
+            render :json => "false", :status => :unprocessable_entity
+          end
         else
-          render :json => "false"
+          render :json => "false", :status => :unprocessable_entity
         end
       }
     end

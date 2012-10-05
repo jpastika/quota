@@ -1,1 +1,120 @@
-Choose template - <%= @opportunity.name %>
+<% provide(:title, "Add Document") %>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+			<div class="show-field">
+				<span class="show-label">Opportunity</span>
+				<br>
+				<span class="show-value"><%= @opportunity.name %></span>
+			</div>
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunity"), opportunity_path(@opportunity.pub_key) %>
+			</div>
+			<div class="page-title">
+				Create a New Document
+			</div>
+		</div>
+		<div class="process-steps-container">
+			<dl class="process-steps">
+				<dt>1</dt>
+				<dd>Choose opportunity</dd>
+				<dt class="current">2</dt>
+				<dd class="current">Choose document template</dd>
+				<dt>3</dt>
+				<dd>Fill-in details</dd>
+				<dt>4</dt>
+				<dd>Add items to document</dd>
+			</dl>
+		</div>
+		<div class="parent-page">
+			<div class="">
+				<%= simple_form_for(@opportunity) do |f| %>
+					<div class="row-fluid">
+						<% if f.error_notification %>
+						    <div class="alert alert-error fade in">
+						      <a class="close" data-dismiss="alert" href="#">&times;</a>
+						      <%= f.error_notification %>
+						    </div>
+						<% end %>
+					</div>
+					<div class="section-form-plain">
+						<div class="row-fluid section-container">
+							<div class="span6">
+								<div class="section-heading">
+									<h3>Search for a Template</h3>
+								</div>
+								<label class="string control-label" for="template_name">Template Name</label>
+								<div class="controls search_field" id="search_field_container">
+									<input type="text" class="string input-xlarge span9">
+								</div>
+								<div id="search_results_container"></div>
+								<br><br>
+								<div id="my_templates_container">
+									<div class="section-heading">
+										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from My Templates</h3>
+									</div>
+									<div id="my_templates"></div>
+								</div>
+								
+								<div id="our_templates_container">
+									<div class="section-heading">
+										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Our Templates</h3>
+									</div>
+									<div id="our_templates"></div>
+								</div>
+								
+								<div id="trimble_templates_container">
+									<div class="section-heading">
+										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Trimble Templates</h3>
+									</div>
+									<div id="trimble_templates"></div>
+								</div>
+							</div>
+							<div class="content-column-divider">
+							</div>
+							<div class="span5">
+								<div class="section-heading">
+									<h3></h3>
+								</div>
+								<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
+							</div>
+						</div>
+					</div>
+					<div class="actions-bar">
+						<button type="submit" class="btn btn-primary">
+						  Fill-in Details&nbsp;&nbsp;<i class="icon-arrow-right"></i>
+						</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+	$(function(){
+		this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
+		
+		window.vent = _.extend({}, Backbone.Events);
+	
+		// var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});
+		// 		$('#opportunity').html(view_opportunity.render().el);
+	});	
+	
+	$.fn.placeholder();
+</script>

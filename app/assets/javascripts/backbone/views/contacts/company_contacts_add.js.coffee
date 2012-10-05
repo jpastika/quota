@@ -15,6 +15,7 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 		@contacts.url='/api/companies/'+ @parent_child_key + '/contacts'
 		@vent.on('company:changed', @companyChanged, @)
 		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
+		@vent.on("company_contacts:add_contact_failed", @addCompanyContact_failed, @)
 		# @vent.on('add_contact', @addCompanyContact, @)
 		@contacts.on('reset', @contactsReset, @)
 		@contacts.fetch()
@@ -56,11 +57,23 @@ class Quota.Views.CompanyContactsAdd extends Backbone.View
 	# 		view
 	
 	addCompanyContact: (obj)->
-		@contacts.url='/api/companies/'+ @parent_model.get("pub_key") + '/contacts'
-		@contacts.fetch()
+		# view = _.find(@_contactViews, (view) -> view.model == obj.contact).remove()
+		# 		if view
+		# 			view.remove()
+		# 		@contacts.url='/api/companies/'+ @parent_model.get("pub_key") + '/contacts'
+		# 		@contacts.fetch()
 		# view = _.find(@_contactViews, (view) -> view.model == obj.contact).remove()
 		# 	# console.log view
 		# 	# 		view.remove()
 		# 	if @$('#company_contacts div').length == 0
 		# 		@$('#company_contacts').html('All contacts from '+ @parent_model.get("name") + ' have been added to opportunity.')
 		# # 		console.log obj.contact.get("name")
+	
+	addCompanyContact_failed: (obj)->
+		# @appendOne(@addOne(item)) for item in @contacts.models when @selected_contacts.where({contact_key: item.get("pub_key")}).length == 0
+		# console.log @contacts
+		# 		console.log @contacts.where({pub_key: obj.pub_key})[0]
+		if obj.pub_key == @parent_model.get("pub_key")
+			@appendOne(@addOne(@parent_model))
+		else
+			@appendOne(@addOne(@contacts.where({pub_key: obj.pub_key})[0]))
