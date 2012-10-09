@@ -38,7 +38,7 @@
 				<dt>3</dt>
 				<dd>Fill-in details</dd>
 				<dt>4</dt>
-				<dd>Add items to document</dd>
+				<dd>Configure parts, services, and financing</dd>
 			</dl>
 		</div>
 		<div class="parent-page">
@@ -58,7 +58,7 @@
 								<div class="section-heading">
 									<h3>Search for a Template</h3>
 								</div>
-								<label class="string control-label" for="template_name">Template Name</label>
+								<label class="string control-label" for="template_name">Template or Part Name</label>
 								<div class="controls search_field" id="search_field_container">
 									<input type="text" class="string input-xlarge span9">
 								</div>
@@ -68,21 +68,21 @@
 									<div class="section-heading">
 										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from My Templates</h3>
 									</div>
-									<div id="my_templates"></div>
+									<div id="my_templates" style="display:none;">Mine</div>
 								</div>
 								
 								<div id="our_templates_container">
 									<div class="section-heading">
 										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Our Templates</h3>
 									</div>
-									<div id="our_templates"></div>
+									<div id="our_templates" style="display:none;">Ours</div>
 								</div>
 								
 								<div id="trimble_templates_container">
 									<div class="section-heading">
 										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Trimble Templates</h3>
 									</div>
-									<div id="trimble_templates"></div>
+									<div id="trimble_templates" style="display:none;">Trimble's</div>
 								</div>
 							</div>
 							<div class="content-column-divider">
@@ -111,6 +111,11 @@
 		this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
 		
 		window.vent = _.extend({}, Backbone.Events);
+		
+		var view_my_templates = new Quota.Views.TemplateCollection({el: '#my_templates_container', contents_container: '#my_templates'});
+		var view_our_templates = new Quota.Views.TemplateCollection({el: '#our_templates_container', contents_container: '#our_templates'});
+		var view_trimble_templates = new Quota.Views.TemplateCollection({el: '#trimble_templates_container', contents_container: '#trimble_templates'});
+		
 	
 		// var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});
 		// 		$('#opportunity').html(view_opportunity.render().el);
