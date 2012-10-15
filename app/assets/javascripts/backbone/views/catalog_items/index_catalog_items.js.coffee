@@ -40,11 +40,12 @@ class Quota.Views.IndexCatalogItems extends Backbone.View
 	# 		@setContactTypeRelatedFields()
 	
 	searchClicked: (evt) ->
-		# filterParams = {name:['Item 9','Item 3','Item 11'], color:black}
-		# filterParams = {name:['Item 9','Item 3','Item 11']}
-		filterParams = {name:['1','3','11']}
+		filterParams = {name:[evt.name_filter]}
+		# filterParams = {name:['em 12','Item 3','2'], list_price:[20]}
+		# filterParams = {list_price:[20], name:['em 12','Item 3','2']}
 
-		@collection.filterData(filterParams);
+		@collection.filterData(filterParams, 'and');
+		# @collection.filterData(filterParams, 'or');
 	
 	
 		

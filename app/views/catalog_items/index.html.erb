@@ -79,7 +79,7 @@
 		var page_body_view = new Quota.Views.IndexCatalogItems({collection: this.catalog_items, vent: vent});
 		page_body_view.setElement($('#catalog_items_container .section-table tbody')).render()
 		
-		var search_form_view = new Quota.Views.SearchFormBlock({el: '.search-container', primary: '.search-primary', secondary: '.search-secondary', toggle: '.more-options-nav a', searchbutton: '.btn-primary', vent: vent});
+		var search_form_block_view = new Quota.Views.SearchFormBlock({el: '.search-container', primary: '.search-primary', secondary: '.search-secondary', toggle: '.more-options-nav a', searchbutton: '.btn-primary', vent: vent});
 		
 		// $('#main_body_container').html(page_body_view.render().el);
 		

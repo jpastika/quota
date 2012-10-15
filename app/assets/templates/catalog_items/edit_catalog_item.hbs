@@ -4,25 +4,25 @@
 <div class="row-fluid">
 <div class="span6">
 <div class="control-group string required">
-	<label for="opportunity_name" class="string required control-label">Opportunity Name</label>
+	<label for="catalog_item_name" class="string required control-label">Name</label>
 	<div class="controls">
-		<input type="text" value="{{opportunity.name}}" size="30" name="opportunity[name]" id="opportunity_name" class="string required">
+		<input type="text" value="{{catalog_item.name}}" size="30" name="catalog_item[name]" id="catalog_item_name" class="string required">
 	</div>
 </div>
 <div class="control-group">
-	<label for="company_name" class="string control-label">Customer</label>
-	<div class="controls company_name">
-		<input type="text" value="" name="customer[company_name]" id="opportunity_company_name" class="string input-xlarge">
+	<label for="catalog_item_description" class="string control-label">Description</label>
+	<div class="controls">
+		<textarea name="catalog_item[description]" id="catalog_item_description" class="string">{{catalog_item.description}}</textarea>
 	</div>
 </div>
 <div class="control-group">
-	<label for="opportunity_estimated_close" class="string control-label">Estimated Value</label>
-	<div class="controls opportunity_estimated_close">
+	<label for="catalog_item_list_price" class="string control-label">List Price</label>
+	<div class="controls catalog_item_list_price">
 		<div class="input-prepend">
 			<span class="add-on">$</span>
-			<input type="text" value="{{opportunity.estimated_value}}" name="opportunity[estimated_value]" id="opportunity_estimated_value" class="string input-small">
-			<select class="input-medium" name="opportunity[estimated_value_interval]" value="{{opportunity.estimated_value_interval}}">
-				<option value="FIXED">fixed</option>
+			<input type="text" value="{{catalog_item.list_price}}" name="catalog_item[list_price]" id="catalog_item_list_price" class="string input-small">
+			<select class="input-medium" name="catalog_item[recurring_interval]" value="{{catalog_item.recurring_interval}}">
+				<option value="ONETIME">one time</option>
 				<option value="HOUR">per hour</option>
 				<option value="DAY">per day</option>
 				<option value="WEEK">per week</option>
@@ -31,22 +31,6 @@
 				<option value="YEAR">per year</option>
 			</select>
 		</div>
-	</div>
-</div>
-<div class="control-group">
-	<label for="opportunity_estimated_close" class="string control-label">Estimated Close Date</label>
-	<div class="controls opportunity_estimated_close">
-		<div class="input-append">
-			<input type="text" value="{{opportunity.estimated_close}}" name="opportunity_estimated_close" id="opportunity_estimated_close_dp" class="string input-medium datepicker">
-			<span class="add-on"><i class="icon-calendar"></i></span>
-			<input type="hidden" value="{{opportunity.estimated_close}}" name="opportunity[estimated_close]" id="opportunity_estimated_close" class="string input-small altfield">
-		</div>
-	</div>
-</div>
-<div class="control-group string">
-	<label for="opportunity_description" class="string control-label">Opportunity Description</label>
-	<div class="controls">
-		<textarea name="opportunity[description]" id="opportunity_description" class="string">{{opportunity.description}}</textarea>
 	</div>
 </div>
 </div>
