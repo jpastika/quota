@@ -2,7 +2,21 @@ class CatalogItemsController < ApplicationController
   before_filter :signed_in!, :check_disabled!
   
   def index
-    @catalog_items = current_user.account.catalog_items
+    respond_to do |format|
+      format.html {
+        @account_key = @current_user.account.pub_key
+        @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        
+        gon.catalog_items = @catalog_items.to_json(:include => [])
+        gon.current_member = @current_user
+      }
+      format.json { 
+        @account_key = @current_user.account.pub_key
+        @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        
+        render :json => @catalog_items.to_json(:include => [])
+      }
+    end
   end
   
   def new

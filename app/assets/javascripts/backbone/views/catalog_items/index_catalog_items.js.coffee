@@ -1,12 +1,7 @@
 class Quota.Views.IndexCatalogItems extends Backbone.View
 
-	tagName: 'ul'
-	className: 'unstyled form-vertical'
+	el: '#catalog_items_container .section-table tbody'
 	
-	# events:
-	# 		# "blur .contact_name input": "contactNameChanged"
-	# 		# 		"blur .contact_title input": "contactTitleChanged"
-	# 		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -17,16 +12,17 @@ class Quota.Views.IndexCatalogItems extends Backbone.View
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@vent.on('catalog_item_link:clicked', @catalogItemLinkClicked, @)
+		@vent.on('search:clicked', @searchClicked, @)
 		
 	render: ->
-		$(@el).empty()
+		@$el.empty()
 		frag = document.createDocumentFragment()
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		$(@el).append(frag)
+		@$el.append(frag)
 		@
-	
+
 	addOne: (item)->
-		view = new Quota.Views.IndexCatalogItem({model: item, tagName:'li', className:'catalog_item', catalog_item: @model, vent: @vent})
+		view = new Quota.Views.IndexCatalogItem({model: item, tagName:'tr', catalog_item: @model, vent: @vent})
 		@_catalogItemViews.push(view)
 		view
 	
@@ -42,3 +38,14 @@ class Quota.Views.IndexCatalogItems extends Backbone.View
 	catalogItemLinkClicked: (evt) ->
 		# console.log evt.view.model.get("name")
 	# 		@setContactTypeRelatedFields()
+	
+	searchClicked: (evt) ->
+		# filterParams = {name:['Item 9','Item 3','Item 11'], color:black}
+		# filterParams = {name:['Item 9','Item 3','Item 11']}
+		filterParams = {name:['1','3','11']}
+
+		@collection.filterData(filterParams);
+	
+	
+		
+	
