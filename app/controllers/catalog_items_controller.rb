@@ -20,8 +20,23 @@ class CatalogItemsController < ApplicationController
   end
   
   def new
+    @account_key = @current_user.account_key
+    # @companies = Contact.companies(@current_user.account)
+    #     @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
+    @users = User.where(:account_key => @current_user.account.pub_key)
+    
+    # gon.companies = @companies
+    #     gon.milestones = @milestones
+    gon.users = @users
+    
     @catalog_item = CatalogItem.new
+    
+    gon.catalog_item = @catalog_item
   end
+  
+  # def new
+  #     @catalog_item = CatalogItem.new
+  #   end
   
   def create
     @catalog_item = current_user.account.catalog_items.build(params[:catalog_item])
@@ -51,5 +66,19 @@ class CatalogItemsController < ApplicationController
     @catalog_item = CatalogItem.find_by_pub_key(params[:id])
     @catalog_item.destroy
     redirect_back_or catalog_items_path
+  end
+  
+  def manufacturers
+    @account_key = @current_user.account_key
+    respond_to do |format|
+      format.html {
+        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+      }
+      format.json { 
+        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+        
+        render :json => @manufacturers.to_json(:include => [])
+      }
+    end
   end
 end

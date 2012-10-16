@@ -56,3 +56,28 @@
 		</div>
 	</div>
 </div>
+
+<script language="javascript">
+	$(function(){
+		// this.milestones = new Quota.Collections.Milestones(gon.milestones);
+		// this.companies = new Quota.Collections.Companies(gon.companies);
+		// 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
+		// 		this.users = new Quota.Collections.Users(gon.users);
+		
+		
+		if(gon.catalog_item){
+			this.catalog_item = new Quota.Models.CatalogItem(gon.catalog_item);
+		}
+		else{
+			this.catalog_item = new Quota.Models.CatalogItem();
+			this.catalog_item.fetch();
+		}
+		
+		window.vent = _.extend({}, Backbone.Events);
+	
+		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, users: this.users, vent: vent});
+		$('#catalog_item').html(view_catalog_item.render().el);
+	});	
+	
+	$.fn.placeholder();
+</script>

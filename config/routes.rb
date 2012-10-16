@@ -58,6 +58,7 @@ Quota::Application.routes.draw do
     match '/contacts/:id/phones', to: 'contact_phones#index'
     match '/companies', to: 'contacts#companies'
     match '/companies/:id/contacts', to: 'companies#contacts'
+    match '/manufacturers', to: 'catalog_items#manufacturers'
     
   end
   
