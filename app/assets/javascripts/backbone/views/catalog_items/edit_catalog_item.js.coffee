@@ -20,15 +20,15 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 		)
 		@vent = options.vent
 		# @milestones = options.milestones
-		# 		@companies = options.companies
+		@manufacturers = options.manufacturers
 		# 		@sales_reps = options.sales_reps
 		# 		@users = options.users
 		# 		@_milestonesView = new Quota.Views.MilestoneSelect({parent_model:@model, parent_child_key: @model.get("milestone_key"), collection:@milestones, field_name:"opportunity[milestone_key]", vent: @vent})
 		# 		@_usersView = new Quota.Views.UserSelect({parent_model:@model, parent_child_key: @model.get("owner_key"), collection:@users, field_name:"opportunity[owner_key]", vent: @vent})
-		# @_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, source: "name", val: "name", className: 'string input-xlarge', vent: @vent})
+		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, source: "manufacturer", val: "manufacturer", className: 'string input-xlarge', vent: @vent})
 		@model.on('change', @render, @)
 		# @vent.on('milestone:changed', @milestoneChanged, @)
-		# 		@vent.on('company_name:changed', @companyNameChanged, @)
+		@vent.on('manufacturer_name:changed', @manufacturerNameChanged, @)
 		@vent.on('catalog_item:rendered', @rendered, @)
 		# @vent.on('estimated_close_date:blur', @checkEstimatedCloseDate, @)
 		# 		@vent.on('actual_close_date:blur', @checkActualCloseDate, @)
@@ -39,9 +39,9 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 		$(@el).html(@template({opportunity:@model.toJSON()}))
 		
 		@catalog_item_name = @$('.catalog_item_name')
-		# @opportunity_company_name = @$('.company_name')
+		@manufacturer_name = @$('.catalog_item_manufacturer')
 		# 		@input_opportunity_name = @$('.opportunity_name input')
-		# 		@input_opportunity_company_name = @$('.company_name input')
+		@input_manufacturer_name = @$('.catalog_item_manufacturer input')
 		# 		@input_opportunity_company_key = @$('.company_key')
 		# 		@input_opportunity_milestone_key = @$('.opportunity_milestone_key input')
 		# 		@input_opportunity_probability = @$('.opportunity_probability input')
@@ -61,16 +61,16 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 		# 		
 		# 		@container_users.html(@_usersView.render().el)
 		# 		
-		# 		company_name_field_name = @input_opportunity_company_name.attr('name')
-		# 		company_name_field_id = @input_opportunity_company_name.attr('id')
-		# 		
-		# 		@_companyComboView.setElement(@opportunity_company_name).render()
+		manufacturer_name_field_name = @input_manufacturer_name.attr('name')
+		manufacturer_name_field_id = @input_manufacturer_name.attr('id')
+		
+		@_manufacturerComboView.setElement(@manufacturer_name).render()
 		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
 		# 		
-		# 		@input_opportunity_company_name = @$('.company_name input')
-		# 		
-		# 		@input_opportunity_company_name.attr('name', company_name_field_name)
-		# 		@input_opportunity_company_name.attr('id', company_name_field_id)
+		@input_manufacturer_name = @$('.catalog_item_manufacturer input')
+		
+		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
+		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
 		# 		
 		# 		@opportunity_estimated_close_datepicker = @$(".opportunity_estimated_close .datepicker")
 		# 			.datepicker
@@ -124,11 +124,12 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 		
 	setup: ->
 		self = @
-		# @opportunity_name = $('.opportunity_name')
-		# 		@opportunity_company_name = $('.company_name')
+		@catalog_item_name = @$('.catalog_item_name')
+		@manufacturer_name = @$('.catalog_item_manufacturer')
+		
 		# 		@input_opportunity_name = $('.opportunity_name input')
-		# 		@input_opportunity_company_name = $('.company_name input')
-		# 		@input_opportunity_company_key = $('.company_key')
+		@input_manufacturer_name = $('.catalog_item_manufacturer input')
+		@input_manufacturer_key = $('.manufacturer_key')
 		# 		@input_opportunity_milestone_key = $('.opportunity_milestone_key input')
 		# 		@input_opportunity_probability = $('.opportunity_probability input')
 		# 		@input_opportunity_estimated_close = $('.opportunity_estimated_close input')
@@ -147,16 +148,16 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 		# 		
 		# 		@container_users.html(@_usersView.render().el)
 		# 		
-		# 		company_name_field_name = @input_opportunity_company_name.attr('name')
-		# 		company_name_field_id = @input_opportunity_company_name.attr('id')
-		# 		
-		# 		@_companyComboView.setElement(@opportunity_company_name).render()
+		manufacturer_name_field_name = @input_manufacturer_name.attr('name')
+		manufacturer_name_field_id = @input_manufacturer_name.attr('id')
+		
+		@_manufacturerComboView.setElement(@manufacturer_name).render()
 		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
 		# 		
-		# 		@input_opportunity_company_name = $('.company_name input')
-		# 		
-		# 		@input_opportunity_company_name.attr('name', company_name_field_name)
-		# 		@input_opportunity_company_name.attr('id', company_name_field_id)
+		@input_manufacturer_name = $('.catalog_item_manufacturer input')
+		
+		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
+		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
 		# 		
 		# 		@opportunity_estimated_close_datepicker = $(".opportunity_estimated_close .datepicker")
 		# 			.datepicker
@@ -302,16 +303,16 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 	# 			@model.set("probability", milestone.get("probability"), {silent: true})
 	# 			@input_opportunity_probability.attr('value', (milestone.get("probability") * 100))
 	# 	
-	# 	companyNameChanged: (evt) ->
-	# 		self = @
-	# 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
-	# 		if company
-	# 			@model.set("company_key", company.get("pub_key"), {silent: true})
-	# 			@input_opportunity_company_key.val(company.get("pub_key"))
+	manufacturerNameChanged: (evt) ->
+		self = @
+		manufacturer = _.find(self.manufacturers.models, (m) -> m.get("name") == evt.manufacturer_name)
+		if manufacturer
+			# @model.set("company_key", company.get("pub_key"), {silent: true})
+			# 			@input_opportunity_company_key.val(company.get("pub_key"))
 	# 			# @save()
-	# 		else
-	# 			@model.unset("company_key", {silent: true})
-	# 			@input_opportunity_company_key.val('')
+		else
+			# @model.unset("company_key", {silent: true})
+			# 			@input_opportunity_company_key.val('')
 	# 			# if evt.company_name != ''
 	# 			# 				company = new Quota.Models.Contact()
 	# 			# 				company.save(

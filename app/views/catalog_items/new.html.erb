@@ -64,6 +64,8 @@
 		// 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		// 		this.users = new Quota.Collections.Users(gon.users);
 		
+		this.manufacturers = new Quota.Collections.Manufacturers(gon.manufacturers);
+		
 		
 		if(gon.catalog_item){
 			this.catalog_item = new Quota.Models.CatalogItem(gon.catalog_item);
@@ -75,7 +77,7 @@
 		
 		window.vent = _.extend({}, Backbone.Events);
 	
-		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, users: this.users, vent: vent});
+		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, manufacturers: this.manufacturers, vent: vent});
 		$('#catalog_item').html(view_catalog_item.render().el);
 	});	
 	

@@ -23,11 +23,11 @@ class CatalogItemsController < ApplicationController
     @account_key = @current_user.account_key
     # @companies = Contact.companies(@current_user.account)
     #     @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-    @users = User.where(:account_key => @current_user.account.pub_key)
+    @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
     
     # gon.companies = @companies
     #     gon.milestones = @milestones
-    gon.users = @users
+    gon.manufacturers = @manufacturers
     
     @catalog_item = CatalogItem.new
     
