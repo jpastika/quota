@@ -172,8 +172,8 @@ textarea {
 
 .alert {
   border-radius: 0;
-  margin-bottom: 0;
-  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-top: 0;
   padding: 8px 35px 8px 14px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
  
@@ -1080,6 +1080,12 @@ label.required{
 
 .input-prepend input, .input-prepend select, .input-prepend .uneditable-input, .input-append input, .input-append select, .input-append .uneditable-input {
   border-radius: 0px;
+}
+
+.control-group.error .input-prepend .add-on, .field_with_errors .input-prepend .add-on, .control-group.error .input-append .add-on, .field_with_errors .input-append .add-on {
+  background-color: transparent;
+  border-color: #B94A48;
+  color: #B94A48;
 }
 
 #ui-datepicker-div 

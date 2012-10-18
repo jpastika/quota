@@ -3,50 +3,26 @@
 </div>
 <div class="row-fluid">
 <div class="span6">
-	
 	<%= f.input :name, :label => "Name", :input_html => {:size => 30} %>
-	<%= f.input :description, :label => "Description" %>
-<div class="control-group">
-	<label for="catalog_item_list_price" class="string control-label">List Price</label>
-	<div class="controls catalog_item_list_price">
-		<div class="input-prepend">
-			<span class="add-on">$</span>
-			<input type="text" value="<%= @catalog_item.list_price %>" name="catalog_item[list_price]" id="catalog_item_list_price" class="string input-small">
-			<select class="input-medium" name="catalog_item[recurring_unit]" value="<%= @catalog_item.recurring_unit %>">
-				<option value="ONETIME">one time</option>
-				<option value="HOUR">per hour</option>
-				<option value="DAY">per day</option>
-				<option value="WEEK">per week</option>
-				<option value="MONTH">per month</option>
-				<option value="QUARTER">per quarter</option>
-				<option value="YEAR">per year</option>
-			</select>
-		</div>
-	</div>
-</div>
+	<%= f.input :description, :label => "Description", :input_html => {:rows => 4} %>
+	<%= f.input :list_price, :wrapper => :prepend do %>
+		<%= content_tag :span, "$", :class => "add-on" %>
+		<%= f.input_field :list_price, :class => "input-small" %>
+		<%= f.input_field :recurring_unit, :collection => [['per hour', 'HOUR', {'data-key' => 'recurring_unit'}], ['per day', 'DAY', {'data-key' => 'recurring_unit'}], ['per week', 'WEEK', {'data-key' => 'recurring_unit'}], ['per month', 'MONTH', {'data-key' => 'recurring_unit'}], ['per quarter', 'QUARTER', {'data-key' => 'recurring_unit'}], ['per year', 'YEAR', {'data-key' => 'recurring_unit'}]], :class => "input-medium", :label => false %>
+	<% end %>
 </div>
 <div class="span1"></div>
 <div class="span5">
 	<%= f.input :part_number, :label => "Part Number", :input_html => {:size => 30} %>
 	<%= f.input :manufacturer, :label => "Manufacturer", :input_html => {:size => 30} %>
-	
-<div class="control-group">
-	<div class="span8">
-		<label>&nbsp;</label>
-		<div class="controls catalog_item_is_trimble">
-			<input type="checkbox" value=1 name="catalog_item[is_trimble]" id="catalog_item_is_trimble" class="">
-			&nbsp;is Trimble?
+	<div class="control-group">
+		<div class="span8">
+			<label>&nbsp;</label>
+			<div class="controls catalog_item_is_taxable">
+				<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="">
+				&nbsp;is cancelled?
+			</div>
 		</div>
 	</div>
-</div>
-<div class="control-group">
-	<div class="span8">
-		<label>&nbsp;</label>
-		<div class="controls catalog_item_is_taxable">
-			<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="">
-			&nbsp;is cancelled?
-		</div>
-	</div>
-</div>
 </div>
 </div>

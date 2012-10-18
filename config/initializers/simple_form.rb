@@ -82,6 +82,22 @@ SimpleForm.setup do |config|
       input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
     end
   end
+  
+  config.wrappers :ci_list_price, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
+      ba.wrapper :tag => 'div', :class => 'input-prepend' do |bb|
+        bb.use '<span class="add-on">$</span>'
+        bb.use :input
+        bb.use :select
+        bb.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+        bb.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+      end
+    end
+  end
+  
 
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
   # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
