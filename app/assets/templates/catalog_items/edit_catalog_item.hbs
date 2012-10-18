@@ -1,5 +1,5 @@
 <div class="section-heading">
-	<h3>Catalog Item Details</h3>
+	<h3>Catalog Item Details - BB</h3>
 </div>
 <div class="row-fluid">
 <div class="span6">
@@ -21,7 +21,7 @@
 		<div class="input-prepend">
 			<span class="add-on">$</span>
 			<input type="text" value="{{catalog_item.list_price}}" name="catalog_item[list_price]" id="catalog_item_list_price" class="string input-small">
-			<select class="input-medium" name="catalog_item[recurring_interval]" value="{{catalog_item.recurring_interval}}">
+			<select class="input-medium" name="catalog_item[recurring_unit]" value="{{catalog_item.recurring_unit}}">
 				<option value="ONETIME">one time</option>
 				<option value="HOUR">per hour</option>
 				<option value="DAY">per day</option>
@@ -50,7 +50,7 @@
 	<div class="span8">
 		<label>&nbsp;</label>
 		<div class="controls catalog_item_is_trimble">
-			<input type="checkbox" value="{{catalog_item.is_trimble}}" name="catalog_item_is_trimble" id="catalog_item_is_trimble" class="">
+			<input type="checkbox" value="{{catalog_item.is_trimble}}" name="catalog_item[is_trimble]" id="catalog_item_is_trimble" class="">
 			&nbsp;is Trimble?
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 	<div class="span8">
 		<label>&nbsp;</label>
 		<div class="controls catalog_item_is_taxable">
-			<input type="checkbox" value="{{catalog_item.is_taxable}}" name="catalog_item_is_taxable" id="catalog_item_is_taxable" class="">
+			<input type="checkbox" value="{{catalog_item.is_taxable}}" name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="">
 			&nbsp;is cancelled?
 		</div>
 	</div>

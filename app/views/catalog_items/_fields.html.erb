@@ -1,17 +1,52 @@
-<% if f.error_notification %>
-    <div class="alert alert-error fade in">
-      <a class="close" data-dismiss="alert" href="#">&times;</a>
-      <%= f.error_notification %>
-    </div>
-<% end %>
-<%= f.input :name %>
-<%= f.input :part_number %>
-<%= f.input :manufacturer %>
-<%= f.input :description %>
-<%= f.input :list_price %>
-<%= f.input :is_recurring, as: :boolean, :label => "Recurring" %>
-<%= f.input :recurring_unit %>
-<%= f.input :is_subscription, as: :boolean, :label => "Subscription" %>
-<%= f.input :subscription_length %>
-<%= f.input :subscription_length_unit %>
-<%= f.input :is_taxable, :as => :boolean, :label => "Taxable" %>
+<div class="section-heading">
+	<h3>Catalog Item Details</h3>
+</div>
+<div class="row-fluid">
+<div class="span6">
+	
+	<%= f.input :name, :label => "Name", :input_html => {:size => 30} %>
+	<%= f.input :description, :label => "Description" %>
+<div class="control-group">
+	<label for="catalog_item_list_price" class="string control-label">List Price</label>
+	<div class="controls catalog_item_list_price">
+		<div class="input-prepend">
+			<span class="add-on">$</span>
+			<input type="text" value="<%= @catalog_item.list_price %>" name="catalog_item[list_price]" id="catalog_item_list_price" class="string input-small">
+			<select class="input-medium" name="catalog_item[recurring_unit]" value="<%= @catalog_item.recurring_unit %>">
+				<option value="ONETIME">one time</option>
+				<option value="HOUR">per hour</option>
+				<option value="DAY">per day</option>
+				<option value="WEEK">per week</option>
+				<option value="MONTH">per month</option>
+				<option value="QUARTER">per quarter</option>
+				<option value="YEAR">per year</option>
+			</select>
+		</div>
+	</div>
+</div>
+</div>
+<div class="span1"></div>
+<div class="span5">
+	<%= f.input :part_number, :label => "Part Number", :input_html => {:size => 30} %>
+	<%= f.input :manufacturer, :label => "Manufacturer", :input_html => {:size => 30} %>
+	
+<div class="control-group">
+	<div class="span8">
+		<label>&nbsp;</label>
+		<div class="controls catalog_item_is_trimble">
+			<input type="checkbox" value=1 name="catalog_item[is_trimble]" id="catalog_item_is_trimble" class="">
+			&nbsp;is Trimble?
+		</div>
+	</div>
+</div>
+<div class="control-group">
+	<div class="span8">
+		<label>&nbsp;</label>
+		<div class="controls catalog_item_is_taxable">
+			<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="">
+			&nbsp;is cancelled?
+		</div>
+	</div>
+</div>
+</div>
+</div>

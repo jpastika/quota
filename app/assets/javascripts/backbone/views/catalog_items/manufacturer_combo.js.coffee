@@ -1,11 +1,12 @@
 class Quota.Views.ManufacturerComboView extends Backbone.View
-	tagName: 'span'
-	template: HandlebarsTemplates['catalog_items/manufacturer_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# tagName: 'span'
+	# template: HandlebarsTemplates['catalog_items/manufacturer_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"blur input": "selected"
+		"blur": "selected"
 	
 	initialize: (options) ->
+		self = @
 		_.bindAll(@)
 		@vent = options.vent
 		@parent_model = options.parent_model
@@ -27,20 +28,20 @@ class Quota.Views.ManufacturerComboView extends Backbone.View
 	render: ->
 		# $(@el).html(@template({company:@collection.toJSON(), field_name:@field_name}))
 		self = @
-		$(@el).html(@template())
-		
-			# @$el.attr('value', company.get("name"))
+		# $(@el).html(@template())
+
+		# @$el.attr('value', company.get("name"))
 		# @$el.attr('placeholder', 'Company')
 		# 
 		options = _.extend @options, 
 			source: @collection.pluck @source
 			onselect: (obj) -> self.selected(obj)
 			showAdd: true
-		@$('input').typeahead options
+		$(@el).typeahead options
 		
 		manufacturer = _.find(self.collection.models, (m) -> m.get("name") == self.parent_model.get("name"))
 		if manufacturer
-			@$('input').attr('value', manufacturer.get("name"))
+			$(@el).attr('value', manufacturer.get("name"))
 		@
 		
 	selected: (obj) ->

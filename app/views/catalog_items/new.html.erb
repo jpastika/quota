@@ -18,7 +18,7 @@
 		</div>
 		<div class="page-title-container">
 			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunities"), opportunities_path %>
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog"), catalog_items_path %>
 			</div>
 			<div class="page-title">
 				Create a New Catalog Item
@@ -59,13 +59,7 @@
 
 <script language="javascript">
 	$(function(){
-		// this.milestones = new Quota.Collections.Milestones(gon.milestones);
-		// this.companies = new Quota.Collections.Companies(gon.companies);
-		// 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
-		// 		this.users = new Quota.Collections.Users(gon.users);
-		
 		this.manufacturers = new Quota.Collections.Manufacturers(gon.manufacturers);
-		
 		
 		if(gon.catalog_item){
 			this.catalog_item = new Quota.Models.CatalogItem(gon.catalog_item);
@@ -77,8 +71,9 @@
 		
 		window.vent = _.extend({}, Backbone.Events);
 	
-		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, manufacturers: this.manufacturers, vent: vent});
-		$('#catalog_item').html(view_catalog_item.render().el);
+		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, manufacturers: this.manufacturers, vent: vent, el: '#catalog_item'});
+		view_catalog_item.setup();
+		// $('#catalog_item').html(view_catalog_item.render().el);
 	});	
 	
 	$.fn.placeholder();

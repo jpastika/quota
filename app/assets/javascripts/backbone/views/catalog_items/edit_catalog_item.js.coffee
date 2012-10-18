@@ -1,12 +1,5 @@
 class Quota.Views.EditCatalogItem extends Backbone.View
 
-	template: HandlebarsTemplates['catalog_items/edit_catalog_item'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	
-	# events:
-	# 		"blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
-	# 		"blur #opportunity_actual_close_dp": "checkActualCloseDate"
-	# 		"blur #opportunity_actual_cancel_dp": "checkActualCancelDate"
-		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -18,106 +11,28 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 				self.clearError(attr)
 				self.handleError(attr, error)
 		)
+		@el = options.el
 		@vent = options.vent
-		# @milestones = options.milestones
 		@manufacturers = options.manufacturers
-		# 		@sales_reps = options.sales_reps
-		# 		@users = options.users
-		# 		@_milestonesView = new Quota.Views.MilestoneSelect({parent_model:@model, parent_child_key: @model.get("milestone_key"), collection:@milestones, field_name:"opportunity[milestone_key]", vent: @vent})
-		# 		@_usersView = new Quota.Views.UserSelect({parent_model:@model, parent_child_key: @model.get("owner_key"), collection:@users, field_name:"opportunity[owner_key]", vent: @vent})
-		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, source: "manufacturer", val: "manufacturer", className: 'string input-xlarge', vent: @vent})
+		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-xlarge', vent: @vent})
 		@model.on('change', @render, @)
-		# @vent.on('milestone:changed', @milestoneChanged, @)
 		@vent.on('manufacturer_name:changed', @manufacturerNameChanged, @)
 		@vent.on('catalog_item:rendered', @rendered, @)
-		# @vent.on('estimated_close_date:blur', @checkEstimatedCloseDate, @)
-		# 		@vent.on('actual_close_date:blur', @checkActualCloseDate, @)
-		# 		@vent.on('actual_cancel_date:blur', @checkActualCancelDate, @)
 		
 	render: ->
 		self = @
-		$(@el).html(@template({opportunity:@model.toJSON()}))
-		
 		@catalog_item_name = @$('.catalog_item_name')
-		@manufacturer_name = @$('.catalog_item_manufacturer')
-		# 		@input_opportunity_name = @$('.opportunity_name input')
-		@input_manufacturer_name = @$('.catalog_item_manufacturer input')
-		# 		@input_opportunity_company_key = @$('.company_key')
-		# 		@input_opportunity_milestone_key = @$('.opportunity_milestone_key input')
-		# 		@input_opportunity_probability = @$('.opportunity_probability input')
-		# 		@input_opportunity_estimated_close = @$('.opportunity_estimated_close input')
-		# 		@input_opportunity_estimated_value = @$('.opportunity_estimated_value input').first()
-		# 		@input_opportunity_estimated_value_interval = @$('.opportunity_estimated_close select')
-		# 		@input_opportunity_owner_key = @$('.opportunity_owner_key select')
-		# 		@input_opportunity_actual_close = @$('.opportunity_actual_close input')
-		# 		@container_milestones = @$('#milestones')
-		# 		@container_users = @$('#users')
-		# 		 		
-		# 		@opportunity_estimated_close_datepicker_button = @$(".opportunity_estimated_close .icon-calendar")
-		# 		@opportunity_actual_close_datepicker_button = @$(".opportunity_actual_close .icon-calendar")
-		# 		@opportunity_actual_cancel_datepicker_button = @$(".opportunity_actual_cancel .icon-calendar")
-		# 		
-		# 		@_milestonesView.setElement(@container_milestones).render()
-		# 		
-		# 		@container_users.html(@_usersView.render().el)
-		# 		
+		@manufacturer_name = @$('#catalog_item_manufacturer')
+		@input_manufacturer_name = @$('#catalog_item_manufacturer')
 		manufacturer_name_field_name = @input_manufacturer_name.attr('name')
 		manufacturer_name_field_id = @input_manufacturer_name.attr('id')
 		
-		@_manufacturerComboView.setElement(@manufacturer_name).render()
-		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
-		# 		
-		@input_manufacturer_name = @$('.catalog_item_manufacturer input')
+		@_manufacturerComboView.render()
+		
+		@input_manufacturer_name = @$('#catalog_item_manufacturer')
 		
 		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
 		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
-		# 		
-		# 		@opportunity_estimated_close_datepicker = @$(".opportunity_estimated_close .datepicker")
-		# 			.datepicker
-		# 				dateFormat: "yy-mm-dd"
-		# 				altFormat: "yy-mm-dd"
-		# 				altField: @$(".opportunity_estimated_close .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		@$(".opportunity_estimated_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")	
-		# 		
-		# 		@opportunity_estimated_close_datepicker_button.on(
-		# 			"click"
-		# 			() -> self.$(".opportunity_estimated_close .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		# self.$(".opportunity_estimated_close .datepicker").datepicker("show")
-		# 		
-		# 		@opportunity_actual_close_datepicker = @$(".opportunity_actual_close .datepicker")
-		# 			.datepicker
-		# 				altFormat: "yy-mm-dd"
-		# 				dateFormat: "yy-mm-dd"
-		# 				altField: @$(".opportunity_actual_close .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		@$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
-		# 	
-		# 		@opportunity_actual_close_datepicker_button.on(
-		# 			"click"
-		# 			() -> self.$(".opportunity_actual_close .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		@opportunity_actual_cancel_datepicker = @$(".opportunity_actual_cancel .datepicker")
-		# 			.datepicker
-		# 				altFormat: "yy-mm-dd"
-		# 				dateFormat: "yy-mm-dd"
-		# 				altField: @$(".opportunity_actual_cancel .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		@$(".opportunity_actual_cancel .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
-		# 		
-		# 		@opportunity_actual_cancel_datepicker_button.on(
-		# 			"click"
-		# 			() -> self.$(".opportunity_actual_cancel .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		@input_opportunity_estimated_value_interval.val(@model.get("estimated_value_interval"))
-		# 		@input_opportunity_owner_key.val(@model.get("owner_key"))
 		
 		@vent.trigger("catalog_item:rendered")
 		@
@@ -125,108 +40,18 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 	setup: ->
 		self = @
 		@catalog_item_name = @$('.catalog_item_name')
-		@manufacturer_name = @$('.catalog_item_manufacturer')
-		
-		# 		@input_opportunity_name = $('.opportunity_name input')
-		@input_manufacturer_name = $('.catalog_item_manufacturer input')
+		@manufacturer_name = $('#catalog_item_manufacturer')
+		@input_manufacturer_name = $('#catalog_item_manufacturer')
 		@input_manufacturer_key = $('.manufacturer_key')
-		# 		@input_opportunity_milestone_key = $('.opportunity_milestone_key input')
-		# 		@input_opportunity_probability = $('.opportunity_probability input')
-		# 		@input_opportunity_estimated_close = $('.opportunity_estimated_close input')
-		# 		@input_opportunity_estimated_value = $('.opportunity_estimated_value input').first()
-		# 		@input_opportunity_estimated_value_interval = $('.opportunity_estimated_close select')
-		# 		@input_opportunity_owner_key = $('.opportunity_owner_key select')
-		# 		@input_opportunity_actual_close = $('.opportunity_actual_close input')
-		# 		@container_milestones = $('#milestones')
-		# 		@container_users = $('#users')
-		# 		
-		# 		@opportunity_estimated_close_datepicker_button = $(".opportunity_estimated_close .icon-calendar")
-		# 		@opportunity_actual_close_datepicker_button = $(".opportunity_actual_close .icon-calendar")
-		# 		@opportunity_actual_cancel_datepicker_button = $(".opportunity_actual_cancel .icon-calendar")
-		# 		
-		# 		@_milestonesView.setElement(@container_milestones).render()
-		# 		
-		# 		@container_users.html(@_usersView.render().el)
-		# 		
 		manufacturer_name_field_name = @input_manufacturer_name.attr('name')
 		manufacturer_name_field_id = @input_manufacturer_name.attr('id')
 		
-		@_manufacturerComboView.setElement(@manufacturer_name).render()
-		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
-		# 		
-		@input_manufacturer_name = $('.catalog_item_manufacturer input')
+		@_manufacturerComboView.render()
+		
+		@input_manufacturer_name = $('#catalog_item_manufacturer')
 		
 		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
 		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
-		# 		
-		# 		@opportunity_estimated_close_datepicker = $(".opportunity_estimated_close .datepicker")
-		# 			.datepicker
-		# 				dateFormat: "yy-mm-dd"
-		# 				altFormat: "yy-mm-dd"
-		# 				altField: $(".opportunity_estimated_close .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		$(".opportunity_estimated_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
-		# 		$(".opportunity_estimated_close .datepicker").on(
-		# 			"blur"
-		# 			() -> self.vent.trigger("estimated_close_date:blur")
-		# 		)
-		# 		# $(".opportunity_estimated_close .datepicker").on(
-		# 		# 			"blur"
-		# 		# 			self.vent.trigger("estimated_close_date:blur")
-		# 		# 		)
-		# 		
-		# 		@opportunity_estimated_close_datepicker_button.on(
-		# 			"click"
-		# 			() -> $(".opportunity_estimated_close .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		# self.$(".opportunity_estimated_close .datepicker").datepicker("show")
-		# 		
-		# 		@opportunity_actual_close_datepicker = $(".opportunity_actual_close .datepicker")
-		# 			.datepicker
-		# 				altFormat: "yy-mm-dd"
-		# 				dateFormat: "yy-mm-dd"
-		# 				altField: $(".opportunity_actual_close .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		$(".opportunity_actual_close .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
-		# 		$(".opportunity_actual_close .datepicker").on(
-		# 			"blur"
-		# 			() -> self.vent.trigger("actual_close_date:blur")
-		# 		)
-		# 		
-		# 		
-		# 		@opportunity_actual_close_datepicker_button.on(
-		# 			"click"
-		# 			() -> $(".opportunity_actual_close .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		@opportunity_actual_cancel_datepicker = $(".opportunity_actual_cancel .datepicker")
-		# 			.datepicker
-		# 				altFormat: "yy-mm-dd"
-		# 				dateFormat: "yy-mm-dd"
-		# 				altField: $(".opportunity_actual_cancel .altfield")
-		# 				showAnim: ""
-		# 		
-		# 		$(".opportunity_actual_cancel .datepicker").datepicker("option", "dateFormat", "mm/dd/yy")
-		# 		$(".opportunity_actual_cancel .datepicker").on(
-		# 			"blur"
-		# 			() -> self.vent.trigger("actual_cancel_date:blur")
-		# 		)
-		# 		# $(".opportunity_actual_cancel .datepicker").on(
-		# 		# 			"blur"
-		# 		# 			self.vent.trigger("actual_cancel_date:blur")
-		# 		# 		)
-		# 		
-		# 		@opportunity_actual_cancel_datepicker_button.on(
-		# 			"click"
-		# 			() -> $(".opportunity_actual_cancel .datepicker").datepicker("show")
-		# 		)
-		# 		
-		# 		@input_opportunity_estimated_value_interval.val(@model.get("estimated_value_interval"))
-		# 		@input_opportunity_owner_key.val(@model.get("owner_key"))
-		
 		@vent.trigger("catalog_item:rendered")
 		
 	
@@ -304,6 +129,7 @@ class Quota.Views.EditCatalogItem extends Backbone.View
 	# 			@input_opportunity_probability.attr('value', (milestone.get("probability") * 100))
 	# 	
 	manufacturerNameChanged: (evt) ->
+		console.log "changed"
 		self = @
 		manufacturer = _.find(self.manufacturers.models, (m) -> m.get("name") == evt.manufacturer_name)
 		if manufacturer
