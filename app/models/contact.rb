@@ -1,7 +1,7 @@
 class Contact < ActiveRecord::Base
   attr_accessible :company_key, :contact_type_key, :is_disabled, :name, :pub_key, :title
   
-  belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
+  # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :company, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"
   has_one :contact_type, :primary_key => "contact_type_key", :foreign_key => "pub_key"
   
@@ -20,13 +20,24 @@ class Contact < ActiveRecord::Base
   validates :account_key, presence: true
   validates :contact_type_key, presence: true
   
+  default_scope { where(account_key: Account.current_account_key) }
+  
+  
   class << self
-    def companies(account)
-      where(:contact_type_key => (ContactType.where(:name => "Company", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Company", :account_key => account.pub_key).nil?))
+    # def companies(account)
+    #       where(:contact_type_key => (ContactType.where(:name => "Company", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Company", :account_key => account.pub_key).nil?))
+    #     end
+    
+    def companies()
+      where(:contact_type_key => (ContactType.where(:name => "Company").first.pub_key unless ContactType.where(:name => "Company").nil?))
     end
     
-    def people(account)
-      where(:contact_type_key => (ContactType.where(:name => "Person", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Person", :account_key => account.pub_key).nil?))
+    # def people(account)
+    #       where(:contact_type_key => (ContactType.where(:name => "Person", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Person", :account_key => account.pub_key).nil?))
+    #     end
+    
+    def people()
+      where(:contact_type_key => (ContactType.where(:name => "Person").first.pub_key unless ContactType.where(:name => "Person").nil?))
     end
   end
   

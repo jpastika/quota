@@ -1,0 +1,143 @@
+<% provide(:title, "Catalog - #{@catalog_item.name}") %>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change item details"), edit_catalog_item_path(@catalog_item.pub_key), :class => 'btn btn-primary' %>
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+			<div class="show-field">
+				<span class="show-label">Part Number</span>
+				<br>
+				<span class="show-value"><%= @catalog_item.part_number %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Manufacturer</span>
+				<br>
+				<span class="show-value"><%= @catalog_item.manufacturer %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">List Price</span>
+				<br>
+				<span class="show-value"><%= @catalog_item.list_price %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Description</span>
+				<br>
+				<span class="show-value"><%= @catalog_item.description %></span>
+			</div>
+		</div>
+		<div id="sidebar_body_container" class="">
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog"), catalog_items_path %>
+			</div>
+			<div class="page-title">
+				<%= @catalog_item.name %>
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body_container" class="">
+				<div>
+					<div id="contacts_container">
+						<div class="section-heading">
+							<h3>Contacts</h3>
+						</div>
+						<div class="section-content">
+							<div class="section-table">
+								<table class="table table-condensed table-plain">
+									<thead>
+										<tr>
+											<th  width="22%">Name</th>
+											<th  width="25%">Company</th>
+											<th  width="25%">Phone</th>
+											<th  width="25%">Email</th>
+											<th  width="3%">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class="section-form" style="display:none;">
+							</div>
+							<div id="opportunity-contacts-actions" class="section-actions actions-bar-left">
+								<button type="submit" class="btn btn-primary form-submit">
+									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Contact
+								</button>
+								<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding contacts
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="documents_container">
+						<div class="section-heading">
+							<h3>Documents</h3>
+						</div>
+						<div class="section-content">
+							<div class="section-table">
+								<table class="table table-condensed table-plain">
+									<thead>
+										<tr>
+											<th  width="3%">Primary</th>
+											<th  width="10%">Type</th>
+											<th  width="60%">Name</th>
+											<th  width="24%">Created</th>
+											<th  width="3%">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div id="opportunity-documents-actions" class="section-actions actions-bar-left">
+								<a href="/documents/choose_template/<%= @catalog_item.pub_key %>" class="btn btn-primary form-submit">
+									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Document
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+	$(function(){
+		window.vent = _.extend({}, Backbone.Events);
+		
+		if(gon.catalog_item){
+			this.catalog_item = new Quota.Models.CatalogItem($.parseJSON(gon.catalog_item));
+		}
+		else{
+			this.catalog_item = new Quota.Models.CatalogItem();
+			this.catalog_item.fetch();
+		}
+		
+		// this.catalog_item.set("opportunity_contacts", this.opportunity_contacts);
+		// 		this.catalog_item.set("documents", this.opportunity_documents);
+		
+		
+		// console.log($.parseJSON(gon.opportunity).milestone);
+	
+		// var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent});
+		// 		page_body_view.setup();
+		// 		
+		// 		var sidebar_body_view = new Quota.Views.ShowCatalogItemSidebar({model: this.catalog_item, vent: vent});
+		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
+	});	
+	
+	
+</script>

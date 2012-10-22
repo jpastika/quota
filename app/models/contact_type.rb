@@ -8,6 +8,9 @@ class ContactType < ActiveRecord::Base
   validates :name, presence: true
   validates :account_key, presence: true
   
+  default_scope { where(account_key: Account.current_account_key) }
+  
+  
   private
     def generate_token(column)
       begin

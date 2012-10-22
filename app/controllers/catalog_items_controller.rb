@@ -5,16 +5,38 @@ class CatalogItemsController < ApplicationController
     respond_to do |format|
       format.html {
         @account_key = @current_user.account.pub_key
-        @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        @catalog_items = CatalogItem.all
         
         gon.catalog_items = @catalog_items.to_json(:include => [])
         gon.current_member = @current_user
       }
       format.json { 
         @account_key = @current_user.account.pub_key
-        @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
+        @catalog_items = CatalogItem.all
         
         render :json => @catalog_items.to_json(:include => [])
+      }
+    end
+  end
+  
+  def show
+    # @opportunity = Opportunity.find_by_pub_key(params[:id])
+    respond_to do |format|
+      format.html {
+        @catalog_item = CatalogItem.find_by_pub_key(params[:id])
+        
+        gon.catalog_item = @catalog_item.to_json(:include => [])
+        # gon.opportunity_contacts = @opportunity.opportunity_contacts.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
+        #         gon.opportunity_documents = @opportunity.documents
+        #         gon.companies = Contact.companies(@current_user.account)
+        
+      }
+      format.json {
+        @catalog_item = CatalogItem.find_by_pub_key(params[:id])
+        
+        render :json => @catalog_item
       }
     end
   end

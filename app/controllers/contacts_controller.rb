@@ -5,16 +5,18 @@ class ContactsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @account_key = @current_user.account_key
-        @contacts = Contact.where(:account_key => @account_key)
-        @contact_types = ContactType.where(:account_key => @account_key)
+        # @account_key = @current_user.account_key
+        # @contacts = Contact.where(:account_key => @account_key)
+        @contacts = Contact.all
+        @contact_types = ContactType.all
         
         # @contacts = current_member.account.contacts
         gon.contact_types = @contact_types
         gon.contacts = @contacts
       }
       format.json { 
-        @contacts = Contact.where(:account_key => @current_user.account_key)
+        # @contacts = Contact.where(:account_key => @current_user.account_key)
+        @contacts = Contact.all
         # @contacts = current_member.account.contacts
         render :json => @contacts.to_json(:include => :contact_type)
       }
@@ -24,9 +26,9 @@ class ContactsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        @account_key = @current_user.account_key
-        @contacts = Contact.where(:account_key => @account_key)
-        @contact_types = ContactType.where(:account_key => @account_key)
+        # @account_key = @current_user.account_key
+        @contacts = Contact.all
+        @contact_types = ContactType.all
         
         @contact = Contact.find_by_pub_key(params[:id])
         if @contact.contact_type.name == "Company"
@@ -42,9 +44,9 @@ class ContactsController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:id])
-        gon.contact_types = current_user.account.contact_types.all
+        gon.contact_types = ContactType.all
         gon.contact = @contact
-        gon.companies = current_user.account.contacts.companies.all
+        gon.companies = Contact.companies
         gon.contact_phones = @contact.phones
         gon.contact_emails = @contact.emails
         gon.contact_urls = @contact.urls
@@ -57,21 +59,21 @@ class ContactsController < ApplicationController
   end
   
   def new
-    @account_key = @current_user.account_key
-    @contacts = Contact.where(:account_key => @account_key)
-    @contact_types = ContactType.where(:account_key => @account_key)
-    @companies = Contact.companies(@current_user.account)
+    # @account_key = @current_user.account_key
+    @contacts = Contact.all
+    @contact_types = ContactType.all
+    @companies = Contact.companies
     
     gon.contact_types = @contact_types
-    gon.contact = current_user.account.contacts.new()
+    gon.contact = Contact.new()
     gon.companies = @companies
     
     respond_to do |format|
       format.html {
-        @contact = current_user.account.contacts.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
+        @contact = Contact.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
       }
       format.json {
-        @contact = current_user.account.contacts.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
+        @contact = Contact.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
         render :json => @contact.to_json()
       }
     end
@@ -80,7 +82,7 @@ class ContactsController < ApplicationController
   def create
     respond_to do |format|
       format.html {
-        @contact = current_user.account.contacts.build(params[:contact])
+        @contact = Contact.build(params[:contact])
         if @contact.save
           flash[:success] = "#{@contact.name} is now a contact on your Quota account."
           redirect_to contacts_path
@@ -90,24 +92,24 @@ class ContactsController < ApplicationController
       }
       format.json {
         if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
-          @company = current_user.account.contacts.companies(current_user.account).build(name: params[:company_name])
+          @company = Cpntact.companies.build(name: params[:company_name])
           @company.save
           @company_key = @company.pub_key
         else
           @company_key = params[:company_key]
         end
         
-        @contact = current_user.account.contacts.people(current_user.account).build(name: params[:name], company_key: @company_key)
+        @contact = Contact.people.build(name: params[:name], company_key: @company_key)
         
         # @contact.save
         if @contact.save
           if (!params[:contact_phone].nil? && params[:contact_phone] != "")
-            @contact_phone = current_user.account.contact_phones.build(contact_key: @contact.pub_key, name: "phone", val: params[:contact_phone])
+            @contact_phone = ContactPhone.build(contact_key: @contact.pub_key, name: "phone", val: params[:contact_phone])
             @contact_phone.save
           end
           
           if (!params[:contact_email].nil? && params[:contact_email] != "")
-            @contact_email = current_user.account.contact_emails.build(contact_key: @contact.pub_key, name: "email", val: params[:contact_email])
+            @contact_email = ContactEmail.build(contact_key: @contact.pub_key, name: "email", val: params[:contact_email])
             @contact_email.save
           end
           
@@ -121,12 +123,12 @@ class ContactsController < ApplicationController
   
   def edit
     @account_key = @current_user.account_key
-    @contacts = Contact.where(:account_key => @account_key)
-    @contact_types = ContactType.where(:account_key => @account_key)
-    @companies = Contact.companies(@current_user.account)
+    @contacts = Contact.all
+    @contact_types = ContactType.all
+    @companies = Contact.companies
     
     gon.contact_types = @contact_types
-    gon.contact = current_user.account.contacts.new()
+    gon.contact = Contact.new()
     gon.companies = @companies
     
     
@@ -164,10 +166,10 @@ class ContactsController < ApplicationController
   def companies
     respond_to do |format|
       format.html {
-        @companies = @current_user.account.contacts.companies(@current_user.account)
+        @companies = Contact.companies
       }
       format.json { 
-        @companies = @current_user.account.contacts.companies(@current_user.account)
+        @companies = Contact.companies
         render :json => @companies
       }
     end
