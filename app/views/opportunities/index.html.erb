@@ -28,6 +28,9 @@
 
 <script language="javascript">
 	$(function(){
+		
+		console.log(gon.opportunities);
+		
 		var view_page = new Quota.Views.PageIndexOpportunities({opportunities: new Quota.Collections.Opportunities($.parseJSON(gon.opportunities)), vent: Quota.vent});
 		$('#main_body').html(view_page.render().el);
 	});	

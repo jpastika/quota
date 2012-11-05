@@ -70,10 +70,10 @@ class ContactsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @contact = Contact.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
+        @contact = Contact.create(contact_type_key: ContactType.find_by_name("Person").pub_key)
       }
       format.json {
-        @contact = Contact.build(contact_type_key: @contact_types.find_by_name("Person").pub_key)
+        @contact = Contact.create(contact_type_key: ContactType.find_by_name("Person").pub_key)
         render :json => @contact.to_json()
       }
     end
@@ -82,7 +82,7 @@ class ContactsController < ApplicationController
   def create
     respond_to do |format|
       format.html {
-        @contact = Contact.build(params[:contact])
+        @contact = Contact.create(params[:contact])
         if @contact.save
           flash[:success] = "#{@contact.name} is now a contact on your Quota account."
           redirect_to contacts_path
@@ -92,7 +92,7 @@ class ContactsController < ApplicationController
       }
       format.json {
         if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
-          @company = Cpntact.companies.build(name: params[:company_name])
+          @company = Contact.companies.build(name: params[:company_name])
           @company.save
           @company_key = @company.pub_key
         else
@@ -104,12 +104,12 @@ class ContactsController < ApplicationController
         # @contact.save
         if @contact.save
           if (!params[:contact_phone].nil? && params[:contact_phone] != "")
-            @contact_phone = ContactPhone.build(contact_key: @contact.pub_key, name: "phone", val: params[:contact_phone])
+            @contact_phone = ContactPhone.create(contact_key: @contact.pub_key, name: "phone", val: params[:contact_phone])
             @contact_phone.save
           end
           
           if (!params[:contact_email].nil? && params[:contact_email] != "")
-            @contact_email = ContactEmail.build(contact_key: @contact.pub_key, name: "email", val: params[:contact_email])
+            @contact_email = ContactEmail.create(contact_key: @contact.pub_key, name: "email", val: params[:contact_email])
             @contact_email.save
           end
           

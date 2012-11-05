@@ -61,8 +61,13 @@
 	$(function(){
 		// this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.companies = new Quota.Collections.Companies(gon.companies);
-		this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.users = new Quota.Collections.Users(gon.users);
+		this.milestones = new Quota.Collections.Milestones(gon.milestones);
+		
+		console.log(gon.users);
+		console.log(this.users);
+		console.log(gon.milestones);
+		console.log(this.milestones);
 		
 		
 		if(gon.opportunity){

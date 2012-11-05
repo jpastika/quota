@@ -6,15 +6,15 @@ class OpportunitiesController < ApplicationController
     # @opportunities = current_user.account.opportunities
     respond_to do |format|
       format.html {
-        @account_key = @current_user.account.pub_key
-        @opportunities = Opportunity.find(:all, :conditions => {:account_key => @account_key})
+        # @account_key = @current_user.account.pub_key
+        @opportunities = Opportunity.all
         
         gon.opportunities = @opportunities.to_json(:include => [:milestone, :owner, :company])
         gon.current_member = @current_user
       }
       format.json { 
-        @account_key = @current_user.account.pub_key
-        @opportunities = Opportunity.find(:all, :conditions => {:account_key => @account_key})
+        # @account_key = @current_user.account.pub_key
+        @opportunities = Opportunity.all
         
         render :json => @opportunities.to_json(:include => [:milestone, :owner, :company])
       }
@@ -30,7 +30,7 @@ class OpportunitiesController < ApplicationController
         gon.opportunity = @opportunity.to_json(:include => [:milestone, :owner, :company])
         gon.opportunity_contacts = @opportunity.opportunity_contacts.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
         gon.opportunity_documents = @opportunity.documents
-        gon.companies = Contact.companies(@current_user.account)
+        gon.companies = Contact.companies
         
       }
       format.json {
@@ -42,10 +42,10 @@ class OpportunitiesController < ApplicationController
   end
   
   def new
-    @account_key = @current_user.account_key
-    @companies = Contact.companies(@current_user.account)
-    @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-    @users = User.where(:account_key => @current_user.account.pub_key)
+    @account_key = Account.current_account_key
+    @companies = Contact.companies
+    @milestones = Milestone.all
+    @users = User.find(:all, :conditions => {:account_key => @account_key})
     
     gon.companies = @companies
     gon.milestones = @milestones
@@ -67,12 +67,16 @@ class OpportunitiesController < ApplicationController
       params[:opportunity][:is_cancelled] = false
     end
     
-    @opportunity = current_user.created_opportunities.build(params[:opportunity])
-    @opportunity.account = current_user.account
-    @opportunity.owner = current_user
+    # @opportunity = Opportunity.create(params[:opportunity])
+    @opportunity = Opportunity.new
+    @opportunity.account_key = Account.current_account_key
+    @opportunity.owner_key = params[:opportunity][:owner_key]
+    @opportunity.name = params[:opportunity][:name]
+    @opportunity.creator_key = User.current_user_key
+    @opportunity.company_key = params[:opportunity][:company_key]
     
     if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
-      @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
+      @company = Contact.companies.build(name: params[:customer][:company_name])
       if @company.save
         @opportunity.company_key = @company.pub_key
       end
@@ -80,17 +84,17 @@ class OpportunitiesController < ApplicationController
     
     if @opportunity.save
       if !@opportunity.company_key.nil?
-        current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
+        OpportunityContact.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
       end
       
       flash[:success] = "Opportunity has been created"
       redirect_to opportunity_path(@opportunity.pub_key)
     else
       @account_key = @current_user.account_key
-      @companies = Contact.companies(@current_user.account)
-      @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-      @users = User.where(:account_key => @current_user.account.pub_key)
-
+      @companies = Contact.companies
+      @milestones = Milestone.all
+      @users = User.find(:all, :conditions => {:account_key => @account_key})
+      
       gon.companies = @companies
       gon.milestones = @milestones
       gon.users = @users
@@ -103,9 +107,9 @@ class OpportunitiesController < ApplicationController
   
   def edit
     @account_key = @current_user.account_key
-    @companies = Contact.companies(@current_user.account)
-    @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-    @users = User.where(:account_key => @current_user.account.pub_key)
+    @companies = Contact.companies
+    @milestones = Milestone.all
+    @users = User.find(:all, :conditions => {:account_key => @account_key})
     
     gon.companies = @companies
     gon.milestones = @milestones
@@ -131,13 +135,13 @@ class OpportunitiesController < ApplicationController
     
     if @opportunity.update_attributes(params[:opportunity])
       if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
-        @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
+        @company = Company.build(name: params[:customer][:company_name])
         if @company.save
           @opportunity.company_key = @company.pub_key
         
           if @opportunity.save
             if !@opportunity.company_key.nil? && OpportunityContact.where(:opportunity_key => @opportunity.pub_key, :contact_key => @opportunity.company_key).empty?
-              current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
+              OpportunityContact.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
             end
             
             flash[:success] = "Opportunity has been updated"
@@ -146,7 +150,7 @@ class OpportunitiesController < ApplicationController
         end
       else
         if !@opportunity.company_key.nil? && OpportunityContact.where(:opportunity_key => @opportunity.pub_key, :contact_key => @opportunity.company_key).empty?
-          current_user.account.opportunity_contacts.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
+          OpportunityContact.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
         end
         
         flash[:success] = "Opportunity has been updated"
@@ -154,10 +158,10 @@ class OpportunitiesController < ApplicationController
       end
     else
       @account_key = @current_user.account_key
-      @companies = Contact.companies(@current_user.account)
-      @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-      @users = User.where(:account_key => @current_user.account.pub_key)
-
+      @companies = Contact.companies
+      @milestones = Milestone.all
+      @users = User.find(:all, :conditions => {:account_key => @account_key})
+      
       gon.companies = @companies
       gon.milestones = @milestones
       gon.users = @users

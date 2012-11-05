@@ -42,10 +42,10 @@ class CatalogItemsController < ApplicationController
   end
   
   def new
-    @account_key = @current_user.account_key
+    # @account_key = @current_user.account_key
     # @companies = Contact.companies(@current_user.account)
     #     @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-    @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+    @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
     
     # gon.companies = @companies
     #     gon.milestones = @milestones
@@ -69,18 +69,18 @@ class CatalogItemsController < ApplicationController
     #       render 'new'
     #     end
   
-    # # handle is_sold checkbox
-    #     if params[:opportunity][:is_sold] != "true"
-    #       params[:opportunity][:is_sold] = false
-    #     end
-    #     
-    #     # handle is_cancelled checkbox
-    #     if params[:opportunity][:is_cancelled] != "true"
-    #       params[:opportunity][:is_cancelled] = false
-    #     end
+    # handle is_taxable checkbox
+    if params[:catalog_item][:is_taxable] != "true"
+      params[:catalog_item][:is_taxable] = false
+    end
     
-    @catalog_item = current_user.account.catalog_items.build(params[:catalog_item])
-    @catalog_item.account = current_user.account
+    # handle is_package checkbox
+    if params[:catalog_item][:is_package] != "true"
+      params[:catalog_item][:is_package] = false
+    end
+    
+    @catalog_item = CatalogItem.create(params[:catalog_item])
+    # @catalog_item.account = current_user.account
     # @catalog_item.owner = current_user
     
     # if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
@@ -94,7 +94,7 @@ class CatalogItemsController < ApplicationController
       flash[:success] = "Catalog item has been created"
       redirect_to catalog_item_path(@catalog_item.pub_key)
     else
-      @account_key = @current_user.account_key
+      # @account_key = @current_user.account_key
       # @companies = Contact.companies(@current_user.account)
       #       @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
       #       @users = User.where(:account_key => @current_user.account.pub_key)
@@ -104,7 +104,7 @@ class CatalogItemsController < ApplicationController
       #       gon.users = @users
       
       gon.catalog_item = @catalog_item
-      @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+      @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
 
       gon.manufacturers = @manufacturers
       
@@ -118,9 +118,20 @@ class CatalogItemsController < ApplicationController
   
   def update
     @catalog_item = CatalogItem.find_by_pub_key(params[:id])
+    
+    # handle is_taxable checkbox
+    if params[:catalog_item][:is_taxable] != "true"
+      params[:catalog_item][:is_taxable] = false
+    end
+    
+    # handle is_package checkbox
+    if params[:catalog_item][:is_package] != "true"
+      params[:catalog_item][:is_package] = false
+    end
+    
     if @catalog_item.update_attributes(params[:catalog_item])
       flash[:success] = "Catalog Item updated"
-      redirect_to catalog_items_path
+      redirect_to catalog_item_path(@catalog_item.pub_key)
     else
       render 'edit'
     end
@@ -136,10 +147,10 @@ class CatalogItemsController < ApplicationController
     @account_key = @current_user.account_key
     respond_to do |format|
       format.html {
-        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
       }
       format.json { 
-        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL AND account_key = '#{ @account_key }'")
+        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
         
         render :json => @manufacturers.to_json(:include => [])
       }

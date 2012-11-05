@@ -28,7 +28,7 @@ class ContactPhonesController < ApplicationController
     respond_to do |format|
       format.html {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_phone = current_user.account.contact_phones.build(contact_key: params[:contact_phone][:contact_key], name: params[:contact_phone][:name], val: params[:contact_phone][:val])
+        @contact_phone = ContactPhone.create(contact_key: params[:contact_phone][:contact_key], name: params[:contact_phone][:name], val: params[:contact_phone][:val])
         if @contact_phone.save
           flash[:success] = "#{@contact_phone.name} saved."
           redirect_to contacts_path
@@ -38,7 +38,7 @@ class ContactPhonesController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_phone = current_user.account.contact_phones.build(contact_key: params[:contact_phone][:contact_key], name: params[:contact_phone][:name], val: params[:contact_phone][:val])
+        @contact_phone = ContactPhone.create(contact_key: params[:contact_phone][:contact_key], name: params[:contact_phone][:name], val: params[:contact_phone][:val])
         if @contact_phone.save
           render :json => @contact_phone
         else

@@ -30,7 +30,7 @@ class OpportunityContactsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
+        @opportunity_contact = OpportunityContact.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
         if @opportunity_contact.save
           flash[:success] = "#{@opportunity_contact.name} saved."
           redirect_to contacts_path
@@ -40,7 +40,7 @@ class OpportunityContactsController < ApplicationController
       }
       format.json {
         if @opportunity and @contact
-          @opportunity_contact = current_user.account.opportunity_contacts.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
+          @opportunity_contact = OpportunityContact.build(contact_key: params[:contact_key], opportunity_key: params[:opportunity_key])
           if @opportunity_contact.save
             render :json => @opportunity_contact.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
           else

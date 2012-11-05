@@ -12,10 +12,10 @@ class ContactTypesController < ApplicationController
       def index
         respond_to do |format|
           format.html {
-            @contact_types = current_user.account.contact_types
+            @contact_types = ContactTypes.all
           }
           format.json { 
-            @contact_types = current_user.account.contact_types
+            @contact_types = ContactTypes.all
             render :json => @contact_types
           }
         end

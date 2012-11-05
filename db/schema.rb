@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912135347) do
+ActiveRecord::Schema.define(:version => 20121102190557) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -46,9 +46,12 @@ ActiveRecord::Schema.define(:version => 20120912135347) do
     t.float    "day_rate"
     t.float    "week_rate"
     t.float    "month_rate"
+    t.boolean  "is_package",               :default => false
+    t.string   "parent_key"
   end
 
   add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
+  add_index "catalog_items", ["parent_key"], :name => "index_catalog_items_on_parent_key"
 
   create_table "contact_addresses", :force => true do |t|
     t.string   "name"

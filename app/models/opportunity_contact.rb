@@ -1,7 +1,7 @@
 class OpportunityContact < ActiveRecord::Base
   attr_accessible :account, :account_key, :contact, :contact_key, :opportunity, :opportunity_key, :is_disabled
   
-  belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
+  # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :opportunity, :primary_key => "pub_key", :foreign_key => "opportunity_key"
   belongs_to :contact, :primary_key => "pub_key", :foreign_key => "contact_key"
   
@@ -10,6 +10,9 @@ class OpportunityContact < ActiveRecord::Base
   validates :account_key, presence: true
   validates :contact_key, presence: true
   validates :opportunity_key, presence: true
+  
+  default_scope { where(account_key: Account.current_account_key) }
+  
   
   private
     def generate_token(column)

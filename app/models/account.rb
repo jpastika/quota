@@ -4,23 +4,23 @@ class Account < ActiveRecord::Base
   
   has_many :users, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :sales_reps, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   # has_many :catalog_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :opportunities, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :document_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   # has_many :contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :contact_phones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :contact_emails, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :contact_urls, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :contact_addresses, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :document_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
-   has_many :templates, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :document_item_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
-   # has_many :contact_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
-   has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
-   has_many :milestones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'probability'
+  # has_many :catalog_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :opportunities, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :documents, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :document_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :contact_phones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :contact_emails, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :contact_urls, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  # has_many :contact_addresses, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :document_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
+  has_many :templates, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :document_item_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
+  # has_many :contact_types, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'name'
+  # has_many :opportunity_contacts, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :milestones, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key", :order => 'probability'
   
   accepts_nested_attributes_for :users
   

@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   
   def new
     @account = Account.new
-    @account.users.build
+    User.build
     
     render layout: "public"
   end
@@ -26,8 +26,8 @@ class AccountsController < ApplicationController
     else
       @account = Account.new(params[:account])
       if @account.save
-        sign_in @account.users.last
-        @account.repize!(@account.users.last)
+        sign_in User.last
+        @account.repize!(User.last)
         flash[:success] = "Welcome to Quota!!!"
         redirect_to dashboard_path
       else

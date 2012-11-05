@@ -28,7 +28,7 @@ class ContactAddressesController < ApplicationController
     respond_to do |format|
       format.html {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_address = current_user.account.contact_addresses.build(contact_key: params[:contact_address][:contact_key], name: params[:contact_address][:name], street1: params[:contact_address][:street1], city: params[:contact_address][:city], state: params[:contact_address][:state], zip: params[:contact_address][:zip], country: params[:contact_address][:country])
+        @contact_address = ContactAddress.create(contact_key: params[:contact_address][:contact_key], name: params[:contact_address][:name], street1: params[:contact_address][:street1], city: params[:contact_address][:city], state: params[:contact_address][:state], zip: params[:contact_address][:zip], country: params[:contact_address][:country])
         if @contact_address.save
           flash[:success] = "#{@contact_address.name} saved."
           redirect_to contacts_path
@@ -38,7 +38,7 @@ class ContactAddressesController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_address = current_user.account.contact_addresses.build(contact_key: params[:contact_address][:contact_key], name: params[:contact_address][:name], street1: params[:contact_address][:street1], city: params[:contact_address][:city], state: params[:contact_address][:state], zip: params[:contact_address][:zip], country: params[:contact_address][:country])
+        @contact_address = ContactAddress.create(contact_key: params[:contact_address][:contact_key], name: params[:contact_address][:name], street1: params[:contact_address][:street1], city: params[:contact_address][:city], state: params[:contact_address][:state], zip: params[:contact_address][:zip], country: params[:contact_address][:country])
         if @contact_address.save
           render :json => @contact_address
         else

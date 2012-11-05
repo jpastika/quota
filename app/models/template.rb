@@ -1,7 +1,7 @@
 class Template < ActiveRecord::Base
   attr_accessible :is_disabled, :is_document_type_default, :name, :pub_key, :document_type_key, :document_type
   
-  belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
+  # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "template_key"
   belongs_to :document_type, :primary_key => "pub_key", :foreign_key => "document_type_key"
   
@@ -10,6 +10,9 @@ class Template < ActiveRecord::Base
   validates :name, presence: true
   validates :account_key, presence: true
   # validates :document_type_key, presence: true
+  
+  default_scope { where(account_key: Account.current_account_key) }
+  
   
   private
     def generate_token(column)

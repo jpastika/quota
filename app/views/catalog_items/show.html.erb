@@ -5,26 +5,6 @@
 			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change item details"), edit_catalog_item_path(@catalog_item.pub_key), :class => 'btn btn-primary' %>
 		</div>
 		<div id="sidebar_app_fields_container"class="">
-			<div class="show-field">
-				<span class="show-label">Part Number</span>
-				<br>
-				<span class="show-value"><%= @catalog_item.part_number %></span>
-			</div>
-			<div class="show-field">
-				<span class="show-label">Manufacturer</span>
-				<br>
-				<span class="show-value"><%= @catalog_item.manufacturer %></span>
-			</div>
-			<div class="show-field">
-				<span class="show-label">List Price</span>
-				<br>
-				<span class="show-value"><%= @catalog_item.list_price %></span>
-			</div>
-			<div class="show-field">
-				<span class="show-label">Description</span>
-				<br>
-				<span class="show-value"><%= @catalog_item.description %></span>
-			</div>
 		</div>
 		<div id="sidebar_body_container" class="">
 		</div>
@@ -49,20 +29,63 @@
 		<div class="parent-page">
 			<div id="main_body_container" class="">
 				<div>
-					<div id="contacts_container">
+					<div class="section-heading">
+						<h3>Catalog Item Details</h3>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="show-field">
+								<span class="show-label">Part Number</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.part_number %></span>
+							</div>
+							<div class="show-field">
+								<span class="show-label">Description</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.description %></span>
+							</div>
+						</div>
+						<div class="span1"></div>
+						<div class="span5">
+							<div class="show-field">
+								<span class="show-label">Manufacturer</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.manufacturer %></span>
+							</div>
+							<div class="show-field">
+								<span class="show-label">List Price</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.list_price %></span>
+							</div>
+							<div class="control-group">
+								<div class="controls catalog_item_is_taxable">
+									<% if @catalog_item.is_taxable? %>
+										<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="" disabled checked>
+									<% else %>
+										<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="" disabled>
+									<% end %>
+									&nbsp;is taxable?
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<% if @catalog_item.is_package? %>
+					<div id="include_container">
 						<div class="section-heading">
-							<h3>Contacts</h3>
+							<h3>Items in Package</h3>
 						</div>
 						<div class="section-content">
 							<div class="section-table">
 								<table class="table table-condensed table-plain">
 									<thead>
 										<tr>
-											<th  width="22%">Name</th>
-											<th  width="25%">Company</th>
-											<th  width="25%">Phone</th>
-											<th  width="25%">Email</th>
-											<th  width="3%">&nbsp;</th>
+											<th width="2%">&nbsp;</th>
+											<th width="20%">Type</th>
+											<th width="25%">Part #</th>
+											<th width="25%">Name</th>
+											<th width="25%">Unit Price</th>
+											<th width="3%">&nbsp;</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -71,40 +94,36 @@
 							</div>
 							<div class="section-form" style="display:none;">
 							</div>
-							<div id="opportunity-contacts-actions" class="section-actions actions-bar-left">
+							<div id="catalog-item-include-actions" class="section-actions actions-bar-left">
 								<button type="submit" class="btn btn-primary form-submit">
-									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Contact
+									<i class="icon-plus"></i>&nbsp;&nbsp;Add an Item
 								</button>
 								<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding contacts
+									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding items
 								</a>
 							</div>
 						</div>
 					</div>
-					<div id="documents_container">
+					<% end %>
+					<div id="opportunities_container">
 						<div class="section-heading">
-							<h3>Documents</h3>
+							<h3>Opportunities</h3>
 						</div>
 						<div class="section-content">
 							<div class="section-table">
 								<table class="table table-condensed table-plain">
 									<thead>
 										<tr>
-											<th  width="3%">Primary</th>
-											<th  width="10%">Type</th>
-											<th  width="60%">Name</th>
-											<th  width="24%">Created</th>
-											<th  width="3%">&nbsp;</th>
+											<th width="30%">Name</th>
+											<th width="25%">Company</th>
+											<th width="25%">Milestone</th>
+											<th width="10%">Value</th>
+											<th width="10%">Close Date</th>
 										</tr>
 									</thead>
 									<tbody>
 									</tbody>
 								</table>
-							</div>
-							<div id="opportunity-documents-actions" class="section-actions actions-bar-left">
-								<a href="/documents/choose_template/<%= @catalog_item.pub_key %>" class="btn btn-primary form-submit">
-									<i class="icon-plus"></i>&nbsp;&nbsp;Add a Document
-								</a>
 							</div>
 						</div>
 					</div>
@@ -137,6 +156,9 @@
 		// 		
 		// 		var sidebar_body_view = new Quota.Views.ShowCatalogItemSidebar({model: this.catalog_item, vent: vent});
 		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
+		
+		var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent});
+		page_body_view.setup();
 	});	
 	
 	

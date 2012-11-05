@@ -28,7 +28,7 @@ class ContactUrlsController < ApplicationController
     respond_to do |format|
       format.html {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_url = current_user.account.contact_urls.build(contact_key: params[:contact_url][:contact_key], name: params[:contact_url][:name], val: params[:contact_url][:val])
+        @contact_url = ContactUrl.create(contact_key: params[:contact_url][:contact_key], name: params[:contact_url][:name], val: params[:contact_url][:val])
         if @contact_url.save
           flash[:success] = "#{@contact_url.name} saved."
           redirect_to contacts_path
@@ -38,7 +38,7 @@ class ContactUrlsController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_url = current_user.account.contact_urls.build(contact_key: params[:contact_url][:contact_key], name: params[:contact_url][:name], val: params[:contact_url][:val])
+        @contact_url = ContactUrl.create(contact_key: params[:contact_url][:contact_key], name: params[:contact_url][:name], val: params[:contact_url][:val])
         if @contact_url.save
           render :json => @contact_url
         else

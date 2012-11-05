@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :is_disabled, :members, :accounts
+  cattr_accessor :current_user_key
+  
   has_secure_password
   
   belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
@@ -24,7 +26,6 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   # validates :account_key, presence: true
   #validates :password_confirmation, presence: true
-  
   
   
   

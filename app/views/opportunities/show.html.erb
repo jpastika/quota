@@ -8,17 +8,17 @@
 			<div class="show-field">
 				<span class="show-label">Current Milestone</span>
 				<br>
-				<span class="show-value"><%= @opportunity.milestone.name %></span>
+				<span class="show-value"><%= @opportunity.milestone ? @opportunity.milestone.name : nil %></span>
 			</div>
 			<div class="show-field">
 				<span class="show-label">Customer</span>
 				<br>
-				<span class="show-value"><%= @opportunity.company.name %></span>
+				<span class="show-value"><%= @opportunity.company ? @opportunity.company.name : nil %></span>
 			</div>
 			<div class="show-field">
 				<span class="show-label">Owner</span>
 				<br>
-				<span class="show-value"><%= @opportunity.owner.name %></span>
+				<span class="show-value"><%= @opportunity.owner ? @opportunity.owner.name : nil %></span>
 			</div>
 			<div class="show-field">
 				<span class="show-label">Estimated Value</span>

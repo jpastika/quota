@@ -4,10 +4,10 @@ class SalesRepsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @reps = current_user.account.sales_reps
+        @reps = SalesRep.all
       }
       format.json { 
-        @reps = current_user.account.sales_reps
+        @reps = SalesRep.all
         render :json => @reps
       }
     end
@@ -26,11 +26,11 @@ class SalesRepsController < ApplicationController
   end
   
   def new
-    @rep = current_user.account.sales_reps.build()
+    @rep = SalesRep.build()
   end
   
   def create
-    @rep = current_user.account.sales_reps.build(params[:sales_rep])
+    @rep = SalesRep.build(params[:sales_rep])
     
     if @rep.save
       flash[:success] = "#{@rep.name} is now a rep on your Quota account."

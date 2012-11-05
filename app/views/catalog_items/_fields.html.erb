@@ -19,8 +19,17 @@
 		<div class="span8">
 			<label>&nbsp;</label>
 			<div class="controls catalog_item_is_taxable">
-				<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="">
-				&nbsp;is cancelled?
+				<%= check_box_tag 'catalog_item[is_taxable]', true, @catalog_item.is_taxable %>
+				&nbsp;is taxable?
+			</div>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="span8">
+			<label>&nbsp;</label>
+			<div class="controls catalog_item_is_package">
+				<%= check_box_tag 'catalog_item[is_package]', true, @catalog_item.is_package %>
+				&nbsp;is package? (contains other catalog items)
 			</div>
 		</div>
 	</div>

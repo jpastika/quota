@@ -74,13 +74,13 @@ class DocumentsController < ApplicationController
     @opportunity = Opportunity.find_by_pub_key(params[:id])
     
     if params.has_key?(:template_key)
-      @template = current_user.account.templates.find_by_pub_key(params[:template_key])
+      @template = Templates.find_by_pub_key(params[:template_key])
     else
-      @template = current_user.account.templates.find_by_document_type_key(params[:document_type], :conditions => {:is_document_type_default => true})
+      @template = Templates.find_by_document_type_key(params[:document_type], :conditions => {:is_document_type_default => true})
     end
     
     @document_type = @template.document_type
-    @document = @opportunity.documents.build(account: current_user.account, creator_key: current_user.pub_key, document_type: @document_type)
+    @document = @opportunity.documents.build(creator_key: current_user.pub_key, document_type: @document_type)
     
     @document.name = "#{@document_type.name} - #{@opportunity.name}"
     
@@ -117,7 +117,7 @@ class DocumentsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @documents = current_user.account.documents
+        @documents = Document.all
         @my_created_documents = current_user.created_documents
         @my_opportunity_documents = current_user.owned_opportunity_documents
       }
@@ -173,7 +173,7 @@ class DocumentsController < ApplicationController
     @opportunity = Opportunity.find_by_pub_key(params[:id])
     
     @account_key = @current_user.account.pub_key
-    @templates = Template.find(:all, :conditions => {:account_key => @account_key})
+    @templates = Template.all
     
     gon.templates = @templates.to_json(:include => [:document_type])
   end

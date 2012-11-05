@@ -28,7 +28,7 @@ class ContactEmailsController < ApplicationController
     respond_to do |format|
       format.html {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_email = current_user.account.contact_emails.build(contact_key: params[:contact_email][:contact_key], name: params[:contact_email][:name], val: params[:contact_email][:val])
+        @contact_email = ContactEmail.create(contact_key: params[:contact_email][:contact_key], name: params[:contact_email][:name], val: params[:contact_email][:val])
         if @contact_email.save
           flash[:success] = "#{@contact_email.name} saved."
           redirect_to contacts_path
@@ -38,7 +38,7 @@ class ContactEmailsController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:contact_id])
-        @contact_email = current_user.account.contact_emails.build(contact_key: params[:contact_email][:contact_key], name: params[:contact_email][:name], val: params[:contact_email][:val])
+        @contact_email = ContactEmail.create(contact_key: params[:contact_email][:contact_key], name: params[:contact_email][:name], val: params[:contact_email][:val])
         if @contact_email.save
           render :json => @contact_email
         else

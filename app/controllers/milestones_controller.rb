@@ -12,10 +12,10 @@ class MilestonesController < ApplicationController
       def index
         respond_to do |format|
           format.html {
-            @milestones = current_user.account.milestones
+            @milestones = Milestone.all
           }
           format.json { 
-            @milestones = current_user.account.milestones
+            @milestones = Milestone.all
             render :json => @milestones
           }
         end
