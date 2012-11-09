@@ -1,11 +1,11 @@
 <div class="row-fluid section-container">
 	<div class="span6">
 		<div class="section-heading">
-			<h3>Select From Saved Contacts</h3>
+			<h3>Search Catalog</h3>
 		</div>
-		<label class="string control-label" for="contact_name">Select Company</label>
-		<div class="controls add_contact_company_key" id="companies_select"></div>
-		<div class="span7" id="company_contacts_container"></div>
+		<label class="string control-label" for="contact_name">Name or Part Number</label>
+		<div class="controls add_child_item_search" id="add_child_item_search"></div>
+		<div class="span7" id="catalog_search_container"></div>
 	</div>
 	<div class="content-column-divider">
 		<div class="label-container">
@@ -14,37 +14,60 @@
 	</div>
 	<div class="span5">
 		<div class="section-heading">
-			<h3>Create a New Contact</h3>
+			<h3>Create a New Catalog Item</h3>
 		</div>
 		<div class="control-group string required">
-			<label class="string required control-label" for="contact_name">Name</label>
-			<div class="controls contact_name">
-				<input type="text" class="string required input-large" name="contact[name]" size="30" value="">
+			<label class="string required control-label" for="catalog_item_name">Name</label>
+			<div class="controls catalog_item_name">
+				<input type="text" class="string required" name="catalog_item[name]" size="30" value="">
 			</div>
 		</div>
-		<div class="control-group string">
-			<label for="company_name" class="string control-label">Company</label>
-			<div class="controls company_name">
-				<input type="text" value="" name="contact[company_name]" id="contact_company_name" class="string input-large">
+		<div class="control-group string required">
+			<label class="string control-label" for="catalog_item_part_number">Part Number</label>
+			<div class="controls catalog_item_part_number">
+				<input type="text" class="string input-large" name="catalog_item[part_number]" size="30" value="">
 			</div>
 		</div>
-		<div class="control-group string">
-			<label class="string control-label" for="contact_phone">Phone</label>
-			<div class="controls contact_phone">
-				<input type="text" class="string input-medium" name="contact[phone]" size="20" value="">
+		<div class="control-group string required">
+			<label class="string control-label" for="catalog_item_manufacturer">Manufacturer</label>
+			<div class="controls catalog_item_manufacturer">
+				<input type="text" size="30" name="catalog_item[manufacturer]" id="catalog_item_manufacturer" class="string input-large" autocomplete="off">
 			</div>
 		</div>
-		<div class="control-group string">
-			<label class="string control-label" for="contact_email">Email</label>
-			<div class="controls contact_email">
-				<input type="text" class="string input-large" name="contact[email]" size="30" value="">
+		<div class="control-group float optional">
+			<label for="catalog_item_list_price" class="float optional control-label">List price</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">$</span>
+					<input type="text" name="catalog_item[list_price]" id="catalog_item_list_price" class="numeric float optional input-small">
+					<select name="catalog_item[recurring_unit]" label="false" id="catalog_item_recurring_unit" class="select optional input-medium">
+					<option value=""></option>
+					<option data-key="recurring_unit" value="per hour">per hour</option>
+					<option data-key="recurring_unit" value="per day">per day</option>
+					<option data-key="recurring_unit" value="per week">per week</option>
+					<option data-key="recurring_unit" value="per month">per month</option>
+					<option data-key="recurring_unit" value="per quarter">per quarter</option>
+					<option data-key="recurring_unit" value="per year">per year</option></select>
+				</div>
 			</div>
 		</div>
-		<div id="opportunity-add-new-contact-actions" class="section-actions">
+		<div class="control-group">
+			<div class="controls catalog_item_is_taxable">
+				<input type="checkbox" value="true" name="catalog_item[is_taxable]" id="catalog_item_is_taxable">
+				&nbsp;is taxable?
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls catalog_item_is_package">
+				<input type="checkbox" value="true" name="catalog_item[is_package]" id="catalog_item_is_package">
+				&nbsp;is package? (contains other catalog items)
+			</div>
+		</div>
+		<div id="catalog_item-add-new-child-item-actions" class="section-actions">
+			<label>&nbsp;</label>
 			<button type="submit" class="btn btn-success">
-				<i class="icon-plus"></i>&nbsp;&nbsp;Add Contact
+				<i class="icon-plus"></i>&nbsp;&nbsp;Add Item
 			</button>
 		</div>
-		<input type="hidden" value="{{opportunity.company_key}}" name="contact[company_key]" id="contact_company_key" class="company_key">
 	</div>
 </div>

@@ -86,6 +86,6 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 	removeCatalogItemChildItem: (item)->
 		# @_contactsView.setElement(@container_contacts).render()
 		
-	resetAddNewCatalogItemForm: ->
+	resetAddNewChildItemForm: ->
 		@input_catalog_item_name.val('')
 		@input_catalog_item_manufacturer_name.val('')
