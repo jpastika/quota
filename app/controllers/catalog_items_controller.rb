@@ -32,6 +32,11 @@ class CatalogItemsController < ApplicationController
         #         gon.opportunity_documents = @opportunity.documents
         #         gon.companies = Contact.companies(@current_user.account)
         
+        @child_items = CatalogItem.find_by_parent_key(params[:id])
+        gon.child_items = @child_items.to_json(:include => [])
+        
+        @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
+        gon.manufacturers = @manufacturers
       }
       format.json {
         @catalog_item = CatalogItem.find_by_pub_key(params[:id])
@@ -113,7 +118,15 @@ class CatalogItemsController < ApplicationController
   end
   
   def edit
+    @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
+    
+    # gon.companies = @companies
+    #     gon.milestones = @milestones
+    gon.manufacturers = @manufacturers
+    
     @catalog_item = CatalogItem.find_by_pub_key(params[:id])
+    gon.catalog_item = @catalog_item
+    
   end
   
   def update

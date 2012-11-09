@@ -7,6 +7,7 @@ class Quota.Views.ShowCatalogItem extends Quota.Views.PageBodyBlock
 		_.bindAll(@)
 		@vent = options.vent
 		@child_items = @model.get("child_items")
+		
 		@manufacturers = options.manufacturers
 		
 		# @companies = new Quota.Collections.Companies()

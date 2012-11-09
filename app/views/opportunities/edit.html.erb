@@ -60,7 +60,7 @@
 			this.opportunity = new Quota.Models.Opportunity(gon.opportunity);
 		}
 		else{
-			this.opportunity = new Quota.Models.Opportunity();
+			this.opportunity = new Quota.Models.Opportunity({pub_key: '<%= @opportunity.pub_key %>'});
 			this.opportunity.fetch();
 		}
 		

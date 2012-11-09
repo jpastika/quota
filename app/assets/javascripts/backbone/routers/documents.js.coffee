@@ -3,6 +3,7 @@ class Quota.Routers.Documents extends Backbone.Router
 		'documents/:id': 'show'
 		'documents/:id/edit': 'edit'
 		'opportunities/:id': 'index'
+		'catalog_items/:id': 'index'
 	
 	initialize: ->
 	

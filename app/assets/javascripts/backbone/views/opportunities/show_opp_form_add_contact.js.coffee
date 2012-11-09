@@ -1,4 +1,4 @@
-class Quota.Views.ShowOpportunityFormAddContact extends Quota.Views.SidebarBodyBlock
+class Quota.Views.ShowOpportunityFormAddContact extends Backbone.View
 
 	template: HandlebarsTemplates['opportunities/show_opp_form_add_contact'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	

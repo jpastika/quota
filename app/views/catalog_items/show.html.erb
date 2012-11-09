@@ -30,7 +30,7 @@
 			<div id="main_body_container" class="">
 				<div>
 					<div class="section-heading">
-						<h3>Catalog Item Details</h3>
+						<h3>Item Details</h3>
 					</div>
 					<div class="row-fluid">
 						<div class="span6">
@@ -60,18 +60,22 @@
 							<div class="control-group">
 								<div class="controls catalog_item_is_taxable">
 									<% if @catalog_item.is_taxable? %>
-										<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="" disabled checked>
-									<% else %>
-										<input type="checkbox" value=1 name="catalog_item[is_taxable]" id="catalog_item_is_taxable" class="" disabled>
+										<span class="label label-success">Taxable</span>
 									<% end %>
-									&nbsp;is taxable?
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls catalog_item_is_package">
+									<% if @catalog_item.is_package? %>
+										<span class="label label-info">Package</span>
+									<% end %>
 								</div>
 							</div>
 						</div>
 					</div>
 					<br>
 					<% if @catalog_item.is_package? %>
-					<div id="include_container">
+					<div id="child_items_container">
 						<div class="section-heading">
 							<h3>Items in Package</h3>
 						</div>
@@ -94,7 +98,7 @@
 							</div>
 							<div class="section-form" style="display:none;">
 							</div>
-							<div id="catalog-item-include-actions" class="section-actions actions-bar-left">
+							<div id="catalog-item-child-items-actions" class="section-actions actions-bar-left">
 								<button type="submit" class="btn btn-primary form-submit">
 									<i class="icon-plus"></i>&nbsp;&nbsp;Add an Item
 								</button>
@@ -145,6 +149,25 @@
 			this.catalog_item.fetch();
 		}
 		
+		if(gon.child_items){
+			this.child_items = new Quota.Collections.CatalogItems($.parseJSON(gon.child_items));
+		}
+		else{
+			this.child_items = new Quota.Collections.CatalogItems();
+			this.child_items.fetch();
+		}
+		
+		if(gon.manufacturers){
+			this.manufacturers = new Quota.Collections.Manufacturers($.parseJSON(gon.manufacturers));
+		}
+		else{
+			this.manufacturers = new Quota.Collections.Manufacturers();
+			this.manufacturers.fetch();
+		}
+		
+		this.catalog_item.set("child_items", this.child_items);
+		
+		
 		// this.catalog_item.set("opportunity_contacts", this.opportunity_contacts);
 		// 		this.catalog_item.set("documents", this.opportunity_documents);
 		
@@ -157,7 +180,7 @@
 		// 		var sidebar_body_view = new Quota.Views.ShowCatalogItemSidebar({model: this.catalog_item, vent: vent});
 		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
 		
-		var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent});
+		var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent, manufacturers: this.manufacturers, child_items: this.child_items});
 		page_body_view.setup();
 	});	
 	
