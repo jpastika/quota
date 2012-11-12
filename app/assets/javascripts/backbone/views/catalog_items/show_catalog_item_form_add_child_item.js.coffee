@@ -34,6 +34,14 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
 		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
 		
+		@input_catalog_item_name = @$('.catalog_item_name input')
+		@input_catalog_item_manufacturer_name = @$('.catalog_item_manufacturer input')
+		@input_catalog_item_part_number = @$('.catalog_item_part_number input_catalog_item_name')
+		@input_catalog_item_list_price = @$('#catalog_item_list_price')
+		@input_catalog_item_list_price_interval = @$('#catalog_item_recurring_unit')
+		@input_catalog_item_is_taxable = @$('.catalog_item_is_taxable input')
+		@input_catalog_item_is_package = @$('.catalog_item_is_package input')
+		
 		
 		@loading = @$('.section-loading')
 		
@@ -89,3 +97,8 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 	resetAddNewChildItemForm: ->
 		@input_catalog_item_name.val('')
 		@input_catalog_item_manufacturer_name.val('')
+		@input_catalog_item_part_number.val('')
+		@input_catalog_item_list_price.val('')
+		@input_catalog_item_list_price_interval.val('')
+		@input_catalog_item_is_taxable.attr('checked', false)
+		@input_catalog_item_is_package.attr('checked', false)

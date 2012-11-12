@@ -3,8 +3,21 @@
 		<div class="section-heading">
 			<h3>Search Catalog</h3>
 		</div>
-		<label class="string control-label" for="contact_name">Name or Part Number</label>
-		<div class="controls add_child_item_search" id="add_child_item_search"></div>
+		<div class="controls add_child_item_search" id="add_child_item_search">
+			<label class="string control-label" for="catalog_search">Name or Part Number</label>
+			<div class="control-group string">
+				<div class="controls catalog_search">
+					<div class="input-append input-search">
+						<input type="text" class="string input-large" name="catalog_search" size="20" value="">
+						<span class="add-on">
+							<button class="btn btn-primary">
+								<i class="icon-search"></i>&nbsp;
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="span7" id="catalog_search_container"></div>
 	</div>
 	<div class="content-column-divider">
