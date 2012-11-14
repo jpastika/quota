@@ -4,6 +4,7 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 	
 	events:
 		"click #catalog_item-add-new-child-item-actions .btn-success": "clickAddNewChildItem"
+		"click #catalog_search": "clickCatalogSearch"
 		
 	initialize: (options)->
 		self = @
@@ -19,6 +20,8 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@catalog_item_child_items = options.parent_collection
 		
 		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-xlarge', vent: @vent})
+			
+		@_itemsView = new Quota.Views.CatalogItemSearchList({parent_child_key: @catalog_item.get("pub_key"), vent: @vent})
 		
 	render: ->
 		$(@el).html(@template({catalog_item:@catalog_item}))
@@ -41,6 +44,8 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@input_catalog_item_list_price_interval = @$('#catalog_item_recurring_unit')
 		@input_catalog_item_is_taxable = @$('.catalog_item_is_taxable input')
 		@input_catalog_item_is_package = @$('.catalog_item_is_package input')
+		
+		@input_catalog_search = @$('.catalog_search input')
 		
 		
 		@loading = @$('.section-loading')
@@ -91,8 +96,25 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 			}
 		)
 	
+	clickCatalogSearch: ->
+		self = @
+		res = new Quota.Collections.CatalogItems({url: '/api/catalog_items/filter_by_name_or_part_number'})
+		res.fetch(
+			{
+				url: '/api/catalog_items/filter_by_name_or_part_number'
+				data: {filter: @input_catalog_search.val()}
+				error: ->
+					console.log "save error"
+				success: (collection, response, options) -> 
+					self.renderSearchResults(collection)
+			}
+		)
+	
 	removeCatalogItemChildItem: (item)->
 		# @_contactsView.setElement(@container_contacts).render()
+		
+	renderSearchResults: (collection)->
+		console.log collection
 		
 	resetAddNewChildItemForm: ->
 		@input_catalog_item_name.val('')

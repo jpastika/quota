@@ -2,6 +2,20 @@ Quota::Application.routes.draw do
   
   
   
+  get "dashboard" => "dashboard#index", :as => "dashboard"
+  get "choose" => "sessions#choose", :as => "choose_account"
+  get "switch" => "sessions#switch_account", :as => "switch_account"
+  match '/signup', to: 'accounts#new'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  match '/catalog', to: 'catalog_items#index'
+  
+  match '/map_test', to: 'static_pages#map_test'
+  match '/bridge', to: 'static_pages#bridge'
+  match '/documents/choose_template/:id', to: 'documents#choose_template'
+  match '/catalog_items/manufacturers', to: 'catalog_items#manufacturers'
+  
+  
   resources :accounts
   resources :catalog_items
   resources :contacts do
@@ -15,6 +29,7 @@ Quota::Application.routes.draw do
   resources :contact_emails
   resources :contact_addresses
   resources :contact_urls
+  resources :catalog, :controller => "catalog_items"
   resources :docs, :controller => "documents"
   resources :documents
   resources :members
@@ -27,6 +42,16 @@ Quota::Application.routes.draw do
   resources :users
   
   scope "api" do
+    match '/opportunities/:id/docs', to: 'documents#index'
+    match '/account', to: 'accounts#show'
+    match '/member', to: 'members#show'
+    match '/user', to: 'users#show'
+    match '/contacts/:id/phones', to: 'contact_phones#index'
+    match '/companies', to: 'contacts#companies'
+    match '/companies/:id/contacts', to: 'companies#contacts'
+    match '/manufacturers', to: 'catalog_items#manufacturers'
+    match 'catalog_items/filter_by_name_or_part_number', to: 'catalog_items#filter_by_name_or_part_number'
+    
     resources :accounts
     resources :catalog_items
     resources :contacts do
@@ -42,6 +67,7 @@ Quota::Application.routes.draw do
     resources :contact_addresses
     resources :contact_urls
     resources :docs, :controller => "documents"
+    resources :catalog, :controller => "catalog_items"
     resources :documents
     resources :members
     resources :milestones
@@ -50,30 +76,10 @@ Quota::Application.routes.draw do
     resources :sales_reps
     resources :templates
     resources :users
-    
-    match '/opportunities/:id/docs', to: 'documents#index'
-    match '/account', to: 'accounts#show'
-    match '/member', to: 'members#show'
-    match '/user', to: 'users#show'
-    match '/contacts/:id/phones', to: 'contact_phones#index'
-    match '/companies', to: 'contacts#companies'
-    match '/companies/:id/contacts', to: 'companies#contacts'
-    match '/manufacturers', to: 'catalog_items#manufacturers'
-    
   end
   
   
-  get "dashboard" => "dashboard#index", :as => "dashboard"
-  get "choose" => "sessions#choose", :as => "choose_account"
-  get "switch" => "sessions#switch_account", :as => "switch_account"
-  match '/signup', to: 'accounts#new'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
-  match '/catalog', to: 'catalog_items#index'
   
-  match '/map_test', to: 'static_pages#map_test'
-  match '/bridge', to: 'static_pages#bridge'
-  match '/documents/choose_template/:id', to: 'documents#choose_template'
   
   root to: 'static_pages#home'
   

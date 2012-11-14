@@ -12,7 +12,6 @@ class CatalogItemsController < ApplicationController
         gon.current_member = @current_user
       }
       format.json { 
-        @account_key = @current_user.account.pub_key
         # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
         @catalog_items = CatalogItem.all
         
@@ -166,6 +165,21 @@ class CatalogItemsController < ApplicationController
         @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
         
         render :json => @manufacturers.to_json(:include => [])
+      }
+    end
+  end
+  
+  def filter_by_name_or_part_number
+    respond_to do |format|
+      format.html {
+        @catalog_items = CatalogItem.find_by_name_or_part_number(params[:filter])
+      }
+      format.json { 
+        @catalog_items = CatalogItem.find_by_name_or_part_number(params[:filter])
+        # @catalog_items = CatalogItem.all
+        
+        render :json => @catalog_items.to_json()
+        # render :json => CatalogItem.first
       }
     end
   end
