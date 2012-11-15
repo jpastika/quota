@@ -18,6 +18,7 @@ Quota::Application.routes.draw do
   
   resources :accounts
   resources :catalog_items
+  resources :catalog_item_children
   resources :contacts do
     resources :phones, :controller => "contact_phones"
     resources :emails, :controller => "contact_emails"
@@ -54,6 +55,7 @@ Quota::Application.routes.draw do
     
     resources :accounts
     resources :catalog_items
+    resources :catalog_item_children
     resources :contacts do
       resources :phones, :controller => "contact_phones"
       resources :emails, :controller => "contact_emails"

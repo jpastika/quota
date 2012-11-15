@@ -47,9 +47,7 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		
 		@input_catalog_search = @$('.catalog_search input')
 		
-		
 		@loading = @$('.section-loading')
-		
 		@
 		
 	show: ->
@@ -114,7 +112,10 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		# @_contactsView.setElement(@container_contacts).render()
 		
 	renderSearchResults: (collection)->
-		console.log collection
+		@_itemsView.collection = collection
+		@container_search_item_list = @$('#catalog_search_container')
+		@_itemsView.setElement(@container_search_item_list).render()
+		
 		
 	resetAddNewChildItemForm: ->
 		@input_catalog_item_name.val('')

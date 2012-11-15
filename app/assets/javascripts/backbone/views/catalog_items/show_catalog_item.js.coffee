@@ -6,14 +6,16 @@ class Quota.Views.ShowCatalogItem extends Quota.Views.PageBodyBlock
 		self = @
 		_.bindAll(@)
 		@vent = options.vent
-		@child_items = @model.get("child_items")
+		@catalog_item_children = options.catalog_item_children
+		
+		
 		
 		@manufacturers = options.manufacturers
 		
 		# @companies = new Quota.Collections.Companies()
 		# 		@companies.on('reset', @companiesReset, @)
 		# 		@companies.fetch()
-		@_childItemsView = new Quota.Views.ShowCatalogItemChildItems({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@child_items, manufacturers: @manufacturers, vent: @vent})
+		@_childItemsView = new Quota.Views.ShowCatalogItemChildItems({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@catalog_item_children, manufacturers: @manufacturers, vent: @vent})
 		
 	render: ->
 		# $(@el).html(@template({opportunity:@model.toJSON()}))

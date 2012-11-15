@@ -22,7 +22,6 @@ class Quota.Views.ShowCatalogItemChildItems extends Backbone.View
 		
 		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
-		@vent.on('company_contacts:add_contact', @addCompanyContact, @)
 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		@vent.on('catalog_item_child_items:remove_item', @removeCatalogItemChildItem, @)
 		

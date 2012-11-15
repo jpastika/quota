@@ -12,10 +12,10 @@ class Quota.Views.CatalogItemSearchList extends Backbone.View
 		@parent_child_key = options.parent_child_key
 		@_itemViews = []
 		# @vent.on('company:changed', @companyChanged, @)
-		@vent.on('item:add_item', @addItem, @)
-		@vent.on("item:add_item_failed", @addItem_failed, @)
+		@vent.on('catalog_search_results:add_item', @addItem, @)
+		@vent.on("catalog_search_results:add_item_failed", @addItem_failed, @)
 		# @vent.on('add_contact', @addCompanyContact, @)
-		@collection.on('reset', @itemsReset, @)
+		# @collection.on('reset', @itemsReset, @)
 		
 	render: ->
 		$(@el).html(@template({}))
@@ -35,7 +35,7 @@ class Quota.Views.CatalogItemSearchList extends Backbone.View
 		frag
 
 	appendOne: (frag)->
-		@$('#search_results').append(frag)
+		@$('#catalog_search_results').append(frag)
 
 	addItem: (obj)->
 		# view = _.find(@_contactViews, (view) -> view.model == obj.contact).remove()

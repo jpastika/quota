@@ -149,12 +149,20 @@
 			this.catalog_item.fetch();
 		}
 		
-		if(gon.child_items){
-			this.child_items = new Quota.Collections.CatalogItems($.parseJSON(gon.child_items));
+		// if(gon.child_items){
+		// 			this.child_items = new Quota.Collections.CatalogItems($.parseJSON(gon.child_items));
+		// 		}
+		// 		else{
+		// 			this.child_items = new Quota.Collections.CatalogItems();
+		// 			this.child_items.fetch();
+		// 		}
+		
+		if(gon.catalog_item_children){
+			this.catalog_item_children = new Quota.Collections.CatalogItemChildren($.parseJSON(gon.catalog_item_children));
 		}
 		else{
-			this.child_items = new Quota.Collections.CatalogItems();
-			this.child_items.fetch();
+			this.catalog_item_children = new Quota.Collections.CatalogItemChildren();
+			this.catalog_item_children.fetch();
 		}
 		
 		if(gon.manufacturers){
@@ -165,7 +173,7 @@
 			this.manufacturers.fetch();
 		}
 		
-		this.catalog_item.set("child_items", this.child_items);
+		this.catalog_item.set("catalog_item_children", this.catalog_item_children);
 		
 		
 		// this.catalog_item.set("opportunity_contacts", this.opportunity_contacts);
@@ -180,7 +188,8 @@
 		// 		var sidebar_body_view = new Quota.Views.ShowCatalogItemSidebar({model: this.catalog_item, vent: vent});
 		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
 		
-		var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent, manufacturers: this.manufacturers, child_items: this.child_items});
+		
+		var page_body_view = new Quota.Views.ShowCatalogItem({model: this.catalog_item, vent: vent, manufacturers: this.manufacturers, catalog_item_children: this.catalog_item_children});
 		page_body_view.setup();
 	});	
 	

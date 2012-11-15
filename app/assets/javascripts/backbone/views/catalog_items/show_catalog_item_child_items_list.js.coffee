@@ -21,6 +21,7 @@ class Quota.Views.ShowCatalogItemChildItemsList extends Backbone.View
 		# 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		
 		@catalog_items = options.catalog_items
+		@vent.on('catalog_search_results:add_item', @addCatalogSearchItem, @)
 		
 	render: ->
 		# $(@el).html(@template({}))
@@ -57,24 +58,39 @@ class Quota.Views.ShowCatalogItemChildItemsList extends Backbone.View
 		@hideRemove = false
 		@$el.find('.child_item_remove').css('visibility', '')
 		
-	# addCompanyContact: (obj)->
-	# 		self = @
-	# 		contact = new Quota.Models.OpportunityContact()
-	# 		contact.save(
-	# 			{
-	# 				opportunity_key: @opportunity.get("pub_key")
-	# 				contact_key: obj.contact.get("pub_key")
-	# 				account_key: @opportunity.get("account_key")
-	# 			},
-	# 			{
-	# 				error:  ()-> 
-	# 					@vent.trigger("company_contacts:add_contact_failed", {pub_key:obj.contact.get("pub_key")})
-	# 					@handleError
-	# 				success: (model) -> 
-	# 					self.addCompanyContact_Success(model)
-	# 				# silent: true
-	# 			}
-	# 		)
+	addCatalogSearchItem: (obj)->
+		self = @
+		# obj.save(
+		# 			{
+		# 				parent_key: @catalog_item.get("pub_key")
+		# 			},
+		# 			{
+		# 				error:  ()-> 
+		# 					# @vent.trigger("child_items:add_item_failed", {pub_key:obj.get("pub_key")})
+		# 					@handleError
+		# 				success: (model) -> 
+		# 					self.addCatalogItem_Success(model)
+		# 				# silent: true
+		# 			}
+		# 		)
+		# 		
+		item = new Quota.Models.CatalogItemChild()
+		item.save(
+			{
+				parent_key: @catalog_item.get("pub_key")
+				child_key: obj.catalog_item.get("pub_key")
+				account_key: @catalog_item.get("account_key")
+			},
+			{
+				error:  ()-> 
+					# @vent.trigger("child_items:add_item_failed", {pub_key:obj.get("pub_key")})
+					@handleError
+				success: (model) -> 
+					self.addCatalogItem_Success(model)
+				# silent: true
+			}
+		)
+		
 
 	addNewCatalogItem_Success: (obj)->
 		@addCatalogItem_Success(obj.model)
@@ -85,7 +101,7 @@ class Quota.Views.ShowCatalogItemChildItemsList extends Backbone.View
 		# if model.get("catalog_item").parent_key and @companies.where(pub_key: model.get("contact").company_key).length == 0
 		# 			@companies.add(model.get("contact").company)
 		
-		self.catalog_item.get("catalog_item_child_items").add(model)
+		self.catalog_item.get("catalog_item_children").add(model)
 		frag = document.createDocumentFragment()
 		frag.appendChild(self.addOne(model).render().el)
 		self.$el.append(frag)

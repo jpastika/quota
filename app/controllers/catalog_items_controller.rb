@@ -31,8 +31,8 @@ class CatalogItemsController < ApplicationController
         #         gon.opportunity_documents = @opportunity.documents
         #         gon.companies = Contact.companies(@current_user.account)
         
-        @child_items = CatalogItem.find_by_parent_key(params[:id])
-        gon.child_items = @child_items.to_json(:include => [])
+        # gon.child_items = @catalog_item.child_items.to_json(:include => [])
+        gon.catalog_item_children = @catalog_item.catalog_item_children.to_json(:include => [:child_item])
         
         @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
         gon.manufacturers = @manufacturers
@@ -131,21 +131,55 @@ class CatalogItemsController < ApplicationController
   def update
     @catalog_item = CatalogItem.find_by_pub_key(params[:id])
     
-    # handle is_taxable checkbox
-    if params[:catalog_item][:is_taxable] != "true"
-      params[:catalog_item][:is_taxable] = false
-    end
-    
-    # handle is_package checkbox
-    if params[:catalog_item][:is_package] != "true"
-      params[:catalog_item][:is_package] = false
-    end
-    
-    if @catalog_item.update_attributes(params[:catalog_item])
-      flash[:success] = "Catalog Item updated"
-      redirect_to catalog_item_path(@catalog_item.pub_key)
-    else
-      render 'edit'
+    respond_to do |format|
+      format.html {
+        # handle is_taxable checkbox
+        if params[:catalog_item][:is_taxable] != "true"
+          params[:catalog_item][:is_taxable] = false
+        end
+
+        # handle is_package checkbox
+        if params[:catalog_item][:is_package] != "true"
+          params[:catalog_item][:is_package] = false
+        end
+
+        if @catalog_item.update_attributes(params[:catalog_item])
+          flash[:success] = "Catalog Item updated"
+          redirect_to catalog_item_path(@catalog_item.pub_key)
+        else
+          render 'edit'
+        end
+      }
+      
+      format.json {
+        if @catalog_item
+          if params[:is_taxable] != "true"
+            params[:is_taxable] = false
+          end
+
+          # handle is_package checkbox
+          if params[:is_package] != "true"
+            params[:is_package] = false
+          end
+          
+          @catalog_item.is_taxable = params[:is_taxable]
+          @catalog_item.is_taxable = params[:is_package]
+          @catalog_item.is_taxable = params[:name]
+          @catalog_item.is_taxable = params[:manufacturer]
+          @catalog_item.is_taxable = params[:list_price]
+          @catalog_item.is_taxable = params[:list_price_unit]
+          @catalog_item.is_taxable = params[:part_number]
+          @catalog_item.parent_key = params[:parent_key]
+          
+          if @catalog_item.save
+            render :json => @catalog_item.to_json(:include => [])
+          else
+            render :json => "false", :status => :unprocessable_entity
+          end
+        else
+          render :json => "false", :status => :unprocessable_entity
+        end
+      }
     end
   end
   

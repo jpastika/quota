@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102190557) do
+ActiveRecord::Schema.define(:version => 20121115162658) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(:version => 20121102190557) do
 
   add_index "accounts", ["pub_key"], :name => "index_accounts_on_pub_key", :unique => true
   add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
+
+  create_table "catalog_item_children", :force => true do |t|
+    t.string   "account_key"
+    t.string   "pub_key"
+    t.string   "parent_key"
+    t.string   "child_key"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "catalog_item_children", ["account_key"], :name => "index_catalog_item_children_on_account_key"
+  add_index "catalog_item_children", ["child_key"], :name => "index_catalog_item_children_on_child_key"
+  add_index "catalog_item_children", ["parent_key"], :name => "index_catalog_item_children_on_parent_key"
 
   create_table "catalog_items", :force => true do |t|
     t.string   "name"
@@ -47,11 +60,9 @@ ActiveRecord::Schema.define(:version => 20121102190557) do
     t.float    "week_rate"
     t.float    "month_rate"
     t.boolean  "is_package",               :default => false
-    t.string   "parent_key"
   end
 
   add_index "catalog_items", ["account_key"], :name => "index_catalog_items_on_account_key"
-  add_index "catalog_items", ["parent_key"], :name => "index_catalog_items_on_parent_key"
 
   create_table "contact_addresses", :force => true do |t|
     t.string   "name"
