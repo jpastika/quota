@@ -16,7 +16,7 @@ class Quota.Views.ShowCatalogItemChildItemsList extends Backbone.View
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@catalog_item = options.parent_model
-		
+			
 		# @vent.on('company_contacts:add_contact', @addCompanyContact, @)
 		# 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		
@@ -92,8 +92,8 @@ class Quota.Views.ShowCatalogItemChildItemsList extends Backbone.View
 		)
 		
 
-	addNewCatalogItem_Success: (obj)->
-		@addCatalogItem_Success(obj.model)
+	addNewCatalogItem_Success: (model)->
+		@addCatalogItem_Success(model)
 
 	addCatalogItem_Success: (model)->
 		self = @

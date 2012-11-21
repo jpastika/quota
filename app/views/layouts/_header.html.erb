@@ -24,16 +24,32 @@
 			</div>
 			<div class="">
 				<ul class="nav alternate-nav">
-					<li><%= link_to raw("Help"), "#" %></li>
-					<li id="admin-menu" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							Administration
-						</a>
-						<ul class="dropdown-menu">
-							<li><%= link_to "Users", users_path %></li>
-							<li><%= link_to "Reps", sales_reps_path %></li>
-						</ul>
-					</li>
+					<% if @nav_caret == "help" %>
+						<li class="current"><%= link_to raw("Help"), "#" %></li>
+					<% else %>
+						<li><%= link_to raw("Help"), "#" %></li>
+					<% end %>
+					<% if @nav_caret == "administration" %>
+						<li id="admin-menu" class="dropdown current">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Administration <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><%= link_to "Users", users_path %></li>
+								<li><%= link_to "Reps", sales_reps_path %></li>
+							</ul>
+						</li>
+					<% else %>
+						<li id="admin-menu" class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Administration <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><%= link_to "Users", users_path %></li>
+								<li><%= link_to "Reps", sales_reps_path %></li>
+							</ul>
+						</li>
+					<% end %>
 				</ul>
 			</div>
 		</div>
@@ -46,10 +62,26 @@
 			</div>
 			<div class="">
 				<ul class="nav primary-nav">
-					<li class="current"><%= link_to raw("Opportunities"), opportunities_path %></li>
-					<li><%= link_to raw("Templates"), templates_path %></li>
-					<li><%= link_to raw("Contacts"), contacts_path %></li>
-					<li><%= link_to raw("Catalog"), catalog_path %></li>
+					<% if @nav_caret == "opportunities" %>
+						<li class="current"><%= link_to raw("Opportunities"), opportunities_path %></li>
+					<% else %>
+						<li><%= link_to raw("Opportunities"), opportunities_path %></li>
+					<% end %>
+					<% if @nav_caret == "templates" %>
+						<li class="current"><%= link_to raw("Templates"), templates_path %></li>
+					<% else %>
+						<li><%= link_to raw("Templates"), templates_path %></li>
+					<% end %>
+					<% if @nav_caret == "contacts" %>
+						<li class="current"><%= link_to raw("Contacts"), contacts_path %></li>
+					<% else %>
+						<li><%= link_to raw("Contacts"), contacts_path %></li>
+					<% end %>
+					<% if @nav_caret == "catalog" %>
+						<li class="current"><%= link_to raw("Catalog"), catalog_path %></li>
+					<% else %>
+						<li><%= link_to raw("Catalog"), catalog_path %></li>
+					<% end %>
 				</ul>
 				<div class="primary-nav-caret"></div>
 			</div>

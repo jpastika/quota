@@ -3,7 +3,7 @@ class Quota.Views.ShowCatalogItemChildItem extends Backbone.View
 	template: HandlebarsTemplates['catalog_items/show_catalog_item_child_item'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .item_remove": "destroy"
+		"click .child_item_remove": "destroy"
 	
 	initialize: (options)->
 		self = @

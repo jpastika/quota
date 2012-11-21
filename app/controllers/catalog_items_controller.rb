@@ -35,6 +35,7 @@ class CatalogItemsController < ApplicationController
         gon.catalog_item_children = @catalog_item.catalog_item_children.to_json(:include => [:child_item])
         
         @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
+
         gon.manufacturers = @manufacturers
       }
       format.json {
@@ -65,54 +66,49 @@ class CatalogItemsController < ApplicationController
   #   end
   
   def create
-    # @catalog_item = current_user.account.catalog_items.build(params[:catalog_item])
-    #     if @catalog_item.save
-    #       flash[:success] = "Item created!"
-    #       redirect_to catalog_items_path
-    #     else
-    #       render 'new'
-    #     end
-  
-    # handle is_taxable checkbox
-    if params[:catalog_item][:is_taxable] != "true"
-      params[:catalog_item][:is_taxable] = false
-    end
-    
-    # handle is_package checkbox
-    if params[:catalog_item][:is_package] != "true"
-      params[:catalog_item][:is_package] = false
-    end
-    
-    @catalog_item = CatalogItem.create(params[:catalog_item])
-    # @catalog_item.account = current_user.account
-    # @catalog_item.owner = current_user
-    
-    # if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
-    #       @company = current_user.account.contacts.companies(current_user.account).build(name: params[:customer][:company_name])
-    #       if @company.save
-    #         @opportunity.company_key = @company.pub_key
-    #       end
-    #     end
-    
-    if @catalog_item.save
-      flash[:success] = "Catalog item has been created"
-      redirect_to catalog_item_path(@catalog_item.pub_key)
-    else
-      # @account_key = @current_user.account_key
-      # @companies = Contact.companies(@current_user.account)
-      #       @milestones = Milestone.where(:account_key => @current_user.account.pub_key)
-      #       @users = User.where(:account_key => @current_user.account.pub_key)
-      # 
-      #       gon.companies = @companies
-      #       gon.milestones = @milestones
-      #       gon.users = @users
-      
-      gon.catalog_item = @catalog_item
-      @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
+    respond_to do |format|
+      format.html {
+        # handle is_taxable checkbox
+        if params[:catalog_item][:is_taxable] != "true" && params[:catalog_item][:is_taxable] != true
+          params[:catalog_item][:is_taxable] = false
+        end
 
-      gon.manufacturers = @manufacturers
-      
-      render 'new'
+        # handle is_package checkbox
+        if params[:catalog_item][:is_package] != "true" && params[:catalog_item][:is_package] != true
+          params[:catalog_item][:is_package] = false
+        end
+
+        @catalog_item = CatalogItem.create(params[:catalog_item])
+        if @catalog_item.save
+          flash[:success] = "Catalog item has been created"
+          redirect_to catalog_item_path(@catalog_item.pub_key)
+        else
+          gon.catalog_item = @catalog_item
+          @manufacturers = CatalogItem.find(:all, :select => "DISTINCT manufacturer", :conditions => "manufacturer IS NOT NULL")
+
+          gon.manufacturers = @manufacturers
+
+          render 'new'
+        end
+      }
+      format.json {
+        # handle is_taxable checkbox
+        if params[:catalog_item][:is_taxable] != "true" && params[:catalog_item][:is_taxable] != true
+          params[:catalog_item][:is_taxable] = false
+        end
+
+        # handle is_package checkbox
+        if params[:catalog_item][:is_package] != "true" && params[:catalog_item][:is_package] != true
+          params[:catalog_item][:is_package] = false
+        end
+
+        @catalog_item = CatalogItem.create(params[:catalog_item])
+        if @catalog_item.save
+          render :json => @catalog_item.to_json(:include => [])
+        else
+          render :json => "false"
+        end
+      }
     end
   end
   
@@ -167,7 +163,7 @@ class CatalogItemsController < ApplicationController
           @catalog_item.is_taxable = params[:name]
           @catalog_item.is_taxable = params[:manufacturer]
           @catalog_item.is_taxable = params[:list_price]
-          @catalog_item.is_taxable = params[:list_price_unit]
+          @catalog_item.is_taxable = params[:recurring_unit]
           @catalog_item.is_taxable = params[:part_number]
           @catalog_item.parent_key = params[:parent_key]
           

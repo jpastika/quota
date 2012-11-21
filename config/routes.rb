@@ -5,6 +5,7 @@ Quota::Application.routes.draw do
   get "dashboard" => "dashboard#index", :as => "dashboard"
   get "choose" => "sessions#choose", :as => "choose_account"
   get "switch" => "sessions#switch_account", :as => "switch_account"
+  get "signout" => "sessions#destroy", :as => "signout"
   match '/signup', to: 'accounts#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
@@ -82,8 +83,8 @@ Quota::Application.routes.draw do
   
   
   
-  
-  root to: 'static_pages#home'
+  root to: 'sessions#new'
+  # root to: 'static_pages#home'
   
   
   # The priority is based upon order of creation:

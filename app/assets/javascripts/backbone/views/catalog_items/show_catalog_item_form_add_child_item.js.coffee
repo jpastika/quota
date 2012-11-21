@@ -19,31 +19,34 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@catalog_item = options.parent_model
 		@catalog_item_child_items = options.parent_collection
 		
-		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-xlarge', vent: @vent})
+		
+			
 			
 		@_itemsView = new Quota.Views.CatalogItemSearchList({parent_child_key: @catalog_item.get("pub_key"), vent: @vent})
 		
 	render: ->
 		$(@el).html(@template({catalog_item:@catalog_item}))
-		@manufacturer_name = @$('#catalog_item_manufacturer')
-		@input_manufacturer_name = @$('#catalog_item_manufacturer')
+		@manufacturer_name = $('#catalog_item_manufacturer')
+		@input_manufacturer_name = $('#catalog_item_manufacturer')
+		@input_manufacturer_key = $('.manufacturer_key')
 		manufacturer_name_field_name = @input_manufacturer_name.attr('name')
 		manufacturer_name_field_id = @input_manufacturer_name.attr('id')
 		
+		@_manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:@model, collection:@manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-large', vent: @vent})
 		@_manufacturerComboView.render()
 		
-		@input_manufacturer_name = @$('#catalog_item_manufacturer')
-		
+		@input_manufacturer_name = $('#catalog_item_manufacturer')
+				
 		@input_manufacturer_name.attr('name', manufacturer_name_field_name)
 		@input_manufacturer_name.attr('id', manufacturer_name_field_id)
 		
 		@input_catalog_item_name = @$('.catalog_item_name input')
 		@input_catalog_item_manufacturer_name = @$('.catalog_item_manufacturer input')
-		@input_catalog_item_part_number = @$('.catalog_item_part_number input_catalog_item_name')
+		@input_catalog_item_part_number = @$('.catalog_item_part_number input')
 		@input_catalog_item_list_price = @$('#catalog_item_list_price')
 		@input_catalog_item_list_price_interval = @$('#catalog_item_recurring_unit')
-		@input_catalog_item_is_taxable = @$('.catalog_item_is_taxable input')
-		@input_catalog_item_is_package = @$('.catalog_item_is_package input')
+		@input_catalog_item_is_taxable = @$('#catalog_item_is_taxable')
+		@input_catalog_item_is_package = @$('#catalog_item_is_package')
 		
 		@input_catalog_search = @$('.catalog_search input')
 		
@@ -63,8 +66,8 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@hide()
 	
 	manufacturersReset: ->
-		@vent.trigger('manufacturers:loaded')
-		@_manufacturerComboView.setElement(@manufacturer_name).render()
+		# @vent.trigger('manufacturers:loaded')
+		# 		@_manufacturerComboView.setElement(@manufacturer_name).render()
 		
 	showLoading: ->
 		@loading.toggle(true)
@@ -73,24 +76,51 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		@loading.toggle(false)
 	
 	manufacturersLoaded: ->
-		@hideLoading
-		@_manufacturerComboView.setElement(@manufacturer_name).render()
+		# @hideLoading
+		# 		@_manufacturerComboView.setElement(@manufacturer_name).render()
 		
 		
 	clickAddNewChildItem: ->
 		self = @
 		catalog_item = new Quota.Models.CatalogItem()
+		    
 		catalog_item.save(
 			{
 				name: @input_catalog_item_name.val()
-				maufacturer_name: @$('#catalog_item_manufacturer_name').val()
+				manufacturer: @input_manufacturer_name.val()
+				part_number: @input_catalog_item_part_number.val()
+				list_price: @input_catalog_item_list_price.val()
+				recurring_unit: @input_catalog_item_list_price_interval.val()
+				is_taxable: @input_catalog_item_is_taxable.is(':checked') 
+				is_package: @input_catalog_item_is_package.is(':checked') 
 			},
 			{
 				error: ->
 					console.log "save error"
 				success: (model) -> 
-					self.catalog_item_child_items.add(model)
-					# self._contactsView.contacts.add(model.get("contact"))
+					self.vent.trigger('catalog_item_child_items:add_new_catalog_item_successful', {model: model})
+					
+					self.resetAddNewChildItemForm()
+					# if model.get("manufacturer") and self.manufacturers.where(name: model.get("manufacturer")).length == 0
+					# 						manufacturer = new Quota.Models.Manufacturer({manufacturer: model.get("manufacturer")})
+					# 						self.manufacturers.add(manufacturer)
+					# 						self._manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:self.model, collection:self.manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-large', vent: self.vent})
+					self.render()
+					catalog_item_child = new Quota.Models.CatalogItemChild({parent_key: self.catalog_item.get("pub_key"), child_key: model.get("pub_key")})
+					catalog_item_child.save(
+						{
+							parent_key: catalog_item_child.get("parent_key")
+							child_key: catalog_item_child.get("child_key")
+						},
+						{
+							error: ->
+								console.log "save error"
+							success: (model) -> 
+								self.catalog_item_child_items.add(model)
+								self.vent.trigger('catalog_item_child_items:add_new_catalog_item_child_successful', {model: model})
+								# self._contactsView.contacts.add(model.get("contact"))
+						}
+					)
 			}
 		)
 	

@@ -1,16 +1,21 @@
 <header class="navbar">
-	<div class="navbar-inner">
-		<div class="container-fluid">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</a>
-			<%= link_to "Quota", root_url, id: "logo", :class => "brand" %>
-			<div class="nav-collapse">
-				<ul class="nav pull-right">
+	<div class="header row">
+		<div class="header-right pull-right">
+			<div class="">
+				<ul class="nav alternate-nav">
 					<li><%= link_to "Sign in", signin_path %></li>
 				</ul>
+			</div>
+		</div>
+		<div class="header-left">
+			<div class="">
+				<%= link_to raw("Q<u>uota</u>"), root_url, id: "logo", :class => "brand" %>
+			</div>
+			<div class="">
+				<ul class="nav primary-nav">
+					
+				</ul>
+				<div class="primary-nav-caret"></div>
 			</div>
 		</div>
 	</div>

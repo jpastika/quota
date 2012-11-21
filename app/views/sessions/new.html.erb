@@ -1,24 +1,41 @@
 <% provide(:title, "Sign in") %>
-<div class="container">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<h1>Sign in</h1>
+<div class="body">
+	<div class="body-right pull-right">
+		<div id="sidebar_app_fields_container"class="">
+		</div>
+		<div id="sidebar_body_container" class="">
+		</div>
+	</div>
+	<div class="body-left">
+		<div style="padding:1px 0 0 0;"></div>
+		<div class="parent-page">
+			<div id="main_body">
+				<div class="">
+					<% flash.each do |key, value| %>
+						<div class="alert alert-<%= key %> fade in">
+					      <a class="close" data-dismiss="alert" href="#">&times;</a>
+					      <%= value %>
+					    </div>
+					<% end %>
+				</div>
+				<div class="section-heading">
+					<h3>Sign In</h3>
+				</div>
+				<%= form_for(:session, url: sessions_path) do |f| %>
 
-	<%= form_for(:session, url: sessions_path) do |f| %>
+					<%= f.label :email %>
+					<%= f.text_field :email, :class => "input-xlarge" %>
 
-		<%= f.label :email %>
-		<%= f.text_field :email %>
-
-		<%= f.label :password %>
-		<%= f.password_field :password %>
-
-		<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-	<% end %>
-
- 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
-
+					<%= f.label :password %>
+					<%= f.password_field :password, :class => "input-xlarge" %>
+<div class="actions-bar-left">
+					<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+</div>
+				<% end %>
+<% if 1== 2 %>
+			 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+		<% end %>
+			</div>
+		</div>
+	</div>
 </div>

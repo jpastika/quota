@@ -18,11 +18,11 @@ class Quota.Views.ShowCatalogItemChildItems extends Backbone.View
 		
 		@_addItemView = new Quota.Views.ShowCatalogItemFormAddChildItem({model: new Quota.Models.CatalogItem(), parent_model:@catalog_item, parent_child_key: @catalog_item.get("pub_key"), vent: @vent, parent_collection: @collection, manufacturers: @manufacturers})
 		
-		@_childItemsListView = new Quota.Views.ShowCatalogItemChildItemsList({model: new Quota.Models.CatalogItem(), parent_model:@catalog_item, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		@_childItemsListView = new Quota.Views.ShowCatalogItemChildItemsList({model: new Quota.Models.CatalogItem(), parent_model:@catalog_item, parent_child_key: @parent_child_key, vent: @vent, collection: @collection, manufacturers: @manufacturers})
 		
 		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
-		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
+		@vent.on('catalog_item_child_items:add_new_catalog_item_child_successful', @addNewCatalogItem_Success, @)
 		@vent.on('catalog_item_child_items:remove_item', @removeCatalogItemChildItem, @)
 		
 		
@@ -45,9 +45,9 @@ class Quota.Views.ShowCatalogItemChildItems extends Backbone.View
 		
 		@
 	
-	# companyAdded: ->
-	# 		@_addContactView.setElement(@container_add_contact).render()
-	# 	
+	addNewCatalogItem_Success: (obj)->
+		@_childItemsListView.addNewCatalogItem_Success(obj.model)
+		
 	addItemClicked: ->
 		@vent.trigger('add_child_item:clicked')
 		@_addItemView.resetAddNewChildItemForm()
