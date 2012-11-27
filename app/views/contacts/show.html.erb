@@ -1,98 +1,7 @@
 <% provide(:title, "Contact")%>
 <% @nav_caret = "contacts" %>
-<div class="span10">
-	<div class="row-fluid">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %> fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= value %>
-		    </div>
-		<% end %>
-	</div>
-	<div class="parent-page">
-		<div class="row-fluid">
-			<div class="span6">
-				<table class="table table-striped">
-				  <thead>
-				    <tr>
-				      	<th></th>
-						<th>Name</th>
-				      <th>Actions</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    <% @contacts.each do |contact| %>
-				      <tr>
-				        <td><% if contact.contact_type == "PERSON"%><i class="icon-user"></i><% else %><i class="icon-reorder"></i><% end %></td>
-						<td><%= link_to contact.name, contact_path(contact.pub_key) %></td>
-				        <td>
-				          <%= link_to 'Edit', edit_contact_path(contact.pub_key), :class => 'btn btn-mini' %>
-				          <%= link_to 'Delete', contact_path(contact.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-				        </td>
-				      </tr>
-				    <% end %>
-				  </tbody>
-				</table>
-
-				<div>
-					<%= link_to 'Add contact', new_contact_path %>
-				</div>
-			</div>
-			<div class="span6">
-				<div id="contact">
-					<div class="control-group radio_buttons required">
-						<label class="radio_buttons required control-label"></label>
-						<div class="controls" id="contact_types">
-						</div>
-					</div>
-					<div class="control-group name required">
-						<div class="controls contact_name">
-							<%= @contact.name %>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls contact_title">
-							<%= @contact.title %>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls company_name">
-							<%= @contact.company.name unless @contact.company.nil? %>
-						</div>
-					</div>
-					<br>
-					<div id="contact_phones">
-						<% @contact.phones.each do |phone| %>
-							<span><%= phone.name %></span> <span><%= phone.val %></span>
-						<% end %>
-					</div>
-					<br>
-					<div id="contact_emails">
-						<% @contact.emails.each do |email| %>
-							<span><%= email.name %></span> <span><%= email.val %></span>
-						<% end %>
-					</div>
-					<br>
-					<div id="contact_urls">
-						<% @contact.urls.each do |url| %>
-							<span><%= url.name %></span> <span><%= url.val %></span>
-						<% end %>
-					</div>
-					<br>
-					<div id="contact_addresses">
-						<% @contact.addresses.each do |address| %>
-							<span><%= address.name %></span> <span><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
-						<% end %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="span2">
-	<div>
+<div class="body">
+	<div class="body-right pull-right">
 		<div class="row-fluid">
 			<%= link_to "Edit #{ @contact.name }", edit_contact_path(@contact.pub_key), :class => 'btn btn-primary' %>
 		</div>
@@ -135,6 +44,78 @@
 				</div>
 				<% end %>
 			<% end %>
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to contacts"), contacts_path %>
+			</div>
+			<div class="page-title">
+				<%= @contact.name %>
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body_container" class="">
+				<div>
+					<div class="section-content">
+						<div id="contact">
+							<div class="control-group radio_buttons required">
+								<label class="radio_buttons required control-label"></label>
+								<div class="controls" id="contact_types">
+								</div>
+							</div>
+							<div class="control-group name required">
+								<div class="controls contact_name">
+									<%= @contact.name %>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls contact_title">
+									<%= @contact.title %>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls company_name">
+									<%= @contact.company.name unless @contact.company.nil? %>
+								</div>
+							</div>
+							<br>
+							<div id="contact_phones">
+								<% @contact.phones.each do |phone| %>
+									<span><%= phone.name %></span> <span><%= phone.val %></span>
+								<% end %>
+							</div>
+							<br>
+							<div id="contact_emails">
+								<% @contact.emails.each do |email| %>
+									<span><%= email.name %></span> <span><%= email.val %></span>
+								<% end %>
+							</div>
+							<br>
+							<div id="contact_urls">
+								<% @contact.urls.each do |url| %>
+									<span><%= url.name %></span> <span><%= url.val %></span>
+								<% end %>
+							</div>
+							<br>
+							<div id="contact_addresses">
+								<% @contact.addresses.each do |address| %>
+									<span><%= address.name %></span> <span><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

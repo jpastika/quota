@@ -20,7 +20,7 @@ class Contact < ActiveRecord::Base
   validates :account_key, presence: true
   validates :contact_type_key, presence: true
   
-  # default_scope { where(account_key: Account.current_account_key) }
+  default_scope { where(account_key: Account.current_account_key) }
   
   
   class << self

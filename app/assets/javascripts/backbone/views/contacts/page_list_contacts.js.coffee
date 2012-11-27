@@ -20,7 +20,8 @@ class Quota.Views.PageListContacts extends Backbone.View
 		$(@el).empty()
 		$(@el).html(@template())
 		view = new Quota.Views.ListContacts({collection: @contacts, contact_types: @contact_types, vent: @vent})
-		@$('#contacts').append(view.render().el)
+		# @$('#contacts').append(view.render().el)
+		view.render()
 		@
 	
 	contactLinkClicked: (evt) ->

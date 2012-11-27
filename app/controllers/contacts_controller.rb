@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
         
         # @contacts = current_member.account.contacts
         gon.contact_types = @contact_types
-        gon.contacts = @contacts
+        gon.contacts = @contacts.to_json(:include => [:company, :phones, :emails])
       }
       format.json { 
         # @contacts = Contact.where(:account_key => @current_user.account_key)
@@ -92,14 +92,14 @@ class ContactsController < ApplicationController
       }
       format.json {
         if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
-          @company = Contact.companies.build(name: params[:company_name])
+          @company = Contact.companies.create(name: params[:company_name])
           @company.save
           @company_key = @company.pub_key
         else
           @company_key = params[:company_key]
         end
         
-        @contact = Contact.people.build(name: params[:name], company_key: @company_key)
+        @contact = Contact.people.create(name: params[:name], company_key: @company_key)
         
         # @contact.save
         if @contact.save
@@ -115,7 +115,7 @@ class ContactsController < ApplicationController
           
           render :json => @contact.to_json(:include => :contact_type)
         else
-          render :json => "false"
+          render :json => @contact.to_json()
         end
       }
     end
@@ -174,5 +174,23 @@ class ContactsController < ApplicationController
       }
     end
   end
-
+  
+  
+  def destroy
+    respond_to do |format|
+      format.html {
+        @contact = Contact.find_by_pub_key(params[:id])
+        @contact.destroy
+        redirect_back_or contacts_path
+      }
+      format.json {
+        @contact = Contact.find_by_pub_key(params[:id])      
+        if @contact.destroy
+          render :json => @contact
+        else
+          render :json => "false"
+        end
+      }
+    end
+  end
 end

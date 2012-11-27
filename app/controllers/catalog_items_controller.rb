@@ -180,9 +180,21 @@ class CatalogItemsController < ApplicationController
   end
   
   def destroy
-    @catalog_item = CatalogItem.find_by_pub_key(params[:id])
-    @catalog_item.destroy
-    redirect_back_or catalog_items_path
+    respond_to do |format|
+      format.html {
+        @catalog_item = CatalogItem.find_by_pub_key(params[:id])
+        @catalog_item.destroy
+        redirect_back_or catalog_items_path
+      }
+      format.json {
+        @catalog_item = CatalogItem.find_by_pub_key(params[:id])      
+        if @catalog_item.destroy
+          render :json => @catalog_item
+        else
+          render :json => "false"
+        end
+      }
+    end
   end
   
   def manufacturers

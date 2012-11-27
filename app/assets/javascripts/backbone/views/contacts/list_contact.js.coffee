@@ -12,20 +12,27 @@ class Quota.Views.ListContact extends Backbone.View
 		self = @
 		_.bindAll(@)
 		@contact = options.contact
+		@contact_types = options.contact_types
 		@vent = options.vent
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({contact:@model.toJSON()}))
+		console.log @model
+		@contact_type = @getContactType()
+		$(@el).html(@template({contact:@model.toJSON(), phones: @model.get("phones"), emails: @model.get("emails"), contact_type: @contact_type.toJSON() }))
 		@
 		
 	destroy: (evt) ->
 		@toggle()
 		# @model.trigger('removing', {view: @})
 		@model.remove()
+		@vent.trigger('contacts:remove_contact', {model: @model})
 		
 	toggle: () ->
 		$(@el).toggle()
 		
 	contactLinkClicked: ->
 		@vent.trigger("contact_link:clicked", {view: @})
+		
+	getContactType: ->
+		_.first(@contact_types.where({pub_key: @model.get("contact_type_key")}))

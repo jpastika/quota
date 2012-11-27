@@ -20,16 +20,30 @@ class Quota.Views.ListContacts extends Backbone.View
 		@vent.on('contact_link:clicked', @contactLinkClicked, @)
 		
 	render: ->
-		$(@el).empty()
-		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		$(@el).append(frag)
+		# $(@el).empty()
+		# frag = document.createDocumentFragment()
+		# frag.appendChild(@addOne(item).render().el) for item in @collection.models
+		# $(@el).append(frag)
+		@addOne(item) for item in @collection.models
 		@
 	
+	# addOne: (item)->
+	# 		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, vent: @vent})
+	# 		@_contactViews.push(view)
+	# 		view
+		
 	addOne: (item)->
-		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, vent: @vent})
+		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, contact_types: @contact_types, vent: @vent})
 		@_contactViews.push(view)
-		view
+		# view
+		
+		frag = document.createDocumentFragment()
+		frag.appendChild(view.render().el)
+		
+		if /[^a-z]/i.test(item.get("name").charAt(0).toUpperCase())
+			$("a[name=1]").parent().next().find("ul").append(frag)
+		else
+			$("a[name=#{item.get("name").charAt(0).toUpperCase()}]").parent().next().find("ul").first().append(frag)
 	
 	collectionReset: ->
 		@render()
