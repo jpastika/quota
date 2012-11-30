@@ -17,7 +17,6 @@ class Quota.Views.ListContact extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		console.log @model
 		@contact_type = @getContactType()
 		$(@el).html(@template({contact:@model.toJSON(), phones: @model.get("phones"), emails: @model.get("emails"), contact_type: @contact_type.toJSON() }))
 		@

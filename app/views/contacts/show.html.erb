@@ -3,47 +3,7 @@
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="row-fluid">
-			<%= link_to "Edit #{ @contact.name }", edit_contact_path(@contact.pub_key), :class => 'btn btn-primary' %>
-		</div>
-		<div class="row-fluid">
-			<% if @contact_type == "Company" %>
-				<% @contact.people.each do |contact| %>				
-				<div class="show-field">
-					<%= link_to "#{ contact.name }", contact_path(contact.pub_key) %>
-				</div>
-				<% end %>
-			<% else %>
-				<div class="row-fluid">
-					<%= link_to "#{ @company.name }", contact_path(@company.pub_key) %>
-				</div>
-				<% @company.phones.each do |phone| %>				
-				<div class="show-field">
-					<span class="show-label"><%= phone.name %></span>
-					<span class="show-value"><%= phone.val %></span>
-				</div>
-				<% end %>
-				
-				<% @company.emails.each do |email| %>				
-				<div class="show-field">
-					<span class="show-label"><%= email.name %></span>
-					<span class="show-value"><%= email.val %></span>
-				</div>
-				<% end %>
-				
-				<% @company.urls.each do |url| %>				
-				<div class="show-field">
-					<span class="show-label"><%= url.name %></span>
-					<span class="show-value"><%= url.val %></span>
-				</div>
-				<% end %>
-				
-				<% @company.addresses.each do |address| %>				
-				<div class="show-field">
-					<span class="show-label"><%= address.name %></span>
-					<span class="show-value"><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
-				</div>
-				<% end %>
-			<% end %>
+			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change contact details"), edit_contact_path(@contact.pub_key), :class => 'btn btn-primary' %>
 		</div>
 	</div>
 	<div class="body-left">
@@ -60,24 +20,15 @@
 				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to contacts"), contacts_path %>
 			</div>
 			<div class="page-title">
-				<%= @contact.name %>
+				&nbsp;
 			</div>
 		</div>
 		<div class="parent-page">
 			<div id="main_body_container" class="">
-				<div>
-					<div class="section-content">
+				<div class="row-fluid section-form-plain">
+					<div class="span8">
 						<div id="contact">
-							<div class="control-group radio_buttons required">
-								<label class="radio_buttons required control-label"></label>
-								<div class="controls" id="contact_types">
-								</div>
-							</div>
-							<div class="control-group name required">
-								<div class="controls contact_name">
-									<%= @contact.name %>
-								</div>
-							</div>
+							<h3><%= @contact.name %></h3>
 							<div class="control-group">
 								<div class="controls contact_title">
 									<%= @contact.title %>
@@ -112,6 +63,51 @@
 									<span><%= address.name %></span> <span><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
 								<% end %>
 							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div>
+						<% if @contact_type == "Company" %>
+							<div class="section-heading">
+								<h3>Contacts</h3>
+							</div>
+							<% @contact.people.each do |contact| %>				
+							<div class="show-field">
+								<%= link_to "#{ contact.name }", contact_path(contact.pub_key) %>
+							</div>
+							<% end %>
+						<% else %>
+							<div class="row-fluid">
+								<%= link_to "#{ @company.name }", contact_path(@company.pub_key) %>
+							</div>
+							<% @company.phones.each do |phone| %>				
+							<div class="show-field">
+								<span class="show-label"><%= phone.name %></span>
+								<span class="show-value"><%= phone.val %></span>
+							</div>
+							<% end %>
+
+							<% @company.emails.each do |email| %>				
+							<div class="show-field">
+								<span class="show-label"><%= email.name %></span>
+								<span class="show-value"><%= email.val %></span>
+							</div>
+							<% end %>
+
+							<% @company.urls.each do |url| %>				
+							<div class="show-field">
+								<span class="show-label"><%= url.name %></span>
+								<span class="show-value"><%= url.val %></span>
+							</div>
+							<% end %>
+
+							<% @company.addresses.each do |address| %>				
+							<div class="show-field">
+								<span class="show-label"><%= address.name %></span>
+								<span class="show-value"><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></span>
+							</div>
+							<% end %>
+						<% end %>
 						</div>
 					</div>
 				</div>

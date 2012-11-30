@@ -342,10 +342,7 @@
 		this.contacts = new Quota.Collections.Contacts($.parseJSON(gon.contacts));
 	
 		window.vent = _.extend({}, Backbone.Events);
-		
-		console.log(this.contacts.length);
-		console.log(gon.contacts.length);
-		
+			
 		var view_page = new Quota.Views.PageListContacts({contacts: this.contacts, contact_types: this.contact_types, vent: vent});
 		$('#page').html(view_page.render().el);
 	});	
