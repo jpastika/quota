@@ -1,8 +1,17 @@
-<% if f.error_notification %>
-	<div class="alert alert-error fade in">
-      <a class="close" data-dismiss="alert" href="#">&times;</a>
-      <%= f.error_notification %>
-    </div>
-<% end %>
-<%= f.input :contact_type_key, :label => '', :collection => @contact_types.reverse.map{|a| [a.name, a.pub_key]}, :as => :radio_buttons, :item_wrapper_class => 'inline', :checked => @contact_types.last.pub_key %>
-<%= f.input :name %>
+<div class="section-heading">
+	<h3>Contact Details</h3>
+</div>
+<div class="row">
+	<%= f.input :contact_type_key, :label => false, :collection => @contact_types.reverse.map{|a| [raw("<h3><i class=""#{a.icon_class}""></i>&nbsp;&nbsp;#{a.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>"), a.pub_key]}, :as => :radio_buttons, :item_wrapper_class => 'inline', :checked => @contact.contact_type_key %>
+	<%= f.input :name, :label => "Name", :input_html => {:class => "input-xlarge"} %>
+	<%= f.input :title, :label => "Title", :input_html => {:class => "input-xlarge"} %>
+	<div class="control-group">
+		<div class="span8">
+			<label>Company</label>
+			<div class="controls contact_company">
+				<%= text_field_tag 'contact[company_name]', @contact.company ? @contact.company.name : '', :class => "input-xlarge" %>
+			</div>
+		</div>
+	</div>
+	<%= f.input :company_key, :as => :hidden %>
+</div>

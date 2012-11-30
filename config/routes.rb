@@ -1,7 +1,5 @@
 Quota::Application.routes.draw do
   
-  
-  
   get "dashboard" => "dashboard#index", :as => "dashboard"
   get "choose" => "sessions#choose", :as => "choose_account"
   get "switch" => "sessions#switch_account", :as => "switch_account"
@@ -48,7 +46,7 @@ Quota::Application.routes.draw do
     match '/account', to: 'accounts#show'
     match '/member', to: 'members#show'
     match '/user', to: 'users#show'
-    match '/contacts/:id/phones', to: 'contact_phones#index'
+    # match '/contacts/:id/phones', to: 'contact_phones#index'
     match '/companies', to: 'contacts#companies'
     match '/companies/:id/contacts', to: 'companies#contacts'
     match '/manufacturers', to: 'catalog_items#manufacturers'

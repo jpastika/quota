@@ -60,7 +60,6 @@ class ContactsController < ApplicationController
   
   def new
     # @account_key = @current_user.account_key
-    @contacts = Contact.all
     @contact_types = ContactType.all
     @companies = Contact.companies
     
@@ -70,10 +69,12 @@ class ContactsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @contact = Contact.create(contact_type_key: ContactType.find_by_name("Person").pub_key)
+        @contact = Contact.new
+        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
       }
       format.json {
-        @contact = Contact.create(contact_type_key: ContactType.find_by_name("Person").pub_key)
+        @contact = Contact.new
+        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
         render :json => @contact.to_json()
       }
     end
