@@ -4,9 +4,7 @@ class Quota.Views.EditContactPhone extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
-		"blur .contact_method_val": "valChanged"
-		"blur .contact_method_name": "nameChanged"
-	
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -19,6 +17,7 @@ class Quota.Views.EditContactPhone extends Backbone.View
 				self.handleError(attr, error)
 		)
 		@contact = options.contact
+		@index = options.index
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
@@ -26,7 +25,8 @@ class Quota.Views.EditContactPhone extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({contact_phone:@model.toJSON()}))
+		console.log @index
+		$(@el).html(@template({contact_phone:@model.toJSON(), index:@index}))
 		if @hideRemove
 			@$('.contact_method_remove').css('visibility', 'hidden')
 		

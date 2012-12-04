@@ -62,18 +62,21 @@ class ContactsController < ApplicationController
     # @account_key = @current_user.account_key
     @contact_types = ContactType.all
     @companies = Contact.companies
+    @contact = Contact.new
     
     gon.contact_types = @contact_types
-    gon.contact = Contact.new()
+    gon.contact = @contact
     gon.companies = @companies
+    gon.contact_phones = @contact.phones.to_json(:include => [])
+    gon.contact_emails = @contact.emails.to_json(:include => [])
+    gon.contact_addresses = @contact.addresses.to_json(:include => [])
+    gon.contact_urls = @contact.urls.to_json(:include => [])
     
     respond_to do |format|
       format.html {
-        @contact = Contact.new
         @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
       }
       format.json {
-        @contact = Contact.new
         @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
         render :json => @contact.to_json()
       }
@@ -83,10 +86,33 @@ class ContactsController < ApplicationController
   def create
     respond_to do |format|
       format.html {
-        @contact = Contact.create(params[:contact])
+        if (params[:contact][:company_key].nil? || params[:contact][:company_key] == "") && (!params[:contact][:company_name].nil? && params[:contact][:company_name] != "")
+          @company = Contact.companies.create(name: params[:contact][:company_name])
+          @company.save
+          @company_key = @company.pub_key
+        else
+          @company_key = params[:contact][:company_key]
+        end
+        
+        @contact = Contact.create(name: params[:contact][:name], company_key: @company_key, contact_type_key: params[:contact][:contact_type_key], title: params[:contact][:title])
+        
         if @contact.save
+          if params[:phones]
+            params[:phones].each do |phone|
+              @contact.phones.create!(name: phone[:name], val: phone[:val])
+              # @contact.phones.create!(name: "test", val: "123")
+            end
+          end
+          
+          
           flash[:success] = "#{@contact.name} is now a contact on your Quota account."
-          redirect_to contacts_path
+          # @contacts = Contact.all
+          #           @contact_types = ContactType.all
+          # 
+          #           # @contacts = current_member.account.contacts
+          #           gon.contact_types = @contact_types
+          #           gon.contacts = @contacts.to_json(:include => [:company, :phones, :emails])
+          redirect_to contact_path(@contact.pub_key)
         else
           render 'new'
         end
@@ -124,30 +150,53 @@ class ContactsController < ApplicationController
   
   def edit
     @account_key = @current_user.account_key
-    @contacts = Contact.all
     @contact_types = ContactType.all
     @companies = Contact.companies
+    @contact = Contact.find_by_pub_key(params[:id])
     
     gon.contact_types = @contact_types
-    gon.contact = Contact.new()
-    gon.companies = @companies
-    
-    
-    @contact = Contact.find_by_pub_key(params[:id])
     gon.contact = @contact
-    gon.contact_phones = @contact.phones
-    gon.contact_emails = @contact.emails
-    gon.contact_urls = @contact.urls
-    gon.contact_addresses = @contact.addresses
+    gon.companies = @companies
+    gon.contact_phones = @contact.phones.to_json(:include => [])
+    gon.contact_emails = @contact.emails.to_json(:include => [])
+    gon.contact_addresses = @contact.addresses.to_json(:include => [])
+    gon.contact_urls = @contact.urls.to_json(:include => [])
+    
   end
   
   def update
     respond_to do |format|
       format.html {
+        if (params[:contact][:company_key].nil? || params[:contact][:company_key] == "") && (!params[:contact][:company_name].nil? && params[:contact][:company_name] != "")
+          @company = Contact.companies.create(name: params[:contact][:company_name])
+          @company.save
+          @company_key = @company.pub_key
+        else
+          @company_key = params[:contact][:company_key]
+        end
+        
         @contact = Contact.find_by_pub_key(params[:id])
-        if @contact.update_attributes(params[:contact])
+        @contact.name = params[:contact][:name]
+        @contact.title = params[:contact][:title]
+        @contact.company_key = @company_key
+        @contact.contact_type_key = params[:contact][:contact_type_key]
+        
+        if @contact.save
+          if params[:phones]
+            params[:phones].each do |phone|
+              if phone[:pub_key].nil? || phone[:pub_key] == ""
+                @contact.phones.create!(name: phone[:name], val: phone[:val])
+              else
+                @contact_phone = ContactPhone.find_by_pub_key(phone[:pub_key])
+                @contact_phone.name = phone[:name]
+                @contact_phone.val = phone[:val]
+                @contact_phone.save
+              end
+            end
+          end
+          
           flash[:success] = "Contact updated"
-          redirect_to contacts_path
+          redirect_to contact_path(params[:id])
         else
           render 'edit'
         end

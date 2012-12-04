@@ -1,8 +1,5 @@
-<div class="section-heading">
-	<h3>Contact Details</h3>
-</div>
 <div class="row">
-	<%= f.input :contact_type_key, :label => false, :collection => @contact_types.reverse.map{|a| [raw("<h3><i class=""#{a.icon_class}""></i>&nbsp;&nbsp;#{a.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>"), a.pub_key]}, :as => :radio_buttons, :item_wrapper_class => 'inline', :checked => @contact.contact_type_key %>
+	<%= f.input :contact_type_key, :label => false, :collection => @contact_types.reverse.map{|a| [raw("<h3><i class=""#{a.icon_class}""></i>&nbsp;&nbsp;#{a.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>"), a.pub_key]}, :as => :radio_buttons, :item_wrapper_class => 'inline', :checked => @contact.contact_type_key %>
 	<%= f.input :name, :label => "Name", :input_html => {:class => "input-xlarge"} %>
 	<%= f.input :title, :label => "Title", :input_html => {:class => "input-xlarge"} %>
 	<div class="control-group">

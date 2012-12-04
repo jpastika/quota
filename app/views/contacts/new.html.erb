@@ -27,7 +27,7 @@
 		</div>
 		<div class="parent-page">
 			<div class="row-fluid">
-				<div id="">
+				<div id="contact_container">
 					<%= simple_form_for(@contact) do |f| %>
 						<div class="row-fluid">
 							<% if f.error_notification %>
@@ -42,29 +42,27 @@
 						</div>
 						<br><br>
 						<div class="row">
-							<div class="span5">
+							<div id="contact_phones_container" class="span5">
 								<div class="section-heading">
 									<h3>Phone Numbers</h3>
 								</div>
-								<div id="contact-phones">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.phones.each do |phone| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= phone.name %></td>
-											<td class="show-value" valign="top"><%= phone.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-phones-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a phone number
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding phone numbers
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-phones-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a phone number
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding phone numbers
+										</a>
+									</div>
 								</div>
 							</div>
 							<div class="span2">
@@ -86,7 +84,7 @@
 								<div class="section-form" style="display:none;">
 								</div>
 								<div id="contact-emails-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
+									<button type="button" class="btn btn-primary form-submit">
 										<i class="icon-plus"></i>&nbsp;&nbsp;Add an email address
 									</button>
 									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
@@ -114,7 +112,7 @@
 								<div class="section-form" style="display:none;">
 								</div>
 								<div id="contact-urls-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
+									<button type="button" class="btn btn-primary form-submit">
 										<i class="icon-plus"></i>&nbsp;&nbsp;Add a link
 									</button>
 									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
@@ -141,7 +139,7 @@
 								<div class="section-form" style="display:none;">
 								</div>
 								<div id="contact-addresses-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
+									<button type="button" class="btn btn-primary form-submit">
 										<i class="icon-plus"></i>&nbsp;&nbsp;Add a mailing address
 									</button>
 									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
@@ -169,10 +167,25 @@
 		this.companies = new Quota.Collections.Companies(gon.companies);
 	
 		this.contact = new Quota.Models.Contact();
+		
+		if(gon.contact_phones){
+			this.contact_phones = new Quota.Collections.ContactPhones($.parseJSON(gon.contact_phones));
+		}
+		else{
+			this.contact_phones = new Quota.Collections.ContactPhones();
+			this.contact_phones.fetch();
+		}
+		
+		
+		
 		window.vent = _.extend({}, Backbone.Events);
 	
 		// var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
 		// 		$('#contact').html(view_contact.render().el);
+		
+		var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, contact_phones: this.contact_phones, companies: this.companies, vent: vent, el: '#contact_container'});
+		
+		view_contact.setup();
 	});	
 	
 	$.fn.placeholder();
