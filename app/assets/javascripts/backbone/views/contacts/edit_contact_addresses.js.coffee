@@ -1,48 +1,71 @@
 class Quota.Views.EditContactAddresses extends Backbone.View
 
-	tagName: 'ul'
-	className: 'unstyled form-vertical'
 	
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	el: '#contact_addresses_container'
+	
+	events:
+		"click #contact-addresses-actions>.btn-primary": "addClicked"
+		"click #contact-addresses-actions>.btn-danger": "doneClicked"
+		
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
-		@_addressViews = []
-		@collection.on('reset', @collectionReset, @)
-		@collection.on('destroy:error', @removeFailed, @)
-		@collection.on('destroy:success', @removeSuccess, @)
-		@vent.on('contact_addresses:check_empty', @checkEmpty, @)
+		@contact = options.parent_model
+		@parent_child_key = options.parent_child_key
+		
+		@_addAddressView = new Quota.Views.EditContactFormAddAddress({model: new Quota.Models.ContactAddress(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		
+		@_addressesListView = new Quota.Views.EditContactAddressesList({model: new Quota.Models.ContactAddress(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		@vent.on('contact_addresses:add_new_address_successful', @addNewAddress_Success, @)
+		@vent.on('contact_addresses:remove_address', @removeContactAddress, @)
+		
 		
 	render: ->
-		$(@el).empty()
-		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		frag.appendChild(@addEmpty(new Quota.Models.ContactAddress({name:'', val:''})).render().el)
-		$(@el).append(frag)
-		@$('input[placeholder]').placeholder()
-		@$('textarea[placeholder]').placeholder()
+		@container_address_list = @$('.section-table tbody')
+		@_addressesListView.setElement(@container_address_list).render()
+		@container_add_address = @$('.section-form')
+		@_addAddressView.setElement(@container_add_address).render()
 		@
 	
-	addOne: (item)->
-		view = new Quota.Views.EditContactAddress({model: item, tagName:'li', className:'contact_method contact_address', contact: @model, vent: @vent})
-		@_addressViews.push(view)
-		view
+	addClicked: ->
+		@vent.trigger('add_address:clicked')
+		@_addAddressView.resetAddNewAddressForm()
+		@hideAddBtn()
+		@showDoneLink()
+		@showAddForm()
 		
-	addEmpty: (item)->
-		@collection.add(item)
-		view = new Quota.Views.EditContactAddress({model: item, tagName:'li', className:'contact_method contact_address', contact: @model, vent: @vent, hideRemove: true})
-		@_addressViews.push(view)
-		view
+
+	doneClicked: ->
+		@vent.trigger('done_add_address:clicked')
+		@_addAddressView.resetAddNewAddressForm()
+		@hideDoneLink()
+		@showAddBtn()
+		@hideAddForm()
 		
-	checkEmpty: ->
-		if !_.find(@collection.models, (m) -> m.isNew())
-			$(@el).append(@addEmpty(new Quota.Models.ContactAddress({name:'', street1:'', city:'', state:'', zip:'', country:''})).render().el)
+	removeContactAddress: (item)->
+		@collection.remove(item)
+		
+	addNewAddress_Success: ()->
+		@doneClicked()
+
+	hideAddBtn: ->
+		@$('#contact-addresses-actions>.btn-primary').toggle(false)
+
+	showAddBtn: ->
+		@$('#contact-addresses-actions>.btn-primary').toggle(true)
+
+	hideDoneLink: ->
+		@$('#contact-addresses-actions>.btn-danger').toggle(false)
+
+	showDoneLink: ->
+		@$('#contact-addresses-actions>.btn-danger').toggle(true)
 	
-	collectionReset: ->
-		@render()
-		
-	removeFailed: (evt) ->
-		view = _.find(@_addressViews, (view) -> view.model == evt.model)
-		view.toggle()
-		
-	removeSuccess: (evt) ->
-		# console.log "got here"
+	hideAddForm: ->
+		@$('.section-form').toggle(false)
+
+	showAddForm: ->
+		@$('.section-form').toggle(true)

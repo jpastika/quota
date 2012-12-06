@@ -60,91 +60,85 @@
 											<i class="icon-plus"></i>&nbsp;&nbsp;Add a phone number
 										</button>
 										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding phone numbers
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
 										</a>
 									</div>
 								</div>
 							</div>
 							<div class="span2">
 							</div>
-							<div class="span5">
+							<div id="contact_emails_container" class="span5">
 								<div class="section-heading">
 									<h3>Email Addresses</h3>
 								</div>
-								<div id="contact-emails">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.emails.each do |email| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= email.name %></td>
-											<td class="show-value" valign="top"><%= email.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-emails-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="button" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add an email address
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding email addresses
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-emails-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add an email address
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 						<br><br><br>
 						<div class="row">
-							<div class="span5">
+							<div id="contact_urls_container" class="span5">
 								<div class="section-heading">
 									<h3>Links</h3>
 								</div>
-								<div id="contact-urls">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.urls.each do |url| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= url.name %></td>
-											<td class="show-value" valign="top"><%= url.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-urls-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="button" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a link
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding links
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-urls-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a link
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 							<div class="span2">
 							</div>
-							<div class="span5">
+							<div id="contact_addresses_container" class="span5">
 								<div class="section-heading">
 									<h3>Mailing Addresses</h3>
 								</div>
-								<div id="contact-addresses">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.addresses.each do |address| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= address.name %></td>
-											<td class="show-value" valign="top"><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-addresses-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="button" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a mailing address
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding mailing address
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-addresses-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a mailing address
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -176,6 +170,34 @@
 			this.contact_phones.fetch();
 		}
 		
+		if(gon.contact_emails){
+			this.contact_emails = new Quota.Collections.ContactEmails($.parseJSON(gon.contact_emails));
+		}
+		else{
+			this.contact_emails = new Quota.Collections.ContactEmails();
+			this.contact_emails.fetch();
+		}
+		
+		if(gon.contact_urls){
+			this.contact_urls = new Quota.Collections.ContactUrls($.parseJSON(gon.contact_urls));
+		}
+		else{
+			this.contact_urls = new Quota.Collections.ContactUrls();
+			this.contact_urls.fetch();
+		}
+		
+		if(gon.contact_addresses){
+			this.contact_addresses = new Quota.Collections.ContactAddresses($.parseJSON(gon.contact_addresses));
+		}
+		else{
+			this.contact_addresses = new Quota.Collections.ContactAddresses();
+			this.contact_addresses.fetch();
+		}
+		
+		this.contact.contact_phones = this.contact_phones;
+		this.contact.contact_emails = this.contact_emails;
+		this.contact.contact_urls = this.contact_urls;
+		this.contact.contact_addresses = this.contact_addresses;
 		
 		
 		window.vent = _.extend({}, Backbone.Events);

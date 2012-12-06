@@ -4,9 +4,7 @@ class Quota.Views.EditContactUrl extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
-		"blur .contact_method_val": "valChanged"
-		"blur .contact_method_name": "nameChanged"
-	
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -19,6 +17,7 @@ class Quota.Views.EditContactUrl extends Backbone.View
 				self.handleError(attr, error)
 		)
 		@contact = options.contact
+		@index = options.index
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
@@ -26,7 +25,7 @@ class Quota.Views.EditContactUrl extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({contact_url:@model.toJSON()}))
+		$(@el).html(@template({contact_url:@model.toJSON(), index:@index}))
 		if @hideRemove
 			@$('.contact_method_remove').css('visibility', 'hidden')
 		
@@ -43,7 +42,7 @@ class Quota.Views.EditContactUrl extends Backbone.View
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
 		modelid = @model.id
 		if @input_contact_method_name.val() == ''
-			@model.set("name", "Website", {silent: true})
+			@model.set("name", "Url", {silent: true})
 			
 		if @model.isValid(true) && @contact.isValid(true)
 			if @model.get("pub_key")
@@ -80,9 +79,15 @@ class Quota.Views.EditContactUrl extends Backbone.View
 		@$el.find(".control-group.#{attribute}").removeClass('error').find('.help-inline').remove()
 		
 	valChanged: ->
-		if @input_contact_method_val.val() != '' or !@model.isNew()
+		if @shouldSave()
 			@model.set("val", @input_contact_method_val.val(), {silent: true})
 			@save()
+			
+	shouldSave: ->
+		if @input_contact_method_val.val() != '' or !@model.isNew()
+			return true
+		else
+			return false
 	
 	nameChanged: ->
 		@model.set("name", @input_contact_method_name.val(), {silent: true})

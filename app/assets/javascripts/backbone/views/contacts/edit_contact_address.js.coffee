@@ -4,21 +4,20 @@ class Quota.Views.EditContactAddress extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
-		"blur .contact_method_address": "valChanged"
-		"blur .contact_method_name": "nameChanged"
-	
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
-		# 		Backbone.Validation.bind(
-		# 			@
-		# 			valid: (view, attr) ->
-		# 				self.clearError(attr)
-		# 			invalid: (view, attr, error) ->
-		# 				self.clearError(attr)
-		# 				self.handleError(attr, error)
-		# 		)
+		Backbone.Validation.bind(
+			@
+			valid: (view, attr) ->
+				self.clearError(attr)
+			invalid: (view, attr, error) ->
+				self.clearError(attr)
+				self.handleError(attr, error)
+		)
 		@contact = options.contact
+		@index = options.index
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
@@ -26,53 +25,28 @@ class Quota.Views.EditContactAddress extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		$(@el).html(@template({contact_address:@model.toJSON()}))
+		$(@el).html(@template({contact_address:@model.toJSON(), index:@index}))
 		if @hideRemove
 			@$('.contact_method_remove').css('visibility', 'hidden')
 		
 		@contact_method_name = @$('.contact_method_name');
-		@contact_method_val = @$('.contact_method_val');
+		@contact_method_street1 = @$('.contact_method_street1');
+		@contact_method_city = @$('.contact_method_city');
+		@contact_method_state = @$('.contact_method_state');
+		@contact_method_zip = @$('.contact_method_zip');
+		@contact_method_country = @$('.contact_method_country');
 		@input_contact_method_name = @$('.contact_method_name input');
-		@input_contact_method_street1 = @$('.contact_method_address textarea[name="contact_address[street1]"]');
-		@input_contact_method_city = @$('.contact_method_address input[name="contact_address[city]"]');
-		@input_contact_method_state = @$('.contact_method_address input[name="contact_address[state]"]');
-		@input_contact_method_zip = @$('.contact_method_address input[name="contact_address[zip]"]');
-		@input_contact_method_country = @$('.contact_method_address input[name="contact_address[country]"]');
+		@input_contact_method_street1 = @$('.contact_method_street1');
+		@input_contact_method_city = @$('.contact_method_city');
+		@input_contact_method_state = @$('.contact_method_state');
+		@input_contact_method_zip = @$('.contact_method_zip');
+		@input_contact_method_country = @$('.contact_method_country');
 		
-		@$el.find('input').autoGrowInput()
-		@$el.find('textarea').autosize()
+		# @$el.find('input').autoGrowInput()
 		@
 		
 	save: ->
-		self = @
-		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		modelid = @model.id
-		if @input_contact_method_name.val() == ''
-			@model.set("name", "Address", {silent: true})
-			
-		# if @model.isValid(true) && @contact.isValid(true)
-		if @model.get("pub_key")
-			@model.url = 'addresses/'+@model.get("pub_key")
-		else
-			@model.url = 'addresses/'
-			
-		@model.save(
-			{
-				name: @model.get("name")
-				val: @model.get("val")
-			},
-			{
-				error: @handleError
-				success: (model) -> 
-					self.model.url = 'addresses/'+model.get("pub_key")
-					self.hideRemove = false
-					self.showRemoveButton()
-					self.input_contact_method_name.val(model.get("name"))
-					# self.model.trigger('change')
-					self.vent.trigger("contact_addresses:check_empty")
-				silent: true
-			}
-		)
+		
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422
@@ -87,14 +61,17 @@ class Quota.Views.EditContactAddress extends Backbone.View
 		@$el.find(".control-group.#{attribute}").removeClass('error').find('.help-inline').remove()
 		
 	valChanged: ->
-		@model.set("street1", @input_contact_method_street1.val(), {silent: true})
-		@model.set("city", @input_contact_method_city.val(), {silent: true})
-		@model.set("state", @input_contact_method_state.val(), {silent: true})
-		@model.set("zip", @input_contact_method_zip.val(), {silent: true})
-		@model.set("country", @input_contact_method_country.val(), {silent: true})
-		@save()
+		if @shouldSave()
+			@model.set("val", @input_contact_method_val.val(), {silent: true})
+			@save()
+			
+	shouldSave: ->
+		if @input_contact_method_val.val() != '' or !@model.isNew()
+			return true
+		else
+			return false
 	
-	nameChanged: (evt)->
+	nameChanged: ->
 		@model.set("name", @input_contact_method_name.val(), {silent: true})
 		if @model.id
 			@save()
@@ -107,10 +84,10 @@ class Quota.Views.EditContactAddress extends Backbone.View
 	toggle: () ->
 		$(@el).toggle()
 		
-	hideRemoveButton: () ->
+	hideRemove: () ->
 		@hideRemove = true
 		$(@el).find('.contact_method_remove').css('visibility', 'hidden')
 		
-	showRemoveButton: () ->
+	showRemove: () ->
 		@hideRemove = false
 		$(@el).find('.contact_method_remove').css('visibility', '')

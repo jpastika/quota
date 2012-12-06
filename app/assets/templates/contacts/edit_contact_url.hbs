@@ -1,11 +1,12 @@
 <div class="control-group val">
-	<div class="controls contact_method_remove btn btn-mini btn-danger">
-		<i class="icon-minus"></i>
-	</div>
 	<span class="controls contact_method_name">
-		<input type="text" class="input-small" name="contact_url[name]" value="{{contact_url.name}}" placeholder="website">
+		<input type="text" class="input-small" name="urls[][name]" value="{{contact_url.name}}" placeholder="Mobile">
 	</span>
 	<span class="controls contact_method_val">
-		<input type="text" class="input-medium" name="contact_url[val]" value="{{contact_url.val}}" placeholder="Website">
+		<input type="text" class="input-medium" name="urls[][val]" value="{{contact_url.val}}" placeholder="111-111-1111">
 	</span>
+	<span class="controls contact_method_remove btn btn-mini btn-danger">
+		<i class="icon-minus"></i>
+	</span>
+	<input type="hidden" class="input-small" name="urls[][pub_key]" value="{{contact_url.pub_key}}">
 </div>

@@ -19,22 +19,22 @@
 		</div>
 		<div class="page-title-container">
 			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to contact"), contact_path(@contact.pub_key) %>
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to contacts"), contacts_path %>
 			</div>
 			<div class="page-title">
-				<span class="label label-info">Editing</span> <%= @contact.name %>
+				New Contact
 			</div>
 		</div>
 		<div class="parent-page">
 			<div class="row-fluid">
-				<div id="">
+				<div id="contact_container">
 					<%= simple_form_for(@contact, :url => contact_path(@contact.pub_key)) do |f| %>
 						<div class="row-fluid">
 							<% if f.error_notification %>
-							    <div class="alert alert-error fade in">
-							      <a class="close" data-dismiss="alert" href="#">&times;</a>
-							      <%= f.error_notification %>
-							    </div>
+						    	<div class="alert alert-error fade in">
+						      		<a class="close" data-dismiss="alert" href="#">&times;</a>
+						      		<%= f.error_notification %>
+						    	</div>
 							<% end %>
 						</div>
 						<div id="contact">
@@ -42,111 +42,103 @@
 						</div>
 						<br><br>
 						<div class="row">
-							<div class="span5">
+							<div id="contact_phones_container" class="span5">
 								<div class="section-heading">
 									<h3>Phone Numbers</h3>
 								</div>
-								<div id="contact-phones">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.phones.each do |phone| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= phone.name %></td>
-											<td class="show-value" valign="top"><%= phone.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-phones-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a phone number
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding phone numbers
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-phones-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a phone number
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 							<div class="span2">
 							</div>
-							<div class="span5">
+							<div id="contact_emails_container" class="span5">
 								<div class="section-heading">
 									<h3>Email Addresses</h3>
 								</div>
-								<div id="contact-emails">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.emails.each do |email| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= email.name %></td>
-											<td class="show-value" valign="top"><%= email.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-emails-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add an email address
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding email addresses
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-emails-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add an email address
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 						<br><br><br>
 						<div class="row">
-							<div class="span5">
+							<div id="contact_urls_container" class="span5">
 								<div class="section-heading">
 									<h3>Links</h3>
 								</div>
-								<div id="contact-urls">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.urls.each do |url| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= url.name %></td>
-											<td class="show-value" valign="top"><%= url.val %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-urls-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a link
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding links
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-urls-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a link
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 							<div class="span2">
 							</div>
-							<div class="span5">
+							<div id="contact_addresses_container" class="span5">
 								<div class="section-heading">
 									<h3>Mailing Addresses</h3>
 								</div>
-								<div id="contact-addresses">
-									<table cellpadding="5" cellspacing="0" border="0">
-									<% @contact.addresses.each do |address| %>
-										<tr class="show-field">
-											<td class="show-label" valign="top"><%= address.name %></td>
-											<td class="show-value" valign="top"><%= address.street1 %><br><%= address.city %> <%= address.state %> <%= address.zip %><br><%= address.country %></td>
-										</tr>
-									<% end %>
-									</table>
-								</div>
-								<div class="section-form" style="display:none;">
-								</div>
-								<div id="contact-addresses-actions" class="section-actions actions-bar-left actions-bar-clear">
-									<button type="submit" class="btn btn-primary form-submit">
-										<i class="icon-plus"></i>&nbsp;&nbsp;Add a mailing address
-									</button>
-									<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-										<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding mailing address
-									</a>
+								<div class="section-content">
+									<div class="section-table">
+										<table class="table table-condensed table-plain">
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+									<div class="section-form" style="display:none;">
+									</div>
+									<div id="contact-addresses-actions" class="section-actions actions-bar-left actions-bar-clear">
+										<button type="button" class="btn btn-primary form-submit">
+											<i class="icon-plus"></i>&nbsp;&nbsp;Add a mailing address
+										</button>
+										<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+											<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;Cancel
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -165,63 +157,62 @@
 
 <script language="javascript">
 	$(function(){
-			if(gon.contact_types){
-		  		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
-			}
-			else{
-				this.contact_types = new Quota.Collections.ContactTypes();
-				this.contact_types.fetch();
-			}
-			
-			if(gon.companies){
-				this.companies = new Quota.Collections.Companies(gon.companies);
-			}
-			else{
-				this.companies = new Quota.Collections.Companies();
-				this.companies.fetch();
-			}
-			
-			if(gon.contact){
-				this.contact = new Quota.Models.Contact(gon.contact);
-				// if(gon.contact_phones){
-				// 					this.contact.phones.add(gon.contact_phones);
-				// 				}
-				// 				else{
-					// this.contact.phones = new Quota.Collections.ContactPhones();
-					this.contact.phones.fetch();
-				// }
-				// 				if(gon.contact_emails){
-				// 					this.contact.emails.add(gon.contact_emails);
-				// 				}
-				// 				else{
-					// this.contact.emails = new Quota.Collections.ContactEmails();
-					this.contact.emails.fetch();
-				// }
-				// 				if(gon.contact_urls){
-				// 					this.contact.urls.add(gon.contact_urls);
-				// 				}
-				// 				else{
-					// this.contact.urls = new Quota.Collections.ContactUrls();
-					this.contact.urls.fetch();
-				// }
-				// 				if(gon.contact_addresses){
-				// 					this.contact.addresses.add(gon.contact_addresses);
-				// 				}
-				// 				else{
-					// this.contact.addresses = new Quota.Collections.ContactAddresses();
-					this.contact.addresses.fetch();
-				// }
-			}
-			else{
-				this.contact = new Quota.Models.Contact();
-				this.contact.fetch();
-			}
-			
-			
-			window.vent = _.extend({}, Backbone.Events);
-			
-			// var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
-			// 			$('#contact').html(view_contact.render().el);
+		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+		this.companies = new Quota.Collections.Companies(gon.companies);
+	
+		if(gon.contact){
+			this.contact = new Quota.Models.Contact(gon.contact);
+		}
+		else{
+			this.contact = new Quota.Models.Contact({pub_key: '<%= @contact.pub_key %>'});
+			this.contact.fetch();
+		}
+		
+		if(gon.contact_phones){
+			this.contact_phones = new Quota.Collections.ContactPhones($.parseJSON(gon.contact_phones));
+		}
+		else{
+			this.contact_phones = new Quota.Collections.ContactPhones();
+			this.contact_phones.fetch();
+		}
+		
+		if(gon.contact_emails){
+			this.contact_emails = new Quota.Collections.ContactEmails($.parseJSON(gon.contact_emails));
+		}
+		else{
+			this.contact_emails = new Quota.Collections.ContactEmails();
+			this.contact_emails.fetch();
+		}
+		
+		if(gon.contact_urls){
+			this.contact_urls = new Quota.Collections.ContactUrls($.parseJSON(gon.contact_urls));
+		}
+		else{
+			this.contact_urls = new Quota.Collections.ContactUrls();
+			this.contact_urls.fetch();
+		}
+		
+		if(gon.contact_addresses){
+			this.contact_addresses = new Quota.Collections.ContactAddresses($.parseJSON(gon.contact_addresses));
+		}
+		else{
+			this.contact_addresses = new Quota.Collections.ContactAddresses();
+			this.contact_addresses.fetch();
+		}
+		
+		this.contact.contact_phones = this.contact_phones;
+		this.contact.contact_emails = this.contact_emails;
+		this.contact.contact_urls = this.contact_urls;
+		this.contact.contact_addresses = this.contact_addresses;
+		
+		window.vent = _.extend({}, Backbone.Events);
+	
+		// var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
+		// 		$('#contact').html(view_contact.render().el);
+		
+		var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent, el: '#contact_container'});
+		
+		view_contact.setup();
 	});	
 	
 	$.fn.placeholder();

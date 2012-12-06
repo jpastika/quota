@@ -25,7 +25,6 @@ class Quota.Views.EditContactPhone extends Backbone.View
 		@model.on('destroy', @remove, @)
 		
 	render: ->
-		console.log @index
 		$(@el).html(@template({contact_phone:@model.toJSON(), index:@index}))
 		if @hideRemove
 			@$('.contact_method_remove').css('visibility', 'hidden')

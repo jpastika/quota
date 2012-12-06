@@ -1,48 +1,71 @@
 class Quota.Views.EditContactUrls extends Backbone.View
 
-	tagName: 'ul'
-	className: 'unstyled form-vertical'
 	
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	el: '#contact_urls_container'
+	
+	events:
+		"click #contact-urls-actions>.btn-primary": "addClicked"
+		"click #contact-urls-actions>.btn-danger": "doneClicked"
+		
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
-		@_urlViews = []
-		@collection.on('reset', @collectionReset, @)
-		@collection.on('destroy:error', @removeFailed, @)
-		@collection.on('destroy:success', @removeSuccess, @)
-		@vent.on('contact_urls:check_empty', @checkEmpty, @)
+		@contact = options.parent_model
+		@parent_child_key = options.parent_child_key
+		
+		@_addUrlView = new Quota.Views.EditContactFormAddUrl({model: new Quota.Models.ContactUrl(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		
+		@_urlsListView = new Quota.Views.EditContactUrlsList({model: new Quota.Models.ContactUrl(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		@vent.on('contact_urls:add_new_url_successful', @addNewUrl_Success, @)
+		@vent.on('contact_urls:remove_url', @removeContactUrl, @)
+		
 		
 	render: ->
-		$(@el).empty()
-		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		frag.appendChild(@addEmpty(new Quota.Models.ContactUrl({name:'', val:''})).render().el)
-		$(@el).append(frag)
-		@$('input[placeholder]').placeholder()
-		@$('textarea[placeholder]').placeholder()
+		@container_url_list = @$('.section-table tbody')
+		@_urlsListView.setElement(@container_url_list).render()
+		@container_add_url = @$('.section-form')
+		@_addUrlView.setElement(@container_add_url).render()
 		@
 	
-	addOne: (item)->
-		view = new Quota.Views.EditContactUrl({model: item, tagName:'li', className:'contact_method contact_url', contact: @model, vent: @vent})
-		@_urlViews.push(view)
-		view
+	addClicked: ->
+		@vent.trigger('add_url:clicked')
+		@_addUrlView.resetAddNewUrlForm()
+		@hideAddBtn()
+		@showDoneLink()
+		@showAddForm()
 		
-	addEmpty: (item)->
-		@collection.add(item)
-		view = new Quota.Views.EditContactUrl({model: item, tagName:'li', className:'contact_method contact_url', contact: @model, vent: @vent, hideRemove: true})
-		@_urlViews.push(view)
-		view
+
+	doneClicked: ->
+		@vent.trigger('done_add_url:clicked')
+		@_addUrlView.resetAddNewUrlForm()
+		@hideDoneLink()
+		@showAddBtn()
+		@hideAddForm()
 		
-	checkEmpty: ->
-		if !_.find(@collection.models, (m) -> m.isNew())
-			$(@el).append(@addEmpty(new Quota.Models.ContactUrl({name:'', val:''})).render().el)
+	removeContactUrl: (item)->
+		@collection.remove(item)
+		
+	addNewUrl_Success: ()->
+		@doneClicked()
+
+	hideAddBtn: ->
+		@$('#contact-urls-actions>.btn-primary').toggle(false)
+
+	showAddBtn: ->
+		@$('#contact-urls-actions>.btn-primary').toggle(true)
+
+	hideDoneLink: ->
+		@$('#contact-urls-actions>.btn-danger').toggle(false)
+
+	showDoneLink: ->
+		@$('#contact-urls-actions>.btn-danger').toggle(true)
 	
-	collectionReset: ->
-		@render()
-		
-	removeFailed: (evt) ->
-		view = _.find(@_urlViews, (view) -> view.model == evt.model)
-		view.toggle()
-		
-	removeSuccess: (evt) ->
-		# console.log "got here"
+	hideAddForm: ->
+		@$('.section-form').toggle(false)
+
+	showAddForm: ->
+		@$('.section-form').toggle(true)

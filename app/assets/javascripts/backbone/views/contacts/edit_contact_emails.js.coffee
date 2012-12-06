@@ -1,48 +1,71 @@
 class Quota.Views.EditContactEmails extends Backbone.View
 
-	tagName: 'ul'
-	className: 'unstyled form-vertical'
 	
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	el: '#contact_emails_container'
+	
+	events:
+		"click #contact-emails-actions>.btn-primary": "addClicked"
+		"click #contact-emails-actions>.btn-danger": "doneClicked"
+		
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
-		@_emailViews = []
-		@collection.on('reset', @collectionReset, @)
-		@collection.on('destroy:error', @removeFailed, @)
-		@collection.on('destroy:success', @removeSuccess, @)
-		@vent.on('contact_emails:check_empty', @checkEmpty, @)
+		@contact = options.parent_model
+		@parent_child_key = options.parent_child_key
+		
+		@_addEmailView = new Quota.Views.EditContactFormAddEmail({model: new Quota.Models.ContactEmail(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		
+		@_emailsListView = new Quota.Views.EditContactEmailsList({model: new Quota.Models.ContactEmail(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		@vent.on('contact_emails:add_new_email_successful', @addNewEmail_Success, @)
+		@vent.on('contact_emails:remove_email', @removeContactEmail, @)
+		
 		
 	render: ->
-		$(@el).empty()
-		frag = document.createDocumentFragment()
-		frag.appendChild(@addOne(item).render().el) for item in @collection.models
-		frag.appendChild(@addEmpty(new Quota.Models.ContactEmail({name:'', val:''})).render().el)
-		$(@el).append(frag)
-		@$('input[placeholder]').placeholder()
-		@$('textarea[placeholder]').placeholder()
+		@container_email_list = @$('.section-table tbody')
+		@_emailsListView.setElement(@container_email_list).render()
+		@container_add_email = @$('.section-form')
+		@_addEmailView.setElement(@container_add_email).render()
 		@
 	
-	addOne: (item)->
-		view = new Quota.Views.EditContactEmail({model: item, tagName:'li', className:'contact_method contact_email', contact: @model, vent: @vent})
-		@_emailViews.push(view)
-		view
+	addClicked: ->
+		@vent.trigger('add_email:clicked')
+		@_addEmailView.resetAddNewEmailForm()
+		@hideAddBtn()
+		@showDoneLink()
+		@showAddForm()
 		
-	addEmpty: (item)->
-		@collection.add(item)
-		view = new Quota.Views.EditContactEmail({model: item, tagName:'li', className:'contact_method contact_email', contact: @model, vent: @vent, hideRemove: true})
-		@_emailViews.push(view)
-		view
+
+	doneClicked: ->
+		@vent.trigger('done_add_email:clicked')
+		@_addEmailView.resetAddNewEmailForm()
+		@hideDoneLink()
+		@showAddBtn()
+		@hideAddForm()
 		
-	checkEmpty: ->
-		if !_.find(@collection.models, (m) -> m.isNew())
-			$(@el).append(@addEmpty(new Quota.Models.ContactEmail({name:'', val:''})).render().el)
+	removeContactEmail: (item)->
+		@collection.remove(item)
+		
+	addNewEmail_Success: ()->
+		@doneClicked()
+
+	hideAddBtn: ->
+		@$('#contact-emails-actions>.btn-primary').toggle(false)
+
+	showAddBtn: ->
+		@$('#contact-emails-actions>.btn-primary').toggle(true)
+
+	hideDoneLink: ->
+		@$('#contact-emails-actions>.btn-danger').toggle(false)
+
+	showDoneLink: ->
+		@$('#contact-emails-actions>.btn-danger').toggle(true)
 	
-	collectionReset: ->
-		@render()
-		
-	removeFailed: (evt) ->
-		view = _.find(@_emailViews, (view) -> view.model == evt.model)
-		view.toggle()
-		
-	removeSuccess: (evt) ->
-		# console.log "got here"
+	hideAddForm: ->
+		@$('.section-form').toggle(false)
+
+	showAddForm: ->
+		@$('.section-form').toggle(true)

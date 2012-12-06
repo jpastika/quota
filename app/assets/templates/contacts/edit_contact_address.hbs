@@ -1,17 +1,18 @@
 <div class="control-group val">
-	<div class="controls contact_method_remove btn btn-mini btn-danger">
-		<i class="icon-minus"></i>
-	</div>
 	<span class="controls contact_method_name">
-		<input type="text" class="input-small" name="contact_address[name]" value="{{contact_address.name}}" placeholder="address">
+		<input type="text" class="input-small" name="addresses[][name]" value="{{contact_address.name}}" placeholder="Billing">
 	</span>
-	<span class="controls contact_method_address">
-		<textarea class="input-large" name="contact_address[street1]" placeholder="Street">{{contact_address.street1}}</textarea>
+	<span class="controls contact_method_val">
+		<input type="text" class="input-medium contact_method_street1" name="addresses[][street1]" value="{{contact_address.street1}}" placeholder="Street">
 		<br>
-		<input type="text" class="span4" name="contact_address[city]" value="{{contact_address.city}}" placeholder="City">
-		<input type="text" class="span2" name="contact_address[state]" value="{{contact_address.state}}" placeholder="State">
-		<input type="text" class="span2" name="contact_address[zip]" value="{{contact_address.zip}}" placeholder="ZIP">
+		<input type="text" class="span4 contact_method_city" name="addresses[][city]" value="{{contact_address.city}}" placeholder="City">
+		<input type="text" class="span2 contact_method_state" name="addresses[][state]" value="{{contact_address.state}}" placeholder="State">
+		<input type="text" class="span2 contact_method_zip" name="addresses[][zip]" value="{{contact_address.zip}}" placeholder="ZIP">
 		<br>
-		<input type="text" class="input-large" name="contact_address[country]" value="{{contact_address.country}}" placeholder="Country">
+		<input type="text" class="input-large contact_method_country" name="addresses[][country]" value="{{contact_address.country}}" placeholder="Country">
 	</span>
+	<span class="controls contact_method_remove btn btn-mini btn-danger">
+		<i class="icon-minus"></i>
+	</span>
+	<input type="hidden" class="input-small" name="addresses[][pub_key]" value="{{contact_address.pub_key}}">
 </div>
