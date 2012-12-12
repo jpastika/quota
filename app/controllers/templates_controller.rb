@@ -6,7 +6,8 @@ class TemplatesController < ApplicationController
     # @templates = current_user.account.templates
     respond_to do |format|
       format.html {
-        # @account_key = @current_user.account.pub_key
+        @account_key = @current_user.account.pub_key
+        # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
         @templates = Template.all
         
         gon.templates = @templates.to_json(:include => [:document_type])
@@ -28,6 +29,9 @@ class TemplatesController < ApplicationController
         @template = Template.find_by_pub_key(params[:id])
         
         gon.template = @template.to_json(:include => [:document_type])
+        gon.template_items = @template.template_items.to_json(:include => [])
+        
+        
         # gon.opportunity_contacts = @opportunity.opportunity_contacts.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
         #         gon.opportunity_documents = @opportunity.documents
         #         gon.companies = Contact.companies(@current_user.account)

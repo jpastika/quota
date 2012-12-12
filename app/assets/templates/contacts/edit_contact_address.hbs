@@ -1,18 +1,38 @@
+<td>
 <div class="control-group val">
-	<span class="controls contact_method_name">
-		<input type="text" class="input-small" name="addresses[][name]" value="{{contact_address.name}}" placeholder="Billing">
-	</span>
-	<span class="controls contact_method_val">
-		<input type="text" class="input-medium contact_method_street1" name="addresses[][street1]" value="{{contact_address.street1}}" placeholder="Street">
-		<br>
-		<input type="text" class="span4 contact_method_city" name="addresses[][city]" value="{{contact_address.city}}" placeholder="City">
-		<input type="text" class="span2 contact_method_state" name="addresses[][state]" value="{{contact_address.state}}" placeholder="State">
-		<input type="text" class="span2 contact_method_zip" name="addresses[][zip]" value="{{contact_address.zip}}" placeholder="ZIP">
-		<br>
-		<input type="text" class="input-large contact_method_country" name="addresses[][country]" value="{{contact_address.country}}" placeholder="Country">
-	</span>
-	<span class="controls contact_method_remove btn btn-mini btn-danger">
-		<i class="icon-minus"></i>
-	</span>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td class="controls contact_method_name">
+				<input type="text" class="input-small" name="addresses[][name]" value="{{contact_address.name}}" placeholder="Billing">
+			</td>
+			<td class="controls contact_method_val">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<input type="text" class="input-medium contact_method_street1" name="addresses[][street1]" value="{{contact_address.street1}}" placeholder="Street">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" class="input-small contact_method_city" name="addresses[][city]" value="{{contact_address.city}}" placeholder="City">
+							<input type="text" class="input-small contact_method_state" name="addresses[][state]" value="{{contact_address.state}}" placeholder="State">
+							<input type="text" class="input-small contact_method_zip" name="addresses[][zip]" value="{{contact_address.zip}}" placeholder="ZIP">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" class="input-medium contact_method_country" name="addresses[][country]" value="{{contact_address.country}}" placeholder="Country">
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<span class="controls contact_method_remove btn btn-mini btn-danger">
+					<i class="icon-minus"></i>
+				</span>
+			</td>
+		</tr>
+	</table>
 	<input type="hidden" class="input-small" name="addresses[][pub_key]" value="{{contact_address.pub_key}}">
 </div>
+</td>

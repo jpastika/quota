@@ -1,0 +1,107 @@
+<% provide(:title, "Template - #{@template.name}") %>
+<% @nav_caret = "templates" %>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change template details"), edit_template_path(@template.pub_key), :class => 'btn btn-primary' %>
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+		</div>
+		<div id="sidebar_body_container" class="">
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to templates"), templates_path %>
+			</div>
+			<div class="page-title">
+				<%= @template.name %>
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body_container" class="">
+				<div>
+					<div id="products_container">
+						<div class="section-heading">
+							<h3>Parts and Services</h3>
+						</div>
+						<div class="section-content">
+							<div class="section-table">
+								<table class="table table-condensed table-plain">
+									<thead>
+										<tr>
+											<th width="2%">&nbsp;</th>
+											<th width="5%">Qty</th>
+											<th width="17%">Part #</th>
+											<th width="30%">Name</th>
+											<th width="20%">Unit Price</th>
+											<th width="22%">&nbsp;</th>
+											<th width="3%">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class="section-form" style="display:none;">
+							</div>
+							<div id="template-products-actions" class="section-actions actions-bar-left">
+								<button type="submit" class="btn btn-primary form-submit">
+									<i class="icon-plus"></i>&nbsp;&nbsp;Add an Item
+								</button>
+								<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding items
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+	$(function(){
+		window.vent = _.extend({}, Backbone.Events);
+		
+		if(gon.template){
+			this.template = new Quota.Models.Template($.parseJSON(gon.template));
+		}
+		else{
+			this.template = new Quota.Models.Template();
+			this.template.fetch();
+		}
+		
+		if(gon.template_items){
+			this.template_items = new Quota.Collections.TemplateItems($.parseJSON(gon.template_items));
+		}
+		else{
+			this.template_items = new Quota.Collections.TemplateItems();
+			this.template_items.fetch();
+		}
+		
+		this.template.set("template_items", this.template_items);
+		
+		
+		// console.log($.parseJSON(gon.opportunity).milestone);
+	
+		var page_body_view = new Quota.Views.ShowTemplate({model: this.template, template_items: this.template_items, vent: vent});
+		page_body_view.setup();
+		// $('#main_body_container').html(page_body_view.render().el);
+		
+		// var sidebar_body_view = new Quota.Views.ShowTemplateSidebar({model: this.template, vent: vent});
+		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
+	});	
+	
+	
+</script>
