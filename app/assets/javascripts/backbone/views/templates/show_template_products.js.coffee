@@ -7,7 +7,8 @@ class Quota.Views.ShowTemplateProducts extends Backbone.View
 	events:
 		"click #template-products-actions>.btn-primary": "addItemClicked"
 		"click #template-products-actions>.btn-danger": "doneAddItemClicked"
-	
+		"click #template-products-actions>.btn-success": "addNewItemClicked"
+		
 	initialize: (options)->
 		_.bindAll(@)
 		@vent = options.vent
@@ -52,6 +53,7 @@ class Quota.Views.ShowTemplateProducts extends Backbone.View
 		@vent.trigger('add_product:clicked')
 		@_addItemView.resetAddNewProductForm()
 		@hideAddBtn()
+		@showAddItem()
 		@showDoneLink()
 		@showAddForm()
 		
@@ -60,12 +62,17 @@ class Quota.Views.ShowTemplateProducts extends Backbone.View
 		@vent.trigger('done_add_child_item:clicked')
 		@_addItemView.resetAddNewProductForm()
 		@hideDoneLink()
+		@hideAddItem()
 		@showAddBtn()
 		@hideAddForm()
 		
 	removeTemplateProduct: (item)->
 		@collection.remove(item)
-
+		
+	addNewItemClicked: ->
+		@vent.trigger('template_products:add_new_template_item', {model: @model})
+		
+		
 	hideAddBtn: ->
 		@$('#template-products-actions>.btn-primary').toggle(false)
 
@@ -77,6 +84,12 @@ class Quota.Views.ShowTemplateProducts extends Backbone.View
 
 	showDoneLink: ->
 		@$('#template-products-actions>.btn-danger').toggle(true)
+	
+	hideAddItem: ->
+		@$('#template-products-actions>.btn-success').toggle(false)
+
+	showAddItem: ->
+		@$('#template-products-actions>.btn-success').toggle(true)
 	
 	hideAddForm: ->
 		@$('.section-form').toggle(false)

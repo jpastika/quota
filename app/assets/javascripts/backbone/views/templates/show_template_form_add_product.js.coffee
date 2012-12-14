@@ -13,6 +13,7 @@ class Quota.Views.ShowTemplateFormAddProduct extends Backbone.View
 		@vent.on('add_product:clicked', @showAddProduct, @)
 		@vent.on('done_add_product:clicked', @hideAddProduct, @)
 		@vent.on('template_items:remove_item', @removeTemplateItem, @)
+		@vent.on('template_products:add_new_template_item', @addNewTemplateItem, @)
 		# @manufacturers = options.manufacturers
 		
 		@template_model = options.parent_model
@@ -71,6 +72,50 @@ class Quota.Views.ShowTemplateFormAddProduct extends Backbone.View
 
 	hideLoading: ->
 		@loading.toggle(false)
+		
+	addNewTemplateItem: ->
+		self = @
+		template_item = new Quota.Models.TemplateItem()
+		    
+		template_item.save(
+			{
+				name: @input_template_item_name.val()
+				manufacturer: @input_manufacturer_name.val()
+				part_number: @input_catalog_item_part_number.val()
+				list_price: @input_catalog_item_list_price.val()
+				recurring_unit: @input_catalog_item_list_price_interval.val()
+				is_taxable: @input_catalog_item_is_taxable.is(':checked')
+				is_package: @input_catalog_item_is_package.is(':checked')
+			},
+			{
+				error: ->
+					console.log "save error"
+				success: (model) -> 
+					self.vent.trigger('catalog_item_child_items:add_new_catalog_item_successful', {model: model})
+					
+					self.resetAddNewChildItemForm()
+					# if model.get("manufacturer") and self.manufacturers.where(name: model.get("manufacturer")).length == 0
+					# 						manufacturer = new Quota.Models.Manufacturer({manufacturer: model.get("manufacturer")})
+					# 						self.manufacturers.add(manufacturer)
+					# 						self._manufacturerComboView = new Quota.Views.ManufacturerComboView({parent_model:self.model, collection:self.manufacturers, el: '#catalog_item_manufacturer', source: "manufacturer", val: "manufacturer", className: 'string input-large', vent: self.vent})
+					self.render()
+					catalog_item_child = new Quota.Models.CatalogItemChild({parent_key: self.catalog_item.get("pub_key"), child_key: model.get("pub_key")})
+					catalog_item_child.save(
+						{
+							parent_key: catalog_item_child.get("parent_key")
+							child_key: catalog_item_child.get("child_key")
+						},
+						{
+							error: ->
+								console.log "save error"
+							success: (model) -> 
+								self.catalog_item_child_items.add(model)
+								self.vent.trigger('catalog_item_child_items:add_new_catalog_item_child_successful', {model: model})
+								# self._contactsView.contacts.add(model.get("contact"))
+						}
+					)
+			}
+		)
 	
 	# manufacturersLoaded: ->
 	# 		# @hideLoading
