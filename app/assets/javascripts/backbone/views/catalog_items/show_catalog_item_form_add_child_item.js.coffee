@@ -18,8 +18,6 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		
 		@catalog_item = options.parent_model
 		@catalog_item_child_items = options.parent_collection
-		
-		
 			
 			
 		@_itemsView = new Quota.Views.CatalogItemSearchList({parent_child_key: @catalog_item.get("pub_key"), vent: @vent})

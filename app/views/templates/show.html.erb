@@ -94,12 +94,19 @@
 			this.template_items.fetch();
 		}
 		
-		this.template.set("template_items", this.template_items);
+		if(gon.catalog_items){
+			this.catalog_items = new Quota.Collections.CatalogItems($.parseJSON(gon.catalog_items));
+		}
+		else{
+			this.catalog_items = new Quota.Collections.CatalogItems();
+			this.catalog_items.fetch();
+		}
 		
+		this.template.set("template_items", this.template_items);
 		
 		// console.log($.parseJSON(gon.opportunity).milestone);
 	
-		var page_body_view = new Quota.Views.ShowTemplate({model: this.template, template_items: this.template_items, vent: vent});
+		var page_body_view = new Quota.Views.ShowTemplate({model: this.template, template_items: this.template_items, catalog_items: this.catalog_items, vent: vent});
 		page_body_view.setup();
 		// $('#main_body_container').html(page_body_view.render().el);
 		

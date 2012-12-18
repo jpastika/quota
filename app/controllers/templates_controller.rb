@@ -31,7 +31,8 @@ class TemplatesController < ApplicationController
         gon.template = @template.to_json(:include => [:document_type])
         gon.template_items = @template.template_items.to_json(:include => [])
         
-        
+        @catalog_items = CatalogItem.all
+        gon.catalog_items = @catalog_items.to_json(:include => [])
         # gon.opportunity_contacts = @opportunity.opportunity_contacts.to_json(:include => {:contact => {:include => [:phones, :emails, :company]}})
         #         gon.opportunity_documents = @opportunity.documents
         #         gon.companies = Contact.companies(@current_user.account)
