@@ -36,7 +36,10 @@ class Quota.Views.CompanyComboView extends Backbone.View
 		options = _.extend @options, 
 			source: @collection.pluck @source
 			onselect: (obj) -> self.selected(obj)
-			showAdd: true
+			sorter: (items) ->
+				if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
+					items.unshift(this.query)
+				return items
 		@$('input').typeahead options
 		
 		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("company_key"))

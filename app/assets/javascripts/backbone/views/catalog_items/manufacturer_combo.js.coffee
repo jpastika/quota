@@ -36,7 +36,10 @@ class Quota.Views.ManufacturerComboView extends Backbone.View
 		options = _.extend @options, 
 			source: @collection.pluck @source
 			onselect: (obj) -> self.selected(obj)
-			showAdd: true
+			sorter: (items) ->
+				if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
+					items.unshift(this.query)
+				return items
 		$(@el).typeahead options
 		
 		manufacturer = _.find(self.collection.models, (m) -> m.get("name") == self.parent_model.get("name"))

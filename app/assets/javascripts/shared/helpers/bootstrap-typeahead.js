@@ -1,5 +1,5 @@
 // /* =============================================================
-// * bootstrap-typeahead.js v2.0.0
+// * bootstrap-typeahead.js v2.2.2
 // * http://twitter.github.com/bootstrap/javascript.html#typeahead
 // * =============================================================
 // * Copyright 2012 Twitter, Inc.
@@ -17,56 +17,76 @@
 // * limitations under the License.
 // * ============================================================ */
 // 
-// !function( $ ){
 // 
-//   "use strict"
+// !function($){
 // 
-//   var Typeahead = function ( element, options ) {
+//   "use strict"; // jshint ;_;
+// 
+// 
+//  /* TYPEAHEAD PUBLIC CLASS DEFINITION
+// * ================================= */
+// 
+//   var Typeahead = function (element, options) {
 //     this.$element = $(element)
 //     this.options = $.extend({}, $.fn.typeahead.defaults, options)
 //     this.matcher = this.options.matcher || this.matcher
 //     this.sorter = this.options.sorter || this.sorter
 //     this.highlighter = this.options.highlighter || this.highlighter
-//     this.$menu = $(this.options.menu).appendTo('body')
+//     this.updater = this.options.updater || this.updater
 //     this.source = this.options.source
-//     this.onselect = this.options.onselect
-// 	this.showAdd = this.options.showAdd || false
-//     this.strings = true
+//     this.$menu = $(this.options.menu)
 //     this.shown = false
 //     this.listen()
+//     //Additional properties
+//     this.strings = true
+//     this.onselect = this.options.onselect
 //   }
 // 
 //   Typeahead.prototype = {
 // 
 //     constructor: Typeahead
 // 
+//   //Original SELECT
+//   // , select: function () {
+//   //       var val = this.$menu.find('.active').attr('data-value')
+//   //       this.$element
+//   //         .val(this.updater(val))
+//   //         .change()
+//   //       return this.hide()
+//   //     }
+// 
 //   , select: function () {
 //       var val = JSON.parse(this.$menu.find('.active').attr('data-value'))
-//         , text
-// 		
+//       , text
 // 
 //       if (!this.strings) text = val[this.options.property]
 //       else text = val
 // 
 //       this.$element.val(text)
 // 
-// 	  if (typeof this.onselect == "function")
-//       	 this.onselect(val)
+//       if (typeof this.onselect == "function")
+//         this.onselect(val)
 // 
 //       return this.hide()
+//   }
+// 
+//   , updater: function (item) {
+//       return item
 //     }
 // 
 //   , show: function () {
-//       var pos = $.extend({}, this.$element.offset(), {
+//       var pos = $.extend({}, this.$element.position(), {
 //         height: this.$element[0].offsetHeight
 //       })
 // 
-//       this.$menu.css({
-//         top: pos.top + pos.height
-//       , left: pos.left
-//       })
+//       this.$menu
+//         .insertAfter(this.$element)
+//         .css({
+//           top: pos.top + pos.height
+//         , left: pos.left
+//         })
+//         .show()
 // 
-//       this.$menu.show()
 //       this.shown = true
 //       return this
 //     }
@@ -77,11 +97,26 @@
 //       return this
 //     }
 // 
+//   //Original LOOKUP
+//   // , lookup: function (event) {
+//   //       var items
+//   // 
+//   //       this.query = this.$element.val()
+//   // 
+//   //       if (!this.query || this.query.length < this.options.minLength) {
+//   //         return this.shown ? this.hide() : this
+//   //       }
+//   // 
+//   //       items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source
+//   // 
+//   //       return items ? this.process(items) : this
+//   //     }
+//   
 //   , lookup: function (event) {
 //       var that = this
-//         , items
-//         , q
-//         , value
+//       , items
+//       , q
+//       , value
 // 
 //       this.query = this.$element.val()
 // 
@@ -91,15 +126,32 @@
 //       } else {
 //         this.process(this.source)
 //       }
-//     }
+//   }
+// 
+//   //Original PROCESS
+//   // , process: function (items) {
+//   //     var that = this
+//   // 
+//   //     items = $.grep(items, function (item) {
+//   //       return that.matcher(item)
+//   //     })
+//   // 
+//   //     items = this.sorter(items)
+//   // 
+//   //     if (!items.length) {
+//   //       return this.shown ? this.hide() : this
+//   //     }
+//   // 
+//   //     return this.render(items.slice(0, this.options.items)).show()
+//   //   }
 // 
 //   , process: function (results) {
 //       var that = this
-//         , items
-//         , q
+//       , items
+//       , q
 // 
 //       if (results.length && typeof results[0] != "string")
-//           this.strings = false
+//         this.strings = false
 // 
 //       this.query = this.$element.val()
 // 
@@ -120,18 +172,34 @@
 //       }
 // 
 //       return this.render(items.slice(0, this.options.items)).show()
-//     }
+//   }
 // 
 //   , matcher: function (item) {
 //       return ~item.toLowerCase().indexOf(this.query.toLowerCase())
 //     }
 // 
+//   //Original SORTER
+//   // , sorter: function (items) {
+//   //     var beginswith = []
+//   //       , caseSensitive = []
+//   //       , caseInsensitive = []
+//   //       , item
+//   // 
+//   //     while (item = items.shift()) {
+//   //       if (!item.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item)
+//   //       else if (~item.indexOf(this.query)) caseSensitive.push(item)
+//   //       else caseInsensitive.push(item)
+//   //     }
+//   // 
+//   //     return beginswith.concat(caseSensitive, caseInsensitive)
+//   //   }
+// 
 //   , sorter: function (items) {
 //       var beginswith = []
-//         , caseSensitive = []
-//         , caseInsensitive = []
-//         , item
-//         , sortby
+//       , caseSensitive = []
+//       , caseInsensitive = []
+//       , item
+//       , sortby
 // 
 //       while (item = items.shift()) {
 //         if (this.strings) sortby = item
@@ -143,43 +211,45 @@
 //       }
 // 
 //       return beginswith.concat(caseSensitive, caseInsensitive)
-//     }
+//   }
 // 
 //   , highlighter: function (item) {
-//       return item.replace(new RegExp('(' + this.query + ')', 'ig'), function ($1, match) {
+//       var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
+//       return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
 //         return '<strong>' + match + '</strong>'
 //       })
 //     }
 // 
+//   //Original RENDER
+//   // , render: function (items) {
+//   //     var that = this
+//   // 
+//   //     items = $(items).map(function (i, item) {
+//   //       i = $(that.options.item).attr('data-value', item)
+//   //       i.find('a').html(that.highlighter(item))
+//   //       return i[0]
+//   //     })
+//   // 
+//   //     items.first().addClass('active')
+//   //     this.$menu.html(items)
+//   //     return this
+//   //   }
+// 
 //   , render: function (items) {
 //       var that = this
 // 
-// 	
-// 	items = $(items).map(function (i, item) {
-//         i = $(that.options.item).attr('data-value', JSON.stringify(item))
+//       items = $(items).map(function (i, item) {
+//         i = $(that.options.item).attr('data-value', item)
 //         if (!that.strings)
-//             item = item[that.options.property]
+//           item = item[that.options.property]        
 //         i.find('a').html(that.highlighter(item))
 //         return i[0]
 //       })
-// 		
-// 		if(that.showAdd){
-// 			var matches = $.grep(items, function (item) {
-// 				if (!that.strings)
-// 					item = item[that.options.property]
-// 				if (that.query.toLowerCase() == $(item).attr('data-value').toLowerCase().replace(/"/g,''))
-// 					return item
-// 			})
-// 			if(!matches.length){
-// 				var x = $('<li><a href="#">'+ that.highlighter(this.query) +'</a></li>').attr('data-value', JSON.stringify(this.query))
-// 				items = x.add(items)
-// 			}
-// 		}
+// 
 //       items.first().addClass('active')
-// 	  this.$menu.html(items)
+//       this.$menu.html(items)
 //       return this
 //     }
-// 
 //   , next: function (event) {
 //       var active = this.$menu.find('.active').removeClass('active')
 //         , next = active.next()
@@ -208,8 +278,8 @@
 //         .on('keypress', $.proxy(this.keypress, this))
 //         .on('keyup', $.proxy(this.keyup, this))
 // 
-//       if ($.browser.webkit || $.browser.msie) {
-//         this.$element.on('keydown', $.proxy(this.keypress, this))
+//       if (this.eventSupported('keydown')) {
+//         this.$element.on('keydown', $.proxy(this.keydown, this))
 //       }
 // 
 //       this.$menu
@@ -217,33 +287,16 @@
 //         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
 //     }
 // 
-//   , keyup: function (e) {
-//       e.stopPropagation()
-//       e.preventDefault()
-// 
-//       switch(e.keyCode) {
-//         case 40: // down arrow
-//         case 38: // up arrow
-//           break
-// 
-//         case 9: // tab
-//         case 13: // enter
-//           if (!this.shown) return
-//           this.select()
-//           break
-// 
-//         case 27: // escape
-//           this.hide()
-//           break
-// 
-//         default:
-//           this.lookup()
+//   , eventSupported: function(eventName) {
+//       var isSupported = eventName in this.$element
+//       if (!isSupported) {
+//         this.$element.setAttribute(eventName, 'return;')
+//         isSupported = typeof this.$element[eventName] === 'function'
 //       }
+//       return isSupported
+//     }
 // 
-//   }
-// 
-//   , keypress: function (e) {
-//       e.stopPropagation()
+//   , move: function (e) {
 //       if (!this.shown) return
 // 
 //       switch(e.keyCode) {
@@ -263,12 +316,50 @@
 //           this.next()
 //           break
 //       }
+// 
+//       e.stopPropagation()
 //     }
+// 
+//   , keydown: function (e) {
+//       this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27])
+//       this.move(e)
+//     }
+// 
+//   , keypress: function (e) {
+//       if (this.suppressKeyPressRepeat) return
+//       this.move(e)
+//     }
+// 
+//   , keyup: function (e) {
+//       switch(e.keyCode) {
+//         case 40: // down arrow
+//         case 38: // up arrow
+//         case 16: // shift
+//         case 17: // ctrl
+//         case 18: // alt
+//           break
+// 
+//         case 9: // tab
+//         case 13: // enter
+//           if (!this.shown) return
+//           this.select()
+//           break
+// 
+//         case 27: // escape
+//           if (!this.shown) return
+//           this.hide()
+//           break
+// 
+//         default:
+//           this.lookup()
+//       }
+// 
+//       e.stopPropagation()
+//       e.preventDefault()
+//   }
 // 
 //   , blur: function (e) {
 //       var that = this
-//       e.stopPropagation()
-//       e.preventDefault()
 //       setTimeout(function () { that.hide() }, 150)
 //     }
 // 
@@ -289,7 +380,9 @@
 //   /* TYPEAHEAD PLUGIN DEFINITION
 // * =========================== */
 // 
-//   $.fn.typeahead = function ( option ) {
+//   var old = $.fn.typeahead
+// 
+//   $.fn.typeahead = function (option) {
 //     return this.each(function () {
 //       var $this = $(this)
 //         , data = $this.data('typeahead')
@@ -304,6 +397,8 @@
 //   , items: 8
 //   , menu: '<ul class="typeahead dropdown-menu"></ul>'
 //   , item: '<li><a href="#"></a></li>'
+//   , minLength: 1
+//   //Additional properties
 //   , onselect: null
 //   , property: 'value'
 //   }
@@ -311,22 +406,26 @@
 //   $.fn.typeahead.Constructor = Typeahead
 // 
 // 
+//  /* TYPEAHEAD NO CONFLICT
+// * =================== */
+// 
+//   $.fn.typeahead.noConflict = function () {
+//     $.fn.typeahead = old
+//     return this
+//   }
+// 
+// 
 //  /* TYPEAHEAD DATA-API
 // * ================== */
 // 
-//   $(function () {
-//     $('body').on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
-//       var $this = $(this)
-//       if ($this.data('typeahead')) return
-//       e.preventDefault()
-//       $this.typeahead($this.data())
-//     })
+//   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
+//     var $this = $(this)
+//     if ($this.data('typeahead')) return
+//     e.preventDefault()
+//     $this.typeahead($this.data())
 //   })
 // 
-// }( window.jQuery );
-// 
-// 
-// 
+// }(window.jQuery);
 // 
 // 
 // 
@@ -334,32 +433,35 @@
 // 
 // 
 
+
+
 /* =============================================================
-* bootstrap-typeahead.js v2.2.2
-* http://twitter.github.com/bootstrap/javascript.html#typeahead
-* =============================================================
-* Copyright 2012 Twitter, Inc.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-* ============================================================ */
+ * bootstrap-typeahead.js v2.2.2
+ * http://twitter.github.com/bootstrap/javascript.html#typeahead
+ * =============================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ============================================================ */
 
 
 !function($){
+
   "use strict"; // jshint ;_;
 
 
  /* TYPEAHEAD PUBLIC CLASS DEFINITION
-* ================================= */
+  * ================================= */
 
   var Typeahead = function (element, options) {
     this.$element = $(element)
@@ -371,6 +473,9 @@
     this.source = this.options.source
     this.$menu = $(this.options.menu)
     this.shown = false
+	//Additional properties
+    this.strings = true
+    this.onselect = this.options.onselect
     this.listen()
   }
 
@@ -378,11 +483,19 @@
 
     constructor: Typeahead
 
+
   , select: function () {
-      var val = this.$menu.find('.active').attr('data-value')
-      this.$element
-        .val(this.updater(val))
-        .change()
+      var val = JSON.parse(this.$menu.find('.active').attr('data-value'))
+        , text
+
+      if (!this.strings) text = val[this.options.property]
+      else text = val
+
+      this.$element.val(text)
+
+      if (typeof this.onselect == "function")
+          this.onselect(val)
+
       return this.hide()
     }
 
@@ -414,24 +527,39 @@
     }
 
   , lookup: function (event) {
-      var items
+      var that = this
+        , items
+        , q
+        , value
 
       this.query = this.$element.val()
 
-      if (!this.query || this.query.length < this.options.minLength) {
+      if (typeof this.source == "function") {
+        value = this.source(this, this.query)
+        if (value) this.process(value)
+      } else {
+        this.process(this.source)
+      }
+    }
+
+  , process: function (results) {
+      var that = this
+        , items
+        , q
+
+      if (results.length && typeof results[0] != "string")
+          this.strings = false
+
+      this.query = this.$element.val()
+
+      if (!this.query) {
         return this.shown ? this.hide() : this
       }
 
-      items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source
-
-      return items ? this.process(items) : this
-    }
-
-  , process: function (items) {
-      var that = this
-
-      items = $.grep(items, function (item) {
-        return that.matcher(item)
+      items = $.grep(results, function (item) {
+        if (!that.strings)
+          item = item[that.options.property]
+        if (that.matcher(item)) return item
       })
 
       items = this.sorter(items)
@@ -452,10 +580,14 @@
         , caseSensitive = []
         , caseInsensitive = []
         , item
+        , sortby
 
       while (item = items.shift()) {
-        if (!item.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item)
-        else if (~item.indexOf(this.query)) caseSensitive.push(item)
+        if (this.strings) sortby = item
+        else sortby = item[this.options.property]
+
+        if (!sortby.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item)
+        else if (~sortby.indexOf(this.query)) caseSensitive.push(item)
         else caseInsensitive.push(item)
       }
 
@@ -473,7 +605,9 @@
       var that = this
 
       items = $(items).map(function (i, item) {
-        i = $(that.options.item).attr('data-value', item)
+        i = $(that.options.item).attr('data-value', JSON.stringify(item))
+        if (!that.strings)
+            item = item[that.options.property]
         i.find('a').html(that.highlighter(item))
         return i[0]
       })
@@ -507,9 +641,9 @@
 
   , listen: function () {
       this.$element
-        .on('blur', $.proxy(this.blur, this))
+        .on('blur',     $.proxy(this.blur, this))
         .on('keypress', $.proxy(this.keypress, this))
-        .on('keyup', $.proxy(this.keyup, this))
+        .on('keyup',    $.proxy(this.keyup, this))
 
       if (this.eventSupported('keydown')) {
         this.$element.on('keydown', $.proxy(this.keydown, this))
@@ -611,7 +745,7 @@
 
 
   /* TYPEAHEAD PLUGIN DEFINITION
-* =========================== */
+   * =========================== */
 
   var old = $.fn.typeahead
 
@@ -631,13 +765,15 @@
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
   , minLength: 1
+  , onselect: null
+  , property: 'value'
   }
 
   $.fn.typeahead.Constructor = Typeahead
 
 
  /* TYPEAHEAD NO CONFLICT
-* =================== */
+  * =================== */
 
   $.fn.typeahead.noConflict = function () {
     $.fn.typeahead = old
@@ -646,7 +782,7 @@
 
 
  /* TYPEAHEAD DATA-API
-* ================== */
+  * ================== */
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
     var $this = $(this)

@@ -33,21 +33,27 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 		# @$el.attr('value', company.get("name"))
 		# @$el.attr('placeholder', 'Company')
 		# 
+		
 		options = _.extend @options, 
 			# source: @collection.pluck @source
 			# source: @doCatalogSearch
-			source: (query, process) -> 
+			source: (typeahead, query) -> 
 				$.ajax(
 					{
 						url: '/api/catalog_items/filter_by_name_or_part_number'
 						data: filter: query.query
 						dataType: 'json'
 						success: (data) ->
-							return process(self.processCatalogSearch(data))
+							return typeahead.process(data)
 					}
 				)
 			onselect: (obj) -> self.selected(obj)
-			showAdd: true
+			strings: false
+			property: "name"
+			sorter: (items) ->
+				if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
+					items.unshift(this.query)
+				return items
 		$(@el).typeahead options
 		
 		catalog_item = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("pub_key"))
@@ -78,11 +84,12 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 		
 	processCatalogSearch: (data)->
 		self = @
-		_.pluck(data, 'name')
+		_.pluck(data, self.source)
 		# 		console.log collection.pluck self.source
 		# collection.pluck self.source
 		
 	selected: (obj) ->
+		console.log obj
 		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
 			obj.stopImmediatePropagation()
 			obj.preventDefault()
