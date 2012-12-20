@@ -41,7 +41,7 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 				$.ajax(
 					{
 						url: '/api/catalog_items/filter_by_name_or_part_number'
-						data: filter: query.query
+						data: {filter: query}
 						dataType: 'json'
 						success: (data) ->
 							return typeahead.process(data)
@@ -51,8 +51,13 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 			strings: false
 			property: "name"
 			sorter: (items) ->
-				if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
-					items.unshift(this.query)
+				if !this.strings
+					if _.indexOf(_.map(items, (item) -> _.pick(item, this.property)), this.query.toLowerCase())
+						i = new Quota.Models.CatalogItem(name: this.query)
+						items.unshift(i.toJSON())
+				else
+					if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
+						items.unshift(this.query)
 				return items
 		$(@el).typeahead options
 		
@@ -74,12 +79,10 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 				error: ->
 					console.log "save error"
 				success: (collection, response, options) -> 
-					console.log "got here 2"
 					collection.pluck self.source
 					# self.processCatalogSearch(collection)
 			}
 		)
-		console.log "got here 1"
 		# res.pluck self.source
 		
 	processCatalogSearch: (data)->
