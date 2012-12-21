@@ -49,16 +49,24 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 				)
 			onselect: (obj) -> self.selected(obj)
 			strings: false
+			minLength: 3
 			property: "name"
 			sorter: (items) ->
+				that = this
 				if !this.strings
-					if _.indexOf(_.map(items, (item) -> _.pick(item, this.property)), this.query.toLowerCase())
+					if _.indexOf(_.map(items, (item) -> item[that.property] = item[that.property].toLowerCase()), this.query.toLowerCase())
 						i = new Quota.Models.CatalogItem(name: this.query)
 						items.unshift(i.toJSON())
 				else
 					if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
 						items.unshift(this.query)
 				return items
+			matcher: (item) ->
+				if (!this.strings)
+					~item[this.property].toLowerCase().indexOf(this.query.toLowerCase())
+				else
+					~item.toLowerCase().indexOf(this.query.toLowerCase())
+			
 		$(@el).typeahead options
 		
 		catalog_item = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("pub_key"))
@@ -66,40 +74,7 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 			# $(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
 			$(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
 		@
-	# doCatalogSearch: (filter, processCatalogSearch) ->
-	# 		["item 1", "Item 2"]
-		
-	doCatalogSearch: (query, processCatalogSearch) ->
-		self = @
-		res = new Quota.Collections.CatalogItems({url: '/api/catalog_items/filter_by_name_or_part_number'})
-		res.fetch(
-			{
-				url: '/api/catalog_items/filter_by_name_or_part_number'
-				data: {filter: query.query}
-				error: ->
-					console.log "save error"
-				success: (collection, response, options) -> 
-					collection.pluck self.source
-					# self.processCatalogSearch(collection)
-			}
-		)
-		# res.pluck self.source
-		
-	processCatalogSearch: (data)->
-		self = @
-		_.pluck(data, self.source)
-		# 		console.log collection.pluck self.source
-		# collection.pluck self.source
-		
+	
 	selected: (obj) ->
 		console.log obj
-		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
-			obj.stopImmediatePropagation()
-			obj.preventDefault()
-			@vent.trigger('catalog_item_name:changed',{catalog_item_name: $(obj.target).val()})
-		else
-			catalog_item = _.find(@collection.models, (m) -> m.get("pub_key") == obj)
-			if catalog_item || !$(obj.target).val()
-				@vent.trigger('catalog_item_name:changed',{catalog_item_name: obj})
-			else
-				@vent.trigger('catalog_item_name:changed',{catalog_item_name: $(obj.target).val()})
+		

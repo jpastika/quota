@@ -475,6 +475,7 @@
     this.shown = false
 	//Additional properties
     this.strings = true
+	this.property = this.options.property
     this.onselect = this.options.onselect
     this.listen()
   }
@@ -534,6 +535,10 @@
 
       this.query = this.$element.val()
 
+	if (!this.query || this.query.length < this.options.minLength) {
+      return this.shown ? this.hide() : this
+    }
+
       if (typeof this.source == "function") {
         value = this.source(this, this.query)
         if (value) this.process(value)
@@ -557,8 +562,8 @@
       }
 
       items = $.grep(results, function (item) {
-        if (!that.strings)
-          item = item[that.options.property]
+        // if (!that.strings)
+        //           item = item[that.options.property]
         if (that.matcher(item)) return item
       })
 
@@ -572,7 +577,11 @@
     }
 
   , matcher: function (item) {
-      return ~item.toLowerCase().indexOf(this.query.toLowerCase())
+      var that = this
+      if (!that.strings)
+        return ~item[that.options.property].toLowerCase().indexOf(this.query.toLowerCase())
+      else
+        return ~item.toLowerCase().indexOf(this.query.toLowerCase())
     }
 
   , sorter: function (items) {
