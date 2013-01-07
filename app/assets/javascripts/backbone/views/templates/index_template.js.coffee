@@ -1,6 +1,6 @@
 class Quota.Views.IndexTemplate extends Backbone.View
 
-	template: HandlebarsTemplates['templates/index_template'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['templatess/index_template'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
 		"click .template_remove": "destroy"

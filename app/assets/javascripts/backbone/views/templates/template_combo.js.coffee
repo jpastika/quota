@@ -1,6 +1,6 @@
 class Quota.Views.TemplateComboView extends Backbone.View
 	tagName: 'span'
-	template: HandlebarsTemplates['templates/template_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['templatess/template_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
 		"blur input": "selected"
@@ -29,8 +29,7 @@ class Quota.Views.TemplateComboView extends Backbone.View
 		self = @
 		$(@el).html(@template())
 		
-		
-			# @$el.attr('value', company.get("name"))
+		# @$el.attr('value', company.get("name"))
 		# @$el.attr('placeholder', 'Company')
 		# 
 		options = _.extend @options, 

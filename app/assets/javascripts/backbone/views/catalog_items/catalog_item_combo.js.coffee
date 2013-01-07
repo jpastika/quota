@@ -2,8 +2,8 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 	# tagName: 'span'
 	# template: HandlebarsTemplates['catalog_items/manufacturer_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events:
-		"blur": "selected"
+	# events:
+	# 		"blur": "selected"
 	
 	initialize: (options) ->
 		self = @
@@ -44,7 +44,7 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 						data: {filter: query}
 						dataType: 'json'
 						success: (data) ->
-							return typeahead.process(data)
+							typeahead.process(data)
 					}
 				)
 			onselect: (obj) -> self.selected(obj)
@@ -60,7 +60,7 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 				else
 					if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
 						items.unshift(this.query)
-				return items
+				items
 			matcher: (item) ->
 				if (!this.strings)
 					~item[this.property].toLowerCase().indexOf(this.query.toLowerCase())

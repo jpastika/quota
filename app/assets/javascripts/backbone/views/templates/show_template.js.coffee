@@ -12,6 +12,7 @@ class Quota.Views.ShowTemplate extends Quota.Views.PageBodyBlock
 		# @companies = new Quota.Collections.Companies()
 		# 		@companies.on('reset', @companiesReset, @)
 		# 		@companies.fetch()
+		
 		@_productsView = new Quota.Views.ShowTemplateProducts({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@template_items, catalog_items: @catalog_items, vent: @vent})
 		@vent.on('template_products:add_new_product_successful', @addNewProduct_Success, @)
 		

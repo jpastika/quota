@@ -1,8 +1,8 @@
 class Quota.Views.ShowTemplateFormAddProduct extends Backbone.View
 
-	template: HandlebarsTemplates['templates/show_template_form_add_product'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['templatess/show_template_form_add_product'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	# events:
+	# events:	
 	# 		"click #template-add-new-product-actions .btn-success": "clickAddNewChildItem"
 	# 		"click #catalog_search": "clickCatalogSearch"
 		
@@ -20,11 +20,10 @@ class Quota.Views.ShowTemplateFormAddProduct extends Backbone.View
 		@template_items = options.parent_collection
 		@catalog_items = options.catalog_items
 		
-			
 		# @_itemsView = new Quota.Views.CatalogItemSearchList({parent_child_key: @catalog_item.get("pub_key"), vent: @vent})
 		
 	render: ->
-		$(@el).html(@template({template_model:@template_model}))
+		$(@el).html(@template({template:@template_model}))
 		
 		@_catalogItemComboView = new Quota.Views.CatalogItemComboView({parent_model:@model, collection:@catalog_items, el: '#template_item_name', source: "name", val: "name", className: 'string required', vent: @vent})
 		@_catalogItemComboView.render()
@@ -67,6 +66,8 @@ class Quota.Views.ShowTemplateFormAddProduct extends Backbone.View
 		
 	hideAddProduct: ->
 		@hide()
+	
+	clicked: ->
 	
 	# manufacturersReset: ->
 	# 		# @vent.trigger('manufacturers:loaded')

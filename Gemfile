@@ -14,9 +14,13 @@ gem 'gon'
 gem 'timeliness'
 
 
+
+
+
 group :development do
   gem 'pry'
   gem 'sextant'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do

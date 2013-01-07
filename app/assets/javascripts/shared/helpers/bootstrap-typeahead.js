@@ -614,16 +614,21 @@
       var that = this
 
       items = $(items).map(function (i, item) {
-        i = $(that.options.item).attr('data-value', JSON.stringify(item))
-        if (!that.strings)
-            item = item[that.options.property]
-        i.find('a').html(that.highlighter(item))
-        return i[0]
+        return that.renderItem(i, item)
       })
 
       items.first().addClass('active')
       this.$menu.html(items)
       return this
+    }
+
+  , renderItem: function (i, item) {
+      var that = this
+      i = $(that.options.item).attr('data-value', JSON.stringify(item))
+      if (!that.strings)
+          item = item[that.options.property]
+      i.find('a').html(that.highlighter(item))
+      return i[0]
     }
 
   , next: function (event) {

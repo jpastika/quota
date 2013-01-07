@@ -18,7 +18,7 @@ class Quota.Views.ShowTemplateProducts extends Backbone.View
 		@parent_child_key = options.parent_child_key
 		@catalog_items = options.catalog_items
 		
-		@_addItemView = new Quota.Views.ShowTemplateFormAddProduct({model: new Quota.Models.CatalogItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection, catalog_items: @catalog_items})
+		@_addItemView = new Quota.Views.ShowTemplateFormAddProduct({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection, catalog_items: @catalog_items})
 		
 		@_templateItemsListView = new Quota.Views.ShowTemplateProductsList({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
