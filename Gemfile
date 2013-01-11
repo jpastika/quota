@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '~> 3.2.7'
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'bcrypt-ruby'
@@ -20,7 +20,7 @@ gem 'timeliness'
 group :development do
   gem 'pry'
   gem 'sextant'
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
 end
 
 group :development, :test do

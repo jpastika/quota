@@ -249,12 +249,17 @@ header{
 	font-size: 12px;
 	font-weight: lighter;
 	letter-spacing: 0.02em;
+	text-shadow: none;
 }
 
 .navbar .user-nav > li > a{
 	color: $ss_lightGray;
 	font-size:10px;
 	padding: 4px 40px 3px 0px;
+}
+
+.navbar .user-nav > li > a:hover{
+	color: $ss_nearWhite;
 }
 
 
@@ -273,12 +278,22 @@ header{
 	margin: 0 40px 0 0;
 }
 
+.navbar .alternate-nav > li > a:hover{
+	color: $ss_nearWhite;
+}
+
 .navbar .primary-nav{
 	clear:left;
 }
 
 .navbar .primary-nav > li > a{
 	color: $ss_orange;
+	padding: 5px 0px 10px 0px;
+	margin: 0 40px 0 0;
+}
+
+.navbar .primary-nav > li > a:hover{
+	color: $ss_nearWhite;
 	padding: 5px 0px 10px 0px;
 	margin: 0 40px 0 0;
 }
@@ -327,6 +342,7 @@ header{
 
 
 #logo {
+  text-shadow: 0 1px 0 $ss_nearBlack;
   float: left;
   margin-left: 0px;
   font-size: 1.6em;
@@ -574,10 +590,10 @@ form{
 	margin-bottom:5px;
 }
 
-input, textarea, .uneditable-input, {
+input, textarea, .uneditable-input, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
   border: 1px solid #A2A19C;
   width: 100%;
-  padding: 5px;
+  padding: 5px 5px 6px;
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;
@@ -642,7 +658,7 @@ label.required{
 	height: 16px;
 	line-height: 18px;
 	min-width: 16px;
-	padding: 5px;
+	padding: 6px 5px 4px;
 	margin-left:-4px;
 	color:#555;
 }
@@ -651,7 +667,7 @@ label.required{
 	height: 16px;
 	line-height: 18px;
 	min-width: 16px;
-	padding: 4px 5px 5px;
+	padding: 6px 5px 4px;
 	margin-right:-4px;
 	color:#555;
 }
