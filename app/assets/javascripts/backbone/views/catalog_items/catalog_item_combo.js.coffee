@@ -2,14 +2,14 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 	# tagName: 'span'
 	# template: HandlebarsTemplates['catalog_items/manufacturer_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	# events:
-	# 		"blur": "selected"
+	events:
+		"blur input": "selected"
 	
 	initialize: (options) ->
 		self = @
 		_.bindAll(@)
-		@vent = options.vent
-		@parent_model = options.parent_model
+		@vent = options.vent if options.vent?
+		@parent_model = options.parent_model if options.parent_model?
 		@source = options.source if options.source?
 		@val = options.val if options.val?
 		@
@@ -76,5 +76,6 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 		@
 	
 	selected: (obj) ->
-		console.log obj
+		@trigger('catalog_item_combo:item_selected', {catalog_item:obj})
+		@vent.trigger("catalog_item_combo:item_selected", {catalog_item:obj})
 		

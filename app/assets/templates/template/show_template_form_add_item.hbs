@@ -1,0 +1,86 @@
+<div class="row-fluid section-container">
+	<div class="section-heading">
+		<h3>Add Item</h3>
+	</div>
+	<div class="row">
+		<div class="span8">
+			<div class="control-group string required">
+				<div class="row">
+					<div class="span8 required">
+						<label class="string required control-label" for="template_item_name">Name</label>
+						<div class="controls template_item_name">
+							<input type="text" class="string required" id="template_item_name" name="template_item[name]" size="30" value="" tabindex="1">
+						</div>
+					</div>
+					<div class="span4">
+						<div class="controls template_item_group_heading">
+							<label class="string control-label" for="template_item_is_group_heading">&nbsp;</label>
+							&nbsp;&nbsp;<input type="checkbox" value="true" name="template_item[is_group_heading]" id="template_item_is_group_heading" tabindex="2">
+							&nbsp;group heading?
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="control-group string required">
+				<div class="row">
+					<div class="span1">
+						<label class="numeric control-label" for="template_item_quantity">Quantity</label>
+						<div class="controls template_item_quantity">
+							<input type="text" class="numeric input-mini" name="template_item[quantity]" size="10" value="1" tabindex="4">
+						</div>
+					</div>
+					<div class="span1">
+						<label class="string control-label">&nbsp;</label>
+						<span class="">x</span>
+					</div>
+					<div class="span2">
+						<label class="numeric control-label" for="template_item_list_price">Unit Price</label>
+						<div class="controls template_item_unit_price input-prepend">
+							<span class="add-on">$</span>
+							<input type="text" name="template_item[list_price]" id="template_item_list_price" class=" input-small numeric" tabindex="5">
+						</div>
+					</div>
+					<div class="span1">
+						<label class="string control-label">&nbsp;</label>
+						<span id="template_item_list_price_unit" class="template_item_unit_price_unit"></span>
+					</div>
+					<div class="span1">
+						<label class="string control-label">&nbsp;</label>
+						<span class="">=</span>
+					</div>
+					<div class="span2">
+						<label for="template_item_total" class="float optional control-label">Total</label>
+						<div class="controls">
+							<div class="controls template_item_total input-prepend">
+								<span class="add-on">$</span>
+								<input type="text" name="template_item[total]" id="template_item_total" class="numeric" tabindex="6">
+							</div>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="controls template_item_not_in_total">
+							<label class="string control-label" for="template_item_not_in_total">&nbsp;</label>
+							&nbsp;&nbsp;<input type="checkbox" value="true" name="template_item[not_in_total]" id="template_item_not_in_total" tabindex="7">
+							&nbsp;do not include in total
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="span4">
+			<div class="row">
+				<label class="string control-label" for="template_item_part_number">Part Number</label>
+				<div class="controls template_item_part_number">
+					<input type="text" name="template_item[part_number]" id="template_item_part_number" class="string" tabindex="3">
+				</div>
+			</div>
+			<div class="row">
+				<label class="string control-label" for="template_item_name">Description/Notes</label>
+				<div class="controls template_item_description">
+					<textarea  class="string required" name="template_item[description]" cols="30" rows="3" value="" tabindex="8"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" name="template_item[catalog_item_key]" id="template_item_catalog_item_key">

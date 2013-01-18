@@ -39,6 +39,7 @@ Quota::Application.routes.draw do
   resources :sales_reps
   resources :sessions, only: [:new, :create, :destroy, :choose]
   resources :templates
+  resources :template_items
   resources :users
   
   scope "api" do
@@ -76,6 +77,7 @@ Quota::Application.routes.draw do
     resources :opportunity_contacts
     resources :sales_reps
     resources :templates
+    resources :template_items
     resources :users
   end
   

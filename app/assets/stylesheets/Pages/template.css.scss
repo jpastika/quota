@@ -1,0 +1,24 @@
+/* mixins, variables, etc. */
+@import "variables";
+@import "mixins";
+
+.template-items-rows input{
+  border: 1px solid #fff;
+  margin-bottom: 0px;
+  @include no-inner-shadow();
+}
+
+.template-items-rows input:hover{
+  border: 1px solid $ss_lightGray;
+}
+
+.template-items-rows tr:hover{
+  background:#fff;
+}
+
+.ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+
+
+.template-items-rows ul { list-style-type: none; margin: 0; padding: 0; }
+.template-items-rows li { margin: 0 3px 3px 3px; padding: 0.4em;font-size: 1.2em; }

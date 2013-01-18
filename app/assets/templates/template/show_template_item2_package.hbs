@@ -1,0 +1,44 @@
+<table class="" width="100%">
+<tr>
+<td width="2%">
+	<i class="icon-sort" />
+</td>
+<td width="2%">
+	<i class="icon-sort-down" />
+</td>
+<td width="30%">
+	<input type="text" name="template_item[name]" value="{{template_item.name}}" placeholder="item name" class="template_item_name">
+</td>
+<td width="12%">
+	<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" placeholder="" class="template_item_part_number">
+</td>
+<td width="3%">
+	<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" placeholder="" class="template_item_quantity">
+</td>
+<td width="20%">
+	<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" placeholder="unit price" class="template_item_unit_price">
+</td>
+<td width="20%">
+	<input type="text" name="template_item[total]" value="{{template_item.total}}" placeholder="total" class="template_item_total">
+</td>
+<td width="10%">
+	<i class="icon-cog"></i>
+ 	<i class="icon-remove"></i>
+</td>
+</tr>
+<tr class="template-item-row-details" style="display:none">
+	<td colspan="2">
+	</td>
+	<td colspan="6">
+		<textarea  class="string required" name="template_item[description]" cols="30" rows="3" value="" tabindex="8">{{template_item.description}}</textarea>
+	</td>
+</tr>
+<tr class="template-item-row-package-contents" style="display:none">
+	<td colspan="2">
+	</td>
+	<td colspan="6">
+		This is all the stuff in this package
+	</td>
+</tr>
+</table>
+<input type="hidden" name="template_item[catalog_item_key]" value="{{template_item.catalog_item_key}}" class="template_item_catalog_item_key">

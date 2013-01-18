@@ -4,4 +4,4 @@ class Quota.Collections.TemplateItems extends Backbone.Collection
 	url: '/api/template_items'
 	
 	comparator: (c) ->
-		return c.get("name").toLowerCase()
+		return c.get("sort_order")

@@ -159,12 +159,12 @@ class CatalogItemsController < ApplicationController
           end
           
           @catalog_item.is_taxable = params[:is_taxable]
-          @catalog_item.is_taxable = params[:is_package]
-          @catalog_item.is_taxable = params[:name]
-          @catalog_item.is_taxable = params[:manufacturer]
-          @catalog_item.is_taxable = params[:list_price]
-          @catalog_item.is_taxable = params[:recurring_unit]
-          @catalog_item.is_taxable = params[:part_number]
+          @catalog_item.is_package = params[:is_package]
+          @catalog_item.name = params[:name]
+          @catalog_item.manufacturer = params[:manufacturer]
+          @catalog_item.list_price = params[:list_price]
+          @catalog_item.recurring_unit = params[:recurring_unit]
+          @catalog_item.part_number = params[:part_number]
           @catalog_item.parent_key = params[:parent_key]
           
           if @catalog_item.save
