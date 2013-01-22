@@ -3,10 +3,11 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 	
 	# template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	el: '#items_container .section-table tbody'
+	el: '#items_container .section-table-rows ul'
 	
-	# events:
-	# 		"click .contact_remove": "destroy"
+	events:
+		"update-sort": "updateOrder"
+
 	
 	initialize: (options)->
 		_.bindAll(@)
@@ -16,8 +17,10 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@template_model = options.parent_model
+		@catalog_items = options.catalog_items
+		
 			
-		# @vent.on('company_contacts:add_contact', @addCompanyContact, @)
+		# @vent.on('template_items:save_new_template_item_successful', @addNewItem, @)
 		# 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		
 		# @template_items = options.template_items
@@ -28,12 +31,23 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		frag = document.createDocumentFragment()
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		@$el.append(frag)
+		
+		@makeSortable()
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.ShowTemplateItem({model: item, tagName:'tr', template_item: @model, vent: @vent})
+		view = new Quota.Views.ShowTemplateItem({model: item, tagName:'li', template_item: @model, catalog_items: @catalog_items, parent_model: @template_model, vent: @vent})
 		@_itemViews.push(view)
 		view
+		
+	makeSortable: ->
+		@$el.sortable({
+			axis: "y"
+			, items: "li"
+			, handle: ".icon-sort"
+			, stop: @sortStop
+			, placeholder: "ui-state-highlight"
+		})
 
 	collectionReset: ->
 		@render()
@@ -45,10 +59,8 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 	removeSuccess: (evt) ->
 		# console.log "got here"
 
-	# destroy: (evt) ->
-	# 		$(@el).toggle()
-	# 		# @model.trigger('removing', {view: @})
-	# 		@model.remove()
+	sortStop: (event, ui) ->
+		ui.item.trigger('drop', ui.item.index());
 
 	hideRemove: () ->
 		@hideRemove = true
@@ -58,48 +70,36 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		@hideRemove = false
 		@$el.find('.template_item_remove').css('visibility', '')
 		
-	# addCatalogSearchItem: (obj)->
-	# 		self = @
-	# 		# obj.save(
-	# 		# 			{
-	# 		# 				parent_key: @catalog_item.get("pub_key")
-	# 		# 			},
-	# 		# 			{
-	# 		# 				error:  ()-> 
-	# 		# 					# @vent.trigger("child_items:add_item_failed", {pub_key:obj.get("pub_key")})
-	# 		# 					@handleError
-	# 		# 				success: (model) -> 
-	# 		# 					self.addCatalogItem_Success(model)
-	# 		# 				# silent: true
-	# 		# 			}
-	# 		# 		)
-	# 		# 		
-	# 		item = new Quota.Models.CatalogItemChild()
-	# 		item.save(
-	# 			{
-	# 				parent_key: @catalog_item.get("pub_key")
-	# 				child_key: obj.catalog_item.get("pub_key")
-	# 				account_key: @catalog_item.get("account_key")
-	# 			},
-	# 			{
-	# 				error:  ()-> 
-	# 					# @vent.trigger("child_items:add_item_failed", {pub_key:obj.get("pub_key")})
-	# 					@handleError
-	# 				success: (model) -> 
-	# 					self.addCatalogItem_Success(model)
-	# 				# silent: true
-	# 			}
-	# 		)
+	updateOrder: (event, model, position) ->           
+		@collection.remove(model)
+
+		@collection.each(
+			(model, index) ->
+			   	ordinal = index
+			   	if (index >= position)
+			       	ordinal += 1
+			   	model.set('sort_order', ordinal)
+		)           
+
+		model.set('sort_order', position)
+		@collection.add(model, {at: position})
+
+		@collection.sync("create", @collection, {url: '/api/template_items/reorder'})
 		
+	setSortOrder: ->           
+		@collection.each(
+			(model, index) ->
+				ordinal = index
+				model.set('sort_order', ordinal)
+		)           
+
+		@collection.sync("create", @collection, {url: '/api/template_items/reorder'})
 
 	addNewTemplateItem_Success: (model)->
 		@addTemplateItem_Success(model)
 
-	addTemplateItem_Success: (model)->
+	addNewTemplateItem_Success: (model)->
 		self = @
-		
-		# if model.get("catalog_item").parent_key and @companies.where(pub_key: model.get("contact").company_key).length == 0
-		# 			@companies.add(model.get("contact").company)
 		
 		self.template_model.get("template_items").add(model)
 		frag = document.createDocumentFragment()
