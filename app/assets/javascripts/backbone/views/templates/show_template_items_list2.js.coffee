@@ -6,7 +6,7 @@ class Quota.Views.ShowTemplateItemsList2 extends Backbone.View
 	el: '#items_container2 .section-table-rows ul'
 	
 	events:
-		"update-sort": "updateSort"
+		"update-sort": "updateOrder"
 
 	
 	initialize: (options)->
@@ -20,7 +20,7 @@ class Quota.Views.ShowTemplateItemsList2 extends Backbone.View
 		@catalog_items = options.catalog_items
 		
 			
-		# @vent.on('company_contacts:add_contact', @addCompanyContact, @)
+		# @vent.on('template_items:save_new_template_item_successful', @addNewItem, @)
 		# 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
 		
 		# @template_items = options.template_items
@@ -32,22 +32,22 @@ class Quota.Views.ShowTemplateItemsList2 extends Backbone.View
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		@$el.append(frag)
 		
+		@makeSortable()
+		@
+
+	addOne: (item)->
+		view = new Quota.Views.ShowTemplateItem2({model: item, tagName:'li', template_item: @model, catalog_items: @catalog_items, parent_model: @template_model, vent: @vent})
+		@_itemViews.push(view)
+		view
+		
+	makeSortable: ->
 		@$el.sortable({
 			axis: "y"
 			, items: "li"
 			, handle: ".icon-sort"
 			, stop: @sortStop
 			, placeholder: "ui-state-highlight"
-		});
-		@
-
-	addOne: (item)->
-		if item.get("is_package")
-			view = new Quota.Views.ShowTemplateItem2_Package({model: item, tagName:'li', template_item: @model, catalog_items: @catalog_items, parent_model: @template_model, vent: @vent})
-		else
-			view = new Quota.Views.ShowTemplateItem2({model: item, tagName:'li', template_item: @model, catalog_items: @catalog_items, parent_model: @template_model, vent: @vent})
-		@_itemViews.push(view)
-		view
+		})
 
 	collectionReset: ->
 		@render()
@@ -70,7 +70,7 @@ class Quota.Views.ShowTemplateItemsList2 extends Backbone.View
 		@hideRemove = false
 		@$el.find('.template_item_remove').css('visibility', '')
 		
-	updateSort: (event, model, position) ->           
+	updateOrder: (event, model, position) ->           
 		@collection.remove(model)
 
 		@collection.each(
@@ -84,23 +84,22 @@ class Quota.Views.ShowTemplateItemsList2 extends Backbone.View
 		model.set('sort_order', position)
 		@collection.add(model, {at: position})
 
-		# to update ordinals on server:
-		ids = @collection.pluck('id')
-		sos = @collection.pluck('sort_order')
-		# $('#post-data').html('post ids to server: ' + ids.join(', '));
-		console.log ids
-		console.log sos
-
-		# @render()
+		@collection.sync("create", @collection, {url: '/api/template_items/reorder'})
 		
+	setSortOrder: ->           
+		@collection.each(
+			(model, index) ->
+				ordinal = index
+				model.set('sort_order', ordinal)
+		)           
+
+		@collection.sync("create", @collection, {url: '/api/template_items/reorder'})
+
 	addNewTemplateItem_Success: (model)->
 		@addTemplateItem_Success(model)
 
-	addTemplateItem_Success: (model)->
+	addNewTemplateItem_Success: (model)->
 		self = @
-		
-		# if model.get("catalog_item").parent_key and @companies.where(pub_key: model.get("contact").company_key).length == 0
-		# 			@companies.add(model.get("contact").company)
 		
 		self.template_model.get("template_items").add(model)
 		frag = document.createDocumentFragment()

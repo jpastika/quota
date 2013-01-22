@@ -13,6 +13,7 @@ Quota::Application.routes.draw do
   match '/bridge', to: 'static_pages#bridge'
   match '/documents/choose_template/:id', to: 'documents#choose_template'
   match '/catalog_items/manufacturers', to: 'catalog_items#manufacturers'
+  match '/template_items/reorder', to: 'template_items#reorder'
   
   
   resources :accounts
@@ -52,6 +53,7 @@ Quota::Application.routes.draw do
     match '/companies/:id/contacts', to: 'companies#contacts'
     match '/manufacturers', to: 'catalog_items#manufacturers'
     match 'catalog_items/filter_by_name_or_part_number', to: 'catalog_items#filter_by_name_or_part_number'
+    match '/template_items/reorder', to: 'template_items#reorder'
     
     resources :accounts
     resources :catalog_items

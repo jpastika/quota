@@ -79,7 +79,7 @@ class TemplateItemsController < ApplicationController
           @template_item.quantity = params[:quantity]
           @template_item.total = params[:total]
           @template_item.description = params[:description]
-          # @template_item.parent_key = params[:parent_key]
+          @template_item.catalog_item_key = params[:catalog_item_key]
           @template_item.sort_order = params[:sort_order]
           
           if @template_item.save
@@ -121,6 +121,24 @@ class TemplateItemsController < ApplicationController
         @template_items = TemplateItem.find_by_name_or_part_number(params[:filter])
         
         render :json => @template_items.to_json()
+      }
+    end
+  end
+  
+  def reorder
+    respond_to do |format|
+      format.json {
+        @template_items = params[:_json]
+                
+        @template_items.each do |item|
+          template_item = TemplateItem.find_by_pub_key(item[:pub_key])
+          template_item.sort_order = item[:sort_order]
+          if !template_item.save
+            render :json => "false"
+          end
+        end
+          
+        render :json => "true"
       }
     end
   end

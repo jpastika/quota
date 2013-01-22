@@ -1,16 +1,15 @@
-class Quota.Views.ShowTemplateItem2 extends Backbone.View
+class Quota.Views.ShowTemplateFormAddItem2 extends Backbone.View
 
-	template: HandlebarsTemplates['template/show_template_item2'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['template/show_template_form_add_item2'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .icon-sort-down": "togglePackageContents"
 		"click .icon-remove": "destroy"
 		"click .icon-cog": "toggleDetails"
+		"click .icon-ok": "saveModel"
 		"change .template_item_quantity": "updateTotal"
 		"change .template_item_unit_price": "updateTotal"
 		"drop": "dropped"
-		"blur input" : "saveModel"
-		
+			
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -22,13 +21,11 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 		@parent_model = options.parent_model
 		@catalog_items = options.catalog_items
 		
-		if @model.get("catalog_item_key")
-			@setCatalogItem(@getCatalogItem(@model.get("catalog_item_key")))
-			
 		@_catalogItemComboView = new Quota.Views.CatalogItemComboView({parent_model:@model, collection:@catalog_items, source: "name", val: "name", className: 'string required', vent: @vent})
 		@_catalogItemComboView.on("catalog_item_combo:item_selected", @catalogItemSelected)
 		
 		# @vent.on('catalog_item_combo:item_selected', @addNewItemCatalogItemSelected, @)
+		
 		
 
 	render: ->
@@ -51,14 +48,11 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 		@package_contents = @$('.template-item-row-package-contents')
 		@spinner = @$('.icon-spinner')
 		
-		
 		@_catalogItemComboView.el = @input_template_item_name
 		@_catalogItemComboView.render()
 		
 		if @hideRemove
 			@$('.template_item_remove').css('visibility', 'hidden')
-		
-		@handleItemType()
 		@
 
 	destroy: (evt) ->
@@ -67,6 +61,7 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 		@model.remove()
 		@vent.trigger('template_items:remove_template_item', {model: @model})
 		
+
 	hideRemove: () ->
 		@hideRemove = true
 		$(@el).find('.template_item_remove').css('visibility', 'hidden')
@@ -74,13 +69,13 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 	showRemove: () ->
 		@hideRemove = false
 		$(@el).find('.template_item_remove').css('visibility', '')
-		
+	
 	hideSpinner: () ->
 		@spinner.hide()
 
 	showSpinner: () ->
 		@spinner.show()
-		
+
 	toggleSpinner: () ->
 		@spinner.toggle()
 
@@ -104,10 +99,10 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 
 	toggleDetails: () ->
 		@details.toggle()
-		
+
 	togglePackageContents: () ->
 		@package_contents.toggle()
-		
+
 	dropped: (event, index) ->
 		$(@el).trigger('update-sort', [this.model, index]);
 	
@@ -131,7 +126,7 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 			@input_template_item_total.val(@calcTotal())
 			@input_template_item_description.val('')
 			@input_template_item_catalog_item_key.val('')
-		
+			
 		@handleItemType()
 
 
@@ -146,17 +141,18 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 		@showSpinner()
 		@model.save(
 			{
-				name: @input_template_item_name.val()
-				part_number: @input_template_item_part_number.val()
-				unit_price: @input_template_item_unit_price.val()
-				quantity: @input_template_item_quantity.val()
+				name: self.input_template_item_name.val()
+				part_number: self.input_template_item_part_number.val()
+				unit_price: self.input_template_item_unit_price.val()
+				quantity: self.input_template_item_quantity.val()
 				# unit_price_unit: @input_template_item_unit_price_unit.html()
 				# is_group_heading: @input_template_item_is_group_heading.is(':checked')
 				# not_in_total: @input_template_item_not_in_total.is(':checked')
-				total: @input_template_item_total.val()
-				description: @input_template_item_description.val()
-				catalog_item_key: @input_template_item_catalog_item_key.val()
-				template_key: @parent_model.get("pub_key")
+				total: self.input_template_item_total.val()
+				description: self.input_template_item_description.val()
+				catalog_item_key: self.input_template_item_catalog_item_key.val()
+				template_key: self.parent_model.get("pub_key")
+				sort_order: self.model.get("sort_order")
 				# sort_order: @template_items.length
 			},
 			{
@@ -164,25 +160,29 @@ class Quota.Views.ShowTemplateItem2 extends Backbone.View
 					self.hideSpinner()
 					console.log "save error"
 				success: (model) -> 
-					self.vent.trigger('template_items:add_new_template_item_successful', {model: model})
-					self.hideSpinner()
+					self.vent.trigger('template_items:save_new_template_item_successful', {model: model})
+					self.model = new Quota.Models.TemplateItem() 
+					self.render()
+					self.vent.trigger('new_templat_item_form:set_sort_order');
 			}
 		)
-		
+	
 	setCatalogItem: (catalog_item)->
 		@catalog_item = catalog_item
-		
+
 	getCatalogItem: (catalog_item_key)->
 		self = @
-		
+
 		catalog_item = _.find(self.catalog_items.models, 
 			(model)-> 
 				model.get("pub_key") == self.model.get("catalog_item_key")
 		)
-		
+
 		catalog_item
 		
-	
+	setSortOrder: (so)->
+		@model.set({sort_order:so})
+		
 	handleItemType: ->
 		if @catalog_item && @catalog_item.get("is_package") == true
 			@showPackageToggle()

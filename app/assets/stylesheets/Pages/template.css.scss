@@ -2,13 +2,13 @@
 @import "variables";
 @import "mixins";
 
-.template-items-rows input{
+.template-items-rows input, .template-items-rows textarea, .template-items-new input, .template-items-new textarea{
   border: 1px solid #fff;
   margin-bottom: 0px;
   @include no-inner-shadow();
 }
 
-.template-items-rows input:hover{
+.template-items-rows input:hover, .template-items-rows textarea:hover, .template-items-new input:hover, .template-items-new textarea:hover{
   border: 1px solid $ss_lightGray;
 }
 
@@ -16,9 +16,26 @@
   background:#fff;
 }
 
-.ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+.ui-state-highlight { 
+  height: 1.5em; 
+  line-height: 1.2em; 
+}
 
+.template-items-rows ul, .template-items-new ul { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+}
 
+.template-items-rows li, .template-items-new li { 
+  margin: 0 3px 3px 3px; 
+  padding: 0.4em;
+}
 
-.template-items-rows ul { list-style-type: none; margin: 0; padding: 0; }
-.template-items-rows li { margin: 0 3px 3px 3px; padding: 0.4em;font-size: 1.2em; }
+.template-items-new {
+  border-top: 1px solid $ss_lightGray;
+}
+
+.template-items-rows li input[type="checkbox"], .template-items-new li input[type="checkbox"]{ 
+  margin-top: -4px;
+}

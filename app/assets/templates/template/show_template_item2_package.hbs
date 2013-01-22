@@ -1,4 +1,4 @@
-<table class="" width="100%">
+<table class="" width="100%" cellpadding="5px">
 <tr>
 <td width="2%">
 	<i class="icon-sort" />
@@ -24,13 +24,24 @@
 <td width="10%">
 	<i class="icon-cog"></i>
  	<i class="icon-remove"></i>
+	<i class="icon-spinner" style="display:none"></i>
 </td>
 </tr>
 <tr class="template-item-row-details" style="display:none">
 	<td colspan="2">
 	</td>
-	<td colspan="6">
-		<textarea  class="string required" name="template_item[description]" cols="30" rows="3" value="" tabindex="8">{{template_item.description}}</textarea>
+	<td colspan="4">
+		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" placeholder="description">{{template_item.description}}</textarea>
+	</td>
+	<td colspan="2" valign="top">
+		<div>
+			<input type="checkbox" value="true" name="template_item[is_group_heading]" id="template_item_is_group_heading">
+			&nbsp;display as group heading
+		</div>
+		<div>
+			<input type="checkbox" value="true" name="template_item[not_in_total]" id="template_item_not_in_total">
+			&nbsp;do not include in total
+		</div>
 	</td>
 </tr>
 <tr class="template-item-row-package-contents" style="display:none">
