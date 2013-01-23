@@ -19,7 +19,7 @@ class TemplateItemsController < ApplicationController
 
         @template_item = TemplateItem.create(params[:template_item])
         if @template_item.save
-          render :json => @template_item.to_json(:include => [])
+          render :json => @template_item.to_json(:include => [:catalog_item])
         else
           render :json => "false"
         end

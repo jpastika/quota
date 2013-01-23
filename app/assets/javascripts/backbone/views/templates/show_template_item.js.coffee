@@ -3,7 +3,8 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 	template: HandlebarsTemplates['template/show_template_item'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .icon-sort-down": "togglePackageContents"
+		"click .icon-sort-down": "showPackageContents"
+		"click .icon-sort-up": "hidePackageContents"
 		"click .icon-remove": "destroy"
 		"click .icon-cog": "toggleDetails"
 		"change .template_item_quantity": "updateTotal"
@@ -14,7 +15,13 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		"blur .template_item_name": "handleNameInputBlur"
 		"click .template_item_part_number_holder": "handlePartNumberHolderClick"
 		"blur .template_item_part_number": "handlePartNumberInputBlur"
+		"click .template_item_description_holder": "handleDescriptionHolderClick"
+		"blur .template_item_description": "handleDescriptionInputBlur"
 		"keydown .template_item_name": "handleNameInputKeyDown"
+		"focus .template_item_name_shim": "handleNameHolderClick"
+		"focus .template_item_part_number_shim": "handlePartNumberHolderClick"
+		"focus .template_item_description_shim": "handleDescriptionHolderClick"
+		"click .template_item_is_group_heading": "handleGroupHeadingClick"
 		
 	initialize: (options)->
 		self = @
@@ -25,15 +32,12 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@model.on('destroy', @remove, @)
 		# @model.on('change', @modelChanged, @)
 		@parent_model = options.parent_model
-		@catalog_items = options.catalog_items
 		
 		if @model.get("catalog_item_key")
-			@setCatalogItem(@getCatalogItem(@model.get("catalog_item_key")))
+			@setCatalogItem(new Quota.Models.CatalogItem(@model.get("catalog_item")))
 			
-		@_catalogItemComboView = new Quota.Views.CatalogItemComboView({parent_model:@model, collection:@catalog_items, source: "name", val: "name", className: 'string required', vent: @vent})
+		@_catalogItemComboView = new Quota.Views.CatalogItemComboView({parent_model:@model, source: "name", val: "name", className: 'string required', vent: @vent})
 		@_catalogItemComboView.on("catalog_item_combo:item_selected", @catalogItemSelected)
-		
-		# @vent.on('catalog_item_combo:item_selected', @addNewItemCatalogItemSelected, @)
 		
 
 	render: ->
@@ -46,16 +50,21 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		# @input_template_item_unit_price_unit = @$('.template_item_unit_price_unit')
 		@input_template_item_total = @$('.template_item_total')
 		@input_template_item_description = @$('.template_item_description')
-		# @input_template_item_is_group_heading = @$('.template_item_is_group_heading')
-		# @input_template_item_not_in_total = @$('.template_item_not_in_total')
+		@input_template_item_is_group_heading = @$('.template_item_is_group_heading')
+		@input_template_item_not_in_total = @$('.template_item_not_in_total')
 		@input_template_item_catalog_item_key = @$('.template_item_catalog_item_key')
 		
 		@name_holder = @$('.template_item_name_holder')
 		@part_number_holder = @$('.template_item_part_number_holder')
+		@description_holder = @$('.template_item_description_holder')
+		@name_shim = @$('.template_item_name_shim')
+		@part_number_shim = @$('.template_item_part_number_shim')
+		@description_shim = @$('.template_item_description_shim')
 		
 		@details = @$('.template-item-row-details')
 		@details_toggle = @$('.icon-cog')
-		@package_toggle = @$('.icon-sort-down')
+		@package_toggle_down = @$('.icon-sort-down')
+		@package_toggle_up = @$('.icon-sort-up')
 		@package_contents = @$('.template-item-row-package-contents')
 		@spinner = @$('.icon-spinner')
 		
@@ -75,57 +84,71 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@model.remove()
 		@vent.trigger('template_items:remove_template_item', {model: @model})
 		
-	hideRemove: () ->
+	hideRemove: ->
 		@hideRemove = true
 		$(@el).find('.template_item_remove').css('visibility', 'hidden')
 
-	showRemove: () ->
+	showRemove: ->
 		@hideRemove = false
 		$(@el).find('.template_item_remove').css('visibility', '')
 		
-	hideSpinner: () ->
+	hideSpinner: ->
 		@spinner.hide()
 
-	showSpinner: () ->
+	showSpinner: ->
 		@spinner.show()
 		
-	toggleSpinner: () ->
+	toggleSpinner: ->
 		@spinner.toggle()
 
-	hideDetailsToggle: () ->
+	hideDetailsToggle: ->
 		@details_toggle.hide()
 
-	showDetailsToggle: () ->
+	showDetailsToggle: ->
 		@details_toggle.show()
 
-	toggleDetailsToggle: () ->
+	toggleDetailsToggle: ->
 		@details_toggle.toggle()
 
-	hidePackageToggle: () ->
-		@package_toggle.hide()
+	hidePackageToggle: ->
+		@hidePackageContents()
+		@package_toggle_down.hide()
 
-	showPackageToggle: () ->
-		@package_toggle.show()
+	showPackageToggle: ->
+		@hidePackageContents()
+		@package_toggle_down.show()
 
-	togglePackageToggle: () ->
+	togglePackageToggle: ->
 		@package_toggle.toggle()
 
-	toggleDetails: () ->
+	toggleDetails: ->
 		@details.toggle()
 		
-	togglePackageContents: () ->
+	togglePackageContents: ->
 		@package_contents.toggle()
+		
+	showPackageContents: ->
+		@package_contents.show()
+		@package_toggle_down.hide()
+		@package_toggle_up.show()
+		
+	hidePackageContents: ->
+		@package_contents.hide()
+		@package_toggle_up.hide()
+		@package_toggle_down.show()
 		
 	handleNameHolderClick: ->
 		@hideNameHolder()
 		@showNameInput()
 		@input_template_item_name.focus()
+		@name_shim.hide()
 		true
 		
 	handleNameInputBlur: ->
 		@hideNameInput()
 		@showNameHolder()
 		@name_holder.html(@input_template_item_name.val())
+		@name_shim.show()
 		true
 		
 	hideNameHolder: ->
@@ -144,12 +167,14 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@hidePartNumberHolder()
 		@showPartNumberInput()
 		@input_template_item_part_number.focus()
+		@part_number_shim.hide()
 		true
 
 	handlePartNumberInputBlur: ->
 		@hidePartNumberInput()
 		@showPartNumberHolder()
 		@part_number_holder.html(@input_template_item_part_number.val())
+		@part_number_shim.show()
 		true
 
 	hidePartNumberHolder: ->
@@ -163,23 +188,58 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 
 	showPartNumberInput: ->
 		@input_template_item_part_number.show()
-		
+	
+	handleDescriptionHolderClick: ->
+		@hideDescriptionHolder()
+		@showDescriptionInput()
+		@input_template_item_description.focus()
+		@description_shim.hide()
+		true
+
+	handleDescriptionInputBlur: ->
+		@hideDescriptionInput()
+		@showDescriptionHolder()
+		@description_holder.html(@input_template_item_description.val())
+		@description_shim.show()
+		true
+
+	hideDescriptionHolder: ->
+		@description_holder.hide()
+
+	showDescriptionHolder: ->
+		@description_holder.show()
+
+	hideDescriptionInput: ->
+		@input_template_item_description.hide()
+
+	showDescriptionInput: ->
+		@input_template_item_description.show()
+
 	handleNameInputKeyDown: (e)->
-		switch e.keyCode
-			when 9
-				@handlePartNumberInputBlur()
-				@handlePartNumberHolderClick()
-				false
-			else
-				true
+		if !e.shiftKey
+			switch e.keyCode
+				when 9
+					@handlePartNumberInputBlur()
+					@handlePartNumberHolderClick()
+					false
+				else
+					true
+		else
+			true
+			
+	handleGroupHeadingClick: ->
+		if @input_template_item_is_group_heading.is(':checked')
+			$(@el).addClass('template_item_group_heading')
+		else
+			$(@el).removeClass('template_item_group_heading')
 		
 	dropped: (event, index) ->
 		$(@el).trigger('update-sort', [this.model, index])
 	
 	catalogItemSelected: (obj)->
-		catalog_item = new Quota.Models.CatalogItem(obj.catalog_item)
+		@catalog_item = new Quota.Models.CatalogItem(obj.catalog_item)
 		if obj.catalog_item.pub_key
-			@setCatalogItem(catalog_item)
+			@setCatalogItem(@catalog_item)
 			@input_template_item_name.val(obj.catalog_item.name)
 			@name_holder.html(obj.catalog_item.name)
 			@input_template_item_part_number.val(obj.catalog_item.part_number)
@@ -188,6 +248,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			# @input_template_item_unit_price_unit.html(obj.catalog_item.recurring_unit)
 			@updateTotal()
 			@input_template_item_description.val(obj.catalog_item.description)
+			@description_holder.html(obj.catalog_item.description)
 			@input_template_item_catalog_item_key.val(obj.catalog_item.pub_key)
 		else
 			@setCatalogItem(null)
@@ -199,6 +260,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			# @input_template_item_unit_price_unit.html('')
 			@input_template_item_total.val(@calcTotal())
 			@input_template_item_description.val('')
+			@description_holder.html('')
 			@input_template_item_catalog_item_key.val('')
 		
 		@handleItemType()
@@ -241,19 +303,16 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 	setCatalogItem: (catalog_item)->
 		@catalog_item = catalog_item
 		
-	getCatalogItem: (catalog_item_key)->
-		self = @
+	loadPackageContents: ->
+		console.log "load contents"
 		
-		catalog_item = _.find(self.catalog_items.models, 
-			(model)-> 
-				model.get("pub_key") == self.model.get("catalog_item_key")
-		)
-		
-		catalog_item
-		
-	
+	clearPackageContents: ->
+		console.log "clear contents"
+
 	handleItemType: ->
 		if @catalog_item && @catalog_item.get("is_package") == true
 			@showPackageToggle()
+			@loadPackageContents()
 		else
 			@hidePackageToggle()
+			@clearPackageContents()

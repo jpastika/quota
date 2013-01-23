@@ -5,25 +5,28 @@
 </td>
 <td width="3%">
 	<i class="icon-sort-down" style="display:none" />
+	<i class="icon-sort-up" style="display:none" />
 </td>
 <td width="28%">
 	<div class="template_item_name_holder">{{template_item.name}}</div>
-	<input type="text" name="template_item[name]" value="{{template_item.name}}" placeholder="item name" class="template_item_name" style="display:none">
+	<input type="text" class="template_item_name_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+	<input type="text" name="template_item[name]" value="{{template_item.name}}" class="template_item_name" style="display:none">
 </td>
 <td width="12%">
 	<div class="template_item_part_number_holder">{{template_item.part_number}}</div>
-	<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" placeholder="" class="template_item_part_number" style="display:none">
+	<input type="text" class="template_item_part_number_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+	<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" class="template_item_part_number" style="display:none">
 </td>
-<td width="3%">
-	<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" placeholder="" class="template_item_quantity">
-</td>
-<td width="20%">
-	<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" placeholder="unit price" class="template_item_unit_price">
+<td width="5%">
+	<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" class="template_item_quantity">
 </td>
 <td width="20%">
-	<input type="text" name="template_item[total]" value="{{template_item.total}}" placeholder="total" class="template_item_total">
+	<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price">
 </td>
-<td width="10%">
+<td width="20%">
+	<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total">
+</td>
+<td width="8%">
 	<i class="icon-cog"></i>
  	<i class="icon-remove"></i>
 	<i class="icon-spinner" style="display:none"></i>
@@ -31,16 +34,18 @@
 </tr>
 <tr class="template-item-row-details" style="display:none">
 	<td colspan="2"></td>
-	<td colspan="4">
-		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" placeholder="description">{{template_item.description}}</textarea>
+	<td colspan="4" valign="top">
+		<div class="template_item_description_holder">{{template_item.description}}</div>
+		<input type="text" class="template_item_description_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" style="display:none">{{template_item.description}}</textarea>
 	</td>
 	<td colspan="2" valign="top">
-		<div>
-			<input type="checkbox" value="true" name="template_item[is_group_heading]" id="template_item_is_group_heading">
+		<div class="template_item_checkboxes">
+			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading">
 			&nbsp;display as group heading
 		</div>
-		<div>
-			<input type="checkbox" value="true" name="template_item[not_in_total]" id="template_item_not_in_total">
+		<div class="template_item_checkboxes">
+			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total">
 			&nbsp;do not include in total
 		</div>
 	</td>

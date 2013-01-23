@@ -16,14 +16,10 @@ class Quota.Views.ShowTemplateItems extends Backbone.View
 		@template_model = options.parent_model
 		# @manufacturers = options.manufacturers
 		@parent_child_key = options.parent_child_key
-		@catalog_items = options.catalog_items
 		
-		@_addItemView = new Quota.Views.ShowTemplateFormAddItem({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection, catalog_items: @catalog_items})
+		@_addItemView = new Quota.Views.ShowTemplateFormAddItem({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection})
 		
-		@_templateItemsListView = new Quota.Views.ShowTemplateItemsList({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @parent_child_key, vent: @vent, collection: @collection, catalog_items: @catalog_items})
-		
-		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
-		# 
+		@_templateItemsListView = new Quota.Views.ShowTemplateItemsList({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
 		@newTemplateItemForm_SetSortOrder()
 		
@@ -36,18 +32,8 @@ class Quota.Views.ShowTemplateItems extends Backbone.View
 		# $(@el).html(@template({}))
 		@container_item_list = @$('.template-items-rows ul')
 		@_templateItemsListView.setElement(@container_item_list).render()
-		# @_contactsListView.setElement(@container_contact_list).render().hide()
-		# @_addContactView.companies.fetch()
-		# frag = document.createDocumentFragment()
-		# 		frag.appendChild(@_contactsListView.render().el)
-		# 		@$('.section-table').append(frag)
-		# 		
 		@container_add_item = @$('.template-items-new ul')
 		@_addItemView.setElement(@container_add_item).render()
-		# @_addContactView.companies.fetch()
-		
-		# @hideDoneLink()
-		
 		@
 		
 	newTemplateItemForm_SetSortOrder: ->

@@ -69,10 +69,10 @@ class Quota.Views.CatalogItemComboView extends Backbone.View
 			
 		$(@el).typeahead options
 		
-		catalog_item = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("pub_key"))
-		if catalog_item
-			# $(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
-			$(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
+		# catalog_item = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("pub_key"))
+		# 		if catalog_item
+		# 			# $(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
+		# 			$(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
 		@
 	
 	selected: (obj) ->

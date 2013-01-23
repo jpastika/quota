@@ -17,14 +17,6 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@template_model = options.parent_model
-		@catalog_items = options.catalog_items
-		
-			
-		# @vent.on('template_items:save_new_template_item_successful', @addNewItem, @)
-		# 		@vent.on('company_contacts:add_new_contact_successful', @addNewContact_Success, @)
-		
-		# @template_items = options.template_items
-		# @vent.on('catalog_search_results:add_item', @addCatalogSearchItem, @)
 		
 	render: ->
 		# $(@el).html(@template({}))
@@ -36,7 +28,7 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.ShowTemplateItem({model: item, tagName:'li', template_item: @model, catalog_items: @catalog_items, parent_model: @template_model, vent: @vent})
+		view = new Quota.Views.ShowTemplateItem({model: item, tagName:'li', template_item: @model, parent_model: @template_model, vent: @vent})
 		@_itemViews.push(view)
 		view
 		

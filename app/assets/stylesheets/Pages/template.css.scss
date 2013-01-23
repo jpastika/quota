@@ -2,28 +2,59 @@
 @import "variables";
 @import "mixins";
 
-.template-items-rows input, .template-items-rows textarea{
-  border: 1px solid #fff;
-  margin-bottom: 0px;
-  @include no-inner-shadow();
+.template-items-heading .table{
+	margin-bottom:0px;
 }
 
-.template_item_name_holder, .template_item_part_number_holder{
-  border: 1px solid #fff;
+.template-items-rows input[type="text"], .template-items-rows textarea{
+  border: 1px solid transparent;
+  margin-bottom: 0px;
+  @include no-inner-shadow();
+  background:none;
+}
+
+li.template_item_group_heading tr:hover{
+  background:$ss_lightGray;
+}
+
+.template_item_group_heading{
+	background: $ss_lightGray;
+}
+
+.template_item_name_holder, .template_item_part_number_holder, .template_item_description_holder{
+  border: 1px solid transparent;
   margin-bottom: 0px;
   padding: 4px 5px 4px 6px;
   font-size: 14px;
   min-height:20px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.template-items-new input, .template-items-new textarea{
+.template-items-new input[type="text"], .template-items-new textarea{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   @include no-inner-shadow();
 }
 
-.template-items-rows input:hover, .template-items-rows textarea:hover, .template-items-rows div:hover, .template-items-new input:hover, .template-items-new textarea:hover{
+.template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder, .template-items-new .template_item_description_holder{
   border: 1px solid $ss_lightGray;
+  margin-bottom: 0px;
+  padding: 4px 5px 4px 6px;
+  font-size: 14px;
+  min-height:20px;
+  background:#fff;
+}
+
+.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows div:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
+  border: 1px solid $ss_lightGray;
+}
+
+div.template_item_checkboxes{
+  border: 1px solid transparent;
+}
+
+div.template_item_checkboxes:hover{
+  border: 1px solid transparent;
 }
 
 .template-items-rows tr:hover{
@@ -42,8 +73,7 @@
 }
 
 .template-items-rows li, .template-items-new li { 
-  margin: 0 3px 3px 3px; 
-  padding: 0.4em;
+  border-bottom:1px solid $ss_nearWhite;
 }
 
 .template-items-new {
