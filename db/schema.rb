@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115181528) do
+ActiveRecord::Schema.define(:version => 20130124191546) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -448,6 +448,7 @@ ActiveRecord::Schema.define(:version => 20130115181528) do
     t.datetime "updated_at",                                :null => false
     t.boolean  "is_group_heading",       :default => false
     t.boolean  "not_in_total",           :default => false
+    t.boolean  "hide_package_contents",  :default => false
   end
 
   add_index "template_items", ["account_key"], :name => "index_template_items_on_account_key"

@@ -41,7 +41,7 @@ class CatalogItemsController < ApplicationController
       format.json {
         @catalog_item = CatalogItem.find_by_pub_key(params[:id])
         
-        render :json => @catalog_item
+        render :json => @catalog_item.to_json(:include => [:child_items])
       }
     end
   end

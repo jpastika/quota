@@ -1,36 +1,36 @@
 <table class="" width="100%" cellpadding="5px">
 <tr>
-<td width="3%">
-	<i class="icon-sort" />
-</td>
-<td width="3%">
-	<i class="icon-sort-down" style="display:none" />
-	<i class="icon-sort-up" style="display:none" />
-</td>
-<td width="28%">
-	<div class="template_item_name_holder">{{template_item.name}}</div>
-	<input type="text" class="template_item_name_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
-	<input type="text" name="template_item[name]" value="{{template_item.name}}" class="template_item_name" style="display:none">
-</td>
-<td width="12%">
-	<div class="template_item_part_number_holder">{{template_item.part_number}}</div>
-	<input type="text" class="template_item_part_number_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
-	<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" class="template_item_part_number" style="display:none">
-</td>
-<td width="5%">
-	<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" class="template_item_quantity">
-</td>
-<td width="20%">
-	<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price">
-</td>
-<td width="20%">
-	<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total">
-</td>
-<td width="8%">
-	<i class="icon-cog"></i>
- 	<i class="icon-remove"></i>
-	<i class="icon-spinner" style="display:none"></i>
-</td>
+	<td width="3%">
+		<i class="icon-sort" />
+	</td>
+	<td width="3%">
+		<i class="icon-sort-down" style="display:none" />
+		<i class="icon-sort-up" style="display:none" />
+	</td>
+	<td width="28%">
+		<div class="template_item_name_holder">{{template_item.name}}</div>
+		<input type="text" class="template_item_name_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+		<input type="text" name="template_item[name]" value="{{template_item.name}}" class="template_item_name" style="display:none">
+	</td>
+	<td width="12%">
+		<div class="template_item_part_number_holder">{{template_item.part_number}}</div>
+		<input type="text" class="template_item_part_number_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+		<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" class="template_item_part_number" style="display:none">
+	</td>
+	<td width="5%">
+		<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" class="template_item_quantity">
+	</td>
+	<td width="20%">
+		<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price">
+	</td>
+	<td width="20%">
+		<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total">
+	</td>
+	<td width="8%">
+		<i class="icon-cog"></i>
+	 	<i class="icon-remove"></i>
+		<i class="icon-spinner" style="display:none"></i>
+	</td>
 </tr>
 <tr class="template-item-row-details" style="display:none">
 	<td colspan="2"></td>
@@ -41,20 +41,23 @@
 	</td>
 	<td colspan="2" valign="top">
 		<div class="template_item_checkboxes">
-			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading">
+			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading" {{#if template_item.is_group_heading}}checked{{/if}}>
 			&nbsp;display as group heading
 		</div>
 		<div class="template_item_checkboxes">
-			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total">
+			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total" {{#if template_item.not_in_total}}checked{{/if}}>
 			&nbsp;do not include in total
+		</div>
+		<div class="template_item_checkboxes template_item_hide_package_contents_container" style="display:none">
+			<input type="checkbox" value="true" name="template_item[hide_package_contents]" class="template_item_hide_package_contents" {{#if template_item.hide_package_contents}}checked{{/if}}>
+			&nbsp;hide package contents
 		</div>
 	</td>
 </tr>
 <tr class="template-item-row-package-contents" style="display:none">
-	<td colspan="2">
-	</td>
-	<td colspan="6">
-		This is all the stuff in this package
+	<td colspan="8">
+		<ul>
+		</ul>
 	</td>
 </tr>
 </table>

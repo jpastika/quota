@@ -51,6 +51,8 @@ li.template_item_group_heading tr:hover{
 
 div.template_item_checkboxes{
   border: 1px solid transparent;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
 }
 
 div.template_item_checkboxes:hover{
@@ -76,6 +78,21 @@ div.template_item_checkboxes:hover{
   border-bottom:1px solid $ss_nearWhite;
 }
 
+.template-item-row-package-contents{
+	border-top: 1px dashed $ss_nearWhite;
+}
+
+.template-item-row-package-contents li{
+	border-bottom:0px solid $ss_nearWhite;
+	font-size: 14px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: $ss_mediumGray;
+}
+
+.hide_package_contents{
+	visibility:collapse;
+}
+
 .template-items-new {
   border-top: 1px solid $ss_lightGray;
   background: $ss_nearWhite;
@@ -83,4 +100,25 @@ div.template_item_checkboxes:hover{
 
 .template-items-rows li input[type="checkbox"], .template-items-new li input[type="checkbox"]{ 
   margin-top: -4px;
+}
+
+.template-item-row-description tr, .template-item-row-description td{
+	padding:0px;
+	margin:0px;
+}
+
+.template-item-row-description div{
+	font-size: 14px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin:5px;
+	padding:5px;
+	border:1px solid transparent;
+}
+
+.template-item-row-description div.no_description{
+	font-size: 14px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin:0px;
+	padding:0px;
+	border:1px solid transparent;
 }

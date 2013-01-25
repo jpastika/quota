@@ -8,12 +8,10 @@
 	<i class="icon-sort-up" style="display:none" />
 </td>
 <td width="28%">
-	<div class="template_item_name_holder">{{template_item.name}}</div>
-	<input type="text" name="template_item[name]" value="" class="template_item_name" style="display:none">
+	<input type="text" name="template_item[name]" value="" class="template_item_name">
 </td>
 <td width="12%">
-	<div class="template_item_part_number_holder">{{template_item.part_number}}</div>
-	<input type="text" name="template_item[part_number]" value="" class="template_item_part_number" style="display:none">
+	<input type="text" name="template_item[part_number]" value="" class="template_item_part_number">
 </td>
 <td width="5%">
 	<input type="text" name="template_item[quantity]" value="1" class="template_item_quantity">
@@ -33,8 +31,7 @@
 <tr class="template-item-row-details" style="display:none">
 	<td colspan="2"></td>
 	<td colspan="4" valign="top">
-		<div class="template_item_description_holder">{{template_item.description}}</div>
-		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" style="display:none"></textarea>
+		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value=""></textarea>
 	</td>
 	<td colspan="2" valign="top">
 		<div class="template_item_checkboxes">
@@ -45,13 +42,16 @@
 			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total">
 			&nbsp;do not include in total
 		</div>
+		<div class="template_item_checkboxes template_item_hide_package_contents_container" style="display:none">
+			<input type="checkbox" value="true" name="template_item[hide_package_contents]" class="template_item_hide_package_contents">
+			&nbsp;hide package contents
+		</div>
 	</td>
 </tr>
 <tr class="template-item-row-package-contents" style="display:none">
-	<td colspan="2">
-	</td>
-	<td colspan="6">
-		This is all the stuff in this package
+	<td colspan="8">
+		<ul>
+		</ul>
 	</td>
 </tr>
 </table>

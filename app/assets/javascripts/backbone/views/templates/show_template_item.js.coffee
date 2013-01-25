@@ -22,6 +22,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		"focus .template_item_part_number_shim": "handlePartNumberHolderClick"
 		"focus .template_item_description_shim": "handleDescriptionHolderClick"
 		"click .template_item_is_group_heading": "handleGroupHeadingClick"
+		"click .template_item_hide_package_contents": "handleHidePackageContentsClick"
 		
 	initialize: (options)->
 		self = @
@@ -51,6 +52,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@input_template_item_total = @$('.template_item_total')
 		@input_template_item_description = @$('.template_item_description')
 		@input_template_item_is_group_heading = @$('.template_item_is_group_heading')
+		@input_template_item_hide_package_contents = @$('.template_item_hide_package_contents')
 		@input_template_item_not_in_total = @$('.template_item_not_in_total')
 		@input_template_item_catalog_item_key = @$('.template_item_catalog_item_key')
 		
@@ -66,7 +68,9 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@package_toggle_down = @$('.icon-sort-down')
 		@package_toggle_up = @$('.icon-sort-up')
 		@package_contents = @$('.template-item-row-package-contents')
+		@package_contents_list = @$('.template-item-row-package-contents td ul')
 		@spinner = @$('.icon-spinner')
+		@hide_package_contents_container = @$('.template_item_hide_package_contents_container')
 		
 		
 		@_catalogItemComboView.el = @input_template_item_name
@@ -214,7 +218,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 
 	showDescriptionInput: ->
 		@input_template_item_description.show()
-
+		
 	handleNameInputKeyDown: (e)->
 		if !e.shiftKey
 			switch e.keyCode
@@ -226,12 +230,29 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 					true
 		else
 			true
-			
+
+	showHidePackageContents: ->
+		@input_template_item_hide_package_contents.attr('checked', false)
+		@package_contents.removeClass('hide_package_contents')
+		@hide_package_contents_container.show()
+
+	hideHidePackageContents: ->
+		@input_template_item_hide_package_contents.attr('checked', false)
+		@package_contents.removeClass('hide_package_contents')
+		@hide_package_contents_container.hide()
+
 	handleGroupHeadingClick: ->
 		if @input_template_item_is_group_heading.is(':checked')
 			$(@el).addClass('template_item_group_heading')
 		else
 			$(@el).removeClass('template_item_group_heading')
+			
+	handleHidePackageContentsClick: ->
+		if @input_template_item_hide_package_contents.is(':checked')
+			@package_contents.addClass('hide_package_contents')
+			@hidePackageContents()
+		else
+			@package_contents.removeClass('hide_package_contents')
 		
 	dropped: (event, index) ->
 		$(@el).trigger('update-sort', [this.model, index])
@@ -282,8 +303,9 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 				unit_price: @input_template_item_unit_price.val()
 				quantity: @input_template_item_quantity.val()
 				# unit_price_unit: @input_template_item_unit_price_unit.html()
-				# is_group_heading: @input_template_item_is_group_heading.is(':checked')
-				# not_in_total: @input_template_item_not_in_total.is(':checked')
+				is_group_heading: @input_template_item_is_group_heading.is(':checked')
+				not_in_total: @input_template_item_not_in_total.is(':checked')
+				hide_package_contents: @input_template_item_hide_package_contents.is(':checked')
 				total: @input_template_item_total.val()
 				description: @input_template_item_description.val()
 				catalog_item_key: @input_template_item_catalog_item_key.val()
@@ -304,15 +326,43 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@catalog_item = catalog_item
 		
 	loadPackageContents: ->
-		console.log "load contents"
+		self = @
+		@showSpinner()
+		catalog_item = new Quota.Models.CatalogItem({pub_key: @catalog_item.get("pub_key")})
+		catalog_item.fetch(
+			{
+				error: ->
+					self.hideSpinner()
+					console.log "unable to retrieve package contents"
+				success: (model, response, options) -> 
+					self.setPackageContents(model)
+					self.hideSpinner()
+			}
+		)
+	
+	setPackageContents: (model)->
+		@package_items = new Quota.Collections.CatalogItems(model.get("child_items"))
+		@renderPackageContents()
+	
+	renderPackageContents: ->
+		frag = document.createDocumentFragment()
+		frag.appendChild(@addOnePackageItem(item).render().el) for item in @package_items.models
+		@package_contents_list.append(frag)
+
+	addOnePackageItem: (item)->
+		view = new Quota.Views.ShowTemplateItemPackageItem({model: item, tagName:'li', vent: @vent})
+		# @_itemViews.push(view)
+		view
 		
 	clearPackageContents: ->
-		console.log "clear contents"
+		@package_contents_list.empty()
 
 	handleItemType: ->
 		if @catalog_item && @catalog_item.get("is_package") == true
 			@showPackageToggle()
+			@showHidePackageContents()
 			@loadPackageContents()
 		else
 			@hidePackageToggle()
+			@hideHidePackageContents()
 			@clearPackageContents()
