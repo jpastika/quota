@@ -201,14 +201,14 @@ class Quota.Views.ShowTemplateFormAddItem extends Backbone.View
 	
 	handleGroupHeadingClick: ->
 		if @input_template_item_is_group_heading.is(':checked')
-			$(@el).addClass('template_item_group_heading')
+			@$('li').addClass('template_item_group_heading')
 		else
-			$(@el).removeClass('template_item_group_heading')
+			@$('li').removeClass('template_item_group_heading')
 			
 	handleHidePackageContentsClick: ->
 		if @input_template_item_hide_package_contents.is(':checked')
 			@package_contents.addClass('hide_package_contents')
-			@hidePackageContents()
+			# @hidePackageContents()
 		else
 			@package_contents.removeClass('hide_package_contents')
 	
@@ -276,7 +276,7 @@ class Quota.Views.ShowTemplateFormAddItem extends Backbone.View
 					self.vent.trigger('template_items:save_new_template_item_successful', {model: model})
 					self.model = new Quota.Models.TemplateItem() 
 					self.render()
-					self.handleNameHolderClick()
+					# self.handleNameHolderClick()
 					self.vent.trigger('new_templat_item_form:set_sort_order');
 			}
 		)

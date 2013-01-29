@@ -1,5 +1,5 @@
 class TemplateItem < ActiveRecord::Base
-  attr_accessible :buyout, :catalog_item_key, :day_rate, :description, :discount, :document_item_type_key, :is_disabled, :is_discountable, :is_hidden, :is_taxable, :month_rate, :name, :notes, :parent_item_key, :part_number, :pub_key, :quantity, :sort_order, :template_key, :term_length, :term_unit, :total, :unit_price, :unit_price_unit, :week_rate, :year_rate, :is_group_heading, :not_in_total
+  attr_accessible :buyout, :catalog_item_key, :day_rate, :description, :discount, :document_item_type_key, :is_disabled, :is_discountable, :is_hidden, :is_taxable, :month_rate, :name, :notes, :parent_item_key, :part_number, :pub_key, :quantity, :sort_order, :template_key, :term_length, :term_unit, :total, :unit_price, :unit_price_unit, :week_rate, :year_rate, :is_group_heading, :not_in_total, :hide_package_contents
   
   # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :template, :primary_key => "pub_key", :foreign_key => "template_key"

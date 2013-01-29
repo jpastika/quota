@@ -17,9 +17,11 @@ class Quota.Views.ShowTemplateItems extends Backbone.View
 		# @manufacturers = options.manufacturers
 		@parent_child_key = options.parent_child_key
 		
-		@_addItemView = new Quota.Views.ShowTemplateFormAddItem({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addItemView = new Quota.Views.ShowTemplateFormAddItem({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @template_model.get("pub_key"), vent: @vent, parent_collection: @collection, tagName:'li'})
 		
 		@_templateItemsListView = new Quota.Views.ShowTemplateItemsList({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		
+		@_totalsView = new Quota.Views.ShowTemplateItemsTotals({model: new Quota.Models.TemplateItem(), parent_model:@template_model, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
 		@newTemplateItemForm_SetSortOrder()
 		

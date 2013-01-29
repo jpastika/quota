@@ -2,11 +2,54 @@
 @import "variables";
 @import "mixins";
 
+.icon-button{
+	color: $ss_mediumGray;
+	cursor: pointer;
+}
+
+.icon-button:hover{
+	color: $ss_darkGray;
+}
+
+.icon-sort-up{
+	position: relative;
+	top: 3px;
+}
+
+.icon-sort-down{
+	position: relative;
+	top: -2px;
+}
+
+
+.template-items-rows .template_item_unit_price{
+  width:70px;
+}
+
+.template-items-rows .template_item_unit_price_unit{
+  width:100px;
+  -webkit-appearance:none;
+  margin:0;
+  line-height: 16px;
+  height:33px;
+  font-size:12px;
+}
+
+.template_item_drag_highlight{
+	background: $ss_lightGray;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset;
+	color: $ss_darkGray;
+	margin-bottom: 0px;
+	position: relative;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	min-height:40px;
+}
+
 .template-items-heading .table{
 	margin-bottom:0px;
 }
 
-.template-items-rows input[type="text"], .template-items-rows textarea{
+.template-items-rows input[type="text"], .template-items-rows textarea, .template-items-rows select{
   border: 1px solid transparent;
   margin-bottom: 0px;
   @include no-inner-shadow();
@@ -45,7 +88,7 @@ li.template_item_group_heading tr:hover{
   background:#fff;
 }
 
-.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows div:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
+.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows select:hover, .template-items-rows div:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
   border: 1px solid $ss_lightGray;
 }
 
@@ -86,11 +129,11 @@ div.template_item_checkboxes:hover{
 	border-bottom:0px solid $ss_nearWhite;
 	font-size: 14px;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	color: $ss_mediumGray;
+	color: $ss_darkGray;
 }
 
-.hide_package_contents{
-	visibility:collapse;
+.hide_package_contents li td{
+	color: $ss_nearWhite;
 }
 
 .template-items-new {

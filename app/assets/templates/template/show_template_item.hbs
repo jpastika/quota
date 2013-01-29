@@ -1,11 +1,11 @@
 <table class="" width="100%" cellpadding="5px">
 <tr>
 	<td width="3%">
-		<i class="icon-sort" />
+		<i class="icon-button icon-sort" />
 	</td>
 	<td width="3%">
-		<i class="icon-sort-down" style="display:none" />
-		<i class="icon-sort-up" style="display:none" />
+		<i class="icon-button icon-sort-down" style="display:none" />
+		<i class="icon-button icon-sort-up" style="display:none" />
 	</td>
 	<td width="28%">
 		<div class="template_item_name_holder">{{template_item.name}}</div>
@@ -22,14 +22,22 @@
 	</td>
 	<td width="20%">
 		<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price">
+		<select name="template_item[unit_price_unit]" label="false" id="template_item_unit_price_unit" class="template_item_unit_price_unit">
+		<option value=""></option>
+		<option data-key="recurring_unit" value="per hour">per hour</option>
+		<option data-key="recurring_unit" value="per day">per day</option>
+		<option data-key="recurring_unit" value="per week">per week</option>
+		<option data-key="recurring_unit" value="per month">per month</option>
+		<option data-key="recurring_unit" value="per quarter">per quarter</option>
+		<option data-key="recurring_unit" value="per year">per year</option></select>
 	</td>
 	<td width="20%">
 		<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total">
 	</td>
 	<td width="8%">
-		<i class="icon-cog"></i>
-	 	<i class="icon-remove"></i>
-		<i class="icon-spinner" style="display:none"></i>
+		<i class="icon-button icon-cog"></i>
+	 	<i class="icon-button icon-remove"></i>
+		<i class="icon-button icon-spinner" style="display:none"></i>
 	</td>
 </tr>
 <tr class="template-item-row-details" style="display:none">

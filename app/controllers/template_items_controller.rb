@@ -12,9 +12,14 @@ class TemplateItemsController < ApplicationController
           params[:template_item][:is_group_heading] = false
         end
 
-        # handle is_package checkbox
+        # handle not_in_total checkbox
         if params[:template_item][:not_in_total] != "true" && params[:template_item][:not_in_total] != true
           params[:template_item][:not_in_total] = false
+        end
+
+        # handle hide_package_contents checkbox
+        if params[:template_item][:hide_package_contents] != "true" && params[:template_item][:hide_package_contents] != true
+          params[:template_item][:hide_package_contents] = false
         end
 
         @template_item = TemplateItem.create(params[:template_item])
@@ -46,9 +51,14 @@ class TemplateItemsController < ApplicationController
           params[:template_item][:is_group_heading] = false
         end
 
-        # handle is_package checkbox
+        # handle not_in_total checkbox
         if params[:template_item][:not_in_total] != "true" && params[:template_item][:not_in_total] != true
           params[:template_item][:not_in_total] = false
+        end
+
+        # handle hide_package_contents checkbox
+        if params[:template_item][:hide_package_contents] != "true" && params[:template_item][:hide_package_contents] != true
+          params[:template_item][:hide_package_contents] = false
         end
 
         if @template_item.update_attributes(params[:template_item])
@@ -61,17 +71,23 @@ class TemplateItemsController < ApplicationController
       
       format.json {
         if @template_item
-          if params[:is_group_heading] != "true"
+          if params[:is_group_heading] != "true" && params[:is_group_heading] != true
             params[:is_group_heading] = false
           end
 
-          # handle is_package checkbox
-          if params[:not_in_total] != "true"
+          # handle not_in_total checkbox
+          if params[:not_in_total] != "true" && params[:not_in_total] != true
             params[:not_in_total] = false
+          end
+          
+          # handle hide_package_contents checkbox
+          if params[:hide_package_contents] != "true" && params[:hide_package_contents] != true
+            params[:hide_package_contents] = false
           end
           
           @template_item.is_group_heading = params[:is_group_heading]
           @template_item.not_in_total = params[:not_in_total]
+          @template_item.hide_package_contents = params[:hide_package_contents]
           @template_item.name = params[:name]
           @template_item.part_number = params[:part_number]
           @template_item.unit_price = params[:unit_price]

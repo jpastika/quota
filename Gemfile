@@ -20,6 +20,9 @@ gem 'timeliness'
 group :development do
   gem 'pry'
   gem 'sextant'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
   # gem 'rack-mini-profiler'
 end
 

@@ -78,6 +78,9 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		
 		if @hideRemove
 			@$('.template_item_remove').css('visibility', 'hidden')
+			
+		if @model.get("is_group_heading")
+			$(@el).addClass('template_item_group_heading')
 		
 		@handleItemType()
 		@
@@ -232,12 +235,12 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			true
 
 	showHidePackageContents: ->
-		@input_template_item_hide_package_contents.attr('checked', false)
+		# @input_template_item_hide_package_contents.attr('checked', false)
 		@package_contents.removeClass('hide_package_contents')
 		@hide_package_contents_container.show()
 
 	hideHidePackageContents: ->
-		@input_template_item_hide_package_contents.attr('checked', false)
+		# @input_template_item_hide_package_contents.attr('checked', false)
 		@package_contents.removeClass('hide_package_contents')
 		@hide_package_contents_container.hide()
 
@@ -246,13 +249,15 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			$(@el).addClass('template_item_group_heading')
 		else
 			$(@el).removeClass('template_item_group_heading')
+		@saveModel()
 			
 	handleHidePackageContentsClick: ->
 		if @input_template_item_hide_package_contents.is(':checked')
 			@package_contents.addClass('hide_package_contents')
-			@hidePackageContents()
+			# @hidePackageContents()
 		else
 			@package_contents.removeClass('hide_package_contents')
+		@saveModel()
 		
 	dropped: (event, index) ->
 		$(@el).trigger('update-sort', [this.model, index])

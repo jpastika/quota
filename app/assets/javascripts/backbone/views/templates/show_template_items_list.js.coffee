@@ -35,10 +35,11 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 	makeSortable: ->
 		@$el.sortable({
 			axis: "y"
-			, items: "li"
+			, items: "> li"
 			, handle: ".icon-sort"
 			, stop: @sortStop
-			, placeholder: "ui-state-highlight"
+			, placeholder: "template_item_drag_highlight"
+			, opacity: 0.75
 		})
 
 	collectionReset: ->
