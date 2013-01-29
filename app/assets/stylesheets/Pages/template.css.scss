@@ -21,9 +21,28 @@
 	top: -2px;
 }
 
+.template_item_holder{
+  border: 1px solid transparent;
+  margin-bottom: 0px;
+  padding: 4px 5px 4px 6px;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 
-.template-items-rows .template_item_unit_price{
+.template_item_description_holder:empty{
+  padding: 0;
+  border: none;
+}
+
+
+.template-items-rows .template_item_unit_price_holder, .template-items-rows .template_item_unit_price{
   width:70px;
+  display:inline-block;
+}
+
+.template_item_unit_price_unit_holder{
+  width:100px;
+  display:inline-block;
 }
 
 .template-items-rows .template_item_unit_price_unit{
@@ -64,22 +83,13 @@ li.template_item_group_heading tr:hover{
 	background: $ss_lightGray;
 }
 
-.template_item_name_holder, .template_item_part_number_holder, .template_item_description_holder{
-  border: 1px solid transparent;
-  margin-bottom: 0px;
-  padding: 4px 5px 4px 6px;
-  font-size: 14px;
-  min-height:20px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
 .template-items-new input[type="text"], .template-items-new textarea{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   @include no-inner-shadow();
 }
 
-.template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder, .template-items-new .template_item_description_holder{
+.template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   padding: 4px 5px 4px 6px;
@@ -88,7 +98,7 @@ li.template_item_group_heading tr:hover{
   background:#fff;
 }
 
-.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows select:hover, .template-items-rows div:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
+.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows select:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
   border: 1px solid $ss_lightGray;
 }
 
@@ -148,20 +158,4 @@ div.template_item_checkboxes:hover{
 .template-item-row-description tr, .template-item-row-description td{
 	padding:0px;
 	margin:0px;
-}
-
-.template-item-row-description div{
-	font-size: 14px;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	margin:5px;
-	padding:5px;
-	border:1px solid transparent;
-}
-
-.template-item-row-description div.no_description{
-	font-size: 14px;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	margin:0px;
-	padding:0px;
-	border:1px solid transparent;
 }
