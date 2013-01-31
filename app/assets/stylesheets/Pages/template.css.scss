@@ -21,12 +21,44 @@
 	top: -2px;
 }
 
+#items_container td{
+	@include box_sizing;
+	padding:3px 3px 0px 0px;
+}
+
+#items_container th{
+	@include box_sizing;
+	padding:0px 8px 5px 8px;
+}
+
+th.align-right, td.align-right, input[type="text"].align-right{
+  text-align: right;
+}
+
 .template_item_holder{
+  @include box_sizing;
   border: 1px solid transparent;
-  margin-bottom: 0px;
-  padding: 4px 5px 4px 6px;
-  font-size: 14px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+}
+
+input[type="text"].template_item_shim, .template-items-rows input[type="text"].template_item_shim{
+  background: none repeat scroll 0 0 #fff;
+  border: medium none;
+  height: 1px;
+  width: 1px;
+  left: -9999px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+}
+
+input[type="text"].template_item_shim:hover, .template-items-rows input[type="text"].template_item_shim:hover{
+  border: none;
 }
 
 .template_item_description_holder:empty{
@@ -34,25 +66,6 @@
   border: none;
 }
 
-
-.template-items-rows .template_item_unit_price_holder, .template-items-rows .template_item_unit_price{
-  width:70px;
-  display:inline-block;
-}
-
-.template_item_unit_price_unit_holder{
-  width:100px;
-  display:inline-block;
-}
-
-.template-items-rows .template_item_unit_price_unit{
-  width:100px;
-  -webkit-appearance:none;
-  margin:0;
-  line-height: 16px;
-  height:33px;
-  font-size:12px;
-}
 
 .template_item_drag_highlight{
 	background: $ss_lightGray;
@@ -69,10 +82,15 @@
 }
 
 .template-items-rows input[type="text"], .template-items-rows textarea, .template-items-rows select{
-  border: 1px solid transparent;
+  border: 1px solid $ss_nearWhite;
   margin-bottom: 0px;
   @include no-inner-shadow();
+  @include box_sizing;
   background:none;
+}
+
+.template-items-rows textarea, .template-items-new textarea{
+  margin-bottom:3px;
 }
 
 li.template_item_group_heading tr:hover{
@@ -83,10 +101,11 @@ li.template_item_group_heading tr:hover{
 	background: $ss_lightGray;
 }
 
-.template-items-new input[type="text"], .template-items-new textarea{
+.template-items-new input[type="text"], .template-items-new textarea, .template-items-new select{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   @include no-inner-shadow();
+  @include box_sizing;
 }
 
 .template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder{
@@ -129,6 +148,10 @@ div.template_item_checkboxes:hover{
 
 .template-items-rows li, .template-items-new li { 
   border-bottom:1px solid $ss_nearWhite;
+}
+
+.template-items-new li { 
+  padding-bottom: 4px;
 }
 
 .template-item-row-package-contents{

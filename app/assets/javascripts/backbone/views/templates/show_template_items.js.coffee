@@ -45,7 +45,7 @@ class Quota.Views.ShowTemplateItems extends Backbone.View
 		@_templateItemsListView.addNewTemplateItem_Success(obj.model)
 		
 	saveTemplateItem_Success: (obj)->
-		console.log "saved"
+		# console.log "saved"
 		
 	addItemClicked: ->
 		@vent.trigger('add_item:clicked')

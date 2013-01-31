@@ -18,6 +18,8 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		@collection.on('destroy:success', @removeSuccess, @)
 		@template_model = options.parent_model
 		
+		@vent.on('template_items:set_focus', @setTemplateItemFocus, @)
+		
 	render: ->
 		# $(@el).html(@template({}))
 		frag = document.createDocumentFragment()
@@ -41,6 +43,11 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 			, placeholder: "template_item_drag_highlight"
 			, opacity: 0.75
 		})
+
+	setTemplateItemFocus: (obj) ->
+		for view in @_itemViews 
+			do (view) ->
+				if obj.view isnt view then view.doShowMode()
 
 	collectionReset: ->
 		@render()

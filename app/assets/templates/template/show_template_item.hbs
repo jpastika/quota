@@ -1,4 +1,4 @@
-<table class="" width="100%" cellspacing="5px">
+<table class="" width="100%" cellspacing="0" cellpadding="0">
 <tr class="template-item-row-show">
 	<td width="3%">
 		<i class="icon-button icon-sort" />
@@ -7,9 +7,9 @@
 		<i class="icon-button icon-sort-down" style="display:none" />
 		<i class="icon-button icon-sort-up" style="display:none" />
 	</td>
-	<td width="28%">
+	<td width="29%">
 		<div class="template_item_name_holder template_item_holder">{{template_item.name}}</div>
-		<input type="text" class="template_item_name_shim" style="height:0; width:0; padding:0; margin:0; float:left; border:none;">
+		<input type="text" class="template_item_name_shim template_item_shim">
 	</td>
 	<td width="12%">
 		<div class="template_item_part_number_holder template_item_holder">{{template_item.part_number}}</div>
@@ -17,12 +17,17 @@
 	<td width="5%">
 		<div class="template_item_quantity_holder template_item_holder">{{template_item.quantity}}</div>
 	</td>
-	<td width="20%">
+	<td width="12%" class="align-right">
 		<div class="template_item_unit_price_holder template_item_holder">{{template_item.unit_price}}</div>
+	</td>
+	<td width="8%">
 		<div class="template_item_unit_price_unit_holder template_item_holder">{{template_item.unit_price_unit}}</div>
 	</td>
-	<td width="20%">
+	<td width="12%" class="align-right">
 		<div class="template_item_total_holder template_item_holder">{{template_item.total}}</div>
+	</td>
+	<td width="8%">
+		<div class="template_item_total_unit_holder template_item_holder">{{template_item.total_unit}}</div>
 	</td>
 	<td width="8%">
 		<i class="icon-button icon-cog"></i>
@@ -32,10 +37,11 @@
 </tr>
 <tr class="template-item-row-show-details">
 	<td colspan="2"></td>
-	<td colspan="4" valign="top">
+	<td colspan="2" valign="top">
 		<div class="template_item_description_holder template_item_holder">{{template_item.description}}</div>
 	</td>
-	<td colspan="2" valign="top">
+	<td colspan="6" valign="top">
+		<input type="text" class="template_item_description_shim template_item_shim">
 	</td>
 </tr>
 <tr class="template-item-row-edit" style="display:none">
@@ -46,28 +52,34 @@
 		<i class="icon-button icon-sort-down" style="display:none" />
 		<i class="icon-button icon-sort-up" style="display:none" />
 	</td>
-	<td width="28%">
-		<input type="text" name="template_item[name]" value="{{template_item.name}}" class="template_item_name" style="display:none">
+	<td width="29%">
+		<input type="text" name="template_item[name]" value="{{template_item.name}}" class="template_item_name">
 	</td>
 	<td width="12%">
-		<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" class="template_item_part_number" style="display:none">
+		<input type="text" name="template_item[part_number]" value="{{template_item.part_number}}" class="template_item_part_number">
 	</td>
 	<td width="5%">
 		<input type="text" name="template_item[quantity]" value="{{template_item.quantity}}" class="template_item_quantity">
 	</td>
-	<td width="20%">
-		<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price">
-		<select name="template_item[unit_price_unit]" label="false" id="template_item_unit_price_unit" class="template_item_unit_price_unit">
-		<option value=""></option>
-		<option data-key="recurring_unit" value="per hour">per hour</option>
-		<option data-key="recurring_unit" value="per day">per day</option>
-		<option data-key="recurring_unit" value="per week">per week</option>
-		<option data-key="recurring_unit" value="per month">per month</option>
-		<option data-key="recurring_unit" value="per quarter">per quarter</option>
-		<option data-key="recurring_unit" value="per year">per year</option></select>
+	<td width="12%" class="align-right">
+		<input type="text" name="template_item[unit_price]" value="{{template_item.unit_price}}" class="template_item_unit_price align-right">
 	</td>
-	<td width="20%">
-		<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total">
+	<td width="8%">
+		<select name="template_item[unit_price_unit]" label="false" class="template_item_unit_price_unit">
+			<option value="" {{#equal template_item.unit_price_unit ""}}selected{{/equal}}></option>
+			<option value="per hour" {{#equal template_item.unit_price_unit "per hour"}}selected{{/equal}}>per hour</option>
+			<option value="per day" {{#equal template_item.unit_price_unit "per day"}}selected{{/equal}}>per day</option>
+			<option value="per week" {{#equal template_item.unit_price_unit "per week"}}selected{{/equal}}>per week</option>
+			<option value="per month" {{#equal template_item.unit_price_unit "per month"}}selected{{/equal}}>per month</option>
+			<option value="per quarter" {{#equal template_item.unit_price_unit "per quarter"}}selected{{/equal}}>per quarter</option>
+			<option value="per year" {{#equal template_item.unit_price_unit "per year"}}selected{{/equal}}>per year</option>
+		</select>
+	</td>
+	<td width="12%" class="align-right">
+		<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total align-right">
+	</td>
+	<td width="8%">
+		<div class="template_item_total_unit_holder template_item_holder">{{template_item.total_unit}}</div>
 	</td>
 	<td width="8%">
 		<i class="icon-button icon-cog"></i>
@@ -77,10 +89,11 @@
 </tr>
 <tr class="template-item-row-edit-details" style="display:none">
 	<td colspan="2"></td>
-	<td colspan="4" valign="top">
-		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" style="display:none">{{template_item.description}}</textarea>
-	</td>
 	<td colspan="2" valign="top">
+		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="">{{template_item.description}}</textarea>
+	</td>
+	<td></td>
+	<td colspan="5" valign="top">
 		<div class="template_item_checkboxes">
 			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading" {{#if template_item.is_group_heading}}checked{{/if}}>
 			&nbsp;display as group heading
@@ -96,7 +109,7 @@
 	</td>
 </tr>
 <tr class="template-item-row-package-contents" style="display:none">
-	<td colspan="8">
+	<td colspan="10">
 		<ul>
 		</ul>
 	</td>

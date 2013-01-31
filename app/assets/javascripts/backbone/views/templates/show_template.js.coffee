@@ -1,6 +1,11 @@
 class Quota.Views.ShowTemplate extends Quota.Views.PageBodyBlock
 
 	# template: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# 
+	el: 'body'
+	
+	events:
+		"focus .template_items_shim" : "handleTemplateItemsShimFocus"
 	
 	initialize: (options)->
 		self = @
@@ -24,4 +29,7 @@ class Quota.Views.ShowTemplate extends Quota.Views.PageBodyBlock
 		
 	addNewItem_Success: (obj) ->
 		self = @
+		
+	handleTemplateItemsShimFocus: ->
+		@vent.trigger('template_items:set_focus', {view: null})
 		
