@@ -47,9 +47,95 @@ class TemplatesController < ApplicationController
   end
   
   
-  def destroy
+  def new
+    @template = Template.new
+    
+    gon.template = @template
+  end
+  
+  def create
+    respond_to do |format|
+      format.html {
+       @template = Template.create(params[:template])
+        if @template.save
+          flash[:success] = "Temnplate has been created"
+          redirect_to template_path(@template.pub_key)
+        else
+          gon.template = @template
+          render 'new'
+        end
+      }
+      format.json {
+        @template = Template.create(params[:template])
+        if @template.save
+          render :json => @template.to_json(:include => [])
+        else
+          render :json => "false"
+        end
+      }
+    end
+  end
+  
+  def edit
     @template = Template.find_by_pub_key(params[:id])
-    @template.destroy
-    redirect_back_or templates_path
+    gon.template = @template
+    
+  end
+  
+  def update
+    @template = Template.find_by_pub_key(params[:id])
+    
+    respond_to do |format|
+      format.html {
+        if @template.update_attributes(params[:template])
+          flash[:success] = "Template updated"
+          redirect_to template_path(@template.pub_key)
+        else
+          render 'edit'
+        end
+      }
+      
+      format.json {
+        if @template
+          @template.name = params[:name]
+          # @template.description = params[:description]
+          #           @template.instructions = params[:instructions]
+          #           
+          @template.total_purchase = params[:total_purchase]
+          @template.total_hourly = params[:total_hourly]
+          @template.total_daily = params[:total_daily]
+          @template.total_weekly = params[:total_weekly]
+          @template.total_monthly = params[:total_monthly]
+          @template.total_quarterly = params[:total_quarterly]
+          @template.total_yearly = params[:total_yearly]
+          
+          if @template.save
+            render :json => @template.to_json(:include => [])
+          else
+            render :json => "false", :status => :unprocessable_entity
+          end
+        else
+          render :json => "false", :status => :unprocessable_entity
+        end
+      }
+    end
+  end
+  
+  def destroy
+    respond_to do |format|
+      format.html {
+        @template = Template.find_by_pub_key(params[:id])
+        @template.destroy
+        redirect_back_or templates_path
+      }
+      format.json {
+        @template = Template.find_by_pub_key(params[:id])   
+        if @template.destroy
+          render :json => @template
+        else
+          render :json => "false"
+        end
+      }
+    end
   end
 end

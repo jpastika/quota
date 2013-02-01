@@ -93,6 +93,7 @@ class TemplateItemsController < ApplicationController
           @template_item.unit_price = params[:unit_price]
           @template_item.unit_price_unit = params[:unit_price_unit]
           @template_item.quantity = params[:quantity]
+          @template_item.total_unit = params[:total_unit]
           @template_item.total = params[:total]
           @template_item.description = params[:description]
           @template_item.catalog_item_key = params[:catalog_item_key]

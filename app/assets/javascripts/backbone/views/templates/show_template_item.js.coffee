@@ -9,15 +9,21 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		"click .icon-cog": "toggleDetails"
 		"change .template_item_quantity": "updateTotal"
 		"change .template_item_unit_price": "updateTotal"
+		"change .template_item_unit_price_unit": "setUnitPriceUnitHolder"
+		"change .template_item_unit_price_unit": "setTotalUnitFromUnitPriceUnit"
+		"change .template_item_total_unit": "setTotalUnitHolder"
 		"drop": "dropped"
 		"blur input" : "saveModel"
+		"blur select" : "saveModel"
 		"focus input" : "handleFocus"
+		"focus select" : "handleFocus"
 		"click .template_item_name_holder": "handleNameHolderClick"
 		"click .template_item_part_number_holder": "handlePartNumberHolderClick"
 		"click .template_item_quantity_holder": "handleQuantityHolderClick"
 		"click .template_item_unit_price_holder": "handleUnitPriceHolderClick"
 		"click .template_item_unit_price_unit_holder": "handleUnitPriceUnitHolderClick"
 		"click .template_item_total_holder": "handleTotalHolderClick"
+		"click .template_item_total_unit_holder": "handleTotalUnitHolderClick"
 		"click .template_item_description_holder": "handleDescriptionHolderClick"
 		"keydown .template_item_hide_package_contents": "handleHidePackageContentsInputKeyDown"
 		# "keydown .template_item_name": "handleNameInputKeyDown"
@@ -55,6 +61,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@input_template_item_unit_price = @$('.template_item_unit_price')
 		@input_template_item_unit_price_unit = @$('.template_item_unit_price_unit')
 		@input_template_item_total = @$('.template_item_total')
+		@input_template_item_total_unit = @$('.template_item_total_unit')
 		@input_template_item_description = @$('.template_item_description')
 		@input_template_item_is_group_heading = @$('.template_item_is_group_heading')
 		@input_template_item_hide_package_contents = @$('.template_item_hide_package_contents')
@@ -152,6 +159,11 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@total_holder.html(@model.get('total'))
 		true
 				
+	setTotalUnitFromUnitPriceUnit: ->
+		@input_template_item_total_unit.val(@input_template_item_unit_price_unit.val())
+		# @total_unit_holder.html(@input_template_item_unit_price_unit.val())
+		true
+	
 	setTotalUnitHolder: ->
 		@total_unit_holder.html(@model.get('total_unit'))
 		true
@@ -160,6 +172,9 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@description_holder.html(@model.get('description'))
 		true
 	
+	setTotalUnit: ->
+		@input_template_item_total_unit.val(@input_template_item_unit_price_unit.val())
+
 	destroy: (evt) ->
 		$(@el).toggle()
 		# @model.trigger('removing', {view: @})
@@ -278,6 +293,11 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@input_template_item_total.focus()
 		true
 
+	handleTotalUnitHolderClick: ->
+		@doEditMode()
+		@input_template_item_total_unit.focus()
+		true
+
 	handleDescriptionHolderClick: ->
 		@doEditMode()
 		@input_template_item_description.focus()
@@ -344,8 +364,11 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			@part_number_holder.html(obj.catalog_item.part_number)
 			@input_template_item_unit_price.val(obj.catalog_item.list_price)
 			@unit_price_holder.html(obj.catalog_item.list_price)
-			# @input_template_item_unit_price_unit.html(obj.catalog_item.recurring_unit)
+			@input_template_item_unit_price_unit.html(obj.catalog_item.recurring_unit)
+			@unit_price_unit_holder.html(obj.catalog_item.recurring_unit)
 			@updateTotal()
+			@input_template_item_total_unit.html(obj.catalog_item.recurring_unit)
+			@total_unit_holder.html(obj.catalog_item.recurring_unit)
 			@input_template_item_description.val(obj.catalog_item.description)
 			@description_holder.html(obj.catalog_item.description)
 			@input_template_item_catalog_item_key.val(obj.catalog_item.pub_key)
@@ -357,8 +380,11 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 			@part_number_holder.html('')
 			@input_template_item_unit_price.val(0)
 			@unit_price_holder.html('')
-			# @input_template_item_unit_price_unit.html('')
+			@input_template_item_unit_price_unit.val('')
+			@unit_price_unit_holder.html('')
 			@updateTotal()
+			@input_template_item_total_unit.val('')
+			@total_unit_holder.html('')
 			@input_template_item_description.val('')
 			@description_holder.html('')
 			@input_template_item_catalog_item_key.val('')
@@ -387,6 +413,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 				not_in_total: @input_template_item_not_in_total.is(':checked')
 				hide_package_contents: @input_template_item_hide_package_contents.is(':checked')
 				total: @input_template_item_total.val()
+				total_unit: @input_template_item_total_unit.val()
 				description: @input_template_item_description.val()
 				catalog_item_key: @input_template_item_catalog_item_key.val()
 				template_key: @parent_model.get("pub_key")

@@ -1,5 +1,5 @@
 class Template < ActiveRecord::Base
-  attr_accessible :is_disabled, :is_document_type_default, :name, :pub_key, :document_type_key, :document_type
+  attr_accessible :is_disabled, :is_document_type_default, :name, :pub_key, :document_type_key, :document_type, :total_purchase, :total_hourly, :total_daily, :total_monthly, :total_quarterly, :total_yearlt, :total_weekly
   
   # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "template_key"

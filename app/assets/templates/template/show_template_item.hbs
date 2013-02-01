@@ -79,7 +79,15 @@
 		<input type="text" name="template_item[total]" value="{{template_item.total}}" class="template_item_total align-right">
 	</td>
 	<td width="8%">
-		<div class="template_item_total_unit_holder template_item_holder">{{template_item.total_unit}}</div>
+		<select name="template_item[total_unit]" label="false" class="template_item_total_unit">
+			<option value="" {{#equal template_item.total_unit ""}}selected{{/equal}}></option>
+			<option value="per hour" {{#equal template_item.total_unit "per hour"}}selected{{/equal}}>per hour</option>
+			<option value="per day" {{#equal template_item.total_unit "per day"}}selected{{/equal}}>per day</option>
+			<option value="per week" {{#equal template_item.total_unit "per week"}}selected{{/equal}}>per week</option>
+			<option value="per month" {{#equal template_item.total_unit "per month"}}selected{{/equal}}>per month</option>
+			<option value="per quarter" {{#equal template_item.total_unit "per quarter"}}selected{{/equal}}>per quarter</option>
+			<option value="per year" {{#equal template_item.total_unit "per year"}}selected{{/equal}}>per year</option>
+		</select>
 	</td>
 	<td width="8%">
 		<i class="icon-button icon-cog"></i>
