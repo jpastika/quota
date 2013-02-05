@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201171821) do
+ActiveRecord::Schema.define(:version => 20130205143551) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -473,6 +473,7 @@ ActiveRecord::Schema.define(:version => 20130201171821) do
     t.float    "total_monthly",            :default => 0.0
     t.float    "total_quarterly",          :default => 0.0
     t.float    "total_yearly",             :default => 0.0
+    t.text     "description"
   end
 
   add_index "templates", ["account_key"], :name => "index_templates_on_account_key"

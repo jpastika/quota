@@ -1,5 +1,5 @@
 class Template < ActiveRecord::Base
-  attr_accessible :is_disabled, :is_document_type_default, :name, :pub_key, :document_type_key, :document_type, :total_purchase, :total_hourly, :total_daily, :total_monthly, :total_quarterly, :total_yearlt, :total_weekly
+  attr_accessible :is_disabled, :is_document_type_default, :name, :pub_key, :document_type_key, :document_type, :total_purchase, :total_hourly, :total_daily, :total_monthly, :total_quarterly, :total_yearlt, :total_weekly, :description
   
   # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :template_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "template_key"
@@ -13,6 +13,16 @@ class Template < ActiveRecord::Base
   
   default_scope { where(account_key: Account.current_account_key) }
   
+  
+  def self.find_by_name_or_item(flt)
+    t = self.arel_table
+    
+    self.where(t[:name].matches("%#{flt}%")) + self.with_item_by_name_or_part_number(flt)
+  end
+  
+  def self.with_item_by_name_or_part_number(value)
+    self.where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name LIKE ? OR  part_number LIKE ?)",'%'+value+'%',value+'%')
+  end
   
   private
     def generate_token(column)

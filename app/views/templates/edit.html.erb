@@ -1,0 +1,60 @@
+<% provide(:title, "Edit Template") %>
+<% @nav_caret = "templates" %>
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			
+		</div>
+		<div id="sidebar_app_fields_container"class="">
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="return-nav pull-left">
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to template"), template_path(@template.pub_key) %>
+			</div>
+			<div class="page-title">
+				<span class="label label-info">Editing</span> <%= @template.name %>
+			</div>
+		</div>
+		<div class="parent-page">
+			<div class="">
+				<%= simple_form_for(@template, :url => template_path(@template.pub_key)) do |f| %>
+					<div class="row-fluid">
+						<% if f.error_notification %>
+						    <div class="alert alert-error fade in">
+						      <a class="close" data-dismiss="alert" href="#">&times;</a>
+						      <%= f.error_notification %>
+						    </div>
+						<% end %>
+					</div>
+					<div id="catalog_item">
+						<%= render 'fields', f: f %>
+					</div>
+					<div class="actions-bar">
+						<button type="submit" class="btn btn-primary">
+						  <i class="icon-save"></i>&nbsp;&nbsp;Save Changes to Template Details
+						</button>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+	$(function(){
+		
+		// $('#catalog_item').html(view_catalog_item.render().el);
+	});	
+	
+	$.fn.placeholder();
+</script>

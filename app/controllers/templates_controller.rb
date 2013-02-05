@@ -98,6 +98,7 @@ class TemplatesController < ApplicationController
       format.json {
         if @template
           @template.name = params[:name]
+          @template.description = params[:description]
           # @template.description = params[:description]
           #           @template.instructions = params[:instructions]
           #           
