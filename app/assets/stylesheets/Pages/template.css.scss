@@ -94,11 +94,28 @@ input[type="text"].template_item_shim:hover, .template-items-rows input[type="te
 }
 
 li.template_item_group_heading tr:hover{
-  background:$ss_lightGray;
+  background:$ss_darkGray;
 }
 
 .template_item_group_heading{
-	background: $ss_lightGray;
+	background: $ss_darkGray;
+	color: $ss_nearWhite;
+}
+
+.template_item_group_heading .template-item-row-package-contents{
+	color: $ss_nearWhite;
+}
+
+.template-items-new .template_item_group_heading .template-item-row-package-contents li, .template-items-rows .template_item_group_heading .template-item-row-package-contents li{
+	color: $ss_nearWhite;
+}
+
+.template-items-new .template-item-row-package-contents{
+	margin-top: 3px;
+}
+
+.template-items-rows .template_item_group_heading input[type="text"], .template-items-rows .template_item_group_heading textarea, .template-items-rows .template_item_group_heading select{
+	color: $ss_nearWhite;
 }
 
 .template-items-new input[type="text"], .template-items-new textarea, .template-items-new select{
@@ -106,6 +123,12 @@ li.template_item_group_heading tr:hover{
   margin-bottom: 0px;
   @include no-inner-shadow();
   @include box_sizing;
+}
+
+
+.template-items-new .template_item_group_heading input[type="text"], .template-items-new .template_item_group_heading textarea, .template-items-new .template_item_group_heading select{
+  	background: $ss_darkGray;
+    color: $ss_nearWhite;
 }
 
 .template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder{

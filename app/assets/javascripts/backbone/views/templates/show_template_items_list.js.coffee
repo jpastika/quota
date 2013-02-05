@@ -105,7 +105,7 @@ class Quota.Views.ShowTemplateItemsList extends Backbone.View
 		frag = document.createDocumentFragment()
 		frag.appendChild(self.addOne(model).render().el)
 		self.$el.append(frag)
-		
+		self.vent.trigger('template_items:set_totals')
 
 	handleError: (attribute, message) ->
 		# console.log message

@@ -7,11 +7,12 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		"click .icon-sort-up": "hidePackageContents"
 		"click .icon-remove": "destroy"
 		"click .icon-cog": "toggleDetails"
-		"change .template_item_quantity": "updateTotal"
-		"change .template_item_unit_price": "updateTotal"
+		# "change .template_item_quantity": "updateTotal"
+		# 		"change .template_item_unit_price": "updateTotal"
 		"change .template_item_unit_price_unit": "setUnitPriceUnitHolder"
 		"change .template_item_unit_price_unit": "setTotalUnitFromUnitPriceUnit"
 		"change .template_item_total_unit": "setTotalUnitHolder"
+		"change .template_item_total_unit": "setTotalUnitFromTotalUnit"
 		"drop": "dropped"
 		"blur input" : "saveModel"
 		"blur select" : "saveModel"
@@ -30,6 +31,7 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		"focus .template_item_name_shim": "handleNameHolderClick"
 		# 	"focus .template_item_part_number_shim": "handlePartNumberHolderClick"
 		"focus .template_item_description_shim": "handleDescriptionHolderClick"
+		"click .template_item_not_in_total": "saveModel"
 		"click .template_item_is_group_heading": "handleGroupHeadingClick"
 		"click .template_item_hide_package_contents": "handleHidePackageContentsClick"
 		
@@ -153,19 +155,29 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		
 	setUnitPriceUnitHolder: ->
 		@unit_price_unit_holder.html(@model.get('unit_price_unit'))
+		@updateTotal()
 		true
 		
 	setTotalHolder: ->
 		@total_holder.html(@model.get('total'))
 		true
-				
+		
 	setTotalUnitFromUnitPriceUnit: ->
+		@model.set("total_unit", @input_template_item_unit_price_unit.val())
 		@input_template_item_total_unit.val(@input_template_item_unit_price_unit.val())
+		@updateTotal()
 		# @total_unit_holder.html(@input_template_item_unit_price_unit.val())
 		true
 	
+	setTotalUnitFromTotalUnit: ->
+		@model.set("total_unit", @input_template_item_unit_price_unit.val())
+		@updateTotal()
+		# @total_unit_holder.html(@input_template_item_unit_price_unit.val())
+		true
+
 	setTotalUnitHolder: ->
 		@total_unit_holder.html(@model.get('total_unit'))
+		@updateTotal()
 		true
 	
 	setDescriptionHolder: ->
@@ -397,11 +409,15 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		@input_template_item_quantity.val() * @input_template_item_unit_price.val()
 
 	updateTotal: ->
+		@model.set("total", @calcTotal())
 		@input_template_item_total.val(@calcTotal())
+		
+		@vent.trigger('template_items:set_totals')
 		
 	saveModel: ->
 		self = @
 		@showSpinner()
+		@updateTotal()
 		@model.save(
 			{
 				name: @input_template_item_name.val()
@@ -426,7 +442,6 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 				success: (model) -> 
 					# self.vent.trigger('template_items:add_new_template_item_successful', {model: model})
 					self.setHolders()
-					self.updateTotal()
 					self.decorateShow()
 					self.hideSpinner()
 			}

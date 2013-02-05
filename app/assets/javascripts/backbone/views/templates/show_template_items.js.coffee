@@ -68,6 +68,8 @@ class Quota.Views.ShowTemplateItems extends Backbone.View
 		@collection.remove(item)
 		@_templateItemsListView.setSortOrder()
 		@_addItemView.setSortOrder(@collection.length)
+		@vent.trigger('template_items:set_totals')
+		
 		
 	addNewItemClicked: ->
 		@vent.trigger('template_items:add_new_template_item', {model: @model})

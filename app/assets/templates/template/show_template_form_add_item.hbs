@@ -8,19 +8,19 @@
 	<i class="icon-button icon-sort-up" style="display:none" />
 </td>
 <td width="29%">
-	<input type="text" name="template_item[name]" value="" class="template_item_name">
+	<input type="text" name="template_item[name]" value="" class="template_item_name" placeholder="item name (search by name or part number)" title="Item Name">
 </td>
 <td width="12%">
-	<input type="text" name="template_item[part_number]" value="" class="template_item_part_number">
+	<input type="text" name="template_item[part_number]" value="" class="template_item_part_number" placeholder="optional part num" title="Part Number">
 </td>
 <td width="5%">
-	<input type="text" name="template_item[quantity]" value="1" class="template_item_quantity">
+	<input type="text" name="template_item[quantity]" value="1" class="template_item_quantity" title="Quantity">
 </td>
 <td width="12%" class="align-right">
-	<input type="text" name="template_item[unit_price]" value="" class="template_item_unit_price align-right">
+	<input type="text" name="template_item[unit_price]" value="" class="template_item_unit_price align-right" placeholder="price per unit" title="Unit Price">
 </td>
 <td width="8%">
-	<select name="template_item[unit_price_unit]" label="false" class="template_item_unit_price_unit">
+	<select name="template_item[unit_price_unit]" label="false" class="template_item_unit_price_unit" placeholder="per" title="Per">
 		<option value=""></option>
 		<option value="per hour">per hour</option>
 		<option value="per day">per day</option>
@@ -31,10 +31,10 @@
 	</select>
 </td>
 <td width="12%" class="align-right">
-	<input type="text" name="template_item[total]" value="" class="template_item_total align-right">
+	<input type="text" name="template_item[total]" value="" class="template_item_total align-right" placeholder="item total" title="Item Total">
 </td>
 <td width="8%">
-	<select name="template_item[total_unit]" label="false" class="template_item_total_unit">
+	<select name="template_item[total_unit]" label="false" class="template_item_total_unit" placeholder="per" title="Per">
 		<option value=""></option>
 		<option value="per hour">per hour</option>
 		<option value="per day">per day</option>
@@ -53,20 +53,20 @@
 <tr class="template-item-row-details" style="display:none">
 	<td colspan="2"></td>
 	<td colspan="2" valign="top">
-		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value=""></textarea>
+		<textarea  class="template_item_description" name="template_item[description]" cols="30" rows="3" value="" placeholder="optional description or notes" title="Description or Notes"></textarea>
 	</td>
 	<td></td>
 	<td colspan="5" valign="top">
 		<div class="template_item_checkboxes">
-			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading">
-			&nbsp;display as group heading
+			<input type="checkbox" value="true" name="template_item[is_group_heading]" class="template_item_is_group_heading" title="Apply Alternate Colors">
+			&nbsp;apply alternate colors
 		</div>
 		<div class="template_item_checkboxes">
-			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total">
-			&nbsp;do not include in total
+			<input type="checkbox" value="true" name="template_item[not_in_total]" class="template_item_not_in_total" title="Do Not Include In Document Total">
+			&nbsp;do not include in document total
 		</div>
 		<div class="template_item_checkboxes template_item_hide_package_contents_container" style="display:none">
-			<input type="checkbox" value="true" name="template_item[hide_package_contents]" class="template_item_hide_package_contents">
+			<input type="checkbox" value="true" name="template_item[hide_package_contents]" class="template_item_hide_package_contents" title="Hide Package Contents">
 			&nbsp;hide package contents
 		</div>
 	</td>
