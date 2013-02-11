@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205143551) do
+ActiveRecord::Schema.define(:version => 20130207215224) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -205,6 +205,10 @@ ActiveRecord::Schema.define(:version => 20130205143551) do
     t.string   "term_unit"
     t.string   "unit_price_unit"
     t.string   "document_item_type_key"
+    t.string   "total_unit"
+    t.boolean  "is_group_heading",       :default => false
+    t.boolean  "not_in_total",           :default => false
+    t.boolean  "hide_package_contents",  :default => false
   end
 
   add_index "document_items", ["account_key"], :name => "index_document_items_on_account_key"
@@ -271,6 +275,7 @@ ActiveRecord::Schema.define(:version => 20130205143551) do
     t.text     "notes_customer"
     t.text     "notes_internal"
     t.string   "document_type_key"
+    t.string   "template_key"
   end
 
   add_index "documents", ["account_key"], :name => "index_documents_on_account_key"

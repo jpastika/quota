@@ -1,26 +1,26 @@
-class Quota.Views.ShowTemplate extends Backbone.View
+class Quota.Views.ShowDocument extends Backbone.View
 
-	# template: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# document: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
 	# 
 	el: 'body'
 	
 	events:
-		"focus .template_items_shim" : "handleTemplateItemsShimFocus"
+		"focus .document_items_shim" : "handleDocumentItemsShimFocus"
 	
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
 		@vent = options.vent
-		@template_items = options.template_items
-		@vent.on('template_items:add_new_item_successful', @addNewItem_Success, @)
-		@vent.on('template:save_template', @saveModel, @)
+		@document_items = options.document_items
+		@vent.on('document_items:add_new_item_successful', @addNewItem_Success, @)
+		@vent.on('document:save_document', @saveModel, @)
 		
-		@_itemsView = new Quota.Views.ShowTemplateItems({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@template_items, vent: @vent})
-		@_totalsView = new Quota.Views.ShowTemplateItemsTotals({model:@model, parent_child_key: @model.get("pub_key"), collection:@template_items, vent: @vent})
+		@_itemsView = new Quota.Views.ShowDocumentItems({parent_model:@model, parent_child_key: @model.get("pub_key"), collection:@document_items, vent: @vent})
+		@_totalsView = new Quota.Views.ShowDocumentItemsTotals({model:@model, parent_child_key: @model.get("pub_key"), collection:@document_items, vent: @vent})
 		
 	render: ->
 		@container_items = @$('#items_container')
-		@container_totals = @$('.template-items-totals')
+		@container_totals = @$('.document-items-totals')
 		
 		@_itemsView.setElement(@container_items).render()
 		@_totalsView.setElement(@container_totals).render()
@@ -28,7 +28,7 @@ class Quota.Views.ShowTemplate extends Backbone.View
 		
 	setup: ->
 		@container_items = @$('#items_container')
-		@container_totals = @$('.template-items-totals')
+		@container_totals = @$('.document-items-totals')
 		
 		@_itemsView.setElement(@container_items).render()
 		@_totalsView.setElement(@container_totals).render()
@@ -36,8 +36,8 @@ class Quota.Views.ShowTemplate extends Backbone.View
 	addNewItem_Success: (obj) ->
 		self = @
 		
-	handleTemplateItemsShimFocus: ->
-		@vent.trigger('template_items:set_focus', {view: null})
+	handleDocumentItemsShimFocus: ->
+		@vent.trigger('document_items:set_focus', {view: null})
 		
 	saveModel: ->
 		self = @
@@ -58,10 +58,9 @@ class Quota.Views.ShowTemplate extends Backbone.View
 					# self.hideSpinner()
 					# console.log "save error"
 				success: (model) -> 
-					# self.vent.trigger('template_items:add_new_template_item_successful', {model: model})
+					# self.vent.trigger('document_items:add_new_document_item_successful', {model: model})
 					# self.setHolders()
 					# 					self.decorateShow()
 					# 					self.hideSpinner()
 			}
 		)
-		

@@ -15,13 +15,11 @@ class Template < ActiveRecord::Base
   
   
   def self.find_by_name_or_item(flt)
-    t = self.arel_table
-    
-    self.where(t[:name].matches("%#{flt}%")) + self.with_item_by_name_or_part_number(flt)
+    self.where("templates.name ILIKE ?",'%'+flt+'%') + self.with_item_by_name_or_part_number(flt)
   end
   
   def self.with_item_by_name_or_part_number(value)
-    self.where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name LIKE ? OR  part_number LIKE ?)",'%'+value+'%',value+'%')
+    self.where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name ILIKE ? OR part_number ILIKE ?)",'%'+value+'%',value+'%')
   end
   
   private

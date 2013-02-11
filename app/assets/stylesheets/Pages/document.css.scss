@@ -11,12 +11,12 @@
 	color: $ss_darkGray;
 }
 
-li.template_item_group_heading .icon-button{
+li.document_item_group_heading .icon-button{
 	color: $ss_mediumGray;
 	cursor: pointer;
 }
 
-li.template_item_group_heading .icon-button:hover{
+li.document_item_group_heading .icon-button:hover{
 	color: $ss_lightGray;
 }
 
@@ -44,7 +44,7 @@ th.align-right, td.align-right, input[type="text"].align-right{
   text-align: right;
 }
 
-.template_item_holder{
+.document_item_holder{
   @include box_sizing;
   border: 1px solid transparent;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -54,7 +54,7 @@ th.align-right, td.align-right, input[type="text"].align-right{
   width: 100%;
 }
 
-input[type="text"].template_item_shim, .template-items-rows input[type="text"].template_item_shim{
+input[type="text"].document_item_shim, .document-items-rows input[type="text"].document_item_shim{
   background: none repeat scroll 0 0 #fff;
   border: medium none;
   height: 1px;
@@ -66,17 +66,17 @@ input[type="text"].template_item_shim, .template-items-rows input[type="text"].t
   float: left;
 }
 
-input[type="text"].template_item_shim:hover, .template-items-rows input[type="text"].template_item_shim:hover{
+input[type="text"].document_item_shim:hover, .document-items-rows input[type="text"].document_item_shim:hover{
   border: none;
 }
 
-.template_item_description_holder:empty{
+.document_item_description_holder:empty{
   padding: 0;
   border: none;
 }
 
 
-.template_item_drag_highlight{
+.document_item_drag_highlight{
 	background: $ss_lightGray;
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset;
 	color: $ss_darkGray;
@@ -86,11 +86,11 @@ input[type="text"].template_item_shim:hover, .template-items-rows input[type="te
 	min-height:40px;
 }
 
-.template-items-heading .table{
+.document-items-heading .table{
 	margin-bottom:0px;
 }
 
-.template-items-rows input[type="text"], .template-items-rows textarea, .template-items-rows select{
+.document-items-rows input[type="text"], .document-items-rows textarea, .document-items-rows select{
   border: 1px solid $ss_nearWhite;
   margin-bottom: 0px;
   @include no-inner-shadow();
@@ -98,36 +98,36 @@ input[type="text"].template_item_shim:hover, .template-items-rows input[type="te
   background:none;
 }
 
-.template-items-rows textarea, .template-items-new textarea{
+.document-items-rows textarea, .document-items-new textarea{
   margin-bottom:3px;
 }
 
-li.template_item_group_heading tr:hover{
+li.document_item_group_heading tr:hover{
   background:$ss_darkGray;
 }
 
-.template_item_group_heading{
+.document_item_group_heading{
 	background: $ss_darkGray;
 	color: $ss_nearWhite;
 }
 
-.template_item_group_heading .template-item-row-package-contents{
+.document_item_group_heading .document-item-row-package-contents{
 	color: $ss_nearWhite;
 }
 
-.template-items-new .template_item_group_heading .template-item-row-package-contents li, .template-items-rows .template_item_group_heading .template-item-row-package-contents li{
+.document-items-new .document_item_group_heading .document-item-row-package-contents li, .document-items-rows .document_item_group_heading .document-item-row-package-contents li{
 	color: $ss_nearWhite;
 }
 
-.template-items-new .template-item-row-package-contents{
+.document-items-new .document-item-row-package-contents{
 	margin-top: 3px;
 }
 
-.template-items-rows .template_item_group_heading input[type="text"], .template-items-rows .template_item_group_heading textarea, .template-items-rows .template_item_group_heading select{
+.document-items-rows .document_item_group_heading input[type="text"], .document-items-rows .document_item_group_heading textarea, .document-items-rows .document_item_group_heading select{
 	color: $ss_nearWhite;
 }
 
-.template-items-new input[type="text"], .template-items-new textarea, .template-items-new select{
+.document-items-new input[type="text"], .document-items-new textarea, .document-items-new select{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   @include no-inner-shadow();
@@ -135,14 +135,19 @@ li.template_item_group_heading tr:hover{
 }
 
 
-.template-items-new .template_item_group_heading input[type="text"], .template-items-new .template_item_group_heading textarea, .template-items-new .template_item_group_heading select{
+.document-items-new .document_item_group_heading input[type="text"], .document-items-new .document_item_group_heading textarea, .document-items-new .document_item_group_heading select{
   	background: $ss_darkGray;
     color: $ss_nearWhite;
 	border: 1px solid $ss_mediumGray;
-
 }
 
-.template-items-new .template_item_name_holder, .template-items-new .template_item_part_number_holder{
+.document-items-rows .document_item_group_heading input[type="text"], .document-items-rows .document_item_group_heading textarea, .document-items-rows .document_item_group_heading select{
+  	background: $ss_darkGray;
+    color: $ss_nearWhite;
+	border: 1px solid $ss_mediumGray;
+}
+
+.document-items-new .document_item_name_holder, .document-items-new .document_item_part_number_holder{
   border: 1px solid $ss_lightGray;
   margin-bottom: 0px;
   padding: 4px 5px 4px 6px;
@@ -151,21 +156,21 @@ li.template_item_group_heading tr:hover{
   background:#fff;
 }
 
-.template-items-rows input[type="text"]:hover, .template-items-rows textarea:hover, .template-items-rows select:hover, .template-items-new input[type="text"]:hover, .template-items-new textarea:hover{
+.document-items-rows input[type="text"]:hover, .document-items-rows textarea:hover, .document-items-rows select:hover, .document-items-new input[type="text"]:hover, .document-items-new textarea:hover{
   border: 1px solid $ss_lightGray;
 }
 
-div.template_item_checkboxes{
+div.document_item_checkboxes{
   border: 1px solid transparent;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 13px;
 }
 
-div.template_item_checkboxes:hover{
+div.document_item_checkboxes:hover{
   border: 1px solid transparent;
 }
 
-.template-items-rows tr:hover{
+.document-items-rows tr:hover{
   background:#fff;
 }
 
@@ -174,25 +179,25 @@ div.template_item_checkboxes:hover{
   line-height: 1.2em; 
 }
 
-.template-items-rows ul, .template-items-new ul { 
+.document-items-rows ul, .document-items-new ul { 
   list-style-type: none; 
   margin: 0; 
   padding: 0; 
 }
 
-.template-items-rows li, .template-items-new li { 
+.document-items-rows li, .document-items-new li { 
   border-bottom:1px solid $ss_nearWhite;
 }
 
-.template-items-new li { 
+.document-items-new li { 
   padding-bottom: 4px;
 }
 
-.template-item-row-package-contents{
+.document-item-row-package-contents{
 	border-top: 1px dashed $ss_nearWhite;
 }
 
-.template-item-row-package-contents li{
+.document-item-row-package-contents li{
 	border-bottom:0px solid $ss_nearWhite;
 	font-size: 14px;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -203,16 +208,16 @@ div.template_item_checkboxes:hover{
 	color: $ss_nearWhite;
 }
 
-.template-items-new {
+.document-items-new {
   border-top: 1px solid $ss_lightGray;
   background: $ss_nearWhite;
 }
 
-.template-items-rows li input[type="checkbox"], .template-items-new li input[type="checkbox"]{ 
+.document-items-rows li input[type="checkbox"], .document-items-new li input[type="checkbox"]{ 
   margin-top: -4px;
 }
 
-.template-item-row-description tr, .template-item-row-description td{
+.document-item-row-description tr, .document-item-row-description td{
 	padding:0px;
 	margin:0px;
 }

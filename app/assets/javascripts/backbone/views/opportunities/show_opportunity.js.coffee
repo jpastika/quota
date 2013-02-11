@@ -1,4 +1,4 @@
-class Quota.Views.ShowOpportunity extends Quota.Views.PageBodyBlock
+class Quota.Views.ShowOpportunity extends Backbone.View
 
 	# template: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	

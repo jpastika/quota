@@ -41,7 +41,7 @@ class TemplatesController < ApplicationController
       format.json {
         @template = Template.find_by_pub_key(params[:id])
         
-        render :json => @template.to_json(:include => [:document_type])
+        render :json => @template.to_json(:include => [:document_type, {:template_items => {:include => [:catalog_item]}}])
       }
     end
   end
@@ -136,6 +136,19 @@ class TemplatesController < ApplicationController
         else
           render :json => "false"
         end
+      }
+    end
+  end
+  
+  def filter_by_name_or_item
+    respond_to do |format|
+      format.html {
+        @templates = Template.find_by_name_or_item(params[:filter])
+      }
+      format.json { 
+        @templates = Template.find_by_name_or_item(params[:filter])
+        
+        render :json => @templates.to_json()
       }
     end
   end

@@ -1,14 +1,15 @@
 class Quota.Views.TemplateComboView extends Backbone.View
-	tagName: 'span'
-	template: HandlebarsTemplates['template/template_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# tagName: 'span'
+	# template: HandlebarsTemplates['catalog_items/manufacturer_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
 		"blur input": "selected"
 	
 	initialize: (options) ->
+		self = @
 		_.bindAll(@)
-		@vent = options.vent
-		@parent_model = options.parent_model
+		@vent = options.vent if options.vent?
+		@parent_model = options.parent_model if options.parent_model?
 		@source = options.source if options.source?
 		@val = options.val if options.val?
 		@
@@ -27,33 +28,55 @@ class Quota.Views.TemplateComboView extends Backbone.View
 	render: ->
 		# $(@el).html(@template({company:@collection.toJSON(), field_name:@field_name}))
 		self = @
-		$(@el).html(@template())
-		
+		# $(@el).html(@template())
+
 		# @$el.attr('value', company.get("name"))
 		# @$el.attr('placeholder', 'Company')
 		# 
+		
 		options = _.extend @options, 
-			source: @collection.pluck @source
+			# source: @collection.pluck @source
+			# source: @doCatalogSearch
+			source: (typeahead, query) -> 
+				$.ajax(
+					{
+						url: '/api/templates/filter_by_name_or_item'
+						data: {filter: query}
+						dataType: 'json'
+						success: (data) ->
+							typeahead.process(data)
+					}
+				)
 			onselect: (obj) -> self.selected(obj)
+			strings: false
+			minLength: 2
+			property: "name"
 			sorter: (items) ->
-				if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
-					items.unshift(this.query)
-				return items
-		@$('input').typeahead options
+				that = this
+				# if !this.strings
+				# 					if _.indexOf(_.map(items, (item) -> item[that.property] = item[that.property].toLowerCase()), this.query.toLowerCase())
+				# 						i = new Quota.Models.Template(name: this.query)
+				# 						items.unshift(i.toJSON())
+				# 				else
+				# 					if _.indexOf(_.map(items, (item) -> item.toLowerCase()), this.query.toLowerCase())
+				# 						items.unshift(this.query)
+				items
+			matcher: (item) ->
+				# if (!this.strings)
+				# 					~item[this.property].toLowerCase().indexOf(this.query.toLowerCase())
+				# 				else
+				# 					~item.toLowerCase().indexOf(this.query.toLowerCase())
+				true
+			
+		$(@el).typeahead options
 		
-		template = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("template_key"))
-		if template
-			@$('input').attr('value', template.get("name"))
+		# catalog_item = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("pub_key"))
+		# 		if catalog_item
+		# 			# $(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
+		# 			$(@el).attr('value', (catalog_item.get("pn") + ' ' + catalog_item.get("name")))
 		@
-		
+	
 	selected: (obj) ->
-		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
-			obj.stopImmediatePropagation()
-			obj.preventDefault()
-			@vent.trigger('template_name:changed',{template_name: $(obj.target).val()})
-		else
-			template = _.find(@collection.models, (m) -> m.get("name") == obj)
-			if template || !$(obj.target).val()
-				@vent.trigger('template_name:changed',{template_name: obj})
-			else
-				@vent.trigger('template_name:changed',{template_name: $(obj.target).val()})
+		# console.log obj
+		@trigger('template_combo:item_selected', {template:obj})
+		@vent.trigger("template_combo:item_selected", {template:obj})

@@ -14,9 +14,8 @@ class CatalogItem < ActiveRecord::Base
   
   default_scope { where(account_key: Account.current_account_key) }
   
-  def self.find_by_name_or_part_number(filter)
-    t = self.arel_table
-    self.where(t[:name].matches("%#{filter}%").or(t[:part_number].matches("#{filter}%")))
+  def self.find_by_name_or_part_number(flt)
+    self.where("catalog_items.name ILIKE ? OR catalog_items.part_number ILIKE ?",'%'+flt+'%',flt+'%')
   end
   
   private

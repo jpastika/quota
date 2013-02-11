@@ -1,0 +1,81 @@
+<li>
+<table class="" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td width="3%">
+</td>
+<td width="3%">
+	<i class="icon-button icon-sort-down" style="display:none" />
+	<i class="icon-button icon-sort-up" style="display:none" />
+</td>
+<td width="29%">
+	<input type="text" name="document_item[name]" value="" class="document_item_name" placeholder="item name (search by name or part number)" title="Item Name">
+</td>
+<td width="12%">
+	<input type="text" name="document_item[part_number]" value="" class="document_item_part_number" placeholder="optional part num" title="Part Number">
+</td>
+<td width="5%">
+	<input type="text" name="document_item[quantity]" value="1" class="document_item_quantity" title="Quantity">
+</td>
+<td width="12%" class="align-right">
+	<input type="text" name="document_item[unit_price]" value="" class="document_item_unit_price align-right" placeholder="price per unit" title="Unit Price">
+</td>
+<td width="8%">
+	<select name="document_item[unit_price_unit]" label="false" class="document_item_unit_price_unit" placeholder="per" title="Per">
+		<option value=""></option>
+		<option value="per hour">per hour</option>
+		<option value="per day">per day</option>
+		<option value="per week">per week</option>
+		<option value="per month">per month</option>
+		<option value="per quarter">per quarter</option>
+		<option value="per year">per year</option>
+	</select>
+</td>
+<td width="12%" class="align-right">
+	<input type="text" name="document_item[total]" value="" class="document_item_total align-right" placeholder="item total" title="Item Total">
+</td>
+<td width="8%">
+	<select name="document_item[total_unit]" label="false" class="document_item_total_unit" placeholder="per" title="Per">
+		<option value=""></option>
+		<option value="per hour">per hour</option>
+		<option value="per day">per day</option>
+		<option value="per week">per week</option>
+		<option value="per month">per month</option>
+		<option value="per quarter">per quarter</option>
+		<option value="per year">per year</option>
+	</select>
+</td>
+<td width="8%">
+	<i class="icon-button icon-cog"></i>
+ 	<i class="icon-button icon-ok"></i>
+	<i class="icon-button icon-spinner" style="display:none"></i>
+</td>
+</tr>
+<tr class="document-item-row-details" style="display:none">
+	<td colspan="2"></td>
+	<td colspan="2" valign="top">
+		<textarea  class="document_item_description" name="document_item[description]" cols="30" rows="3" value="" placeholder="optional description or notes" title="Description or Notes"></textarea>
+	</td>
+	<td></td>
+	<td colspan="5" valign="top">
+		<div class="document_item_checkboxes">
+			<input type="checkbox" value="true" name="document_item[is_group_heading]" class="document_item_is_group_heading" title="Apply Alternate Colors">
+			&nbsp;apply alternate colors
+		</div>
+		<div class="document_item_checkboxes">
+			<input type="checkbox" value="true" name="document_item[not_in_total]" class="document_item_not_in_total" title="Do Not Include In Document Total">
+			&nbsp;do not include in document total
+		</div>
+		<div class="document_item_checkboxes document_item_hide_package_contents_container" style="display:none">
+			<input type="checkbox" value="true" name="document_item[hide_package_contents]" class="document_item_hide_package_contents" title="Hide Package Contents">
+			&nbsp;hide package contents
+		</div>
+	</td>
+</tr>
+<tr class="document-item-row-package-contents" style="display:none">
+	<td colspan="10">
+		<ul>
+		</ul>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="document_item[catalog_item_key]" value="{{document_item.catalog_item_key}}" class="document_item_catalog_item_key">

@@ -1,4 +1,6 @@
 <% provide(:title, "Add Document") %>
+<% @nav_caret = "opportunities" %>
+
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
@@ -33,54 +35,46 @@
 			<dl class="process-steps">
 				<dt>1</dt>
 				<dd>Choose opportunity</dd>
-				<dt class="current">2</dt>
-				<dd class="current">Choose document template</dd>
-				<dt>3</dt>
-				<dd>Fill-in details</dd>
+				<dt>2</dt>
+				<dd>Fill-in document details</dd>
+				<dt class="current">3</dt>
+				<dd class="current">Choose a template</dd>
 				<dt>4</dt>
-				<dd>Configure parts, services, and financing</dd>
+				<dd>Add items and select financing</dd>
 			</dl>
 		</div>
 		<div class="parent-page">
 			<div class="">
-				<%= simple_form_for(@opportunity) do |f| %>
-					<div class="row-fluid">
-						<% if f.error_notification %>
-						    <div class="alert alert-error fade in">
-						      <a class="close" data-dismiss="alert" href="#">&times;</a>
-						      <%= f.error_notification %>
-						    </div>
-						<% end %>
-					</div>
+				<form method="post" action="/documents/choose_template/<%= @document.pub_key %>">
 					<div class="section-form-plain">
 						<div class="row-fluid section-container">
 							<div class="span6">
 								<div class="section-heading">
-									<h3>Search for a Template</h3>
+									<h4>Search for a Template</h4>
 								</div>
-								<label class="string control-label" for="template_name">Template or Part Name</label>
+								<label class="string control-label" for="template_name">Template or Item</label>
 								<div class="controls search_field" id="search_field_container">
-									<input type="text" class="string input-xlarge span9">
+									<input type="text" class="template_search span9">
 								</div>
 								<div id="search_results_container"></div>
 								<br><br>
 								<div id="my_templates_container">
 									<div class="section-heading">
-										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from My Templates</h3>
+										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from My Templates</h4>
 									</div>
 									<div id="my_templates" style="display:none;">Mine</div>
 								</div>
 								
 								<div id="our_templates_container">
 									<div class="section-heading">
-										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Our Templates</h3>
+										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Our Templates</h4>
 									</div>
 									<div id="our_templates" style="display:none;">Ours</div>
 								</div>
 								
 								<div id="trimble_templates_container">
 									<div class="section-heading">
-										<h3><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Trimble Templates</h3>
+										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Trimble Templates</h4>
 									</div>
 									<div id="trimble_templates" style="display:none;">Trimble's</div>
 								</div>
@@ -89,18 +83,20 @@
 							</div>
 							<div class="span5">
 								<div class="section-heading">
-									<h3></h3>
+									<h4></h4>
 								</div>
 								<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
+								<input type="hidden" value="<%= @document.pub_key %>" name="document[pub_key]" id="document_pub_key">
+								<input type="text" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
 							</div>
 						</div>
 					</div>
 					<div class="actions-bar">
 						<button type="submit" class="btn btn-primary">
-						  Fill-in Details&nbsp;&nbsp;<i class="icon-arrow-right"></i>
+							Add Items and Select Financing&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
 						</button>
 					</div>
-				<% end %>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -108,13 +104,16 @@
 
 <script language="javascript">
 	$(function(){
-		this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
+		// this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
 		
 		window.vent = _.extend({}, Backbone.Events);
 		
 		var view_my_templates = new Quota.Views.TemplateCollection({el: '#my_templates_container', contents_container: '#my_templates'});
 		var view_our_templates = new Quota.Views.TemplateCollection({el: '#our_templates_container', contents_container: '#our_templates'});
 		var view_trimble_templates = new Quota.Views.TemplateCollection({el: '#trimble_templates_container', contents_container: '#trimble_templates'});
+		
+		var page_body_view = new Quota.Views.ChooseTemplate({vent: vent});
+		page_body_view.setup();
 		
 	
 		// var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});

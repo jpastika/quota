@@ -12,8 +12,10 @@ Quota::Application.routes.draw do
   match '/map_test', to: 'static_pages#map_test'
   match '/bridge', to: 'static_pages#bridge'
   match '/documents/choose_template/:id', to: 'documents#choose_template'
+  match '/documents/new/:id', to: 'documents#new'
   match '/catalog_items/manufacturers', to: 'catalog_items#manufacturers'
   match '/template_items/reorder', to: 'template_items#reorder'
+  match '/document_items/reorder', to: 'document_items#reorder'
   
   
   resources :accounts
@@ -33,6 +35,7 @@ Quota::Application.routes.draw do
   resources :catalog, :controller => "catalog_items"
   resources :docs, :controller => "documents"
   resources :documents
+  resources :documents_items
   resources :members
   resources :opportunities
   resources :opportunity_contacts
@@ -52,8 +55,10 @@ Quota::Application.routes.draw do
     match '/companies', to: 'contacts#companies'
     match '/companies/:id/contacts', to: 'companies#contacts'
     match '/manufacturers', to: 'catalog_items#manufacturers'
-    match 'catalog_items/filter_by_name_or_part_number', to: 'catalog_items#filter_by_name_or_part_number'
+    match '/catalog_items/filter_by_name_or_part_number', to: 'catalog_items#filter_by_name_or_part_number'
     match '/template_items/reorder', to: 'template_items#reorder'
+    match '/templates/filter_by_name_or_item', to: 'templates#filter_by_name_or_item'
+    match '/document_items/reorder', to: 'document_items#reorder'
     
     resources :accounts
     resources :catalog_items
@@ -73,6 +78,7 @@ Quota::Application.routes.draw do
     resources :docs, :controller => "documents"
     resources :catalog, :controller => "catalog_items"
     resources :documents
+    resources :document_items
     resources :members
     resources :milestones
     resources :opportunities
