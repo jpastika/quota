@@ -1,6 +1,6 @@
-class Quota.Views.CompanyComboView extends Backbone.View
+class Quota.Views.ContactComboView extends Backbone.View
 	tagName: 'span'
-	template: HandlebarsTemplates['contacts/company_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['contacts/contact_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
 		"blur input": "selected"
@@ -11,6 +11,7 @@ class Quota.Views.CompanyComboView extends Backbone.View
 		@parent_model = options.parent_model
 		@source = options.source if options.source?
 		@val = options.val if options.val?
+		@company_key = options.company_key if options.company_key?
 		@className = options.className if options.className?
 		@
 
@@ -43,19 +44,19 @@ class Quota.Views.CompanyComboView extends Backbone.View
 				return items
 		@$('input').typeahead options
 		
-		company = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("company_key"))
-		if company
-			@$('input').attr('value', company.get("name"))
+		contact = _.find(self.collection.models, (m) -> m.get("pub_key") == self.parent_model.get("contact_key"))
+		if contact
+			@$('input').attr('value', contact.get("name"))
 		@
 		
 	selected: (obj) ->
 		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
 			obj.stopImmediatePropagation()
 			obj.preventDefault()
-			@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
+			@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})
 		else
-			company = _.find(@collection.models, (m) -> m.get("name") == obj)
-			if company || !$(obj.target).val()
-				@vent.trigger('company_name:changed',{company_name: obj})
+			contact = _.find(@collection.models, (m) -> m.get("name") == obj)
+			if contact || !$(obj.target).val()
+				@vent.trigger('contact_name:changed',{contact_name: obj})
 			else
-				@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
+				@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})

@@ -1,49 +1,6 @@
 class DocumentsController < ApplicationController
   before_filter :signed_in!, :check_disabled!
   
-  # def index
-  #     @documents = current_member.account.documents
-  #     @my_created_documents = current_member.created_documents
-  #     @my_opportunity_documents = current_member.owned_opportunity_documents
-  #   end
-  #   
-  # def new
-  #     @opportunity = Opportunity.find_by_pub_key(params[:id])
-  #     @document = @opportunity.documents.build(account_key: current_member.account.pub_key, creator_key: current_member.pub_key, document_type: params[:document_type])
-  #     
-  #     @document.name = "#{params[:document_type]} - #{@opportunity.name}"
-  #     
-  #     if @document.save
-  #       redirect_to edit_document_path(@document.pub_key)
-  #     else
-  #       flash[:error] = "Unable to create #{params[:document_type]}"
-  #       redirect_to opportunity_path(@opportunity.pub_key)
-  #     end
-  #   end
-  #   
-  #   def create
-  #     @document = Document.new(params[:document])
-  #     @document.account = current_member.account
-  #     @document.created_by = current_member
-  #     if @document.save
-  #       flash[:success] = "#{@document.document_type} created!"
-  #       redirect_to opportunity_path(@document.opportunity.pub_key)
-  #     else
-  #       render 'new'
-  #     end
-  #   end
-  #   
-  #   
-  #   def destroy
-  #     @document = Document.find_by_pub_key(params[:id])
-  #     @document.destroy
-  #     redirect_back_or documents_path
-  #   end
-  
-  
-  
-  
-  
   def new
     @opportunity = Opportunity.find_by_pub_key(params[:id])
     
@@ -54,7 +11,17 @@ class DocumentsController < ApplicationController
     #     end
     #     
     @document_type = DocumentType.find_by_name("Quote")
-    @document = @opportunity.documents.build(creator_key: current_user.pub_key, document_type: @document_type)
+    @document = @opportunity.documents.build(creator_key: current_user.pub_key, document_type: @document_type, company: @opportunity.company)
+    
+    
+    @companies = Contact.companies
+    @contacts = Contact.people
+    
+    gon.companies = @companies
+    gon.contacts = @contacts
+    
+    gon.document = @document
+    
     
     # @document = @opportunity.documents.build(creator_key: current_user.pub_key)
     #     
@@ -82,6 +49,7 @@ class DocumentsController < ApplicationController
     @document = Document.create(params[:document])
     # @document.account = current_user.account
     @document.created_by = current_user
+    
     
     if @document.save
       # flash[:success] = "#{@document.document_type.name} created!"
@@ -129,6 +97,13 @@ class DocumentsController < ApplicationController
   def edit
     @document = Document.find_by_pub_key(params[:id])
     @opportunity = Opportunity.find_by_pub_key(@document.opportunity_key)
+    
+    @companies = Contact.companies
+    @contacts = Contact.people
+    
+    gon.companies = @companies
+    gon.contacts = @contacts
+    gon.document = @document
     
   end
   

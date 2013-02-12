@@ -10,6 +10,21 @@
 			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change document details"), edit_document_path(@document.pub_key), :class => 'btn btn-primary' %>
 		</div>
 		<div id="sidebar_app_fields_container"class="">
+			<div class="show-field">
+				<span class="show-label">Opportunity</span>
+				<br>
+				<span class="show-value"><%= @opportunity.name ? @opportunity.name : nil %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">PO</span>
+				<br>
+				<span class="show-value"><%= @document.po ? @document.po : nil %></span>
+			</div>
+			<div class="show-field">
+				<span class="show-label">Owner</span>
+				<br>
+				<span class="show-value"><%= @opportunity.owner ? @opportunity.owner.name : nil %></span>
+			</div>
 		</div>
 		<div id="sidebar_body_container" class="">
 		</div>

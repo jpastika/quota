@@ -42,7 +42,7 @@
 						    </div>
 						<% end %>
 					</div>
-					<div id="catalog_item">
+					<div id="document">
 						<%= render 'fields', f: f %>
 					</div>
 					<div class="actions-bar">
@@ -58,7 +58,22 @@
 
 <script language="javascript">
 	$(function(){
+		this.companies = new Quota.Collections.Companies(gon.companies);
+		this.contacts = new Quota.Collections.Contacts(gon.contacts);
 		
+		if(gon.document){
+			this.document = new Quota.Models.Document(gon.document);
+		}
+		else{
+			this.document = new Quota.Models.document();
+			this.document.fetch();
+		}
+		
+		window.vent = _.extend({}, Backbone.Events);
+	
+		var view_document = new Quota.Views.EditDocument({model:this.document, companies: this.companies, contacts: this.contacts, vent: vent, el: '#document'});
+		view_document.setup();
+		// $('#contact').html(view_opportunity.render().el);
 	});	
 	
 	$.fn.placeholder();

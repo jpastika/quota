@@ -20,8 +20,8 @@
 	<div class="controls opportunity_estimated_close">
 		<div class="input-prepend">
 			<span class="add-on">$</span>
-			<input type="text" value="{{opportunity.estimated_value}}" name="opportunity[estimated_value]" id="opportunity_estimated_value" class="string input-small">
-			<select class="input-medium" name="opportunity[estimated_value_interval]" value="{{opportunity.estimated_value_interval}}">
+			<input type="text" value="{{opportunity.estimated_value}}" name="opportunity[estimated_value]" id="opportunity_estimated_value" class="string span4">
+			<select class="span3" name="opportunity[estimated_value_interval]" value="{{opportunity.estimated_value_interval}}">
 				<option value="FIXED">fixed</option>
 				<option value="HOUR">per hour</option>
 				<option value="DAY">per day</option>
@@ -37,9 +37,9 @@
 	<label for="opportunity_estimated_close" class="string control-label">Estimated Close Date</label>
 	<div class="controls opportunity_estimated_close">
 		<div class="input-append">
-			<input type="text" value="{{opportunity.estimated_close}}" name="opportunity_estimated_close" id="opportunity_estimated_close_dp" class="string input-medium datepicker">
+			<input type="text" value="{{opportunity.estimated_close}}" name="opportunity_estimated_close" id="opportunity_estimated_close_dp" class="string span4 datepicker">
 			<span class="add-on"><i class="icon-calendar"></i></span>
-			<input type="hidden" value="{{opportunity.estimated_close}}" name="opportunity[estimated_close]" id="opportunity_estimated_close" class="string input-small altfield">
+			<input type="hidden" value="{{opportunity.estimated_close}}" name="opportunity[estimated_close]" id="opportunity_estimated_close" class="string span3 altfield">
 		</div>
 	</div>
 </div>
@@ -64,7 +64,7 @@
 	<label for="opportunity_probability" class="string control-label">Probability of Close</label>
 	<div class="controls opportunity_probability">
 		<div class="input-append">
-			<input type="text" value="{{opportunity.probability}}" name="opportunity[probability]" id="opportunity_probability" class="string input-min">
+			<input type="text" value="{{opportunity.probability}}" name="opportunity[probability]" id="opportunity_probability" class="string span2">
 			<span class="add-on">%</span>
 		</div>
 	</div>
@@ -81,9 +81,9 @@
 		<label for="opportunity_actual_close" class="string control-label">Actual Close Date</label>
 		<div class="controls opportunity_actual_close">
 			<div class="input-append">
-				<input type="text" value="{{opportunity.actual_close}}" name="opportunity_actual_close" id="opportunity_actual_close_dp" class="string input-medium datepicker">
+				<input type="text" value="{{opportunity.actual_close}}" name="opportunity_actual_close" id="opportunity_actual_close_dp" class="string span8 datepicker">
 				<span class="add-on"><i class="icon-calendar"></i></span>
-				<input type="hidden" value="{{opportunity.actual_close}}" name="opportunity[actual_close]" id="opportunity_actual_close" class="string input-small altfield">
+				<input type="hidden" value="{{opportunity.actual_close}}" name="opportunity[actual_close]" id="opportunity_actual_close" class="string span8 altfield">
 			</div>
 		</div>
 	</div>
@@ -100,9 +100,9 @@
 	<label for="opportunity_actual_cancel" class="string control-label">Cancellation Date</label>
 	<div class="controls opportunity_actual_cancel">
 		<div class="input-append">
-			<input type="text" value="{{opportunity.actual_cancel}}" name="opportunity_actual_cancel" id="opportunity_actual_cancel_dp" class="string input-medium datepicker">
+			<input type="text" value="{{opportunity.actual_cancel}}" name="opportunity_actual_cancel" id="opportunity_actual_cancel_dp" class="string span8 datepicker">
 			<span class="add-on"><i class="icon-calendar"></i></span>
-			<input type="hidden" value="{{opportunity.actual_cancel}}" name="opportunity[actual_cancel]" id="opportunity_actual_cancel" class="string input-small altfield">
+			<input type="hidden" value="{{opportunity.actual_cancel}}" name="opportunity[actual_cancel]" id="opportunity_actual_cancel" class="string span8 altfield">
 		</div>
 	</div>
 	</div>

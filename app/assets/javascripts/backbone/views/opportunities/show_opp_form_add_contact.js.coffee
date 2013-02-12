@@ -25,7 +25,7 @@ class Quota.Views.ShowOpportunityFormAddContact extends Backbone.View
 		@_companiesView = new Quota.Views.CompanySelect({parent_model:@opportunity, parent_child_key: @opportunity.get("company_key"), collection:@companies, field_name:"add_contact[company_key]", vent: @vent})
 		@_contactsView = new Quota.Views.CompanyContactsAdd({parent_child_key: @opportunity.get("company_key"), vent: @vent, include_company:true, selected_contacts:@opportunity_contacts})
 		
-		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@opportunity, collection:@companies, source: "name", val: "pub_key", className: 'string span5', vent: @vent})
+		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@opportunity, collection:@companies, source: "name", val: "pub_key", className: 'string input-large', vent: @vent})
 		
 	render: ->
 		$(@el).html(@template({opportunity:@opportunity}))

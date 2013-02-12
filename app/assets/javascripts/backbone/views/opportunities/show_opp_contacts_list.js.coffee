@@ -93,4 +93,4 @@ class Quota.Views.ShowOpportunityContactsList extends Backbone.View
 		
 
 	handleError: (attribute, message) ->
-		console.log message
+		# console.log message

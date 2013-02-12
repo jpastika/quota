@@ -65,7 +65,7 @@
 		
 		window.vent = _.extend({}, Backbone.Events);
 	
-		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, manufacturers: this.manufacturers, vent: vent});
+		var view_catalog_item = new Quota.Views.EditCatalogItem({model:this.catalog_item, manufacturers: this.manufacturers, vent: vent, el: '#catalog_item'});
 		view_catalog_item.setup();
 		// $('#catalog_item').html(view_catalog_item.render().el);
 	});	
