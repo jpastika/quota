@@ -50,13 +50,15 @@ class Quota.Views.ContactComboView extends Backbone.View
 		@
 		
 	selected: (obj) ->
-		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
-			obj.stopImmediatePropagation()
-			obj.preventDefault()
-			@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})
-		else
-			contact = _.find(@collection.models, (m) -> m.get("name") == obj)
-			if contact || !$(obj.target).val()
-				@vent.trigger('contact_name:changed',{contact_name: obj})
-			else
-				@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})
+		@trigger('contact_name:changed', {contact_name:obj})
+		@vent.trigger("contact_name:changed", {contact_name:obj})
+		# if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
+		# 			obj.stopImmediatePropagation()
+		# 			obj.preventDefault()
+		# 			@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})
+		# 		else
+		# 			contact = _.find(@collection.models, (m) -> m.get("name") == obj)
+		# 			if contact || !$(obj.target).val()
+		# 				@vent.trigger('contact_name:changed',{contact_name: obj})
+		# 			else
+		# 				@vent.trigger('contact_name:changed',{contact_name: $(obj.target).val()})

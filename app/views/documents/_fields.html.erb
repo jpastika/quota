@@ -8,16 +8,16 @@
 
 <div class="row-fluid">
 	<div class="span5">
-		<div class="control-group">
+		<div class="control-group document_name">
 			<label for="document_name" class="string control-label">Document Name</label>
-			<div class="controls document_name">
+			<div class="controls">
 				<input type="text" value="<%= @document.name %>" name="document[name]" id="document_name" class="string span12">
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
-			<label for="document_company_key" class="string control-label">Company</label>
-			<div class="controls document_company_name">
+		<div class="control-group document_company_name">
+			<label for="document_company_name" class="string control-label">Company</label>
+			<div class="controls">
 				<input type="text" value="<%= 
 												if !@document.company.nil? 
 													@document.company.name 
@@ -25,46 +25,48 @@
 										%>" name="document[company_name]" id="document_company_name" class="string span10">
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_company_phone dropdown">
 			<label for="document_company_phone" class="string control-label">Phone</label>
-			<div class="controls document_company_phone">
+			<div class="controls input-append">
 				<input type="text" value="<%= @document.company_phone %>" name="document[company_phone]" id="document_company_phone" class="string span5">
+				<a class="dropdown-toggle add-on" data-toggle="dropdown" href="#" style="display:none;"><b class="caret"></b></a><ul class="dropdown-menu"></ul>
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_company_fax dropdown">
 			<label for="document_company_fax" class="string control-label">Fax</label>
-			<div class="controls document_company_fax">
+			<div class="controls input-append">
 				<input type="text" value="<%= @document.company_fax %>" name="document[company_fax]" id="document_company_fax" class="string span5">
+				<a class="dropdown-toggle add-on" data-toggle="dropdown" href="#" style="display:none;"><b class="caret"></b></a><ul class="dropdown-menu"></ul>
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
+		<div class="control-group document_billing_street1">
 			<label for="document_billing_street1" class="string control-label">Billing Address</label>
-			<div class="controls document_billing_street1">
+			<div class="controls">
 				<input type="text" value="<%= @document.billing_street1 %>" name="document[billing_street1]" id="document_billing_street1" class="string span11" placeholder="street" title="Street">
 			</div>
 		</div>
-		<div class="control-group">
-			<div class="controls document_billing_street2">
+		<div class="control-group document_billing_street2">
+			<div class="controls">
 				<input type="text" value="<%= @document.billing_street2 %>" name="document[billing_street2]" id="document_billing_street2" class="string span11" placeholder="continued" title="Street Continued">
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_billing_city_state_zip">
 			<div class="controls controls-row">
-				<input type="text" value="<%= @document.billing_city %>" name="document[billing_city]" id="document_billing_city" class="string span6" placeholder="city" title="City">
-				<input type="text" value="<%= @document.billing_state %>" name="document[billing_state]" id="document_billing_state" class="string span2" placeholder="state" title="State">
-				<input type="text" value="<%= @document.billing_zip %>" name="document[billing_zip]" id="document_billing_zip" class="string span3" placeholder="zip code" title="Zip Code">
+				<input type="text" value="<%= @document.billing_city %>" name="document[billing_city]" id="document_billing_city" class="string span6 document_billing_city" placeholder="city" title="City">
+				<input type="text" value="<%= @document.billing_state %>" name="document[billing_state]" id="document_billing_state" class="string span2 document_billing_state" placeholder="state" title="State">
+				<input type="text" value="<%= @document.billing_zip %>" name="document[billing_zip]" id="document_billing_zip" class="string span3 document_billing_zip" placeholder="zip code" title="Zip Code">
 			</div>
 		</div>
-		<div class="control-group">
-			<div class="controls document_billing_country">
+		<div class="control-group document_billing_country">
+			<div class="controls">
 				<input type="text" value="<%= @document.billing_country %>" name="document[billing_country]" id="document_billing_country" class="string span6" placeholder="country" title="Country">
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
+		<div class="control-group document_notes_customer">
 			<label for="document_notes_customer" class="string control-label">Notes to Customer</label>
-			<div class="controls document_notes_customer">
+			<div class="controls">
 				<textarea name="document[notes_customer]" id="document_notes_customer" class="string span12"><%= @document.notes_customer %></textarea>
 			</div>
 		</div>
@@ -72,59 +74,63 @@
 	<div class="span1">
 	</div>
 	<div class="span5">
-		<div class="control-group">
+		<div class="control-group document_po">
 			<label for="document_po" class="string control-label">PO</label>
-			<div class="controls document_po">
+			<div class="controls">
 				<input type="text" value="<%= @document.po %>" name="document[po]" id="document_po" class="string span4">
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
+		<div class="control-group document_contact_name">
 			<label for="document_contact_name" class="string control-label">Contact</label>
-			<div class="controls document_contact_name">
-				<input type="text" value="<%= @document.contact_name %>" name="document[contact_name]" id="document_contact_name" class="string span10">
+			<div class="controls">
+				<input type="text" value="<%= 
+												if !@document.contact.nil? 
+													@document.contact.name 
+												end
+										%>" name="document[contact_name]" id="document_contact_name" class="string span10">
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_contact_phone">
 			<label for="document_contact_phone" class="string control-label">Phone (contact)</label>
-			<div class="controls document_contact_phone">
+			<div class="controls">
 				<input type="text" value="<%= @document.contact_phone %>" name="document[contact_phone]" id="document_contact_phone" class="string span5">
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_contact_email">
 			<label for="document_contact_email" class="string control-label">Email</label>
-			<div class="controls document_contact_email">
+			<div class="controls">
 				<input type="text" value="<%= @document.contact_email %>" name="document[contact_email]" id="document_contact_email" class="string span8">
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
-			<label for="document_shipping_street1" class="string control-label">Shipping Address</label>
-			<div class="controls document_shipping_street1">
+		<div class="control-group document_shipping_street1">
+			<label for="document_shipping_street1" class="string control-label">Shipping Address&nbsp;&nbsp;&nbsp;&nbsp;(<a>same as billing</a>)</label>
+			<div class="controls">
 				<input type="text" value="<%= @document.shipping_street1 %>" name="document[shipping_street1]" id="document_shipping_street1" class="string span11" placeholder="street" title="Street">
 			</div>
 		</div>
-		<div class="control-group">
-			<div class="controls document_shipping_street2">
+		<div class="control-group document_shipping_street2">
+			<div class="controls">
 				<input type="text" value="<%= @document.shipping_street2 %>" name="document[shipping_street2]" id="document_shipping_street2" class="string span11" placeholder="continued" title="Street Continued">
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group document_shipping_city_state_zip">
 			<div class="controls controls-row">
-				<input type="text" value="<%= @document.shipping_city %>" name="document[shipping_city]" id="document_shipping_city" class="string span6" placeholder="city" title="City">
-				<input type="text" value="<%= @document.shipping_state %>" name="document[shipping_state]" id="document_shipping_state" class="string span2" placeholder="state" title="State">
-				<input type="text" value="<%= @document.shipping_zip %>" name="document[shipping_zip]" id="document_shipping_zip" class="string span3" placeholder="zip code" title="Zip Code">
+				<input type="text" value="<%= @document.shipping_city %>" name="document[shipping_city]" id="document_shipping_city" class="string span6 document_shipping_city" placeholder="city" title="City">
+				<input type="text" value="<%= @document.shipping_state %>" name="document[shipping_state]" id="document_shipping_state" class="string span2 document_shipping_state" placeholder="state" title="State">
+				<input type="text" value="<%= @document.shipping_zip %>" name="document[shipping_zip]" id="document_shipping_zip" class="string span3 document_shipping_city_zip" placeholder="zip code" title="Zip Code">
 			</div>
 		</div>
-		<div class="control-group">
-			<div class="controls document_shipping_country">
+		<div class="control-group document_shipping_country">
+			<div class="controls">
 				<input type="text" value="<%= @document.shipping_country %>" name="document[shipping_country]" id="document_shipping_country" class="string span6" placeholder="country" title="Country">
 			</div>
 		</div>
 		<br>
-		<div class="control-group">
+		<div class="control-group document_notes_internal">
 			<label for="document_notes_customer" class="string control-label">Internal Notes</label>
-			<div class="controls document_notes_internal">
+			<div class="controls">
 				<textarea name="document[notes_internal]" id="document_notes_internal" class="string span12"><%= @document.notes_internal %></textarea>
 			</div>
 		</div>

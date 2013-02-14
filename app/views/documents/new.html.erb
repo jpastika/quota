@@ -70,8 +70,8 @@
 
 <script language="javascript">
 	$(function(){
-		this.companies = new Quota.Collections.Companies(gon.companies);
-		this.contacts = new Quota.Collections.Contacts(gon.contacts);
+		this.companies = new Quota.Collections.Companies($.parseJSON(gon.companies));
+		this.contacts = new Quota.Collections.Contacts($.parseJSON(gon.contacts));
 		
 		if(gon.document){
 			this.document = new Quota.Models.Document(gon.document);

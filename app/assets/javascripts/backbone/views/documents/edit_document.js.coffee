@@ -2,22 +2,24 @@ class Quota.Views.EditDocument extends Backbone.View
 
 	# template: HandlebarsTemplates['opportunities/edit_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	# events:
-	# 		"blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
-	# 		"blur #opportunity_actual_close_dp": "checkActualCloseDate"
-	# 		"blur #opportunity_actual_cancel_dp": "checkActualCancelDate"
+	events:
+		"click .document_company_phone ul li": "companyPhoneClicked"
+		"click .document_company_fax ul li": "companyFaxClicked"
+		# "blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
+		# 	"blur #opportunity_actual_close_dp": "checkActualCloseDate"
+		# 	"blur #opportunity_actual_cancel_dp": "checkActualCancelDate"
 		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
-		Backbone.Validation.bind(
-			@
-			valid: (view, attr) ->
-				self.clearError(attr)
-			invalid: (view, attr, error) ->
-				self.clearError(attr)
-				self.handleError(attr, error)
-		)
+		# Backbone.Validation.bind(
+		# 			@
+		# 			valid: (view, attr) ->
+		# 				self.clearError(attr)
+		# 			invalid: (view, attr, error) ->
+		# 				self.clearError(attr)
+		# 				self.handleError(attr, error)
+		# 		)
 		@companies = options.companies
 		@contacts = options.contacts
 		
@@ -29,19 +31,27 @@ class Quota.Views.EditDocument extends Backbone.View
 		@_contactComboView = new Quota.Views.ContactComboView({parent_model:@model, collection:@contacts, source: "name", val: "pub_key", company_key: @model.get("company_key"), className: 'string span10', vent: @vent})
 		
 		# @model.on('change', @render, @)
-		# @vent.on('company_name:changed', @companyNameChanged, @)
+		@vent.on('company_name:changed', @companyNameChanged, @)
+		@vent.on('contact_name:changed', @contactNameChanged, @)
 		
 	render: ->
 		self = @
 		# $(@el).html(@template({opportunity:@model.toJSON()}))
 		
 		@document_name = @$('.document_name')
-		@document_company_name = @$('.document_company_name')
-		@document_contact_name = @$('.document_contact_name')
+		@document_company_name = @$('.document_company_name div')
+		@document_contact_name = @$('.document_contact_name div')
+		@document_company_phone = @$('.document_company_phone')
+		@document_company_phone_dropdown_toggle = @$('.document_company_phone .dropdown-toggle')
+		@document_company_phone_dropdown_list = @$('.document_company_phone ul')
+		@document_company_fax = @$('.document_company_fax')
+		@document_company_fax_dropdown_toggle = @$('.document_company_fax .dropdown-toggle')
+		@document_company_fax_dropdown_list = @$('.document_company_fax ul')
 		@input_document_name = @$('.document_name input')
 		@input_document_po = @$('.document_po input')
 		@input_document_company_name = @$('.document_company_name input')
 		@input_document_company_phone = @$('.document_company_phone input')
+		@input_document_company_phone_label = @$('.document_company_phone label')
 		@input_document_company_fax = @$('.document_company_fax input')
 		@input_document_contact_name = @$('.document_contact_name input')
 		@input_document_contact_phone = @$('.document_contact_phone input')
@@ -60,6 +70,8 @@ class Quota.Views.EditDocument extends Backbone.View
 		@input_document_shipping_country = @$('.document_shipping_country input')
 		@input_document_notes_customer = @$('.document_notes_customer textarea')
 		@input_document_notes_internal = @$('.document_notes_internal textarea')
+		@input_document_company_key = @$('#document_company_key')
+		@input_document_contact_key = @$('#document_contact_key')
 		
 		company_name_field_name = @input_document_company_name.attr('name')
 		company_name_field_id = @input_document_company_name.attr('id')
@@ -90,12 +102,19 @@ class Quota.Views.EditDocument extends Backbone.View
 	setup: ->
 		self = @
 		@document_name = @$('.document_name')
-		@document_company_name = @$('.document_company_name')
-		@document_contact_name = @$('.document_contact_name')
+		@document_company_name = @$('.document_company_name div')
+		@document_contact_name = @$('.document_contact_name div')
+		@document_company_phone = @$('.document_company_phone')
+		@document_company_phone_dropdown_toggle = @$('.document_company_phone .dropdown-toggle')
+		@document_company_phone_dropdown_list = @$('.document_company_phone ul')
+		@document_company_fax = @$('.document_company_fax')
+		@document_company_fax_dropdown_toggle = @$('.document_company_fax .dropdown-toggle')
+		@document_company_fax_dropdown_list = @$('.document_company_fax ul')
 		@input_document_name = @$('.document_name input')
 		@input_document_po = @$('.document_po input')
 		@input_document_company_name = @$('.document_company_name input')
 		@input_document_company_phone = @$('.document_company_phone input')
+		@input_document_company_phone_label = @$('.document_company_phone label')
 		@input_document_company_fax = @$('.document_company_fax input')
 		@input_document_contact_name = @$('.document_contact_name input')
 		@input_document_contact_phone = @$('.document_contact_phone input')
@@ -114,6 +133,8 @@ class Quota.Views.EditDocument extends Backbone.View
 		@input_document_shipping_country = @$('.document_shipping_country input')
 		@input_document_notes_customer = @$('.document_notes_customer textarea')
 		@input_document_notes_internal = @$('.document_notes_internal textarea')
+		@input_document_company_key = @$('#document_company_key')
+		@input_document_contact_key = @$('#document_contact_key')
 		
 		company_name_field_name = @input_document_company_name.attr('name')
 		company_name_field_id = @input_document_company_name.attr('id')
@@ -192,36 +213,85 @@ class Quota.Views.EditDocument extends Backbone.View
 				
 	companyNameChanged: (evt) ->
 		self = @
-		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
-		if company
-			@model.set("company_key", company.get("pub_key"), {silent: true})
-			@input_document_company_key.val(company.get("pub_key"))
+		@company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
+		if @company
+			@model.set({company_key: @company.get("pub_key"), silent: true})
+			@input_document_company_key.val(@company.get("pub_key"))
 			# @save()
 		else
-			@model.unset("company_key", {silent: true})
+			@company = null
+			@model.set({company_key: '', silent: true})
 			@input_document_company_key.val('')
-			# if evt.company_name != ''
-			# 				company = new Quota.Models.Contact()
-			# 				company.save(
-			# 					{
-			# 						name: evt.company_name
-			# 						contact_type_key: _.first(self.contact_types.where({name: "Company"})).get("pub_key")
-			# 					},{
-			# 						error: (model, response) ->
-			# 							self.handleError(model, response)
-			# 						success: (model) ->
-			# 							self.companies.add(model)
-			# 							self._companySelectView.remove()
-			# 							self.model.set("company_key", model.get("pub_key"), {silent: true})
-			# 							self._companySelectView = new Quota.Views.CompanySelectView({parent_model:self.model, collection:self.companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: self.vent})
-			# 							self.contact_company_name.html(self._companySelectView.render().el)
-			# 							self.save()
-			# 					}
-			# 				)
-			# 			else
-			# 				@save()
+		self.handleCompanyChanged()
+		self.vent.trigger("company_key:changed", {company_key: @input_document_company_key.val()})
 
+
+	contactNameChanged: (evt) ->
+		self = @
+		@contact = _.find(self.contacts.models, (m) -> m.get("name") == evt.contact_name)
+		if @contact
+			@model.set({contact_key: @contact.get("pub_key"), silent: true})
+			@input_document_contact_key.val(@contact.get("pub_key"))
+			# @save()
+		else
+			@contact = null
+			@model.set({contact_key: '', silent: true})
+			@input_document_contact_key.val('')
+			
+	handleCompanyChanged: ->
+		@clearCompanyPhones()
+		if @company
+			@setupCompanyPhones()
+			@setupCompanyContacts()
+			
+	setupCompanyPhones: ->
+		company_phones = @company.get("phones")
+		phones = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
+		faxes = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") != -1)
 		
+		if phones.length
+			phone = phones[0]
+			@input_document_company_phone.val(phone.val)
+			
+			if phones.length > 1
+				@setupCompanyPhonesDropDown(phones)
+		if faxes.length
+			fax = faxes[0]
+			@input_document_company_fax.val(fax.val)
+			
+			if faxes.length > 1
+				@setupCompanyFaxesDropDown(faxes)
+			
+	setupCompanyPhonesDropDown: (phones)->
+		self = @
+		@document_company_phone_dropdown_toggle.show()
+		_.each(phones, (m) -> self.document_company_phone_dropdown_list.append("<li data-attr=#{m.val}>#{m.val}</li>"))
+		
+	setupCompanyFaxesDropDown: (faxes)->
+		self = @
+		@document_company_fax_dropdown_toggle.show()
+		_.each(faxes, (m) -> self.document_company_fax_dropdown_list.append("<li data-attr=#{m.val}>#{m.val}</li>"))
+
+	clearCompanyPhones: ->
+		@input_document_company_phone.val('')
+		@input_document_company_fax.val('')
+		@clearCompanyPhonesDropDown()
+		@clearCompanyFaxDropDown()
+		
+	clearCompanyPhonesDropDown: ->
+		@document_company_phone_dropdown_toggle.hide()
+		@document_company_phone_dropdown_list.empty()
+		
+	clearCompanyFaxDropDown: ->
+		@document_company_fax_dropdown_toggle.hide()
+		@document_company_fax_dropdown_list.empty()
+		
+	companyPhoneClicked: (evt)->
+		@input_document_company_phone.val($(evt.target).attr('data-attr'))
+	
+	companyFaxClicked: (evt)->
+		@input_document_company_fax.val($(evt.target).attr('data-attr'))
+
 	setMilestoneRelatedFields: ->
 		# self = @
 		# 		ct = _.find self.contact_types.models, (cm) -> cm.get("pub_key") == self.model.get("contact_type_key")

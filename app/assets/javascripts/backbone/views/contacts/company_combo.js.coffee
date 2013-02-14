@@ -2,8 +2,8 @@ class Quota.Views.CompanyComboView extends Backbone.View
 	tagName: 'span'
 	template: HandlebarsTemplates['contacts/company_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events:
-		"blur input": "selected"
+	# events:
+	# 		"blur input": "selected"
 	
 	initialize: (options) ->
 		_.bindAll(@)
@@ -49,13 +49,17 @@ class Quota.Views.CompanyComboView extends Backbone.View
 		@
 		
 	selected: (obj) ->
-		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
-			obj.stopImmediatePropagation()
-			obj.preventDefault()
-			@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
-		else
-			company = _.find(@collection.models, (m) -> m.get("name") == obj)
-			if company || !$(obj.target).val()
-				@vent.trigger('company_name:changed',{company_name: obj})
-			else
-				@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
+		@trigger('company_name:changed', {company_name:obj})
+		@vent.trigger("company_name:changed", {company_name:obj})
+		# console.log obj
+		# 		
+		# 		if obj.originalEvent and obj.originalEvent.explicitOriginalTarget and obj.originalEvent.explicitOriginalTarget.tagName != 'INPUT'
+		# 			obj.stopImmediatePropagation()
+		# 			obj.preventDefault()
+		# 			@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})
+		# 		else
+		# 			company = _.find(@collection.models, (m) -> m.get("name") == obj)
+		# 			if company || !$(obj.target).val()
+		# 				@vent.trigger('company_name:changed',{company_name: obj})
+		# 			else
+		# 				@vent.trigger('company_name:changed',{company_name: $(obj.target).val()})

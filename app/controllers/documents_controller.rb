@@ -17,8 +17,8 @@ class DocumentsController < ApplicationController
     @companies = Contact.companies
     @contacts = Contact.people
     
-    gon.companies = @companies
-    gon.contacts = @contacts
+    gon.companies = @companies.to_json(:include => [:addresses, :phones, :emails])
+    gon.contacts = @contacts.to_json(:include => [:addresses, :phones, :emails])
     
     gon.document = @document
     
@@ -101,8 +101,9 @@ class DocumentsController < ApplicationController
     @companies = Contact.companies
     @contacts = Contact.people
     
-    gon.companies = @companies
-    gon.contacts = @contacts
+    gon.companies = @companies.to_json(:include => [:addresses, :phones, :emails])
+    gon.contacts = @contacts.to_json(:include => [:addresses, :phones, :emails])
+    
     gon.document = @document
     
   end
