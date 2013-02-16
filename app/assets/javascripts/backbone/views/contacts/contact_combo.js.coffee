@@ -2,8 +2,8 @@ class Quota.Views.ContactComboView extends Backbone.View
 	tagName: 'span'
 	template: HandlebarsTemplates['contacts/contact_combo'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events:
-		"blur input": "selected"
+	# events:
+	# 		"blur input": "selected"
 	
 	initialize: (options) ->
 		_.bindAll(@)
