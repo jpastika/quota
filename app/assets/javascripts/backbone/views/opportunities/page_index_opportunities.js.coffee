@@ -29,4 +29,4 @@ class Quota.Views.PageIndexOpportunities extends Backbone.View
 		# 			# gon.contact = evt.view.model
 		# 			Backbone.history.navigate("contacts/" + evt.view.model.get("pub_key") + "/edit", {trigger: true, replace: false})
 		# 		else
-		window.location.replace('/opportunities/'+evt.view.model.id)
+		# window.location.replace('/opportunities/'+evt.view.model.id)

@@ -48,86 +48,208 @@
 		</div>
 		<div class="parent-page">
 			<div id="main_body_container" class="">
+				<div class="row">
+					<div class="span12">
+						<div class="span4">
+							<div class="section-heading">
+								<h4><%= @document.company.name %></h4>
+							</div>
+							<div class="">
+								<% if @document.company_phone? %>
+									phone: <%= @document.company_phone %><br>
+								<% end %>
+								<% if @document.company_fax? %>
+									fax: <%= @document.company_fax %>
+								<% end %>
+							</div>
+						</div>
+						<div class="span1">
+						
+						</div>
+						<div class="span4">
+							<div class="section-heading">
+								<h4><%= @document.contact.name %></h4>
+							</div>
+							<div class="">
+								<% if @document.contact_phone? %>
+									phone: <%= @document.contact_phone %><br>
+								<% end %>
+								<% if @document.contact_email? %>
+									email: <%= @document.contact_email %>
+								<% end %>
+							</div>
+						</div>
+						<div class="span3">
+						
+						</div>
+					</div>
+					<div class="span12">
+						<br><br>
+					</div>
+					<div class="span12">
+						<div class="span4">
+							<div class="section-heading">
+								<h4>Billing Address</h4>
+							</div>
+							<div class="">
+								<% if @document.billing_street1? %>
+									<%= @document.billing_street1 %><br>
+								<% end %>
+								<% if @document.billing_street2? %>
+									<%= @document.billing_street2 %><br>
+								<% end %>
+								<% if @document.billing_city? %>
+									<%= @document.billing_city %>, 
+								<% end %>
+								<% if @document.billing_state? %>
+									<%= @document.billing_state %>  
+								<% end %>
+								<% if @document.billing_zip? %>
+									<%= @document.billing_zip %><br>
+								<% end %>
+								<%= @document.billing_country %>
+							</div>
+						</div>
+						<div class="span1">
+						
+						</div>
+						<div class="span4">
+							<div class="section-heading">
+								<h4>Shipping Address</h4>
+							</div>
+							<div class="">
+								<% if @document.shipping_street1? %>
+									<%= @document.shipping_street1 %><br>
+								<% end %>
+								<% if @document.shipping_street2? %>
+									<%= @document.shipping_street2 %><br>
+								<% end %>
+								<% if @document.shipping_city? %>
+									<%= @document.shipping_city %>, 
+								<% end %>
+								<% if @document.shipping_state? %>
+									<%= @document.shipping_state %>  
+								<% end %>
+								<% if @document.shipping_zip? %>
+									<%= @document.shipping_zip %><br>
+								<% end %>
+								<%= @document.shipping_country %>
+							</div>
+						</div>
+						<div class="span3
+						">
+						
+						</div>
+					</div>
+				</div>
 				<div>
-					<div id="items_container">
+					<br><br>
+				</div>
+				<div>
+					<hr size="0">
+				</div>
+				<div id="items_container" class="row">
+					<div class="section-heading">
+						<h4></h4>
+					</div>
+					<div class="section-content">
+						<div class="document-items-heading">
+							<input type="text" class="document_items_shim document_item_shim">
+							<table class="table table-condensed table-plain" cellspacing="0" cellpadding="0" width="100%">
+								<thead>
+									<tr>
+										<th width="3%">&nbsp;</th>
+										<th width="3%">&nbsp;</th>
+										<th width="29%">Item</th>
+										<th width="12%">Part #</th>
+										<th width="5%">Qty</th>
+										<th width="12%" class="align-right">Unit Price</th>
+										<th width="8%">&nbsp;</th>
+										<th width="12%" class="align-right">Total</th>
+										<th width="8%">&nbsp;</th>
+										<th width="8%">&nbsp;</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<div class="document-items-rows">
+							<ul>
+							</ul>
+						</div>
+						<div class="document-items-new">
+							<ul>
+							</ul>
+						</div>
+						<div class="document-items-totals">
+							<table class="" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									<tr class="">
+										<td rowspan="8" width="64%">&nbsp;</td>
+										<td width="8%">&nbsp;</td>
+										<td width="12%"></td>
+										<td width="16%">&nbsp;</td>
+									</tr>
+									<tr class="document_total_purchase" style="display: none;">
+										<td width="8%" class="document_total_purchase_plus">&nbsp;</td>
+										<td width="12%" class="document_total_purchase_holder align-right"></td>
+										<td width="16%">&nbsp;</td>
+									</tr>
+									<tr class="document_total_hourly" style="display: none;">
+										<td width="8%" class="document_total_hourly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_hourly_holder align-right"></td>
+										<td width="16%">per hour</td>
+									</tr>
+									<tr class="document_total_daily" style="display: none;">
+										<td width="8%" class="document_total_daily_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_daily_holder align-right"></td>
+										<td width="16%">per day</td>
+									</tr>
+									<tr class="document_total_weekly" style="display: none;">
+										<td width="8%" class="document_total_weekly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_weekly_holder align-right"></td>
+										<td width="16%">per week</td>
+									</tr>
+									<tr class="document_total_monthly" style="display: none;">
+										<td width="8%" class="document_total_monthly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_monthly_holder align-right"></td>
+										<td width="16%">per month</td>
+									</tr>
+									<tr class="document_total_quarterly" style="display: none;">
+										<td width="8%" class="document_total_quarterly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_quarterly_holder align-right"></td>
+										<td width="16%">per quarter</td>
+									</tr>
+									<tr class="document_total_yearly" style="display: none;">
+										<td width="8%" class="document_total_yearly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="document_total_yearly_holder align-right"></td>
+										<td width="16%">per year</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div>
+					<hr size="0">
+				</div>
+				<div class="row">
+					<div class="span6">
 						<div class="section-heading">
-							<h3>Items</h3>
+							<h4>Notes to Customer</h4>
 						</div>
 						<div class="section-content">
-							<div class="document-items-heading">
-								<input type="text" class="document_items_shim document_item_shim">
-								<table class="table table-condensed table-plain" cellspacing="0" cellpadding="0" width="100%">
-									<thead>
-										<tr>
-											<th width="3%">&nbsp;</th>
-											<th width="3%">&nbsp;</th>
-											<th width="29%">Item</th>
-											<th width="12%">Part #</th>
-											<th width="5%">Qty</th>
-											<th width="12%" class="align-right">Unit Price</th>
-											<th width="8%">&nbsp;</th>
-											<th width="12%" class="align-right">Total</th>
-											<th width="8%">&nbsp;</th>
-											<th width="8%">&nbsp;</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
-							<div class="document-items-rows">
-								<ul>
-								</ul>
-							</div>
-							<div class="document-items-new">
-								<ul>
-								</ul>
-							</div>
-							<div class="document-items-totals">
-								<table class="" cellspacing="0" cellpadding="0" width="100%">
-									<tbody>
-										<tr class="">
-											<td rowspan="8" width="64%">&nbsp;</td>
-											<td width="8%">&nbsp;</td>
-											<td width="12%"></td>
-											<td width="16%">&nbsp;</td>
-										</tr>
-										<tr class="document_total_purchase" style="display: none;">
-											<td width="8%" class="document_total_purchase_plus">&nbsp;</td>
-											<td width="12%" class="document_total_purchase_holder align-right"></td>
-											<td width="16%">&nbsp;</td>
-										</tr>
-										<tr class="document_total_hourly" style="display: none;">
-											<td width="8%" class="document_total_hourly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_hourly_holder align-right"></td>
-											<td width="16%">per hour</td>
-										</tr>
-										<tr class="document_total_daily" style="display: none;">
-											<td width="8%" class="document_total_daily_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_daily_holder align-right"></td>
-											<td width="16%">per day</td>
-										</tr>
-										<tr class="document_total_weekly" style="display: none;">
-											<td width="8%" class="document_total_weekly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_weekly_holder align-right"></td>
-											<td width="16%">per week</td>
-										</tr>
-										<tr class="document_total_monthly" style="display: none;">
-											<td width="8%" class="document_total_monthly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_monthly_holder align-right"></td>
-											<td width="16%">per month</td>
-										</tr>
-										<tr class="document_total_quarterly" style="display: none;">
-											<td width="8%" class="document_total_quarterly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_quarterly_holder align-right"></td>
-											<td width="16%">per quarter</td>
-										</tr>
-										<tr class="document_total_yearly" style="display: none;">
-											<td width="8%" class="document_total_yearly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="document_total_yearly_holder align-right"></td>
-											<td width="16%">per year</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+							<%= @document.notes_customer%>
+						</div>
+					</div>
+					<div class="span1">
+						
+					</div>
+					<div class="span5">
+						<div class="section-heading">
+							<h4>Internal Notes</h4>
+						</div>
+						<div class="section-content">
+							<%= @document.notes_internal%>
 						</div>
 					</div>
 				</div>

@@ -4,15 +4,15 @@
 <div class="row-fluid">
 <div class="span6">
 <div class="control-group string required">
-	<label for="opportunity_name" class="string required control-label">Opportunity Name</label>
+	<label for="opportunity_name" class="string required control-label">Name of Opportunity</label>
 	<div class="controls">
-		<input type="text" value="{{opportunity.name}}" size="30" name="opportunity[name]" id="opportunity_name" class="string required">
+		<input type="text" value="{{opportunity.name}}" name="opportunity[name]" id="opportunity_name" class="string required">
 	</div>
 </div>
 <div class="control-group">
 	<label for="company_name" class="string control-label">Customer</label>
 	<div class="controls company_name">
-		<input type="text" value="" name="customer[company_name]" id="opportunity_company_name" class="string input-xlarge">
+		<input type="text" value="" name="customer[company_name]" id="opportunity_company_name" class="string span10">
 	</div>
 </div>
 <div class="control-group">
@@ -21,6 +21,7 @@
 		<div class="input-prepend">
 			<span class="add-on">$</span>
 			<input type="text" value="{{opportunity.estimated_value}}" name="opportunity[estimated_value]" id="opportunity_estimated_value" class="string span4">
+			&nbsp;
 			<select class="span3" name="opportunity[estimated_value_interval]" value="{{opportunity.estimated_value_interval}}">
 				<option value="FIXED">fixed</option>
 				<option value="HOUR">per hour</option>
@@ -43,8 +44,9 @@
 		</div>
 	</div>
 </div>
+<br><br>
 <div class="control-group string">
-	<label for="opportunity_description" class="string control-label">Opportunity Description</label>
+	<label for="opportunity_description" class="string control-label">Description of Opportunity</label>
 	<div class="controls">
 		<textarea name="opportunity[description]" id="opportunity_description" class="string">{{opportunity.description}}</textarea>
 	</div>
@@ -63,9 +65,20 @@
 <div class="control-group">
 	<label for="opportunity_probability" class="string control-label">Probability of Close</label>
 	<div class="controls opportunity_probability">
-		<div class="input-append">
-			<input type="text" value="{{opportunity.probability}}" name="opportunity[probability]" id="opportunity_probability" class="string span2">
-			<span class="add-on">%</span>
+		<div class="">
+			<select class="span2" name="opportunity[probability]" value="{{opportunity.probability}}">
+				<option value="0">0%</option>
+				<option value="10">10%</option>
+				<option value="20">20%</option>
+				<option value="30">30%</option>
+				<option value="40">40%</option>
+				<option value="50">50%</option>
+				<option value="60">60%</option>
+				<option value="70">70%</option>
+				<option value="80">80%</option>
+				<option value="90">90%</option>
+				<option value="100">100%</option>
+			</select>
 		</div>
 	</div>
 </div>

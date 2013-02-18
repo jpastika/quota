@@ -21,7 +21,27 @@
 			</div>
 		</div>
 		<div class="parent-page">
-			<div id="main_body"></div>
+			<div id="main_body">
+				<div id="opportunities_container">
+					<div class="section-table">
+						<table class="table table-condensed table-plain">
+							<thead class="opportunitites-heading">
+								<tr>
+									<th width="5%">Milestone</th>
+									<th width="5%">Added</th>
+									<th width="42%">Opportunity</th>
+									<th width="30%">Owner</th>
+									<th width="5%" class="align-right">Est. Value</th>
+									<th width="5%">Est. Close</th>
+									<th width="8%">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="opportunities-rows">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -29,9 +49,8 @@
 
 <script language="javascript">
 	$(function(){
-		
 		var view_page = new Quota.Views.PageIndexOpportunities({opportunities: new Quota.Collections.Opportunities($.parseJSON(gon.opportunities)), vent: Quota.vent});
-		$('#main_body').html(view_page.render().el);
+		view_page.render()
 	});	
 	
 	$.fn.placeholder();

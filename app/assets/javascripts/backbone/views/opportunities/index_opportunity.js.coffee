@@ -1,9 +1,9 @@
 class Quota.Views.IndexOpportunity extends Backbone.View
 
 	template: HandlebarsTemplates['opportunities/index_opportunity'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	
+	tagName:  'tr'
 	events:
-		"click .opportunity_remove": "destroy"
+		"click .icon-remove": "destroy"
 		"click .opportunity_link": "opportunityLinkClicked"
 	
 	initialize: (options)->

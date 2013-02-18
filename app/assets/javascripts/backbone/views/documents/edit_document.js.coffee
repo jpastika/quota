@@ -196,46 +196,37 @@ class Quota.Views.EditDocument extends Backbone.View
 		
 		if @model.get("company_key")
 			@company = _.find(self.companies.models, (m) -> m.get("pub_key") == self.model.get("company_key"))
+			
 			if @company
-				@input_document_company_key.val(@company.get("pub_key"))
-				# @save()
-			else
-				@company = null
-				@model.set({company_key: '', silent: true})
-				@input_document_company_key.val('')
-			self.handleCompanyChanged()
+				company_phones = @company.get("phones")
+				addresses = @company.get("addresses")
+				phones = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
+				faxes = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") != -1)
+				contacts = @getCompanyContacts(@company.get("pub_key"))
+
+				if phones.length
+					@setupCompanyPhonesDropDown(phones)
+				if faxes.length
+					@setupCompanyFaxesDropDown(faxes)
+				if addresses.length
+					@setupBillingAddressesDropDown(addresses)
+					@setupShippingAddressesDropDown(addresses)
+				if contacts.length
+					@setupCompanyContactsDropDown(contacts)
 			
 		if @model.get("contact_key")
-			@contact = _.find(self.contacts.models, (m) -> m.get("pub_key") == self.model.get("company_key"))
-			if @contact
-				@input_document_contact_key.val(@contact.get("pub_key"))
-				company = _.find(self.companies.models, (m) -> m.get("pub_key") == self.contact.get("company_key"))
-
-				if company
-					if @company != company
-						@company = company
-						@input_document_company_key.val(@company.get("pub_key"))
-						@input_document_company_name.val(@company.get("name"))
-						@clearCompanyFields()
-						@setupCompanyFields()
-						contacts = @getCompanyContacts(@company.get("pub_key"))
-						@setupCompanyContactsDropDown(contacts)
-				else
-					@company = null
-					@model.set({company_key: '', silent: true})
-					@input_document_company_key.val('')
-					@input_document_company_name.val('')
-					@clearCompanyFields()
-					@setupCompanyFields()
-					contacts = new Array()
-					@setupCompanyContactsDropDown(contacts)
-				# @save()
-			else
-				@contact = null
-				@model.set({contact_key: '', silent: true})
-				@input_document_contact_key.val('')
-			self.handleContactChanged()
+			@contact = _.find(self.contacts.models, (m) -> m.get("pub_key") == self.model.get("contact_key"))
 			
+			if @contact
+				contact_phones = @contact.get("phones")
+				c_phones = _.filter(contact_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
+				emails = @contact.get("emails")
+
+				if c_phones.length
+					@setupContactPhonesDropDown(c_phones)
+				if emails.length
+					@setupContactEmailsDropDown(emails)
+		
 	rendered: ->
 		
 	save: ->

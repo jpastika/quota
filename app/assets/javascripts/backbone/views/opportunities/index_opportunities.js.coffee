@@ -1,7 +1,7 @@
 class Quota.Views.IndexOpportunities extends Backbone.View
 
-	tagName: 'ul'
-	className: 'unstyled form-vertical'
+	el: '#opportunities_container .section-table tbody'
+	
 	
 	# events:
 	# 		# "blur .contact_name input": "contactNameChanged"
@@ -23,10 +23,11 @@ class Quota.Views.IndexOpportunities extends Backbone.View
 		frag = document.createDocumentFragment()
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		$(@el).append(frag)
+		console.log @el
 		@
 	
 	addOne: (item)->
-		view = new Quota.Views.IndexOpportunity({model: item, tagName:'li', className:'opportunity', opportunity: @model, vent: @vent})
+		view = new Quota.Views.IndexOpportunity({model: item, className:'opportunity', opportunity: @model, vent: @vent})
 		@_opportunityViews.push(view)
 		view
 	

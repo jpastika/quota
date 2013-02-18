@@ -1,8 +1,25 @@
-<div>
-<span class="label">{{opportunity.milestone.name}}</span>
-<span class="opportunity_link">{{opportunity.name}}</span>
-<span class="">{{opportunity.company.name}}</span>
-<span class="">{{opportunity.owner.name}}</span>
-<span class="">{{opportunity.estimated_close}}</span>
-<span class="">{{opportunity.estimated_value}}</span>
-</div>
+<td>
+	<span class="label">{{opportunity.milestone.name}}</span>
+</td>
+<td>
+	<span>{{opportunity.created_at}}</span>
+</td>
+<td>
+	<span class="opportunity_link"><h4>{{opportunity.company.name}}</h4></span>
+	<br>
+	<span class="opportunity_link">{{opportunity.name}}</span>
+</td>
+<td>
+	<span class="opportunity_link"><b>{{opportunity.owner.name}}</b></span>
+	<br>
+	<span class="opportunity_link">latest activity</span>
+</td>
+<td>
+	<span class="">{{opportunity.estimated_value}}</span>
+</td>
+<td>
+	<span class="">{{opportunity.estimated_close}}</span>
+</td>
+<td>
+	<i class="icon-button icon-remove"></i>
+</td>
