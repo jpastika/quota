@@ -5,20 +5,20 @@
 	<span>{{opportunity.created_at}}</span>
 </td>
 <td>
-	<span class="opportunity_link"><h4>{{opportunity.company.name}}</h4></span>
+	<span class="opportunity_link"><h4><a href="/opportunities/{{opportunity.pub_key}}">{{opportunity.company.name}}</a></h4></span>
 	<br>
-	<span class="opportunity_link">{{opportunity.name}}</span>
+	<span class="opportunity_link"><a href="/opportunities/{{opportunity.pub_key}}">{{opportunity.name}}</a></span>
 </td>
 <td>
-	<span class="opportunity_link"><b>{{opportunity.owner.name}}</b></span>
+	<span class="opportunity_link"><b><a href="/opportunities/{{opportunity.pub_key}}">{{opportunity.owner.name}}</a></b></span>
 	<br>
-	<span class="opportunity_link">latest activity</span>
+	<span class="opportunity_link"><a href="/opportunities/{{opportunity.pub_key}}">latest activity</a></span>
 </td>
 <td>
-	<span class="">{{opportunity.estimated_value}}</span>
+	<span class=""><a href="/opportunities/{{opportunity.pub_key}}">{{opportunity.estimated_value}}</a></span>
 </td>
 <td>
-	<span class="">{{opportunity.estimated_close}}</span>
+	<span class=""><a href="/opportunities/{{opportunity.pub_key}}">{{opportunity.estimated_close}}</a></span>
 </td>
 <td>
 	<i class="icon-button icon-remove"></i>

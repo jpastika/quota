@@ -3,7 +3,7 @@ class Quota.Views.CatalogItemSearchAdd extends Backbone.View
 	template: HandlebarsTemplates['catalog_items/catalog_item_search_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .btn": "addItem"
+		"click .icon-plus": "addItem"
 		
 	initialize: (options)->
 		_.bindAll(@)

@@ -8,7 +8,7 @@
 			<div class="control-group string">
 				<div class="controls catalog_search">
 					<div class="input-append input-search">
-						<input type="text" class="string input-large" name="catalog_search" size="20" value="">
+						<input type="text" class="string span8" name="catalog_search" value="">
 						<span class="add-on">
 							<button class="btn btn-primary" id="catalog_search">
 								<i class="icon-search"></i>&nbsp;
@@ -40,13 +40,13 @@
 				<div class="span6">
 					<label class="string control-label" for="catalog_item_part_number">Part Number</label>
 					<div class="controls catalog_item_part_number">
-						<input type="text" class="string input-large" name="catalog_item[part_number]" size="30" value="">
+						<input type="text" class="string span10" name="catalog_item[part_number]" value="">
 					</div>
 				</div>
 				<div class="span6">
 					<label class="string control-label" for="catalog_item_manufacturer">Manufacturer</label>
 					<div class="controls catalog_item_manufacturer">
-						<input type="text" size="30" name="catalog_item[manufacturer]" id="catalog_item_manufacturer" class="string input-large" autocomplete="off">
+						<input type="text" name="catalog_item[manufacturer]" id="catalog_item_manufacturer" class="string span12" autocomplete="off">
 					</div>
 				</div>
 			</div>
@@ -56,8 +56,8 @@
 			<div class="controls">
 				<div class="input-prepend">
 					<span class="add-on">$</span>
-					<input type="text" name="catalog_item[list_price]" id="catalog_item_list_price" class="numeric float optional input-small">
-					<select name="catalog_item[recurring_unit]" label="false" id="catalog_item_recurring_unit" class="select optional input-medium">
+					<input type="text" name="catalog_item[list_price]" id="catalog_item_list_price" class="numeric float optional span4">
+					<select name="catalog_item[recurring_unit]" label="false" id="catalog_item_recurring_unit" class="select optional span3">
 					<option value=""></option>
 					<option data-key="recurring_unit" value="per hour">per hour</option>
 					<option data-key="recurring_unit" value="per day">per day</option>
@@ -68,6 +68,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
 		<div class="control-group">
 			<div class="controls catalog_item_is_taxable">
 				<input type="checkbox" value="true" name="catalog_item[is_taxable]" id="catalog_item_is_taxable">
@@ -80,8 +81,8 @@
 				&nbsp;is package? (contains other catalog items)
 			</div>
 		</div>
-		<div id="catalog_item-add-new-child-item-actions" class="section-actions">
-			<label>&nbsp;</label>
+		<br>
+		<div id="catalog_item-add-new-child-item-actions" class="section-actions actions-bar-left">
 			<button type="submit" class="btn btn-success">
 				<i class="icon-plus"></i>&nbsp;&nbsp;Add Item
 			</button>

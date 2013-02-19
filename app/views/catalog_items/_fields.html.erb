@@ -4,16 +4,17 @@
 <div class="row-fluid">
 <div class="span6">
 	<%= f.input :name, :label => "Name", :input_html => {:size => 30} %>
-	<%= f.input :description, :label => "Description", :input_html => {:rows => 4} %>
 	<%= f.input :list_price, :wrapper => :prepend do %>
 		<%= content_tag :span, "$", :class => "add-on" %>
-		<%= f.input_field :list_price, :class => "input-small" %>
+		<%= f.input_field :list_price, :class => "span4" %>
 		<%= f.input_field :recurring_unit, :collection => [['per hour', 'HOUR', {'data-key' => 'recurring_unit'}], ['per day', 'DAY', {'data-key' => 'recurring_unit'}], ['per week', 'WEEK', {'data-key' => 'recurring_unit'}], ['per month', 'MONTH', {'data-key' => 'recurring_unit'}], ['per quarter', 'QUARTER', {'data-key' => 'recurring_unit'}], ['per year', 'YEAR', {'data-key' => 'recurring_unit'}]], :class => "input-medium", :label => false %>
 	<% end %>
+	<br>
+	<%= f.input :description, :label => "Description", :input_html => {:rows => 4} %>
 </div>
 <div class="span1"></div>
 <div class="span5">
-	<%= f.input :part_number, :label => "Part Number", :input_html => {:size => 30} %>
+	<%= f.input :part_number, :label => "Part Number", :class => "span4" %>
 	<%= f.input :manufacturer, :label => "Manufacturer", :input_html => {:size => 30, :autocomplete => "off"} %>
 	<div class="control-group">
 		<div class="span8">
@@ -29,7 +30,7 @@
 			<label>&nbsp;</label>
 			<div class="controls catalog_item_is_package">
 				<%= check_box_tag 'catalog_item[is_package]', true, @catalog_item.is_package %>
-				&nbsp;is package? (contains other catalog items)
+				&nbsp;is package? (includes other catalog items)
 			</div>
 		</div>
 	</div>

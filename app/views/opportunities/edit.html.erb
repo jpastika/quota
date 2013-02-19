@@ -37,7 +37,6 @@
 						<% end %>
 					</div>
 					<div id="opportunity">
-						<%= render 'form' %>
 					</div>
 					<div class="actions-bar">
 						<button type="submit" class="btn btn-primary">
@@ -68,7 +67,8 @@
 		window.vent = _.extend({}, Backbone.Events);
 	
 		var view_opportunity = new Quota.Views.EditOpportunity({model:this.opportunity, milestones: this.milestones, companies: this.companies, users: this.users, vent: vent});
-		view_opportunity.setup();
+		$('#opportunity').html(view_opportunity.render().el);
+		// view_opportunity.setup();
 		// $('#opportunity').html(view_opportunity.render().el);
 	});	
 	

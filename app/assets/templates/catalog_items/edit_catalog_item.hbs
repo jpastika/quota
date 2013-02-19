@@ -10,17 +10,11 @@
 	</div>
 </div>
 <div class="control-group">
-	<label for="catalog_item_description" class="string control-label">Description</label>
-	<div class="controls">
-		<textarea name="catalog_item[description]" id="catalog_item_description" class="string">{{catalog_item.description}}</textarea>
-	</div>
-</div>
-<div class="control-group">
 	<label for="catalog_item_list_price" class="string control-label">List Price</label>
 	<div class="controls catalog_item_list_price">
 		<div class="input-prepend">
 			<span class="add-on">$</span>
-			<input type="text" value="{{catalog_item.list_price}}" name="catalog_item[list_price]" id="catalog_item_list_price" class="string input-small">
+			<input type="text" value="{{catalog_item.list_price}}" name="catalog_item[list_price]" id="catalog_item_list_price" class="string span2">
 			<select class="input-medium" name="catalog_item[recurring_unit]" value="{{catalog_item.recurring_unit}}">
 				<option value="ONETIME">one time</option>
 				<option value="HOUR">per hour</option>
@@ -33,13 +27,19 @@
 		</div>
 	</div>
 </div>
+<div class="control-group">
+	<label for="catalog_item_description" class="string control-label">Description</label>
+	<div class="controls">
+		<textarea name="catalog_item[description]" id="catalog_item_description" class="string">{{catalog_item.description}}</textarea>
+	</div>
+</div>
 </div>
 <div class="span1"></div>
 <div class="span5">
 <div class="control-group">
 	<label for="catalog_item_part_number" class="string required control-label">Part Number</label>
 	<div class="controls">
-		<input type="text" value="{{catalog_item.part_number}}" size="30" name="catalog_item[part_number]" id="catalog_item_part_number" class="string required">
+		<input type="text" value="{{catalog_item.part_number}}" size="30" name="catalog_item[part_number]" id="catalog_item_part_number" class="string span6">
 	</div>
 </div>
 <div class="control-group">
