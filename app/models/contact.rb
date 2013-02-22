@@ -1,9 +1,9 @@
 class Contact < ActiveRecord::Base
-  attr_accessible :company_key, :contact_type_key, :is_disabled, :name, :pub_key, :title
+  attr_accessible :company_key, :contact_type_key, :is_disabled, :name, :pub_key, :title, :is_company
   
   # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :company, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"
-  has_one :contact_type, :primary_key => "contact_type_key", :foreign_key => "pub_key"
+  # has_one :contact_type, :primary_key => "contact_type_key", :foreign_key => "pub_key"
   
   has_many :people, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"
   has_many :phones, dependent: :destroy, :class_name => "ContactPhone", :primary_key => "pub_key", :foreign_key => "contact_key"
@@ -18,7 +18,7 @@ class Contact < ActiveRecord::Base
   
   validates :name, presence: true
   validates :account_key, presence: true
-  validates :contact_type_key, presence: true
+  # validates :contact_type_key, presence: true
   
   default_scope { where(account_key: Account.current_account_key) }
   
@@ -29,7 +29,8 @@ class Contact < ActiveRecord::Base
     #     end
     
     def companies()
-      where(:contact_type_key => (ContactType.where(:name => "Company").first.pub_key unless ContactType.where(:name => "Company").nil?))
+      # where(:contact_type_key => (ContactType.where(:name => "Company").first.pub_key unless ContactType.where(:name => "Company").nil?))
+      where(:is_company => true)
     end
     
     # def people(account)
@@ -37,7 +38,8 @@ class Contact < ActiveRecord::Base
     #     end
     
     def people()
-      where(:contact_type_key => (ContactType.where(:name => "Person").first.pub_key unless ContactType.where(:name => "Person").nil?))
+      # where(:contact_type_key => (ContactType.where(:name => "Person").first.pub_key unless ContactType.where(:name => "Person").nil?))
+      where(:is_company => false)
     end
   end
   

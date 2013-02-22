@@ -63,6 +63,7 @@ class Quota.Views.ShowTemplateFormAddItem extends Backbone.View
 		@_catalogItemComboView.el = @input_template_item_name
 		@_catalogItemComboView.render()
 		
+		@$('input, textarea').placeholder()
 		@
 		
 	handleFocus: ->

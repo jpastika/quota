@@ -2,7 +2,8 @@ class Quota.Views.EditContactAddresses extends Backbone.View
 
 	
 	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	el: '#contact_addresses_container'
+	# el: '#contact_addresses_container'
+	el: '.contact_addresses'
 	
 	events:
 		"click #contact-addresses-actions>.btn-primary": "addClicked"
@@ -25,7 +26,7 @@ class Quota.Views.EditContactAddresses extends Backbone.View
 		
 		
 	render: ->
-		@container_address_list = @$('.section-table tbody')
+		@container_address_list = @$('ul')
 		@_addressesListView.setElement(@container_address_list).render()
 		@container_add_address = @$('.section-form')
 		@_addAddressView.setElement(@container_add_address).render()

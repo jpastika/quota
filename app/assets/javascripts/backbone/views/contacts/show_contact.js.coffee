@@ -6,7 +6,7 @@ class Quota.Views.ShowContact extends Backbone.View
 		self = @
 		_.bindAll(@)
 		@vent = options.vent
-		@contact_types = options.contact_types
+		# @contact_types = options.contact_types
 		@companies = options.companies
 		@_contactTypesView = null
 		@_contactPhonesView = null
@@ -17,12 +17,12 @@ class Quota.Views.ShowContact extends Backbone.View
 	render: ->
 		$(@el).html(@template({contact:@model.toJSON()}))
 		
-		@container_contact_types = @$('#contact_types')
+		# @container_contact_types = @$('#contact_types')
 		@contact_company_name = @$('.company_name')
 		
-		@_contactTypesView = new Quota.Views.ContactTypesToggles({contact:@model, collection:@contact_types, vent: @vent})
-		@container_contact_types.html(@_contactTypesView.render().el)
-		
+		# @_contactTypesView = new Quota.Views.ContactTypesToggles({contact:@model, collection:@contact_types, vent: @vent})
+		# 		@container_contact_types.html(@_contactTypesView.render().el)
+		# 		
 		# @_companySelectView = new Quota.Views.CompanySelectView({contact:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
 		# 		@contact_company_name.html(@_companySelectView.render().el)
 		

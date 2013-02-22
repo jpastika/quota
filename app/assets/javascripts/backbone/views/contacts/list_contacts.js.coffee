@@ -12,12 +12,13 @@ class Quota.Views.ListContacts extends Backbone.View
 		_.bindAll(@)
 		
 		@vent = options.vent
-		@contact_types = options.contact_types
+		# @contact_types = options.contact_types
 		@_contactViews = []
 		@collection.on('reset', @collectionReset, @)
 		@collection.on('destroy:error', @removeFailed, @)
 		@collection.on('destroy:success', @removeSuccess, @)
 		@vent.on('contact_link:clicked', @contactLinkClicked, @)
+		@vent.on("contact:clicked", @contactClicked, @)
 		
 	render: ->
 		# $(@el).empty()
@@ -33,7 +34,7 @@ class Quota.Views.ListContacts extends Backbone.View
 	# 		view
 		
 	addOne: (item)->
-		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, contact_types: @contact_types, vent: @vent})
+		view = new Quota.Views.ListContact({model: item, tagName:'li', className:'contact', contact: @model, vent: @vent})
 		@_contactViews.push(view)
 		# view
 		
@@ -41,9 +42,9 @@ class Quota.Views.ListContacts extends Backbone.View
 		frag.appendChild(view.render().el)
 		
 		if /[^a-z]/i.test(item.get("name").charAt(0).toUpperCase())
-			$("a[name=1]").parent().next().find("ul").append(frag)
+			$("#1_list ul").append(frag)
 		else
-			$("a[name=#{item.get("name").charAt(0).toUpperCase()}]").parent().next().find("ul").first().append(frag)
+			$("##{item.get("name").charAt(0).toLowerCase()}_list ul").append(frag)
 	
 	collectionReset: ->
 		@render()
@@ -53,6 +54,10 @@ class Quota.Views.ListContacts extends Backbone.View
 		view.toggle()
 
 	removeSuccess: (evt) ->
+		
+	contactClicked: (evt) ->
+		$('.row_selected').removeClass('row_selected')
+		evt.view.highlight()
 	
 	contactLinkClicked: (evt) ->
 		# console.log evt.view.model.get("name")

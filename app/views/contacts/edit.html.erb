@@ -157,7 +157,7 @@
 
 <script language="javascript">
 	$(function(){
-		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+		// this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
 		this.companies = new Quota.Collections.Companies(gon.companies);
 	
 		if(gon.contact){
@@ -210,10 +210,10 @@
 		// var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent});
 		// 		$('#contact').html(view_contact.render().el);
 		
-		var view_contact = new Quota.Views.EditContact({model:this.contact, contact_types: this.contact_types, companies: this.companies, vent: vent, el: '#contact_container'});
+		var view_contact = new Quota.Views.EditContact({model:this.contact, companies: this.companies, vent: vent, el: '#contact_container'});
 		
 		view_contact.setup();
 	});	
 	
-	$.fn.placeholder();
+	$('input, textarea').placeholder();
 </script>

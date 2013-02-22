@@ -2,7 +2,8 @@ class Quota.Views.EditContactPhonesList extends Backbone.View
 
 	
 	# template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	el: '#contact_phones_container .section-table tbody'
+	# el: '#contact_phones_container .section-table tbody'
+	el: '.contact_phones ul'
 	
 	# events:
 	# 		"click .contact_remove": "destroy"
@@ -27,7 +28,8 @@ class Quota.Views.EditContactPhonesList extends Backbone.View
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.EditContactPhone({model: item, tagName:'tr', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
+		# view = new Quota.Views.EditContactPhone({model: item, tagName:'tr', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
+		view = new Quota.Views.EditContactPhone({model: item, tagName:'li', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
 		@_phoneViews.push(view)
 		view
 

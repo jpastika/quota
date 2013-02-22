@@ -1,0 +1,35 @@
+<div class="contact_method_show">
+	<table width="100%">
+		<tr>
+			<td valign="top" class="span1">
+				<i class="icon-remove"></i>
+			</td>
+			<td align="right" class="span2 contact_method_show_holder">
+				<span class="contact_method_name">{{contact_url.name}}</spam>
+			</td>
+			<td class="span5 contact_method_show_holder">
+				<span class="contact_method_val">{{contact_url.val}}</span>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="contact_method_edit" style="display:none;">
+	<table width="100%">
+		<tr>
+			<td valign="top" class="span1">
+				<i class="icon-remove"></i>
+			</td>
+			<td align="right" class="span2 contact_method_name">
+				<input type="text" class="input-small" name="urls[][name]" value="{{contact_url.name}}" placeholder="Website">
+			</td>
+			<td class="span5">
+				<input type="text" class="input-medium" name="urls[][val]" value="{{contact_url.val}}" placeholder="www.company.com">
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<input type="hidden" class="input-small" name="urls[][pub_key]" value="{{contact_url.pub_key}}">

@@ -12,26 +12,7 @@ body { padding-top: 0px; }
 
 /* mixins, variables, etc. */
 
-$grayMediumLight: #eaeaea;
-$grayMedium: #aaaaaa;
-$grayDark: #333333;
-
-$ss_darkGray: #1E232A;
-$ss_nearBlack: #13161D;
-$ss_nearWhite: #F3F3EE;
-$ss_milkyWhite: #F8F7F1;
-$ss_lightGray: #E7E6E0;
-$ss_limeGreen: #AFD93B;
-$ss_burntOrange: #E3592B;
-$ss_coolBlue: #448AC6;
-$ss_brightBlue: #22b0f2;
-$ss_logoGray: #484D4F;
-$ss_khakiGray: #D2D0C3;
-$ss_mediumGray: #A2A19C;
-$ss_orange: #f28322;
-$ss_dangerRed: #a30000;
-$ss_successGreen: #7fa517;
-$ss_mediumDarkGray: #656769;
+@import "variables";
 
 
 @mixin box_sizing {

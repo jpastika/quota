@@ -1,0 +1,110 @@
+@import "variables";
+@import "mixins";
+
+
+.contacts_list{
+	max-height:500px;
+	overflow:auto;
+}
+
+#contacts ul{
+	margin:0 0 0 0;
+	
+}
+#contacts li{
+	list-style:none;
+	padding: 5px;
+	border-top: 1px solid $ss_lightGray;
+}
+
+#contacts .contact_type{
+	font-size:30px;
+	position:relative;
+	top:5px;
+}
+
+#contacts .section-heading{
+	background: $ss_grayMediumLight;
+	margin-bottom:0px;
+	padding: 5px;
+	font-weight: bold;
+	border-top: 1px solid $ss_lightGray;
+}
+
+#contacts .section-heading a{
+	font-size:24px;
+	font-weight:bold;
+}
+
+#contacts .section-heading hr{
+	margin-top:0px;
+	margin-bottom: 0px;
+}
+
+.row_selected{
+	background: $ss_nearWhite;
+}
+
+
+
+
+
+
+#contact ul{
+	margin:0;
+}
+
+#contact li{
+	list-style:none;
+	padding: 2px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;	
+}
+
+#contact .contact_icon{
+	font-size: 50px;
+}
+
+.contact_method_name{
+	color: $ss_mediumGray;
+}
+
+.contact_method_edit input[type="text"]{
+  border: 1px solid $ss_nearWhite;
+  margin-bottom: 0px;
+  @include no-inner-shadow();
+  @include box_sizing;
+  background:none;
+}
+
+.contact_method_show .contact_method_show_holder span{
+  -moz-box-sizing: border-box;
+  background: none repeat scroll 0 0 transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  filter: none;
+  margin-bottom: 0;
+  height: auto;
+  width: 100%;
+  padding: 4px 5px 5px;
+  display: inline-block;
+}
+
+.contact_method_show .contact_method_show_holder span:hover{
+  border: 1px solid $ss_nearWhite;
+}
+
+.contact_method_edit .contact_method_name input{
+	text-align:right;
+}
+
+.contact_show span.placeholder{
+  color: $ss_mediumGray;
+}
+
+.contact_show_name{
+	font-size:18px;
+}
+
+
+

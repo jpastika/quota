@@ -1,6 +1,6 @@
 class Quota.Views.PageListContacts extends Backbone.View
 	
-	template: HandlebarsTemplates['contacts/page_list_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['contacts/page_list_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 
 	
 	# events:
@@ -12,17 +12,21 @@ class Quota.Views.PageListContacts extends Backbone.View
 		_.bindAll(@)
 		
 		@vent = options.vent
-		@contact_types = options.contact_types
+		# @contact_types = options.contact_types
 		@contacts = options.contacts
 		@vent.on('contact_link:clicked', @contactLinkClicked, @)
-		
+		@vent.on("contact:clicked", @contactClicked, @)
+	
 	render: ->
 		$(@el).empty()
 		$(@el).html(@template())
-		view = new Quota.Views.ListContacts({collection: @contacts, contact_types: @contact_types, vent: @vent})
-		# @$('#contacts').append(view.render().el)
+		view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
 		view.render()
 		@
+		
+	setup: ->
+		view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
+		view.render()
 	
 	contactLinkClicked: (evt) ->
 		# enablePushState = true  
@@ -31,4 +35,8 @@ class Quota.Views.PageListContacts extends Backbone.View
 		# 			# gon.contact = evt.view.model
 		# 			Backbone.history.navigate("contacts/" + evt.view.model.get("pub_key") + "/edit", {trigger: true, replace: false})
 		# 		else
-		window.location.replace(evt.view.model.url())
+		# window.location.replace(evt.view.model.url())
+		
+	contactClicked: (evt) ->
+		contactView = new Quota.Views.IndexContact({model: evt.model, vent: @vent})
+		contactView.render()

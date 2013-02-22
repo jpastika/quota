@@ -86,7 +86,10 @@
 		var view_document = new Quota.Views.EditDocument({model:this.document, companies: this.companies, contacts: this.contacts, vent: vent, el: '#document'});
 		view_document.setup();
 		// $('#contact').html(view_opportunity.render().el);
+		// 
+		
 	});	
 	
-	$.fn.placeholder();
+	$('input, textarea').placeholder();
+	
 </script>

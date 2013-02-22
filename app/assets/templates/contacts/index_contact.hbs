@@ -1,0 +1,117 @@
+<div class="row-fluid">
+<div class="span2">
+	{{#if contact.is_company}}
+		<span class="contact_icon">
+			<i class="icon-building" />
+		</span>
+	{{else}}
+		<span class="contact_icon">
+			<i class="icon-user" />
+		</span>
+	{{/if}}
+</div>
+<div class="span10 contact_show">
+	<table width="100%">
+		<tr>
+			<td class="span8 contact_show_name contact_show_holder">
+				{{contact.name}}
+			</td>
+		</tr>
+		<tr class="contact_show_title contact_show_holder" {{#if contact.is_company}}style="display:none;"{{/if}}>
+			<td class="span8">
+				{{#if contact.title}}
+					{{contact.title}}
+				{{else}}
+					<span class="placeholder">
+						title
+					</span>
+				{{/if}}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_show_company contact_show_holder" {{#if contact.is_company}}style="display:none;"{{/if}}>
+			<td class="span8">
+				{{#if contact.company}}
+					{{contact.company.name}}
+				{{else}}
+					<span class="placeholder">
+						company
+					</span>
+				{{/if}}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_is_company">
+			<td class="span8">
+				<input type="checkbox" class="" name="contact[is_company]" {{#if contact.is_company}}checked{{/if}}> company
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="span10 contact_edit" style="display:none">
+	<table width="100%">
+		<tr>
+			<td class="span8 contact_edit_name">
+				<input type="text" name="contact[name]" value="{{contact.name}}" placeholder="First Last">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_title contact_edit_title">
+			<td class="span8">
+				<input type="text" name="contact[title]" value="{{contact.title}}" placeholder="Title">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_company contact_edit_company">
+			<td class="span8">
+				<input type="text" name="company[name]" value="{{#if contact.company}}{{contact.company.name}}{{/if}}" placeholder="Company">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_is_company">
+			<td>
+				<input type="checkbox" class="" name="contact[is_company]" {{#if contact.is_company}}checked{{/if}}> company
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+<div class="row">
+<br><br>
+<div class="contact_phones">
+	<ul class="contact_phones_list">
+	</ul>
+	<ul class="contact_phones_add">
+	</ul>
+</div>
+<br>
+<div class="contact_emails">
+	<ul class="contact_emails_list">
+	</ul>
+	<ul class="contact_emails_add">
+	</ul>
+</div>
+<br>
+<div class="contact_addresses">
+	<ul class="contact_addresses_list">
+	</ul>
+	<ul class="contact_addresses_add">
+	</ul>
+</div>
+<br>
+<div class="contact_urls">
+	<ul class="contact_urls_list">
+	</ul>
+	<ul class="contact_urls_add">
+	</ul>
+</div>
+</div>

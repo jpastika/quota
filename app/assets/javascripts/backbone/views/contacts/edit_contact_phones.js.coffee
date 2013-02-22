@@ -2,7 +2,8 @@ class Quota.Views.EditContactPhones extends Backbone.View
 
 	
 	# template: HandlebarsTemplates['opportunities/show_opp_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	el: '#contact_phones_container'
+	# el: '#contact_phones_container'
+	el: '.contact_phones'
 	
 	events:
 		"click #contact-phones-actions>.btn-primary": "addClicked"
@@ -25,7 +26,7 @@ class Quota.Views.EditContactPhones extends Backbone.View
 		
 		
 	render: ->
-		@container_phone_list = @$('.section-table tbody')
+		@container_phone_list = @$('ul')
 		@_phonesListView.setElement(@container_phone_list).render()
 		@container_add_phone = @$('.section-form')
 		@_addPhoneView.setElement(@container_add_phone).render()

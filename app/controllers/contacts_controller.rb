@@ -8,17 +8,17 @@ class ContactsController < ApplicationController
         # @account_key = @current_user.account_key
         # @contacts = Contact.where(:account_key => @account_key)
         @contacts = Contact.all
-        @contact_types = ContactType.all
+        # @contact_types = ContactType.all
         
         # @contacts = current_member.account.contacts
-        gon.contact_types = @contact_types
-        gon.contacts = @contacts.to_json(:include => [:company, :phones, :emails])
+        # gon.contact_types = @contact_types
+        gon.contacts = @contacts.to_json(:include => [:company, :phones, :addresses, :urls, :emails])
       }
       format.json { 
         # @contacts = Contact.where(:account_key => @current_user.account_key)
         @contacts = Contact.all
         # @contacts = current_member.account.contacts
-        render :json => @contacts.to_json(:include => :contact_type)
+        render :json => @contacts.to_json()
       }
     end
   end
@@ -28,23 +28,21 @@ class ContactsController < ApplicationController
       format.html {
         # @account_key = @current_user.account_key
         @contacts = Contact.all
-        @contact_types = ContactType.all
+        # @contact_types = ContactType.all
         
         @contact = Contact.find_by_pub_key(params[:id])
-        if @contact.contact_type.name == "Company"
-          @contact_type = "Company"
+        if @contact.is_company
           @company_contacts = Contact.find_by_company_key(@contact.pub_key)
         else
-          @contact_type = "Person"
           @company = @contact.company
         end
         
-        gon.contact_types = @contact_types
+        # gon.contact_types = @contact_types
         gon.contacts = @contacts
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:id])
-        gon.contact_types = ContactType.all
+        # gon.contact_types = ContactType.all
         gon.contact = @contact
         gon.companies = Contact.companies
         gon.contact_phones = @contact.phones
@@ -53,18 +51,18 @@ class ContactsController < ApplicationController
         gon.contact_addresses = @contact.addresses
         
          
-        render :json => @contact.to_json(:include => :contact_type)
+        render :json => @contact.to_json()
       }
     end
   end
   
   def new
     # @account_key = @current_user.account_key
-    @contact_types = ContactType.all
+    # @contact_types = ContactType.all
     @companies = Contact.companies
     @contact = Contact.new
     
-    gon.contact_types = @contact_types
+    # gon.contact_types = @contact_types
     gon.contact = @contact
     gon.companies = @companies
     gon.contact_phones = @contact.phones.to_json(:include => [])
@@ -74,10 +72,9 @@ class ContactsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
+        @contact
       }
       format.json {
-        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
         render :json => @contact.to_json()
       }
     end
@@ -94,7 +91,7 @@ class ContactsController < ApplicationController
           @company_key = params[:contact][:company_key]
         end
         
-        @contact = Contact.create(name: params[:contact][:name], company_key: @company_key, contact_type_key: params[:contact][:contact_type_key], title: params[:contact][:title])
+        @contact = Contact.create(name: params[:contact][:name], company_key: @company_key, title: params[:contact][:title])
         
         if @contact.save
           if params[:phones]
@@ -162,7 +159,7 @@ class ContactsController < ApplicationController
           end
           
           
-          render :json => @contact.to_json(:include => :contact_type)
+          render :json => @contact.to_json()
         else
           render :json => @contact.to_json()
         end
@@ -172,11 +169,11 @@ class ContactsController < ApplicationController
   
   def edit
     @account_key = @current_user.account_key
-    @contact_types = ContactType.all
+    # @contact_types = ContactType.all
     @companies = Contact.companies
     @contact = Contact.find_by_pub_key(params[:id])
     
-    gon.contact_types = @contact_types
+    # gon.contact_types = @contact_types
     gon.contact = @contact
     gon.companies = @companies
     gon.contact_phones = @contact.phones.to_json(:include => [])
@@ -186,10 +183,10 @@ class ContactsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
+        @contact
       }
       format.json {
-        @contact.contact_type_key = ContactType.find_by_name("Person").pub_key
+        @contact
         render :json => @contact.to_json()
       }
     end
@@ -212,7 +209,7 @@ class ContactsController < ApplicationController
           @contact.name = params[:contact][:name]
           @contact.title = params[:contact][:title]
           @contact.company_key = @company_key
-          @contact.contact_type_key = params[:contact][:contact_type_key]
+          # @contact.contact_type_key = params[:contact][:contact_type_key]
         
           if @contact.save
             if params[:phones]
@@ -300,11 +297,11 @@ class ContactsController < ApplicationController
           redirect_to contact_path(@contact.pub_key)
         else
           @account_key = @current_user.account_key
-          @contact_types = ContactType.all
+          # @contact_types = ContactType.all
           @companies = Contact.companies
           @contact = Contact.find_by_pub_key(params[:id])
 
-          gon.contact_types = @contact_types
+          # gon.contact_types = @contact_types
           gon.contact = @contact
           gon.companies = @companies
           gon.contact_phones = @contact.phones.to_json(:include => [])
@@ -317,8 +314,8 @@ class ContactsController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:id])      
-        if @contact.update_attributes(name: params[:contact][:name], title: params[:contact][:title], company_key: params[:contact][:company_key], contact_type_key: params[:contact][:contact_type_key])
-          render :json => @contact.to_json(:include => :contact_type)
+        if @contact.update_attributes(name: params[:contact][:name], title: params[:contact][:title], company_key: params[:contact][:company_key])
+          render :json => @contact.to_json()
         else
           render :json => "false"
         end

@@ -1,0 +1,35 @@
+<div class="contact_method_show">
+	<table width="100%">
+		<tr>
+			<td valign="top" class="span1">
+				<i class="icon-remove"></i>
+			</td>
+			<td align="right" class="span2 contact_method_show_holder">
+				<span class="contact_method_name">{{contact_phone.name}}</span>
+			</td>
+			<td class="span5 contact_method_show_holder">
+				<span class="contact_method_val">{{contact_phone.val}}</span>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="contact_method_edit" style="display:none;">
+	<table width="100%">
+		<tr>
+			<td valign="top" class="span1">
+				<i class="icon-remove"></i>
+			</td>
+			<td align="right" class="span2 contact_method_name">
+				<input type="text" class="" name="phones[][name]" value="{{contact_phone.name}}" placeholder="Mobile">
+			</td>
+			<td class="span5">
+				<input type="text" class="" name="phones[][val]" value="{{contact_phone.val}}" placeholder="111-111-1111">
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<input type="hidden" class="input-small" name="phones[][pub_key]" value="{{contact_phone.pub_key}}">

@@ -1,9 +1,9 @@
-<% content_for :css, (stylesheet_link_tag "application/pages/contacts", :media => "all") %>
-
-
-
 <% provide(:title, 'Contacts') %>
 <% @nav_caret = "contacts" %>
+
+<% content_for :css do %>
+<%= stylesheet_link_tag "pages/contacts", :media => "all" %>
+<% end %>
 
 <div class="body">
 	<div class="body-right pull-right">
@@ -26,309 +26,265 @@
 			</div>
 		</div>
 		<div class="parent-page">
-			<div id="main_body_container" class="">
-				<div id="contacts" class="section-content">
-					<div class="nav-link-bar">
-						<ul class="breadcrumb">
-							<li><a href="#A">A</a></li>
-							<li><a href="#B">B</a></li>
-							<li><a href="#C">C</a></li>
-							<li><a href="#D">D</a></li>
-							<li><a href="#E">E</a></li>
-							<li><a href="#F">F</a></li>
-							<li><a href="#G">G</a></li>
-							<li><a href="#H">H</a></li>
-							<li><a href="#I">I</a></li>
-							<li><a href="#J">J</a></li>
-							<li><a href="#K">K</a></li>
-							<li><a href="#L">L</a></li>
-							<li><a href="#M">M</a></li>
-							<li><a href="#N">N</a></li>
-							<li><a href="#O">O</a></li>
-							<li><a href="#P">P</a></li>
-							<li><a href="#Q">Q</a></li>
-							<li><a href="#R">R</a></li>
-							<li><a href="#S">S</a></li>
-							<li><a href="#T">T</a></li>
-							<li><a href="#U">U</a></li>
-							<li><a href="#V">V</a></li>
-							<li><a href="#W">W</a></li>
-							<li><a href="#X">X</a></li>
-							<li><a href="#Y">Y</a></li>
-							<li><a href="#Z">Z</a></li>
-							<li><a href="#1">#</a></li>
-						</ul>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="A">A</a>
-							<hr size="0">
+			<div id="main_body_container" class="row-fluid">
+				<div id="contacts" class="section-content span5">
+					<div class="search-bar">
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-search"></i></span>
+							<input type="text" class="string" name="contact_search" value="">
 						</div>
-						<div>
+					</div>
+					<div class="contacts_search_results" style="display:none;">
+						
+					</div>
+					<div class="contacts_list">
+						<div class="section-heading">
+							A
+						</div>
+						<div id="a_list">
 							<ul>
 							</ul>
 						</div>
-					</div>	
-					<div>
-						<div class="section-heading">
-							<a name="B">B</a>
-							<hr size="0">
+						<div>
+							<div class="section-heading">
+								B
+							</div>
+							<div id="b_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="C">C</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="D">D</a>
-							<hr size="0">
+							<div class="section-heading">
+								C
+							</div>
+							<div id="c_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="E">E</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="F">F</a>
-							<hr size="0">
+							<div class="section-heading">
+								D
+							</div>
+							<div id="d_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="G">G</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="H">H</a>
-							<hr size="0">
+							<div class="section-heading">
+								E
+							</div>
+							<div id="e_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="I">I</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="J">J</a>
-							<hr size="0">
+							<div class="section-heading">
+								F
+							</div>
+							<div id="f_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="K">K</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="L">L</a>
-							<hr size="0">
+							<div class="section-heading">
+								G
+							</div>
+							<div id="g_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="M">M</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="N">N</a>
-							<hr size="0">
+							<div class="section-heading">
+								H
+							</div>
+							<div id="h_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="O">O</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="P">P</a>
-							<hr size="0">
+							<div class="section-heading">
+								I
+							</div>
+							<div id="i_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="Q">Q</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="R">R</a>
-							<hr size="0">
+							<div class="section-heading">
+								J
+							</div>
+							<div id="j_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="S">S</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="T">T</a>
-							<hr size="0">
+							<div class="section-heading">
+								K
+							</div>
+							<div id="k_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="U">U</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="V">V</a>
-							<hr size="0">
+							<div class="section-heading">
+								L
+							</div>
+							<div id="l_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="W">W</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="X">X</a>
-							<hr size="0">
+							<div class="section-heading">
+								M
+							</div>
+							<div id="m_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="Y">Y</a>
-							<hr size="0">
-						</div>
-						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="Z">Z</a>
-							<hr size="0">
+							<div class="section-heading">
+								N
+							</div>
+							<div id="n_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div class="section-heading">
-							<a name="1">#</a>
-							<hr size="0">
+							<div class="section-heading">
+								O
+							</div>
+							<div id="n_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 						<div>
-							<ul>
-							</ul>
+							<div class="section-heading">
+								P
+							</div>
+							<div id="p_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								Q
+							</div>
+							<div id="q_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								R
+							</div>
+							<div id="r_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								S
+							</div>
+							<div id="s_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								T
+							</div>
+							<div id="t_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								U
+							</div>
+							<div id="u_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								V
+							</div>
+							<div id="v_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								W
+							</div>
+							<div id="w_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								X
+							</div>
+							<div id="x_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								Y
+							</div>
+							<div id="y_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								Z
+							</div>
+							<div id="z_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div class="section-heading">
+								#
+							</div>
+							<div id="1_list">
+								<ul>
+								</ul>
+							</div>
 						</div>
 					</div>
+				</div>
+				<div class="span1">
+					
+				</div>
+				<div id="contact" class="section-content span6">
 				</div>
 			</div>
 		</div>
@@ -338,14 +294,18 @@
 <script language="javascript">
 	$(function(){
 		// Quota.init();
-		this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
+		// this.contact_types = new Quota.Collections.ContactTypes(gon.contact_types);
 		this.contacts = new Quota.Collections.Contacts($.parseJSON(gon.contacts));
 	
 		window.vent = _.extend({}, Backbone.Events);
 			
-		var view_page = new Quota.Views.PageListContacts({contacts: this.contacts, contact_types: this.contact_types, vent: vent});
-		$('#page').html(view_page.render().el);
+		var view_page = new Quota.Views.PageListContacts({contacts: this.contacts, vent: vent});
+		// $('#page').html(view_page.render().el);
+		
+		view_page.setup();
+		//Write a program that prints the numbers from 1 to 100. But for multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz". For numbers which are multiples of both three and five print "FizzBuzz". 
+		
 	});	
 	
-	$.fn.placeholder();
+	$('input, textarea').placeholder();
 </script>

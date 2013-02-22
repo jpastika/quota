@@ -105,6 +105,8 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		
 		@handleItemType()
 		@decorateShow()
+		
+		@$('input, textarea').placeholder()
 		@
 		
 	decorateShow: ->

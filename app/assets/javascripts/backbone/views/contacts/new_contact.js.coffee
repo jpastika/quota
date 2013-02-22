@@ -17,8 +17,8 @@ class Quota.Views.NewContact extends Backbone.View
 				console.log error
 		)
 		@vent = options.vent
-		@contact_types = options.contact_types
-		@_contactTypesView = null
+		# @contact_types = options.contact_types
+		# 		@_contactTypesView = null
 		@model.on('change', @render, @)
 		@vent.on('contact_type:clicked', @contactTypeClicked, @)
 		@vent.on('contact_type:selected', @contactTypeSelected, @)
@@ -34,11 +34,11 @@ class Quota.Views.NewContact extends Backbone.View
 		@input_contact_title = @$('.contact_title input');
 		@input_contact_company_name = @$('.company_name input');
 		@input_contact_company_key = @$('.company_key');
-		@input_contact_type_key = @$('.contact_type_key');
-		@container_contact_types = @$('#contact_types');
+		# @input_contact_type_key = @$('.contact_type_key');
+		# 		@container_contact_types = @$('#contact_types');
 		
-		@_contactTypesView = new Quota.Views.ContactTypesToggles({model:@model, collection:@contact_types, contact: @model, vent: @vent})
-		@container_contact_types.html(@_contactTypesView.render().el)
+		# @_contactTypesView = new Quota.Views.ContactTypesToggles({model:@model, collection:@contact_types, contact: @model, vent: @vent})
+		# 		@container_contact_types.html(@_contactTypesView.render().el)
 		@
 		
 	contactNameChanged: ->
@@ -50,13 +50,12 @@ class Quota.Views.NewContact extends Backbone.View
 		@save()
 
 	save: ->
-		@model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
+		# @model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
 		if @model.isValid(true)
 			@model.save(
 				{
 					name: @model.get("name"), 
-					title: @model.get("title"), 
-					contact_type_key: @model.get("contact_type_key")
+					title: @model.get("title")
 				},
 				{
 					error: (model, errors) -> console.log errors
@@ -71,22 +70,22 @@ class Quota.Views.NewContact extends Backbone.View
 		console.log "company name changed"
 
 	contactTypeClicked: ->
-		@model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
-		@setContactTypeRelatedFields()
-		@save()
+		# @model.set("contact_type_key", @_contactTypesView.getSelected().model.get("pub_key"), {silent: true})
+		# 		@setContactTypeRelatedFields()
+		# 		@save()
 	
 	contactTypeSelected: ->
-		@setContactTypeRelatedFields()
+		# @setContactTypeRelatedFields()
 
 	setContactTypeRelatedFields: ->
 		self = @
-		ct = _.find self.contact_types.models, (cm) -> cm.get("pub_key") == self.model.get("contact_type_key")
-		if ct and ct.get("name") == "Company"
-			@contact_title.hide()
-			@contact_company_name.hide()
-			@input_contact_name.attr('placeholder', 'Company Name')
-		else
-			@contact_title.show()
-			@contact_company_name.show()
-			@input_contact_name.attr('placeholder', 'First Last')
+		# ct = _.find self.contact_types.models, (cm) -> cm.get("pub_key") == self.model.get("contact_type_key")
+		# 		if ct and ct.get("name") == "Company"
+		# 			@contact_title.hide()
+		# 			@contact_company_name.hide()
+		# 			@input_contact_name.attr('placeholder', 'Company Name')
+		# 		else
+		# 			@contact_title.show()
+		# 			@contact_company_name.show()
+		# 			@input_contact_name.attr('placeholder', 'First Last')
 	

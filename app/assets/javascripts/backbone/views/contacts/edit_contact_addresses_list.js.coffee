@@ -2,7 +2,8 @@ class Quota.Views.EditContactAddressesList extends Backbone.View
 
 	
 	# template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-	el: '#contact_addresses_container .section-table tbody'
+	# el: '#contact_addresses_container .section-table tbody'
+	el: '.contact_addresses ul'
 	
 	# events:
 	# 		"click .contact_remove": "destroy"
@@ -27,7 +28,8 @@ class Quota.Views.EditContactAddressesList extends Backbone.View
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.EditContactAddress({model: item, tagName:'tr', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
+		# view = new Quota.Views.EditContactAddress({model: item, tagName:'tr', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
+		view = new Quota.Views.EditContactAddress({model: item, tagName:'li', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
 		@_addressViews.push(view)
 		view
 
