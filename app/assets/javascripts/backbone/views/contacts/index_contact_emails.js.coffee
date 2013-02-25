@@ -15,7 +15,7 @@ class Quota.Views.IndexContactEmails extends Backbone.View
 		@contact = options.parent_model
 		@parent_child_key = options.parent_child_key
 		
-		@_addEmailView = new Quota.Views.EditContactFormAddEmail({model: new Quota.Models.ContactEmail(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addEmailView = new Quota.Views.IndexContactEmailAdd({model: new Quota.Models.ContactEmail(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection, tagName:'li'})
 		
 		@_emailsListView = new Quota.Views.IndexContactEmailsList({model: new Quota.Models.ContactEmail(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
@@ -29,8 +29,11 @@ class Quota.Views.IndexContactEmails extends Backbone.View
 		# @container_email_list = @$('.section-table tbody')
 		@container_email_list = @$('.contact_emails_list')
 		@_emailsListView.setElement(@container_email_list).render()
-		@container_add_email = @$('.section-form')
-		@_addEmailView.setElement(@container_add_email).render()
+		@container_add_email = @$('.contact_emails_add')
+		# @_addEmailView.setElement(@container_add_email).render()
+		frag = document.createDocumentFragment()
+		frag.appendChild(@_addEmailView.render().el)
+		@container_add_email.append(frag)
 		@
 	
 	addClicked: ->

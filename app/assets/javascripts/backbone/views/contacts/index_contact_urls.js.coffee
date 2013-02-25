@@ -15,7 +15,7 @@ class Quota.Views.IndexContactUrls extends Backbone.View
 		@contact = options.parent_model
 		@parent_child_key = options.parent_child_key
 		
-		@_addUrlView = new Quota.Views.EditContactFormAddUrl({model: new Quota.Models.ContactUrl(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addUrlView = new Quota.Views.IndexContactUrlAdd({model: new Quota.Models.ContactUrl(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection, tagName:'li'})
 		
 		@_urlsListView = new Quota.Views.IndexContactUrlsList({model: new Quota.Models.ContactUrl(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
@@ -29,8 +29,11 @@ class Quota.Views.IndexContactUrls extends Backbone.View
 		# @container_url_list = @$('.section-table tbody')
 		@container_url_list = @$('.contact_urls_list')
 		@_urlsListView.setElement(@container_url_list).render()
-		@container_add_url = @$('.section-form')
-		@_addUrlView.setElement(@container_add_url).render()
+		@container_add_url = @$('.contact_urls_add')
+		# @_addUrlView.setElement(@container_add_url).render()
+		frag = document.createDocumentFragment()
+		frag.appendChild(@_addUrlView.render().el)
+		@container_add_url.append(frag)
 		@
 	
 	addClicked: ->

@@ -63,38 +63,49 @@
 
 #contact .contact_icon{
 	font-size: 50px;
+	text-align: right;
+	padding-right: 20px;
+	display:block;
+}
+
+#contact input{
+	margin-bottom: 2px;
 }
 
 .contact_method_name{
 	color: $ss_mediumGray;
+	padding-right: 5px;
 }
 
 .contact_method_edit input[type="text"]{
-  border: 1px solid $ss_nearWhite;
   margin-bottom: 0px;
-  @include no-inner-shadow();
-  @include box_sizing;
-  background:none;
 }
 
-.contact_method_show .contact_method_show_holder span{
-  -moz-box-sizing: border-box;
-  background: none repeat scroll 0 0 transparent;
-  border: 1px solid transparent;
-  box-shadow: none;
-  filter: none;
-  margin-bottom: 0;
-  height: auto;
-  width: 100%;
-  padding: 4px 5px 5px;
-  display: inline-block;
+.contact_method_add input[type="text"]{
+  margin-top: 4px;
+  border: 1px solid $ss_lightGray;
 }
 
-.contact_method_show .contact_method_show_holder span:hover{
-  border: 1px solid $ss_nearWhite;
+.contact_addresses .contact_method_add .contact_method_address{
+  padding-top: 4px;
 }
 
-.contact_method_edit .contact_method_name input{
+.contact_addresses .contact_method_add .contact_method_address input[type="text"]{
+  margin-top: 0px;
+}
+
+.contact_method_edit .icon-remove{
+  top:4px;
+  position:relative;
+}
+
+.contact_method_add .icon-ok{
+  top:8px;
+  position:relative;
+}
+
+
+.contact_method_edit .contact_method_name input, .contact_method_add .contact_method_name input{
 	text-align:right;
 }
 
@@ -104,6 +115,14 @@
 
 .contact_show_name{
 	font-size:18px;
+}
+
+.contact_method_edit .contact_method_address input, .contact_method_add .contact_method_address input{
+	margin-bottom: 2px;
+}
+
+.contact_method_add tr{
+	
 }
 
 

@@ -1,9 +1,9 @@
-class Quota.Views.IndexContactAddress extends Backbone.View
+class Quota.Views.IndexContactPhoneAdd extends Backbone.View
 
-	template: HandlebarsTemplates['contacts/index_contact_address'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['contacts/index_contact_phone_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	events:
-		"click .contact_method_remove": "destroy"
+	# events:
+		# "click .contact_method_remove": "destroy"
 		# "click .contact_method_show_holder": "toggleEdit"
 		
 	initialize: (options)->
@@ -17,8 +17,7 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		# 				self.clearError(attr)
 		# 				self.handleError(attr, error)
 		# 		)
-		@contact = options.contact
-		@index = options.index
+		@contact = options.parent_model
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
@@ -29,31 +28,50 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		@vent.on('contact:done', @handleDone, @)
 		
 	render: ->
-		$(@el).html(@template({contact_address:@model.toJSON(), index:@index}))
+		$(@el).html(@template({contact_phone:@model.toJSON(), index:@index}))
 		if @hideRemove
 			@$('.contact_method_remove').css('visibility', 'hidden')
-			
+		
 		@contact_method_show = @$('.contact_method_show')
 		@contact_method_edit = @$('.contact_method_edit')
-		
+
 		@contact_method_name = @$('.contact_method_name')
-		@contact_method_street1 = @$('.contact_method_street1')
-		@contact_method_city = @$('.contact_method_city')
-		@contact_method_state = @$('.contact_method_state')
-		@contact_method_zip = @$('.contact_method_zip')
-		@contact_method_country = @$('.contact_method_country')
+		@contact_method_val = @$('.contact_method_val')
 		@input_contact_method_name = @$('.contact_method_name input')
-		@input_contact_method_street1 = @$('.contact_method_street1')
-		@input_contact_method_city = @$('.contact_method_city')
-		@input_contact_method_state = @$('.contact_method_state')
-		@input_contact_method_zip = @$('.contact_method_zip')
-		@input_contact_method_country = @$('.contact_method_country')
+		@input_contact_method_val = @$('.contact_method_val input')
 		
 		# @$el.find('input').autoGrowInput()
+		# 
 		@
 		
 	save: ->
-		
+		self = @
+		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
+		modelid = @model.id
+		if @input_contact_method_name.val() == ''
+			@model.set("name", "Phone", {silent: true})
+			
+		if @model.isValid(true) && @contact.isValid(true)
+			if @model.get("pub_key")
+				@model.url = 'phones/'+@model.get("pub_key")
+			else
+				@model.url = 'phones/'
+				
+			@model.save(
+				{
+					name: @model.get("name")
+					val: @model.get("val")
+				},
+				{
+					error: @handleError
+					success: (model) -> 
+						self.model.url = 'phones/'+model.get("pub_key")
+						self.hideRemove = false
+						self.model.trigger('change')
+						self.vent.trigger("contact_phones:check_empty")
+					silent: true
+				}
+			)
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422
@@ -90,23 +108,9 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		
 	toggle: () ->
 		$(@el).toggle()
-		
+	
 	handleEdit: ->
-		@contact_method_show.hide()
-		@contact_method_edit.show()
-		
-	handleDone: ->
-		@contact_method_edit.hide()
-		@contact_method_show.show()
-		
-	toggleEdit: ->
-		@contact_method_show.hide()
-		@contact_method_edit.show()
+		@$('.contact_method_add').show()
 
-	hideRemove: () ->
-		@hideRemove = true
-		$(@el).find('.contact_method_remove').css('visibility', 'hidden')
-		
-	showRemove: () ->
-		@hideRemove = false
-		$(@el).find('.contact_method_remove').css('visibility', '')
+	handleDone: ->
+		@$('.contact_method_add').hide()

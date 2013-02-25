@@ -15,9 +15,9 @@ class Quota.Views.IndexContactPhones extends Backbone.View
 		@contact = options.parent_model
 		@parent_child_key = options.parent_child_key
 		
-		@_addPhoneView = new Quota.Views.EditContactFormAddPhone({model: new Quota.Models.ContactPhone(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addPhoneView = new Quota.Views.IndexContactPhoneAdd({model: new Quota.Models.ContactPhone(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection, tagName:'li'})
 		
-		@_phonesListView = new Quota.Views.IndexContactPhonesList({model: new Quota.Models.ContactPhone(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
+		@_phonesListView = new Quota.Views.IndexContactPhonesList({model: new Quota.Models.ContactPhone(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, collection: @collection})
 		
 		# @_contactsListView = new Quota.Views.ShowOpportunityContactsList({model: new Quota.Models.Contact(), parent_model:@opportunity, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
@@ -28,8 +28,11 @@ class Quota.Views.IndexContactPhones extends Backbone.View
 	render: ->
 		@container_phone_list = @$('.contact_phones_list')
 		@_phonesListView.setElement(@container_phone_list).render()
-		@container_add_phone = @$('.section-form')
-		@_addPhoneView.setElement(@container_add_phone).render()
+		@container_add_phone = @$('.contact_phones_add')
+		# @_addPhoneView.setElement(@container_add_phone).render()
+		frag = document.createDocumentFragment()
+		frag.appendChild(@_addPhoneView.render().el)
+		@container_add_phone.append(frag)
 		@
 	
 	addClicked: ->

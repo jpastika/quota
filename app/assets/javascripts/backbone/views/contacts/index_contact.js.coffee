@@ -5,9 +5,10 @@ class Quota.Views.IndexContact extends Backbone.View
 	el: '#contact'
 
 	events:
-		"click .contact_show": "toggleEdit"
-		"blur .contact_edit input": "toggleShow"
-	# 		
+		"click .contact_btn_edit": "handleEdit"
+		"click .contact_btn_done": "handleDone"
+		"click .contact_edit_is_company input": "handleIsCompanyClick"
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -31,10 +32,25 @@ class Quota.Views.IndexContact extends Backbone.View
 		@contact_show = @$('.contact_show')
 		@contact_edit = @$('.contact_edit')
 		
+		@contact_btn_edit = @$('.contact_btn_edit')
+		@contact_btn_done = @$('.contact_btn_done')
+		
 		@container_phones = @$('.contact_phones')
 		@container_emails = @$('.contact_emails')
 		@container_urls = @$('.contact_urls')
 		@container_addresses = @$('.contact_addresses')
+		
+		@container_icon = @$('.contact_icon')
+		@container_name = @$('.contact_edit_name')
+		@container_title = @$('.contact_edit_title')
+		@container_company = @$('.contact_edit_company')
+		@container_is_company = @$('.contact_edit_is_company')
+		
+		@icon = @$('.contact_icon i')
+		@input_name = @$('.contact_edit_name input')
+		@input_title = @$('.contact_edit_title input')
+		@input_company = @$('.contact_edit_company input')
+		@input_is_company = @$('.contact_edit_is_company input')
 		
 		@_phonesView.setElement(@container_phones).render()
 		@_emailsView.setElement(@container_emails).render()
@@ -43,10 +59,32 @@ class Quota.Views.IndexContact extends Backbone.View
 		
 		@
 		
+	handleEdit: ->
+		@vent.trigger('contact:edit')
+		@toggleEdit()
+		
+	handleDone: ->
+		@vent.trigger('contact:done')
+		@toggleShow()
+	
 	toggleEdit: ->
 		@contact_show.hide()
 		@contact_edit.show()
+		@contact_btn_edit.hide()
+		@contact_btn_done.show()
 		
 	toggleShow: ->
 		@contact_edit.hide()
 		@contact_show.show()
+		@contact_btn_done.hide()
+		@contact_btn_edit.show()
+		
+	handleIsCompanyClick: ->
+		if @input_is_company.is(':checked')
+			@container_title.hide()
+			@container_company.hide()
+			@icon.removeClass('icon-user').addClass('icon-building')
+		else
+			@container_title.show()
+			@container_company.show()
+			@icon.removeClass('icon-building').addClass('icon-user')

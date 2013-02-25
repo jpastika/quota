@@ -15,7 +15,7 @@ class Quota.Views.IndexContactAddresses extends Backbone.View
 		@contact = options.parent_model
 		@parent_child_key = options.parent_child_key
 		
-		@_addAddressView = new Quota.Views.EditContactFormAddAddress({model: new Quota.Models.ContactAddress(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection})
+		@_addAddressView = new Quota.Views.IndexContactAddressAdd({model: new Quota.Models.ContactAddress(), parent_model:@contact, parent_child_key: @contact.get("pub_key"), vent: @vent, parent_collection: @collection, tagName:'li'})
 		
 		@_addressesListView = new Quota.Views.IndexContactAddressesList({model: new Quota.Models.ContactAddress(), parent_model:@contact, parent_child_key: @parent_child_key, vent: @vent, collection: @collection})
 		
@@ -28,8 +28,11 @@ class Quota.Views.IndexContactAddresses extends Backbone.View
 	render: ->
 		@container_address_list = @$('.contact_addresses_list')
 		@_addressesListView.setElement(@container_address_list).render()
-		@container_add_address = @$('.section-form')
-		@_addAddressView.setElement(@container_add_address).render()
+		@container_add_address = @$('.contact_addresses_add')
+		# @_addAddressView.setElement(@container_add_address).render()
+		frag = document.createDocumentFragment()
+		frag.appendChild(@_addAddressView.render().el)
+		@container_add_address.append(frag)
 		@
 	
 	addClicked: ->

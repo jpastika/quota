@@ -12,9 +12,9 @@ class Quota.Views.IndexContactPhonesList extends Backbone.View
 		_.bindAll(@)
 		@vent = options.vent
 		@_phoneViews = []
-		@collection.on('reset', @collectionReset, @)
-		@collection.on('destroy:error', @removeFailed, @)
-		@collection.on('destroy:success', @removeSuccess, @)
+		# @collection.on('reset', @collectionReset, @)
+		# 		@collection.on('destroy:error', @removeFailed, @)
+		# 		@collection.on('destroy:success', @removeSuccess, @)
 		@contact = options.parent_model
 		
 		@vent.on('contact_phones:add_new_phone_successful', @addNewPhone_Success, @)

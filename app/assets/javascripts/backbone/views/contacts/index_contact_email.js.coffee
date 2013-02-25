@@ -4,7 +4,7 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
-		"click .contact_method_show_holder": "toggleEdit"
+		# "click .contact_method_show_holder": "toggleEdit"
 		
 	initialize: (options)->
 		self = @
@@ -24,6 +24,9 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
 		@model.on('change', @render, @)
 		@model.on('destroy', @remove, @)
+		
+		@vent.on('contact:edit', @handleEdit, @)
+		@vent.on('contact:done', @handleDone, @)
 		
 	render: ->
 		$(@el).html(@template({contact_email:@model.toJSON(), index:@index}))
@@ -105,7 +108,15 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 		
 	toggle: () ->
 		$(@el).toggle()
-		
+	
+	handleEdit: ->
+		@contact_method_show.hide()
+		@contact_method_edit.show()
+
+	handleDone: ->
+		@contact_method_edit.hide()
+		@contact_method_show.show()
+
 	toggleEdit: ->
 		@contact_method_show.hide()
 		@contact_method_edit.show()
