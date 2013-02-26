@@ -314,14 +314,153 @@ class ContactsController < ApplicationController
       }
       format.json {
         @contact = Contact.find_by_pub_key(params[:id])      
-        if @contact.update_attributes(name: params[:contact][:name], title: params[:contact][:title], company_key: params[:contact][:company_key])
-          render :json => @contact.to_json()
+        
+        if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
+          @company = Contact.companies.create(name: params[:company_name], is_company: true)
+          @company.save
+          @company_key = @company.pub_key
+        else
+          @company_key = params[:company_key]
+        end
+        
+        if @contact.update_attributes(name: params[:name], title: params[:title], company_key: @company_key, is_company: params[:is_company])
+          render :json => @contact.to_json(:include => [:company])
         else
           render :json => "false"
         end
       }
     end
   end
+  
+  # def update
+  #     respond_to do |format|
+  #       format.html {
+  #         if (params[:contact][:company_key].nil? || params[:contact][:company_key] == "") && (!params[:contact][:company_name].nil? && params[:contact][:company_name] != "")
+  #           @company = Contact.companies.create(name: params[:contact][:company_name])
+  #           @company.save
+  #           @company_key = @company.pub_key
+  #         else
+  #           @company_key = params[:contact][:company_key]
+  #         end
+  #         
+  #         @contact = Contact.find_by_pub_key(params[:id])
+  #         if @contact
+  #           @contact.name = params[:contact][:name]
+  #           @contact.title = params[:contact][:title]
+  #           @contact.company_key = @company_key
+  #           # @contact.contact_type_key = params[:contact][:contact_type_key]
+  #         
+  #           if @contact.save
+  #             if params[:phones]
+  #               params[:phones].each do |phone|
+  #                 if phone[:pub_key].nil? || phone[:pub_key] == ""
+  #                   @contact.phones.create!(name: phone[:name], val: phone[:val])
+  #                 else
+  #                   @contact_phone = ContactPhone.find_by_pub_key(phone[:pub_key])
+  #                   if @contact_phone
+  #                     @contact_phone.name = phone[:name]
+  #                     @contact_phone.val = phone[:val]
+  #                     @contact_phone.save
+  #                   end
+  #                 end
+  #               end
+  #             end
+  #             
+  #             if params[:emails]
+  #               params[:emails].each do |email|
+  #                 if email[:pub_key].nil? || email[:pub_key] == ""
+  #                   @contact.emails.create!(name: email[:name], val: email[:val])
+  #                 else
+  #                   @contact_email = ContactEmail.find_by_pub_key(email[:pub_key])
+  #                   if @contact_email
+  #                     @contact_email.name = email[:name]
+  #                     @contact_email.val = email[:val]
+  #                     @contact_email.save
+  #                   end
+  #                 end
+  #               end
+  #             end
+  #             
+  #             if params[:urls]
+  #               params[:urls].each do |url|
+  #                 if url[:pub_key].nil? || url[:pub_key] == ""
+  #                   @contact.urls.create!(name: url[:name], val: url[:val])
+  #                 else
+  #                   @contact_url = ContactUrl.find_by_pub_key(url[:pub_key])
+  #                   if @contact_url
+  #                     @contact_url.name = url[:name]
+  #                     @contact_url.val = url[:val]
+  #                     @contact_url.save
+  #                   end
+  #                 end
+  #               end
+  #             end
+  #             
+  #             if params[:addresses]
+  #               params[:addresses].each do |address|
+  #                 if address[:pub_key].nil? || address[:pub_key] == ""
+  #                   @contact.addresses.create!(name: address[:name], street1: address[:street1])
+  #                 else
+  #                   @contact_address = ContactAddress.find_by_pub_key(address[:pub_key])
+  #                   if @contact_address
+  #                     @contact_address.name = address[:name]
+  #                     @contact_address.street1 = address[:street1]
+  #                     @contact_address.city = address[:city]
+  #                     @contact_address.state = address[:state]
+  #                     @contact_address.zip = address[:zip]
+  #                     @contact_address.country = address[:country]
+  #                     @contact_address.save
+  #                   end
+  #                 end
+  #               end
+  #             end
+  #           end
+  #           
+  #           
+  #           # @contacts = Contact.all
+  #           #           @contact_types = ContactType.all
+  #           # 
+  #           #           if @contact.contact_type.name == "Company"
+  #           #             @contact_type = "Company"
+  #           #             @company_contacts = Contact.find_by_company_key(@contact.pub_key)
+  #           #           else
+  #           #             @contact_type = "Person"
+  #           #             @company = @contact.company
+  #           #           end
+  #           # 
+  #           #           gon.contact_types = @contact_types
+  #           #           gon.contacts = @contacts
+  #           
+  #           flash[:success] = "Contact updated"
+  #           # redirect_to contact_path(params[:id])
+  #           redirect_to contact_path(@contact.pub_key)
+  #         else
+  #           @account_key = @current_user.account_key
+  #           # @contact_types = ContactType.all
+  #           @companies = Contact.companies
+  #           @contact = Contact.find_by_pub_key(params[:id])
+  # 
+  #           # gon.contact_types = @contact_types
+  #           gon.contact = @contact
+  #           gon.companies = @companies
+  #           gon.contact_phones = @contact.phones.to_json(:include => [])
+  #           gon.contact_emails = @contact.emails.to_json(:include => [])
+  #           gon.contact_addresses = @contact.addresses.to_json(:include => [])
+  #           gon.contact_urls = @contact.urls.to_json(:include => [])
+  #           
+  #           render 'edit'
+  #         end
+  #       }
+  #       format.json {
+  #         @contact = Contact.find_by_pub_key(params[:id])      
+  #         if @contact.update_attributes(name: params[:contact][:name], title: params[:contact][:title], company_key: params[:contact][:company_key])
+  #           render :json => @contact.to_json()
+  #         else
+  #           render :json => "false"
+  #         end
+  #       }
+  #     end
+  #   end
   
   
   def companies
@@ -351,6 +490,19 @@ class ContactsController < ApplicationController
         else
           render :json => "false"
         end
+      }
+    end
+  end
+  
+  def filter_companies_by_name
+    respond_to do |format|
+      format.html {
+        @companies = Contact.companies_find_by_name(params[:filter])
+      }
+      format.json { 
+        @companies = Contact.companies_find_by_name(params[:filter])
+        
+        render :json => @companies.to_json()
       }
     end
   end

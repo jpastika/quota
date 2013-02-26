@@ -94,12 +94,12 @@
   margin-top: 0px;
 }
 
-.contact_method_edit .icon-remove{
-  top:4px;
+.contact_method_edit .icon-remove, .contact_method_edit .icon-spinner{
+  top:6px;
   position:relative;
 }
 
-.contact_method_add .icon-ok{
+.contact_method_add .icon-ok, .contact_method_add .icon-spinner{
   top:8px;
   position:relative;
 }

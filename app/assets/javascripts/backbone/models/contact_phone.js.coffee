@@ -1,5 +1,6 @@
 class Quota.Models.ContactPhone extends Backbone.Model
 	idAttribute: 'pub_key'
+	urlRoot: '/api/contact_phones'
 	
 	validation:
 		val:

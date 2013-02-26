@@ -4,7 +4,8 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
-		# "click .contact_method_show_holder": "toggleEdit"
+		"blur input": "saveModel"
+		"click .icon-remove": "destroy"
 		
 	initialize: (options)->
 		self = @
@@ -22,7 +23,6 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		@model.on('change', @render, @)
 		@model.on('destroy', @remove, @)
 		
 		@vent.on('contact:edit', @handleEdit, @)
@@ -38,22 +38,31 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		
 		@contact_method_name = @$('.contact_method_name')
 		@contact_method_street1 = @$('.contact_method_street1')
+		@contact_method_street2 = @$('.contact_method_street2')
 		@contact_method_city = @$('.contact_method_city')
 		@contact_method_state = @$('.contact_method_state')
 		@contact_method_zip = @$('.contact_method_zip')
 		@contact_method_country = @$('.contact_method_country')
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_street1 = @$('.contact_method_street1')
+		@input_contact_method_street2 = @$('.contact_method_street2')
 		@input_contact_method_city = @$('.contact_method_city')
 		@input_contact_method_state = @$('.contact_method_state')
 		@input_contact_method_zip = @$('.contact_method_zip')
 		@input_contact_method_country = @$('.contact_method_country')
+		@input_contact_method_pub_key = @$('.contact_method_pub_key')
+		
+		@ok = @$('.icon-ok')
+		@remove = @$('.icon-remove')
+		@spinner = @$('.icon-spinner')
+		
 		
 		# @$el.find('input').autoGrowInput()
 		@
-		
-	save: ->
-		
+	
+	decorateShow: ->
+
+	setHolders: ->	
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422
@@ -84,10 +93,11 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 			@save()
 		
 	destroy: (evt) ->
-		@toggle()
+		$(@el).toggle()
 		# @model.trigger('removing', {view: @})
 		@model.remove()
-		
+		@vent.trigger('contact_addresses:remove_contact_address', {model: @model})
+
 	toggle: () ->
 		$(@el).toggle()
 		
@@ -110,3 +120,34 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 	showRemove: () ->
 		@hideRemove = false
 		$(@el).find('.contact_method_remove').css('visibility', '')
+		
+	showSpinner: ->
+		@spinner.show()
+
+	hideSpinner: ->
+		@spinner.hide()
+
+	saveModel: ->
+		self = @
+		@showSpinner()
+		@model.save(
+			{
+				name: @input_contact_method_name.val()
+				street1: @input_contact_method_street1.val()
+				street2: @input_contact_method_street2.val()
+				city: @input_contact_method_city.val()
+				state: @input_contact_method_state.val()
+				zip: @input_contact_method_zip.val()
+				country: @input_contact_method_country.val()
+			},
+			{
+				error: ->
+					self.hideSpinner()
+					# console.log "save error"
+				success: (model) -> 
+					# self.vent.trigger('template_items:add_new_template_item_successful', {model: model})
+					self.setHolders()
+					self.decorateShow()
+					self.hideSpinner()
+			}
+		)

@@ -2,6 +2,8 @@ class Quota.Views.IndexContactPhoneAdd extends Backbone.View
 
 	template: HandlebarsTemplates['contacts/index_contact_phone_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
+	events:
+		"click .icon-ok": "saveModel"
 	# events:
 		# "click .contact_method_remove": "destroy"
 		# "click .contact_method_show_holder": "toggleEdit"
@@ -40,38 +42,70 @@ class Quota.Views.IndexContactPhoneAdd extends Backbone.View
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_val = @$('.contact_method_val input')
 		
+		@ok = @$('.icon-ok')
+		@spinner = @$('.icon-spinner')
+		
+		
 		# @$el.find('input').autoGrowInput()
 		# 
 		@
-		
-	save: ->
+	
+	showSpinner: ->
+		@spinner.show()
+
+	hideSpinner: ->
+		@spinner.hide()
+
+	saveModel: ->
 		self = @
-		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		modelid = @model.id
-		if @input_contact_method_name.val() == ''
-			@model.set("name", "Phone", {silent: true})
-			
-		if @model.isValid(true) && @contact.isValid(true)
-			if @model.get("pub_key")
-				@model.url = 'phones/'+@model.get("pub_key")
-			else
-				@model.url = 'phones/'
-				
-			@model.save(
-				{
-					name: @model.get("name")
-					val: @model.get("val")
-				},
-				{
-					error: @handleError
-					success: (model) -> 
-						self.model.url = 'phones/'+model.get("pub_key")
-						self.hideRemove = false
-						self.model.trigger('change')
-						self.vent.trigger("contact_phones:check_empty")
-					silent: true
-				}
-			)
+		@showSpinner()
+		@model.save(
+			{
+				name: self.input_contact_method_name.val()
+				val: self.input_contact_method_val.val()
+				contact_key: self.contact.get("pub_key")
+			},
+			{
+				error: ->
+					self.hideSpinner()
+					# console.log "save error"
+				success: (model) -> 
+					self.vent.trigger('contact_phones:save_new_contact_phone_successful', {model: model})
+					self.model = new Quota.Models.ContactPhone() 
+					self.render()
+					self.input_contact_method_name.focus()
+			}
+		)
+		
+		
+	# save: ->
+	# 		self = @
+	# 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
+	# 		modelid = @model.id
+	# 		if @input_contact_method_name.val() == ''
+	# 			@model.set("name", "Phone", {silent: true})
+	# 			
+	# 		if @model.isValid(true) && @contact.isValid(true)
+	# 			if @model.get("pub_key")
+	# 				@model.url = 'phones/'+@model.get("pub_key")
+	# 			else
+	# 				@model.url = 'phones/'
+	# 				
+	# 			@model.save(
+	# 				{
+	# 					name: @model.get("name")
+	# 					val: @model.get("val")
+	# 				},
+	# 				{
+	# 					error: @handleError
+	# 					success: (model) -> 
+	# 						self.model.url = 'phones/'+model.get("pub_key")
+	# 						self.hideRemove = false
+	# 						self.model.trigger('change')
+	# 						self.vent.trigger("contact_phones:check_empty")
+	# 					silent: true
+	# 				}
+	# 			)
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422

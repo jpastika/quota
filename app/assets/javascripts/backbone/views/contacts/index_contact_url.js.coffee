@@ -4,6 +4,9 @@ class Quota.Views.IndexContactUrl extends Backbone.View
 	
 	events:
 		"click .contact_method_remove": "destroy"
+		"blur input": "saveModel"
+		"click .icon-remove": "destroy"
+		
 		# "click .contact_method_show_holder": "toggleEdit"
 		
 	initialize: (options)->
@@ -22,7 +25,6 @@ class Quota.Views.IndexContactUrl extends Backbone.View
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		@model.on('change', @render, @)
 		@model.on('destroy', @remove, @)
 		
 		@vent.on('contact:edit', @handleEdit, @)
@@ -41,37 +43,49 @@ class Quota.Views.IndexContactUrl extends Backbone.View
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_val = @$('.contact_method_val input')
 		
+		@ok = @$('.icon-ok')
+		@remove = @$('.icon-remove')
+		@spinner = @$('.icon-spinner')
+		
+		
+		
 		# @$el.find('input').autoGrowInput()
 		@
 		
-	save: ->
-		self = @
-		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		modelid = @model.id
-		if @input_contact_method_name.val() == ''
-			@model.set("name", "Url", {silent: true})
-			
-		if @model.isValid(true) && @contact.isValid(true)
-			if @model.get("pub_key")
-				@model.url = 'urls/'+@model.get("pub_key")
-			else
-				@model.url = 'urls/'
-				
-			@model.save(
-				{
-					name: @model.get("name")
-					val: @model.get("val")
-				},
-				{
-					error: @handleError
-					success: (model) -> 
-						self.model.url = 'urls/'+model.get("pub_key")
-						self.hideRemove = false
-						self.model.trigger('change')
-						self.vent.trigger("contact_urls:check_empty")
-					silent: true
-				}
-			)
+	decorateShow: ->
+
+	setHolders: ->	
+
+	
+		
+	# save: ->
+	# 		self = @
+	# 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
+	# 		modelid = @model.id
+	# 		if @input_contact_method_name.val() == ''
+	# 			@model.set("name", "Url", {silent: true})
+	# 			
+	# 		if @model.isValid(true) && @contact.isValid(true)
+	# 			if @model.get("pub_key")
+	# 				@model.url = 'urls/'+@model.get("pub_key")
+	# 			else
+	# 				@model.url = 'urls/'
+	# 				
+	# 			@model.save(
+	# 				{
+	# 					name: @model.get("name")
+	# 					val: @model.get("val")
+	# 				},
+	# 				{
+	# 					error: @handleError
+	# 					success: (model) -> 
+	# 						self.model.url = 'urls/'+model.get("pub_key")
+	# 						self.hideRemove = false
+	# 						self.model.trigger('change')
+	# 						self.vent.trigger("contact_urls:check_empty")
+	# 					silent: true
+	# 				}
+	# 			)
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422
@@ -102,10 +116,11 @@ class Quota.Views.IndexContactUrl extends Backbone.View
 			@save()
 		
 	destroy: (evt) ->
-		@toggle()
+		$(@el).toggle()
 		# @model.trigger('removing', {view: @})
 		@model.remove()
-		
+		@vent.trigger('contact_urls:remove_contact_url', {model: @model})
+
 	toggle: () ->
 		$(@el).toggle()
 	
@@ -128,3 +143,29 @@ class Quota.Views.IndexContactUrl extends Backbone.View
 	showRemove: () ->
 		@hideRemove = false
 		$(@el).find('.contact_method_remove').css('visibility', '')
+		
+	showSpinner: ->
+		@spinner.show()
+
+	hideSpinner: ->
+		@spinner.hide()
+
+	saveModel: ->
+		self = @
+		@showSpinner()
+		@model.save(
+			{
+				name: @input_contact_method_name.val()
+				val: @input_contact_method_val.val()
+			},
+			{
+				error: ->
+					self.hideSpinner()
+					# console.log "save error"
+				success: (model) -> 
+					# self.vent.trigger('template_items:add_new_template_item_successful', {model: model})
+					self.setHolders()
+					self.decorateShow()
+					self.hideSpinner()
+			}
+		)

@@ -1,9 +1,11 @@
 class Quota.Views.PageListContacts extends Backbone.View
 	
 	# template: HandlebarsTemplates['contacts/page_list_contacts'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
-
+	el: "body"
 	
-	# events:
+	events:
+		"click .add_contact": "handleAddContactClick"
+		
 	# 		# "blur .contact_name input": "contactNameChanged"
 	# 		# 		"blur .contact_title input": "contactTitleChanged"
 	# 		
@@ -14,7 +16,6 @@ class Quota.Views.PageListContacts extends Backbone.View
 		@vent = options.vent
 		# @contact_types = options.contact_types
 		@contacts = options.contacts
-		@vent.on('contact_link:clicked', @contactLinkClicked, @)
 		@vent.on("contact:clicked", @contactClicked, @)
 	
 	render: ->
@@ -28,15 +29,11 @@ class Quota.Views.PageListContacts extends Backbone.View
 		view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
 		view.render()
 	
-	contactLinkClicked: (evt) ->
-		# enablePushState = true  
-		# 		pushState = !!(enablePushState and window.history and window.history.pushState)
-		# 		if pushState
-		# 			# gon.contact = evt.view.model
-		# 			Backbone.history.navigate("contacts/" + evt.view.model.get("pub_key") + "/edit", {trigger: true, replace: false})
-		# 		else
-		# window.location.replace(evt.view.model.url())
-		
 	contactClicked: (evt) ->
 		contactView = new Quota.Views.IndexContact({model: evt.model, vent: @vent})
 		contactView.render()
+		
+	handleAddContactClick: ->
+		contactView = new Quota.Views.IndexContact({model: new Quota.Models.Contact() , vent: @vent})
+		contactView.render()
+		contactView.handleEdit()

@@ -2,7 +2,9 @@ class Quota.Views.IndexContactEmailAdd extends Backbone.View
 
 	template: HandlebarsTemplates['contacts/index_contact_email_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
-	# events:
+	events:
+		"click .icon-ok": "saveModel"
+		
 		# "click .contact_method_remove": "destroy"
 		# "click .contact_method_show_holder": "toggleEdit"
 		
@@ -40,11 +42,43 @@ class Quota.Views.IndexContactEmailAdd extends Backbone.View
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_val = @$('.contact_method_val input')
 		
+		@ok = @$('.icon-ok')
+		@spinner = @$('.icon-spinner')
+		
+		
+		
 		# @$el.find('input').autoGrowInput()
 		# 
 		@
 		
-	save: ->
+	showSpinner: ->
+		@spinner.show()
+
+	hideSpinner: ->
+		@spinner.hide()
+
+	saveModel: ->
+		self = @
+		@showSpinner()
+		@model.save(
+			{
+				name: self.input_contact_method_name.val()
+				val: self.input_contact_method_val.val()
+				contact_key: self.contact.get("pub_key")
+			},
+			{
+				error: ->
+					self.hideSpinner()
+					# console.log "save error"
+				success: (model) -> 
+					self.vent.trigger('contact_emails:save_new_contact_email_successful', {model: model})
+					self.model = new Quota.Models.ContactEmail() 
+					self.render()
+					self.input_contact_method_name.focus()
+			}
+		)
+		
+	# save: ->
 		# self = @
 		# 	@model.set("contact_key", @contact.get("pub_key"), {silent: true})
 		# 	modelid = @model.id

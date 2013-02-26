@@ -2,6 +2,8 @@ class Quota.Views.IndexContactAddressAdd extends Backbone.View
 
 	template: HandlebarsTemplates['contacts/index_contact_address_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
+	events:
+		"click .icon-ok": "saveModel"
 	# events:
 		# "click .contact_method_remove": "destroy"
 		# "click .contact_method_show_holder": "toggleEdit"
@@ -36,15 +38,64 @@ class Quota.Views.IndexContactAddressAdd extends Backbone.View
 		@contact_method_edit = @$('.contact_method_edit')
 
 		@contact_method_name = @$('.contact_method_name')
-		@contact_method_val = @$('.contact_method_val')
+		@contact_method_street1 = @$('.contact_method_street1')
+		@contact_method_street2 = @$('.contact_method_street2')
+		@contact_method_city = @$('.contact_method_city')
+		@contact_method_state = @$('.contact_method_state')
+		@contact_method_zip = @$('.contact_method_zip')
+		@contact_method_country = @$('.contact_method_country')
 		@input_contact_method_name = @$('.contact_method_name input')
-		@input_contact_method_val = @$('.contact_method_val input')
+		@input_contact_method_street1 = @$('.contact_method_street1')
+		@input_contact_method_street2 = @$('.contact_method_street2')
+		@input_contact_method_city = @$('.contact_method_city')
+		@input_contact_method_state = @$('.contact_method_state')
+		@input_contact_method_zip = @$('.contact_method_zip')
+		@input_contact_method_country = @$('.contact_method_country')
+		@input_contact_method_pub_key = @$('.contact_method_pub_key')
+		
+		
+		@ok = @$('.icon-ok')
+		@spinner = @$('.icon-spinner')
+		
+		
 		
 		# @$el.find('input').autoGrowInput()
 		# 
 		@
 		
-	save: ->
+	showSpinner: ->
+		@spinner.show()
+
+	hideSpinner: ->
+		@spinner.hide()
+
+	saveModel: ->
+		self = @
+		@showSpinner()
+		@model.save(
+			{
+				name: @input_contact_method_name.val()
+				street1: @input_contact_method_street1.val()
+				street2: @input_contact_method_street2.val()
+				city: @input_contact_method_city.val()
+				state: @input_contact_method_state.val()
+				zip: @input_contact_method_zip.val()
+				country: @input_contact_method_country.val()
+				contact_key: self.contact.get("pub_key")
+			},
+			{
+				error: ->
+					self.hideSpinner()
+					# console.log "save error"
+				success: (model) -> 
+					self.vent.trigger('contact_addresses:save_new_contact_address_successful', {model: model})
+					self.model = new Quota.Models.ContactAddress() 
+					self.render()
+					self.input_contact_method_name.focus()
+			}
+		)
+		
+	# save: ->
 		# self = @
 		# 	@model.set("contact_key", @contact.get("pub_key"), {silent: true})
 		# 	modelid = @model.id

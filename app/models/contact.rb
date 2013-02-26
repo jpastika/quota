@@ -33,6 +33,12 @@ class Contact < ActiveRecord::Base
       where(:is_company => true)
     end
     
+    def companies_find_by_name(flt)
+      where("contacts.name ILIKE ? AND is_company = true",'%'+flt+'%')
+    end
+
+    
+    
     # def people(account)
     #       where(:contact_type_key => (ContactType.where(:name => "Person", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Person", :account_key => account.pub_key).nil?))
     #     end
