@@ -76,7 +76,6 @@ class Quota.Views.IndexContactAdd extends Backbone.View
 		# 		@_addressesView.setElement(@container_addresses).render()
 		
 		@spinner = @$('.contact_spinner')
-		
 		# company_name_field_name = @input_company.attr('name')
 		# 		company_name_field_id = @input_company.attr('id')
 		# 		

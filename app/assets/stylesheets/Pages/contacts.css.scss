@@ -125,5 +125,14 @@
 	
 }
 
+.search-bar .found{
+	float: right;
+	margin-top: -45px;
+	position: relative;
+	top: 0;
+	color: $ss_mediumGray;
+	z-index: 100;
+}
+
 
 

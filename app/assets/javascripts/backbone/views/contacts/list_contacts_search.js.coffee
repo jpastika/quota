@@ -1,4 +1,4 @@
-class Quota.Views.ListContacts extends Backbone.View
+class Quota.Views.ListContactsSearch extends Backbone.View
 
 	# tagName: 'ul'
 	# 	className: 'unstyled form-vertical'
@@ -19,8 +19,8 @@ class Quota.Views.ListContacts extends Backbone.View
 		@collection.on('destroy:success', @removeSuccess, @)
 		@vent.on('contact_link:clicked', @contactLinkClicked, @)
 		@vent.on("contact:clicked", @contactClicked, @)
-		@vent.on("contacts:updated", @contactUpdated)
-		@vent.on("contacts:save_new_successful", @contactAdded, @)
+		@vent.on("contact:updated", @contactUpdated)
+		@vent.on("contact:save_new_successful", @contactAdded, @)
 		
 	render: ->
 		$('.contacts_list ul').empty()
@@ -54,7 +54,7 @@ class Quota.Views.ListContacts extends Backbone.View
 			$("##{item.get("name").charAt(0).toLowerCase()}_list ul").append(frag)
 	
 	handleHeadings: ->
-		if @collection.length > 10
+		if @collection.length > 42
 			@showHeadings()
 		else
 			@hideHeadings()
@@ -85,24 +85,24 @@ class Quota.Views.ListContacts extends Backbone.View
 	
 	contactUpdated: (obj) ->
 		self = @
-		# rerender = false
+		rerender = false
 		
 		# Handle new company
-		# if obj.get("company") && !@collection.get(obj.get("company"))
-		# 			@collection.add(obj.get("company"))
-		# 			rerender = true
-		# 		
-		# 		if obj.get("company_key") == ''
-		# 			@collection.get(obj).set("company", null)
-		# 		
-		# 		index = @collection.indexOf(obj)
-		# 		@collection.sort()
-		# 		if index != @collection.indexOf(obj)
-		# 			rerender = true
-		# 		if rerender
-		@render()
-		view = _.find(@_contactViews, (view) -> view.model == obj)
-		view.highlight()
+		if obj.get("company") && !@collection.get(obj.get("company"))
+			@collection.add(obj.get("company"))
+			rerender = true
+		
+		if obj.get("company_key") == ''
+			@collection.get(obj).set("company", null)
+		
+		index = @collection.indexOf(obj)
+		@collection.sort()
+		if index != @collection.indexOf(obj)
+			rerender = true
+		if rerender
+			@render()
+			view = _.find(@_contactViews, (view) -> view.model == obj)
+			view.highlight()
 			
 		@handleHeadings()
 		# view = _.find(@_contactViews, (view) -> view.model == obj)
@@ -117,12 +117,12 @@ class Quota.Views.ListContacts extends Backbone.View
 	contactAdded: (obj) ->
 		self = @
 		# Handle new company
-		# if obj.get("company") && !@collection.get(obj.get("company"))
-		# 			@collection.add(obj.get("company"))
-		# 		
-		# 		@collection.add(obj)
-		# 		@collection.sort()
-		# 		index = @collection.indexOf(obj)
+		if obj.get("company") && !@collection.get(obj.get("company"))
+			@collection.add(obj.get("company"))
+		
+		@collection.add(obj)
+		@collection.sort()
+		index = @collection.indexOf(obj)
 		@render()
 		view = _.find(@_contactViews, (view) -> view.model == obj)
 		view.highlight()
