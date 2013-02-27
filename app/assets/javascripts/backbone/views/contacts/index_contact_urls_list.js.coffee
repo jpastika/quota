@@ -17,7 +17,8 @@ class Quota.Views.IndexContactUrlsList extends Backbone.View
 		@collection.on('destroy:success', @removeSuccess, @)
 		@contact = options.parent_model
 		
-		@vent.on('contact_urls:add_new_url_successful', @addNewUrl_Success, @)
+		@vent.on('contact_urls:save_new_contact_url_successful', @addNewUrl_Success, @)
+		
 		
 	render: ->
 		# $(@el).html(@template({}))
@@ -59,11 +60,14 @@ class Quota.Views.IndexContactUrlsList extends Backbone.View
 	addNewUrl_Success: (obj)->
 		model = obj.model
 		self = @
-		
-		self.collection.add(model)
+
+		# self.collection.add(model)
+		view = self.addOne(model)
 		frag = document.createDocumentFragment()
-		frag.appendChild(self.addOne(model).render().el)
+		frag.appendChild(view.render().el)
 		self.$el.append(frag)
+
+		view.handleEdit()
 
 	handleError: (attribute, message) ->
 		console.log message

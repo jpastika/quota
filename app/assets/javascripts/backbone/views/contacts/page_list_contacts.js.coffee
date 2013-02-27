@@ -6,6 +6,7 @@ class Quota.Views.PageListContacts extends Backbone.View
 	events:
 		"click .add_contact": "handleAddContactClick"
 		
+		
 	# 		# "blur .contact_name input": "contactNameChanged"
 	# 		# 		"blur .contact_title input": "contactTitleChanged"
 	# 		
@@ -17,23 +18,32 @@ class Quota.Views.PageListContacts extends Backbone.View
 		# @contact_types = options.contact_types
 		@contacts = options.contacts
 		@vent.on("contact:clicked", @contactClicked, @)
+		@vent.on("contact:save_new_successful", @contactAdded, @)
+		@view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
+		@contactView = new Quota.Views.IndexContactAdd({model: new Quota.Models.Contact() , vent: @vent})
 	
 	render: ->
 		$(@el).empty()
 		$(@el).html(@template())
-		view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
-		view.render()
+		
+		@view.render()
+		@contactView.render()
 		@
 		
 	setup: ->
-		view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
-		view.render()
+		@view = new Quota.Views.ListContacts({collection: @contacts, vent: @vent})
+		@view.render()
+		@contactView.render()
 	
 	contactClicked: (evt) ->
-		contactView = new Quota.Views.IndexContact({model: evt.model, vent: @vent})
-		contactView.render()
+		@contactView = new Quota.Views.IndexContact({model: evt.model, vent: @vent})
+		@contactView.render()
 		
 	handleAddContactClick: ->
-		contactView = new Quota.Views.IndexContact({model: new Quota.Models.Contact() , vent: @vent})
-		contactView.render()
-		contactView.handleEdit()
+		@contactView = new Quota.Views.IndexContactAdd({model: new Quota.Models.Contact() , vent: @vent})
+		@contactView.render()
+		
+	contactAdded: (obj)->
+		@contactView = new Quota.Views.IndexContact({model: obj, vent: @vent})
+		@contactView.render()
+		@contactView.handleEdit()

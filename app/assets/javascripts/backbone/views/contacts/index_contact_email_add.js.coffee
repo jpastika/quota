@@ -23,8 +23,8 @@ class Quota.Views.IndexContactEmailAdd extends Backbone.View
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		@model.on('change', @render, @)
-		@model.on('destroy', @remove, @)
+		# @model.on('change', @render, @)
+		# 		@model.on('destroy', @remove, @)
 		
 		@vent.on('contact:edit', @handleEdit, @)
 		@vent.on('contact:done', @handleDone, @)
@@ -72,8 +72,11 @@ class Quota.Views.IndexContactEmailAdd extends Backbone.View
 					# console.log "save error"
 				success: (model) -> 
 					self.vent.trigger('contact_emails:save_new_contact_email_successful', {model: model})
-					self.model = new Quota.Models.ContactEmail() 
-					self.render()
+					self.model = new Quota.Models.ContactEmail()
+					self.input_contact_method_name.val('')
+					self.input_contact_method_val.val('')
+					self.hideSpinner()
+					# self.render()
 					self.input_contact_method_name.focus()
 			}
 		)

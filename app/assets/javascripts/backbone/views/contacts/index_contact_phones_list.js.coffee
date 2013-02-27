@@ -17,7 +17,7 @@ class Quota.Views.IndexContactPhonesList extends Backbone.View
 		# 		@collection.on('destroy:success', @removeSuccess, @)
 		@contact = options.parent_model
 		
-		@vent.on('contact_phones:add_new_phone_successful', @addNewPhone_Success, @)
+		@vent.on('contact_phones:save_new_contact_phone_successful', @addNewPhone_Success, @)
 		
 	render: ->
 		# $(@el).html(@template({}))
@@ -32,7 +32,7 @@ class Quota.Views.IndexContactPhonesList extends Backbone.View
 		view = new Quota.Views.IndexContactPhone({model: item, tagName:'li', contact: @model, vent: @vent, index: (@collection.models.length - 1)})
 		@_phoneViews.push(view)
 		view
-
+		
 	collectionReset: ->
 		@render()
 
@@ -60,10 +60,13 @@ class Quota.Views.IndexContactPhonesList extends Backbone.View
 		model = obj.model
 		self = @
 		
-		self.collection.add(model)
+		# self.collection.add(model)
+		view = self.addOne(model)
 		frag = document.createDocumentFragment()
-		frag.appendChild(self.addOne(model).render().el)
+		frag.appendChild(view.render().el)
 		self.$el.append(frag)
+		
+		view.handleEdit()
 
 	handleError: (attribute, message) ->
 		console.log message

@@ -10,6 +10,9 @@ class Quota.Views.IndexContact extends Backbone.View
 		"click .contact_edit_is_company input": "handleIsCompanyClick"
 		"blur  .contact_edit_name input": "saveModel"
 		"blur  .contact_edit_title input": "saveModel"
+		"keydown .contact_edit_company input": "resetCompany"
+		"blur  .contact_edit_company input": "blurCompany"
+		
 		# "click .add_contact": "handleAddContactClick"
 		
 	initialize: (options)->
@@ -33,6 +36,21 @@ class Quota.Views.IndexContact extends Backbone.View
 		
 		@_companyComboView.on("company_combo:item_selected", @companySelected)
 		
+		@vent.on("contact_address:updated", @contactAddressesUpdated)
+		@vent.on("contact_email:updated", @contactEmailsUpdated)
+		@vent.on("contact_phone:updated", @contactPhonesUpdated)
+		@vent.on("contact_url:updated", @contactUrlsUpdated)
+		@vent.on('contact_phones:save_new_contact_phone_successful', @contactPhoneAdded)
+		@vent.on('contact_addresses:save_new_contact_address_successful', @contactAddressAdded)
+		@vent.on('contact_emails:save_new_contact_email_successful', @contactEmailAdded)
+		@vent.on('contact_urls:save_new_contact_url_successful', @contactUrlAdded)
+		@vent.on('contact_phones:remove_contact_phone', @contactPhoneRemoved)
+		@vent.on('contact_addresses:remove_contact_address', @contactAddressRemoved)
+		@vent.on('contact_emails:remove_contact_email', @contactEmailRemoved)
+		@vent.on('contact_urls:remove_contact_url', @contactUrlRemoved)
+		
+		@vent.on('company_name:changed', @companyNameChanged, @)
+		
 	render: ->
 		$(@el).empty()
 		$(@el).html(@template({contact:@model.toJSON()}))
@@ -54,7 +72,11 @@ class Quota.Views.IndexContact extends Backbone.View
 		@container_company = @$('.contact_edit_company')
 		@container_is_company = @$('.contact_edit_is_company')
 		
-		@icon = @$('.contact_icon i')
+		@contact_show_name = @$('.contact_show .contact_show_name')
+		@contact_show_title = @$('.contact_show .contact_show_title')
+		@contact_show_company = @$('.contact_show .contact_show_company')
+		
+		@icon = @$('.contact_icon')
 		@input_name = @$('.contact_edit_name input')
 		@input_title = @$('.contact_edit_title input')
 		@input_company = @$('.contact_edit_company input')
@@ -67,7 +89,7 @@ class Quota.Views.IndexContact extends Backbone.View
 		@_urlsView.setElement(@container_urls).render()
 		@_addressesView.setElement(@container_addresses).render()
 		
-		@spinner = @$('.icon-spinner')
+		@spinner = @$('.contact_spinner')
 		
 		# company_name_field_name = @input_company.attr('name')
 		# 		company_name_field_id = @input_company.attr('id')
@@ -85,6 +107,61 @@ class Quota.Views.IndexContact extends Backbone.View
 		
 		@
 		
+	resetCompany: ->
+		@input_company_key.val('')
+		
+	blurCompany: ->
+		if @input_company.val() == ''
+			@saveModel()
+		
+	contactAddressesUpdated: (obj) ->
+		@addresses.update(obj)
+		@model.set("addresses", @addresses.toJSON())
+		
+	contactEmailsUpdated: (obj) ->
+		@emails.update(obj)
+		@model.set("emails", @emails.toJSON())
+
+	contactPhonesUpdated: (obj) ->
+		@phones.update(obj)
+		@model.set("phones", @phones.toJSON())
+
+	contactUrlsUpdated: (obj) ->
+		@urls.update(obj)
+		@model.set("urls", @urls.toJSON())
+
+	contactPhoneAdded: (obj) ->
+		@phones.add(obj.model)
+		@model.set("phones", @phones.toJSON())
+		
+	contactAddressAdded: (obj) ->
+		@addresses.add(obj.model)
+		@model.set("addresses", @addresses.toJSON())
+
+	contactEmailAdded: (obj) ->
+		@emails.add(obj.model)
+		@model.set("emails", @emails.toJSON())
+
+	contactUrlAdded: (obj) ->
+		@urls.add(obj.model)
+		@model.set("urls", @urls.toJSON())
+
+	contactPhoneRemoved: (obj) ->
+		@phones.remove(obj.model)
+		@model.set("phones", @phones.toJSON())
+
+	contactAddressRemoved: (obj) ->
+		@addresses.remove(obj.model)
+		@model.set("addresses", @addresses.toJSON())
+
+	contactEmailRemoved: (obj) ->
+		@emails.remove(obj.model)
+		@model.set("emails", @emails.toJSON())
+
+	contactUrlRemoved: (obj) ->
+		@urls.remove(obj.model)
+		@model.set("urls", @urls.toJSON())
+
 	companySelected: (obj)->
 		if obj.company.pub_key
 			@input_company_key.val(obj.company.pub_key)
@@ -127,15 +204,26 @@ class Quota.Views.IndexContact extends Backbone.View
 		# 		@handleItemType()
 		@saveModel()
 		
+	companyNameChanged: ->
+		# console.log "got here"
+		
 	decorateShow: ->
 	
 	setHolders: ->	
+		@contact_show_name.html(@model.get("name"))
+		@contact_show_title.html(@model.get("title"))
+		if !@model.get("company") || @model.get("company_key") == ''
+			@contact_show_company.html('')
+		else
+			@contact_show_company.html(@model.get("company").name)
+		
 		
 	handleEdit: ->
 		@vent.trigger('contact:edit')
 		@toggleEdit()
 		
 	handleDone: ->
+		$(@el).blur()
 		@vent.trigger('contact:done')
 		# @saveModel()
 		@toggleShow()
@@ -173,6 +261,8 @@ class Quota.Views.IndexContact extends Backbone.View
 	saveModel: ->
 		self = @
 		@showSpinner()
+		if @input_company.val() == ''
+			@input_company_key.val(null)
 		@model.save(
 			{
 				name: @input_name.val()
@@ -194,5 +284,6 @@ class Quota.Views.IndexContact extends Backbone.View
 					self.setHolders()
 					self.decorateShow()
 					self.hideSpinner()
+					self.vent.trigger("contact:updated", self.model)
 			}
 		)

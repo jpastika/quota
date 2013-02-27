@@ -43,6 +43,15 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		@contact_method_state = @$('.contact_method_state')
 		@contact_method_zip = @$('.contact_method_zip')
 		@contact_method_country = @$('.contact_method_country')
+		
+		@contact_method_show_name = @$('.contact_method_show_holder .contact_method_name')
+		@contact_method_show_street1 = @$('.contact_method_show_holder .contact_method_show_street1')
+		@contact_method_show_street2 = @$('.contact_method_show_holder .contact_method_show_street2')
+		@contact_method_show_city = @$('.contact_method_show_holder .contact_method_show_city')
+		@contact_method_show_state = @$('.contact_method_show_holder .contact_method_show_state')
+		@contact_method_show_zip = @$('.contact_method_show_holder .contact_method_show_zip')
+		@contact_method_show_country = @$('.contact_method_show_holder .contact_method_show_country')
+		
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_street1 = @$('.contact_method_street1')
 		@input_contact_method_street2 = @$('.contact_method_street2')
@@ -63,6 +72,14 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 	decorateShow: ->
 
 	setHolders: ->	
+		@contact_method_show_name.html(@model.get("name"))
+		@contact_method_show_street1.html(@model.get("street1"))
+		@contact_method_show_street2.html(@model.get("street2"))
+		@contact_method_show_city.html(@model.get("city"))
+		@contact_method_show_state.html(@model.get("state"))
+		@contact_method_show_zip.html(@model.get("zip"))
+		@contact_method_show_country.html(@model.get("country"))
+
 
 	handleSaveErrors: (model, response) ->
 		if response.status == 422
@@ -149,5 +166,6 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 					self.setHolders()
 					self.decorateShow()
 					self.hideSpinner()
+					self.vent.trigger("contact_address:updated", self.model)
 			}
 		)

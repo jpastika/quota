@@ -38,6 +38,8 @@ class Quota.Views.IndexContactPhone extends Backbone.View
 		@contact_method_show = @$('.contact_method_show')
 		@contact_method_edit = @$('.contact_method_edit')
 
+		@contact_method_show_name = @$('.contact_method_show_holder .contact_method_name')
+		@contact_method_show_val = @$('.contact_method_show_holder .contact_method_val')
 		@contact_method_name = @$('.contact_method_name')
 		@contact_method_val = @$('.contact_method_val')
 		@input_contact_method_name = @$('.contact_method_name input')
@@ -56,7 +58,8 @@ class Quota.Views.IndexContactPhone extends Backbone.View
 	decorateShow: ->
 
 	setHolders: ->	
-
+		@contact_method_show_name.html(@model.get("name"))
+		@contact_method_show_val.html(@model.get("val"))
 	
 		
 	# save: ->
@@ -168,5 +171,6 @@ class Quota.Views.IndexContactPhone extends Backbone.View
 					self.setHolders()
 					self.decorateShow()
 					self.hideSpinner()
+					self.vent.trigger("contact_phone:updated", self.model)
 			}
 		)

@@ -1,0 +1,178 @@
+<div class="row">
+<div class="span1">
+</div>
+<div class="span2">
+	{{#if contact.is_company}}
+		<span class="contact_icon">
+			<i class="icon-building" />
+		</span>
+	{{else}}
+		<span class="contact_icon">
+			<i class="icon-user" />
+		</span>
+	{{/if}}
+</div>
+<div class="span6 contact_add">
+	<table width="100%">
+		<tr>
+			<td class="span12 contact_add_name">
+				<input type="text" name="contact[name]" value="{{contact.name}}" placeholder="First Last">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_title contact_add_title" {{#if contact.is_company}}style="display:none;"{{/if}}>
+			<td class="span12">
+				<input type="text" name="contact[title]" value="{{contact.title}}" placeholder="Title">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_company contact_add_company" {{#if contact.is_company}}style="display:none;"{{/if}}>
+			<td class="span12">
+				<input type="text" name="contact[company]" value="{{#if contact.company}}{{contact.company.name}}{{/if}}" placeholder="Company">
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr class="contact_add_is_company">
+			<td class="span12">
+				<input type="checkbox" class="" name="contact[is_company]" {{#if contact.is_company}}checked{{/if}}> company
+			</td>
+			<td>
+			</td>
+		</tr>
+	</table>
+</div>
+<input type="hidden" name="contact[company_key]" value="{{contact.company_key}}" class="contact_company_key">
+<input type="hidden" name="contact[pub_key]" value="{{contact.pub_key}}" class="contact_pub_key">
+<div class="span3">
+	&nbsp;&nbsp;
+	<span class="btn btn-primary contact_btn_save">Save</span>
+	&nbsp;<i class="contact_spinner icon-spinner" style="display:none;"></i>
+</div>
+</div>
+<div class="row">
+<br><br>
+<h5>Phone Numbers</h5>
+<div class="contact_phones">
+	<ul class="contact_phones_add">
+		<div class="contact_method_add">
+			<table width="100%">
+				<tr>
+					<td valign="top" class="span1">	
+					</td>
+					<td align="right" class="span2 contact_method_name">
+						<input type="text" class="" name="phones[][name]" value="" placeholder="Mobile" disabled>
+					</td>
+					<td class="span6 contact_method_val">
+						<input type="text" class="" name="phones[][val]" value="" placeholder="111-111-1111" disabled>
+					</td>
+					<td valign="top" class="span2">
+						
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</ul>
+</div>
+<br>
+<h5>Email Addresses</h5>
+<div class="contact_emails">
+	<ul class="contact_emails_add">
+		<div class="contact_method_add">
+			<table width="100%">
+				<tr>
+					<td valign="top" class="span1">	
+					</td>
+					<td align="right" class="span2 contact_method_name">
+						<input type="text" class="" name="emails[][name]" value="" placeholder="Work" disabled>
+					</td>
+					<td class="span6 contact_method_val">
+						<input type="text" class="" name="emails[][val]" value="" placeholder="example@company.com" disabled>
+					</td>
+					<td valign="top" class="span2">
+						
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</ul>
+</div>
+<br>
+<h5>Mailing Addresses</h5>
+<div class="contact_addresses">
+	<ul class="contact_addresses_add">
+		<div class="contact_method_add">
+			<table width="100%">
+				<tr>
+					<td valign="top" class="span1">	
+					</td>
+					<td align="right" valign="top" class="span2 contact_method_name">
+						<input type="text" class="input-small" name="addresses[][name]" value="" placeholder="Address" disabled>
+					</td>
+					<td class="span6 contact_method_val contact_method_address">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td class="span12">
+									<input type="text" class="contact_method_street1" name="addresses[][street1]" value="" placeholder="Street" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td class="span12">
+									<input type="text" class="contact_method_street2" name="addresses[][street2]" value="" placeholder="Street continued" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td class="span12">
+									<input type="text" value="" name="addresses[][city]" class="span6 contact_method_city" placeholder="City" title="City" disabled>
+									<input type="text" value="" name="addresses[][state]" class="span3 contact_method_state" placeholder="State" title="State" disabled>
+									<input type="text" value="" name="addresses[][zip]" class="span3 contact_method_zip" placeholder="Zip" title="Zip Code" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td class="span12">
+									<input type="text" class="contact_method_country" name="addresses[][country]" value="" placeholder="Country" disabled>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td valign="top" class="span2">
+						
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</ul>
+</div>
+<br>
+<h5>Websites and Links</h5>
+<div class="contact_urls">
+	<ul class="contact_urls_add">
+		<div class="contact_method_add">
+			<table width="100%">
+				<tr>
+					<td valign="top" class="span1">	
+					</td>
+					<td align="right" class="span2 contact_method_name">
+						<input type="text" class="" name="urls[][name]" value="" placeholder="Website" disabled>
+					</td>
+					<td class="span6 contact_method_val">
+						<input type="text" class="" name="urls[][val]" value="" placeholder="www.company.com" disabled>
+					</td>
+					<td valign="top" class="span2">
+						
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</ul>
+</div>
+</div>

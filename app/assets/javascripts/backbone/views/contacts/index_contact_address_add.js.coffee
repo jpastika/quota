@@ -23,8 +23,8 @@ class Quota.Views.IndexContactAddressAdd extends Backbone.View
 		@vent = options.vent
 		@hideRemove = if options.hideRemove then options.hideRemove else false
 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
-		@model.on('change', @render, @)
-		@model.on('destroy', @remove, @)
+		# @model.on('change', @render, @)
+		# 		@model.on('destroy', @remove, @)
 		
 		@vent.on('contact:edit', @handleEdit, @)
 		@vent.on('contact:done', @handleDone, @)
@@ -89,8 +89,16 @@ class Quota.Views.IndexContactAddressAdd extends Backbone.View
 					# console.log "save error"
 				success: (model) -> 
 					self.vent.trigger('contact_addresses:save_new_contact_address_successful', {model: model})
-					self.model = new Quota.Models.ContactAddress() 
-					self.render()
+					self.model = new Quota.Models.ContactAddress()
+					self.input_contact_method_name.val('')
+					self.input_contact_method_street1.val('')
+					self.input_contact_method_street2.val('')
+					self.input_contact_method_city.val('')
+					self.input_contact_method_state.val('')
+					self.input_contact_method_zip.val('')
+					self.input_contact_method_country.val('')
+					self.hideSpinner()
+					# self.render()
 					self.input_contact_method_name.focus()
 			}
 		)

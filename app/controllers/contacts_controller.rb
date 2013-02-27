@@ -137,15 +137,22 @@ class ContactsController < ApplicationController
       }
       format.json {
         if (params[:contact][:company_key].nil? || params[:contact][:company_key] == "") && (!params[:contact][:company_name].nil? && params[:contact][:company_name] != "")
-          @company = Contact.companies.create(name: params[:contact][:company_name])
+          @company = Contact.companies.create(name: params[:contact][:company_name], is_company: true)
           @company.save
           @company_key = @company.pub_key
         else
           @company_key = params[:contact][:company_key]
         end
         
-        @contact = Contact.people.create(name: params[:name], company_key: @company_key)
+        if (params[:company_key].nil? || params[:company_key] == "") && (!params[:company_name].nil? && params[:company_name] != "")
+          @company = Contact.companies.create(name: params[:company_name], is_company: true)
+          @company.save
+          @company_key = @company.pub_key
+        else
+          @company_key = params[:company_key]
+        end
         
+        @contact = Contact.people.create(name: params[:name], title: params[:title], company_key: @company_key, is_company: params[:is_company])
         # @contact.save
         if @contact.save
           if (!params[:contact_phone].nil? && params[:contact_phone] != "")
@@ -158,10 +165,9 @@ class ContactsController < ApplicationController
             @contact_email.save
           end
           
-          
-          render :json => @contact.to_json()
+          render :json => @contact.to_json(:include => [:company])
         else
-          render :json => @contact.to_json()
+          render :json => "false"
         end
       }
     end

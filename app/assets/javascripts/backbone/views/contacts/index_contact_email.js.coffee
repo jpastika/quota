@@ -40,6 +40,8 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 
 		@contact_method_name = @$('.contact_method_name')
 		@contact_method_val = @$('.contact_method_val')
+		@contact_method_show_name = @$('.contact_method_show_holder .contact_method_name')
+		@contact_method_show_val = @$('.contact_method_show_holder .contact_method_val')
 		@input_contact_method_name = @$('.contact_method_name input')
 		@input_contact_method_val = @$('.contact_method_val input')
 		
@@ -53,7 +55,9 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 	decorateShow: ->
 
 	setHolders: ->	
-
+		@contact_method_show_name.html(@model.get("name"))
+		@contact_method_show_val.html(@model.get("val"))
+		
 	# save: ->
 	# 		self = @
 	# 		@model.set("contact_key", @contact.get("pub_key"), {silent: true})
@@ -163,5 +167,6 @@ class Quota.Views.IndexContactEmail extends Backbone.View
 					self.setHolders()
 					self.decorateShow()
 					self.hideSpinner()
+					self.vent.trigger("contact_email:updated", self.model)
 			}
 		)

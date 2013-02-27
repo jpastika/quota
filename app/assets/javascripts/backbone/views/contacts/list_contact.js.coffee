@@ -15,6 +15,7 @@ class Quota.Views.ListContact extends Backbone.View
 		# @contact_types = options.contact_types
 		@vent = options.vent
 		@model.on('destroy', @remove, @)
+		@model.on('change', @render, @)
 		
 	render: ->
 		# @contact_type = @getContactType()
