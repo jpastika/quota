@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220132707) do
+ActiveRecord::Schema.define(:version => 20130301162416) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(:version => 20130220132707) do
     t.string   "pub_key"
     t.string   "parent_key"
     t.string   "child_key"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.float    "quantity",    :default => 1.0
   end
 
   add_index "catalog_item_children", ["account_key"], :name => "index_catalog_item_children_on_account_key"

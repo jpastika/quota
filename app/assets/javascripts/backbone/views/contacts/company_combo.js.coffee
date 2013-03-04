@@ -85,8 +85,8 @@ class Quota.Views.CompanyComboView extends Backbone.View
 		@
 		
 	selected: (obj) ->
-		@trigger('company_name:changed', {company_name:obj})
-		@vent.trigger("company_name:changed", {company_name:obj})
+		@trigger('company_name:changed', {company_name:obj.name})
+		@vent.trigger("company_name:changed", {company_name:obj.name})
 		@trigger('company_combo:item_selected', {company:obj})
 		@vent.trigger("company_combo:item_selected", {company:obj})
 		# console.log obj

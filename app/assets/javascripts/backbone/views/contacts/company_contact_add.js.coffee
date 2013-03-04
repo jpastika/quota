@@ -3,7 +3,7 @@ class Quota.Views.CompanyContactAdd extends Backbone.View
 	template: HandlebarsTemplates['contacts/company_contact_add'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .btn": "addContact"
+		"click .icon-plus": "addContact"
 		
 	initialize: (options)->
 		_.bindAll(@)

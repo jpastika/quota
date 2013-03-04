@@ -3,7 +3,7 @@ class Quota.Views.ShowOpportunityDocument extends Backbone.View
 	template: HandlebarsTemplates['opportunities/show_opp_document'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .document_remove": "destroy"
+		"click .icon-remove": "destroy"
 	
 	initialize: (options)->
 			self = @

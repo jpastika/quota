@@ -1,5 +1,5 @@
 class Contact < ActiveRecord::Base
-  attr_accessible :company_key, :contact_type_key, :is_disabled, :name, :pub_key, :title, :is_company
+  attr_accessible :company_key, :is_disabled, :name, :pub_key, :title, :is_company
   
   # belongs_to :account, :primary_key => "pub_key", :foreign_key => "account_key"
   belongs_to :company, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"

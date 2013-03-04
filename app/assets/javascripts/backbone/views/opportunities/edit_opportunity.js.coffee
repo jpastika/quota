@@ -20,13 +20,18 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		)
 		@vent = options.vent
 		@milestones = options.milestones
+		
+		console.log @milestones
 		@companies = options.companies
 		@sales_reps = options.sales_reps
 		@users = options.users
 		
 		@_milestonesView = new Quota.Views.MilestoneSelect({parent_model:@model, parent_child_key: @model.get("milestone_key"), collection:@milestones, field_name:"opportunity[milestone_key]", vent: @vent})
 		@_usersView = new Quota.Views.UserSelect({parent_model:@model, parent_child_key: @model.get("owner_key"), collection:@users, field_name:"opportunity[owner_key]", vent: @vent})
-		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
+		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@model, source: "name", val: "pub_key", className: '', vent: @vent})
+		@_companyComboView.on("company_combo:item_selected", @companySelected)
+		
+		# @_companyComboView = new Quota.Views.CompanyComboView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: @vent})
 		@model.on('change', @render, @)
 		@vent.on('milestone:changed', @milestoneChanged, @)
 		@vent.on('company_name:changed', @companyNameChanged, @)
@@ -62,16 +67,20 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		
 		@container_users.html(@_usersView.render().el)
 		
-		company_name_field_name = @input_opportunity_company_name.attr('name')
-		company_name_field_id = @input_opportunity_company_name.attr('id')
+		# company_name_field_name = @input_opportunity_company_name.attr('name')
+		# 		company_name_field_id = @input_opportunity_company_name.attr('id')
+		# 		
+		# 		@_companyComboView.setElement(@opportunity_company_name).render()
+		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
+		# 		
+		# 		@input_opportunity_company_name = @$('.company_name input')
+		# 		
+		# 		@input_opportunity_company_name.attr('name', company_name_field_name)
+		# 		@input_opportunity_company_name.attr('id', company_name_field_id)
 		
-		@_companyComboView.setElement(@opportunity_company_name).render()
-		# @opportunity_company_name.html(@_companySelectView.render().el)
 		
-		@input_opportunity_company_name = @$('.company_name input')
-		
-		@input_opportunity_company_name.attr('name', company_name_field_name)
-		@input_opportunity_company_name.attr('id', company_name_field_id)
+		@_companyComboView.el = @input_opportunity_company_name
+		@_companyComboView.render()
 		
 		@opportunity_estimated_close_datepicker = @$(".opportunity_estimated_close .datepicker")
 			.datepicker
@@ -148,16 +157,21 @@ class Quota.Views.EditOpportunity extends Backbone.View
 		
 		@container_users.html(@_usersView.render().el)
 		
-		company_name_field_name = @input_opportunity_company_name.attr('name')
-		company_name_field_id = @input_opportunity_company_name.attr('id')
+		# company_name_field_name = @input_opportunity_company_name.attr('name')
+		# 		company_name_field_id = @input_opportunity_company_name.attr('id')
+		# 		
+		# 		@_companyComboView.setElement(@opportunity_company_name).render()
+		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
+		# 		
+		# 		@input_opportunity_company_name = $('.company_name input')
+		# 		
+		# 		@input_opportunity_company_name.attr('name', company_name_field_name)
+		# 		@input_opportunity_company_name.attr('id', company_name_field_id)
 		
-		@_companyComboView.setElement(@opportunity_company_name).render()
-		# @opportunity_company_name.html(@_companySelectView.render().el)
+		@_companyComboView.el = @input_opportunity_company_name
+		@_companyComboView.render()
 		
-		@input_opportunity_company_name = $('.company_name input')
 		
-		@input_opportunity_company_name.attr('name', company_name_field_name)
-		@input_opportunity_company_name.attr('id', company_name_field_id)
 		
 		@opportunity_estimated_close_datepicker = $(".opportunity_estimated_close .datepicker")
 			.datepicker
@@ -303,36 +317,42 @@ class Quota.Views.EditOpportunity extends Backbone.View
 			@model.set("probability", milestone.get("probability"), {silent: true})
 			@input_opportunity_probability.attr('value', (milestone.get("probability") * 100))
 	
-	companyNameChanged: (evt) ->
-		self = @
-		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
-		if company
-			@model.set("company_key", company.get("pub_key"), {silent: true})
-			@input_opportunity_company_key.val(company.get("pub_key"))
-			# @save()
+	companySelected: (obj)->
+		if obj.company.pub_key
+			@input_opportunity_company_key.val(obj.company.pub_key)
 		else
-			@model.unset("company_key", {silent: true})
-			@input_opportunity_company_key.val('')
-			# if evt.company_name != ''
-			# 				company = new Quota.Models.Contact()
-			# 				company.save(
-			# 					{
-			# 						name: evt.company_name
-			# 						contact_type_key: _.first(self.contact_types.where({name: "Company"})).get("pub_key")
-			# 					},{
-			# 						error: (model, response) ->
-			# 							self.handleError(model, response)
-			# 						success: (model) ->
-			# 							self.companies.add(model)
-			# 							self._companySelectView.remove()
-			# 							self.model.set("company_key", model.get("pub_key"), {silent: true})
-			# 							self._companySelectView = new Quota.Views.CompanySelectView({parent_model:self.model, collection:self.companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: self.vent})
-			# 							self.contact_company_name.html(self._companySelectView.render().el)
-			# 							self.save()
-			# 					}
-			# 				)
-			# 			else
-			# 				@save()
+			@input_opportunity_company_key.val(null)
+	
+	# companyNameChanged: (evt) ->
+	# 		self = @
+	# 		company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
+	# 		if company
+	# 			@model.set("company_key", company.get("pub_key"), {silent: true})
+	# 			@input_opportunity_company_key.val(company.get("pub_key"))
+	# 			# @save()
+	# 		else
+	# 			@model.unset("company_key", {silent: true})
+	# 			@input_opportunity_company_key.val('')
+	# 			# if evt.company_name != ''
+	# 			# 				company = new Quota.Models.Contact()
+	# 			# 				company.save(
+	# 			# 					{
+	# 			# 						name: evt.company_name
+	# 			# 						contact_type_key: _.first(self.contact_types.where({name: "Company"})).get("pub_key")
+	# 			# 					},{
+	# 			# 						error: (model, response) ->
+	# 			# 							self.handleError(model, response)
+	# 			# 						success: (model) ->
+	# 			# 							self.companies.add(model)
+	# 			# 							self._companySelectView.remove()
+	# 			# 							self.model.set("company_key", model.get("pub_key"), {silent: true})
+	# 			# 							self._companySelectView = new Quota.Views.CompanySelectView({parent_model:self.model, collection:self.companies, source: "name", val: "pub_key", className: 'string input-xlarge', vent: self.vent})
+	# 			# 							self.contact_company_name.html(self._companySelectView.render().el)
+	# 			# 							self.save()
+	# 			# 					}
+	# 			# 				)
+	# 			# 			else
+	# 			# 				@save()
 
 		
 	setMilestoneRelatedFields: ->

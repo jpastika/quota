@@ -17,6 +17,7 @@
 //= require underscore
 //= require backbone
 //= require handlebars.runtime
+//= require moment
 //= require ./backbone/quota
 //= require_tree ../templates/
 //= require_tree ./backbone/models

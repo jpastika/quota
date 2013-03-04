@@ -1,6 +1,6 @@
 class Quota.Views.IndexCatalogItems extends Backbone.View
 
-	el: '#catalog_items_container .section-table tbody'
+	el: '.catalog-items-rows ul'
 	
 	initialize: (options)->
 		self = @
@@ -22,7 +22,7 @@ class Quota.Views.IndexCatalogItems extends Backbone.View
 		@
 
 	addOne: (item)->
-		view = new Quota.Views.IndexCatalogItem({model: item, tagName:'tr', catalog_item: @model, vent: @vent})
+		view = new Quota.Views.IndexCatalogItem({model: item, tagName:'li', catalog_item: @model, vent: @vent})
 		@_catalogItemViews.push(view)
 		view
 	

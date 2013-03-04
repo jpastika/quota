@@ -23,7 +23,6 @@ class Quota.Views.IndexOpportunities extends Backbone.View
 		frag = document.createDocumentFragment()
 		frag.appendChild(@addOne(item).render().el) for item in @collection.models
 		$(@el).append(frag)
-		console.log @el
 		@
 	
 	addOne: (item)->

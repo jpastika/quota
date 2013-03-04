@@ -3,7 +3,7 @@ class Quota.Views.ShowOpportunityContact extends Backbone.View
 	template: HandlebarsTemplates['opportunities/show_opp_contact'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .contact_remove": "destroy"
+		"click .icon-remove": "destroy"
 	
 	initialize: (options)->
 			self = @

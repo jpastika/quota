@@ -36,6 +36,7 @@ class Quota.Views.PageListContacts extends Backbone.View
 		@search = @$('.search-bar input')
 		@search_found = @$('.search-bar .found')
 		@search_found_count = @$('.search-bar .found_count')
+		
 		@
 		
 	setup: ->

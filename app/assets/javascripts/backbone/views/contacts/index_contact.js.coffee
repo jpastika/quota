@@ -104,6 +104,7 @@ class Quota.Views.IndexContact extends Backbone.View
 		@_companyComboView.el = @input_company
 		@_companyComboView.render()
 		
+		@$('input, textarea').placeholder()
 		
 		@
 		

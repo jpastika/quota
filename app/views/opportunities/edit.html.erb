@@ -55,6 +55,7 @@
 		this.companies = new Quota.Collections.Companies(gon.companies);
 		this.milestones = new Quota.Collections.Milestones(gon.milestones);
 		this.users = new Quota.Collections.Users(gon.users);
+		console.log(this.milestones);
 		
 		if(gon.opportunity){
 			this.opportunity = new Quota.Models.Opportunity(gon.opportunity);

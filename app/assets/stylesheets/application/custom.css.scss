@@ -478,6 +478,10 @@ header{
   @include box_sizing;
 }
 
+.align-right{
+	text-align:right;
+}
+
 
 .btn{
 	@include round-corners(0);
@@ -507,6 +511,11 @@ header{
 .btn.btn-mini{
 	padding:3px 6px;
 	margin-bottom:1px;
+}
+
+.page-options{
+	float: right;
+	text-align: right;
 }
 
 
@@ -808,7 +817,7 @@ label.required{
 	color:$ss_mediumGray;
 	text-decoration:none;
 	cursor:pointer;
-	padding: 0 7px 5px 8px;
+	padding: 0 7px 7px 8px;
 	top:17px;
 	position:relative;
 	background: $ss_lightGray;

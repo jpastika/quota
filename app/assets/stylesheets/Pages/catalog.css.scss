@@ -1,0 +1,43 @@
+@import "variables";
+@import "mixins";
+
+.catalog-items-heading th.align-right, .catalog-items-rows td.align-right, .catalog-items-rows .align-right{
+	text-align:right;
+}
+
+.catalog-items-rows ul { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+}
+
+.catalog-items-rows li { 
+  border-bottom:1px solid $ss_nearWhite;
+}
+
+.catalog-items-heading .table{
+	margin-bottom: 0px;
+}
+
+.catalog-items-heading th{
+	padding: 4px 0;
+}
+
+.catalog-items-rows div{
+	padding: 4px 0;
+}
+
+.catalog-items-rows .catalog-item:hover, .catalog-item-children div:hover{
+	background: $ss_nearWhite;
+	cursor:pointer;
+}
+
+.icon-sort-up{
+	position: relative;
+	top: 3px;
+}
+
+.icon-sort-down{
+	position: relative;
+	top: -2px;
+}

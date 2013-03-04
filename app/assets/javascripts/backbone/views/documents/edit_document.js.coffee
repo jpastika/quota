@@ -11,8 +11,8 @@ class Quota.Views.EditDocument extends Backbone.View
 		"click .document_billing_street1 ul li": "billingAddressClicked"
 		"click .document_shipping_street1 ul li": "shippingAddressClicked"
 		"click .same_as_billing": "sameAsBillingClicked"
-		"keydown .document_contact_name input": "resetContact"
-		"keydown .document_company_name input": "resetCompany"
+		"keydown .document_contact_name input": "handleKeyDownContact"
+		"keydown .document_company_name input": "handleKeyDownCompany"
 		
 		# "blur #opportunity_estimated_close_dp": "checkEstimatedCloseDate"
 		# 	"blur #opportunity_actual_close_dp": "checkActualCloseDate"
@@ -35,12 +35,16 @@ class Quota.Views.EditDocument extends Backbone.View
 		@el = options.el
 		@vent = options.vent
 		
+		# console.log @companies.models
+		
 		@_companyComboView = new Quota.Views.CompanyComboView({parent_model:@model, collection:@companies, source: "name", val: "pub_key", className: 'string span10', vent: @vent})
+			
+		# @_companyComboView = new Quota.Views.CompanyComboView({parent_model:@model, source: "name", val: "pub_key", className: 'string span10', vent: @vent})
 			
 		@_contactComboView = new Quota.Views.ContactComboView({parent_model:@model, collection:@contacts, source: "name", val: "pub_key", company_key: @model.get("company_key"), className: 'string span10', vent: @vent})
 		
 		# @model.on('change', @render, @)
-		@vent.on('company_name:changed', @companyNameChanged, @)
+		@vent.on('company_combo:item_selected', @companyNameChanged, @)
 		@vent.on('contact_name:changed', @contactNameChanged, @)
 		
 	render: ->
@@ -94,16 +98,21 @@ class Quota.Views.EditDocument extends Backbone.View
 		@input_document_company_key = @$('#document_company_key')
 		@input_document_contact_key = @$('#document_contact_key')
 		
-		company_name_field_name = @input_document_company_name.attr('name')
-		company_name_field_id = @input_document_company_name.attr('id')
+		# company_name_field_name = @input_document_company_name.attr('name')
+		# 		company_name_field_id = @input_document_company_name.attr('id')
+		# 		
+		# 		@_companyComboView.setElement(@document_company_name).render()
+		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
+		# 		
+		# 		@input_document_company_name = @$('.document_company_name input')
+		# 		
+		# 		@input_document_company_name.attr('name', company_name_field_name)
+		# 		@input_document_company_name.attr('id', company_name_field_id)
 		
-		@_companyComboView.setElement(@document_company_name).render()
-		# @opportunity_company_name.html(@_companySelectView.render().el)
+		@_companyComboView.el = @input_document_company_name
+		@_companyComboView.render()
 		
-		@input_document_company_name = @$('.document_company_name input')
 		
-		@input_document_company_name.attr('name', company_name_field_name)
-		@input_document_company_name.attr('id', company_name_field_id)
 		
 		
 		contact_name_field_name = @input_document_contact_name.attr('name')
@@ -171,16 +180,19 @@ class Quota.Views.EditDocument extends Backbone.View
 		@input_document_company_key = @$('#document_company_key')
 		@input_document_contact_key = @$('#document_contact_key')
 		
-		company_name_field_name = @input_document_company_name.attr('name')
-		company_name_field_id = @input_document_company_name.attr('id')
+		# company_name_field_name = @input_document_company_name.attr('name')
+		# 		company_name_field_id = @input_document_company_name.attr('id')
+		# 		
+		# 		@_companyComboView.setElement(@document_company_name).render()
+		# 		# @opportunity_company_name.html(@_companySelectView.render().el)
+		# 		
+		# 		@input_document_company_name = @$('.document_company_name input')
+		# 		
+		# 		@input_document_company_name.attr('name', company_name_field_name)
+		# 		@input_document_company_name.attr('id', company_name_field_id)
 		
-		@_companyComboView.setElement(@document_company_name).render()
-		# @opportunity_company_name.html(@_companySelectView.render().el)
-		
-		@input_document_company_name = @$('.document_company_name input')
-		
-		@input_document_company_name.attr('name', company_name_field_name)
-		@input_document_company_name.attr('id', company_name_field_id)
+		@_companyComboView.el = @input_document_company_name
+		@_companyComboView.render()
 		
 		contact_name_field_name = @input_document_contact_name.attr('name')
 		contact_name_field_id = @input_document_contact_name.attr('id')
@@ -239,7 +251,8 @@ class Quota.Views.EditDocument extends Backbone.View
 				
 	companyNameChanged: (evt) ->
 		self = @
-		@company = _.find(self.companies.models, (m) -> m.get("name") == evt.company_name)
+		console.log evt.company.name
+		@company = _.find(self.companies.models, (m) -> m.get("name").toLowerCase() == evt.company.name.toLowerCase())
 		if @company
 			@model.set({company_key: @company.get("pub_key"), silent: true})
 			@input_document_company_key.val(@company.get("pub_key"))
@@ -299,6 +312,14 @@ class Quota.Views.EditDocument extends Backbone.View
 		if @contact
 			@setupContactFields()
 			
+	handleKeyDownCompany: (evt) ->
+		if evt.keyCode != 9
+			@resetCompany()
+
+	handleKeyDownContact: (evt) ->
+		if evt.keyCode != 9
+			@resetContact()
+
 	resetCompany: ->
 		@company = null
 		@input_document_company_key.val('')

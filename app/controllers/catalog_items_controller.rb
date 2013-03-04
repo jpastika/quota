@@ -8,7 +8,7 @@ class CatalogItemsController < ApplicationController
         # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
         @catalog_items = CatalogItem.all
         
-        gon.catalog_items = @catalog_items.to_json(:include => [])
+        gon.catalog_items = @catalog_items.to_json(:include => [:child_items])
         gon.current_member = @current_user
       }
       format.json { 

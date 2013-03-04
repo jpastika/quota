@@ -65,6 +65,9 @@ class Quota.Views.IndexContactAddress extends Backbone.View
 		@remove = @$('.icon-remove')
 		@spinner = @$('.icon-spinner')
 		
+		@$('input, textarea').placeholder()
+		
+		
 		
 		# @$el.find('input').autoGrowInput()
 		@

@@ -21,7 +21,7 @@
 		</div>
 		<div class="page-title-container">
 			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog"), catalog_items_path %>
+				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog"), catalog_path %>
 			</div>
 			<div class="page-title">
 				<%= @catalog_item.name %>
@@ -31,54 +31,63 @@
 			<div id="main_body_container" class="">
 				<div>
 					<div class="section-heading">
-						<h3>Item Details</h3>
+						<h4>Item Details</h4>
 					</div>
 					<div class="row-fluid">
-						<div class="span6">
+						<div class="span3">
 							<div class="show-field">
 								<span class="show-label">Part Number</span>
 								<br>
 								<span class="show-value"><%= @catalog_item.part_number %></span>
 							</div>
+						</div>
+						<div class="span1"></div>
+						<div class="span3">
+							<div class="show-field">
+								<span class="show-label">Manufacturer</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.manufacturer %></span>
+							</div>
+						</div>
+						<div class="span1"></div>
+						<div class="span2">
+							<div class="show-field">
+								<span class="show-label">List Price</span>
+								<br>
+								<span class="show-value"><%= @catalog_item.list_price %></span>
+							</div>
+						</div>
+						<div class="span1"></div>
+						<div class="span2">
+							<div class="show-field">
+								<% if @catalog_item.is_taxable? %>
+									<i class="icon-check"><span class="show-label"></i>&nbsp;Taxable</span>
+								<% else %>
+									<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Taxable</span>
+								<% end %>
+							</div>
+							<div class="show-field">
+								<% if @catalog_item.is_package? %>
+									<i class="icon-check"><span class="show-label"></i>&nbsp;Package</span>
+								<% else %>
+									<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Package</span>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12">
 							<div class="show-field">
 								<span class="show-label">Description</span>
 								<br>
 								<span class="show-value"><%= @catalog_item.description %></span>
 							</div>
 						</div>
-						<div class="span1"></div>
-						<div class="span5">
-							<div class="show-field">
-								<span class="show-label">Manufacturer</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.manufacturer %></span>
-							</div>
-							<div class="show-field">
-								<span class="show-label">List Price</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.list_price %></span>
-							</div>
-							<div class="control-group">
-								<div class="controls catalog_item_is_taxable">
-									<% if @catalog_item.is_taxable? %>
-										<span class="label label-success">Taxable</span>
-									<% end %>
-								</div>
-							</div>
-							<div class="control-group">
-								<div class="controls catalog_item_is_package">
-									<% if @catalog_item.is_package? %>
-										<span class="label label-info">Package</span>
-									<% end %>
-								</div>
-							</div>
-						</div>
-					</div>
 					<br>
 					<% if @catalog_item.is_package? %>
 					<div id="child_items_container">
 						<div class="section-heading">
-							<h3>Package Contents</h3>
+							<h4>Package Contents</h4>
 						</div>
 						<div class="section-content">
 							<div class="section-table">
@@ -111,7 +120,7 @@
 					<% end %>
 					<div id="opportunities_container">
 						<div class="section-heading">
-							<h3>Opportunities</h3>
+							<h4>Opportunities</h4>
 						</div>
 						<div class="section-content">
 							<div class="section-table">

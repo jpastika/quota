@@ -3,6 +3,9 @@ class Quota.Collections.CatalogItems extends Backbone.Collection
 	model: Quota.Models.CatalogItem
 	url: '/api/catalog_items'
 	
+	comparator: (c) ->
+		return c.get("name").toLowerCase()
+		
 	filterData: (params, bool) ->
 		@originalModels = @models.slice();
 		self = @

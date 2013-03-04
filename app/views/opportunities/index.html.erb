@@ -1,5 +1,11 @@
 <% provide(:title, "Opportunities") %>
 <% @nav_caret = "opportunities" %>
+
+<% content_for :css do %>
+<%= stylesheet_link_tag "pages/opportunities", :media => "all" %>
+<% end %>
+
+
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
@@ -23,17 +29,27 @@
 		<div class="parent-page">
 			<div id="main_body">
 				<div id="opportunities_container">
+					<ul class="nav nav-tabs">
+				    	<li class="active"><a href="#">Mine</a></li>
+				    	<li><a href="#">All</a></li>
+				    </ul>
+					<div class="opportunity_timeframe">
+						<ul class="nav nav-pills">
+					    <li class="active"><a href="#">This Month</a></li>
+					    <li><a href="#">This Quarter</a></li>
+					    <li><a href="#">This Year</a></li>
+					    <li><a href="#">All</a></li>
+						</ul>
+					</div>
 					<div class="section-table">
 						<table class="table table-condensed table-plain">
 							<thead class="opportunitites-heading">
 								<tr>
-									<th width="5%">Milestone</th>
-									<th width="5%">Added</th>
-									<th width="42%">Opportunity</th>
-									<th width="30%">Owner</th>
-									<th width="5%" class="align-right">Est. Value</th>
-									<th width="5%">Est. Close</th>
-									<th width="8%">&nbsp;</th>
+									<th width="8%">Milestone</th>
+									<th width="8%">Added</th>
+									<th width="40%">Opportunity/Company</th>
+									<th width="40%">Activity/Owner</th>
+									<th width="4%">&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody class="opportunities-rows">

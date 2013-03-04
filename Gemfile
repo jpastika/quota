@@ -43,6 +43,7 @@ group :assets do
   gem 'font-awesome-sass-rails'
   gem 'handlebars_assets'
   gem 'yui-compressor', :require => 'yui/compressor'
+  gem 'momentjs-rails'
 end
 
 
