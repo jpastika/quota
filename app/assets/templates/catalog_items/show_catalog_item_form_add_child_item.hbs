@@ -1,14 +1,14 @@
 <div class="row-fluid section-container">
 	<div class="span6">
 		<div class="section-heading">
-			<h3>Search Catalog</h3>
+			<h4>Search Catalog</h4>
 		</div>
 		<div class="controls add_child_item_search" id="add_child_item_search">
 			<label class="string control-label" for="catalog_search">Name or Part Number</label>
 			<div class="control-group string">
 				<div class="controls catalog_search">
 					<div class="input-append input-search">
-						<input type="text" class="string span8" name="catalog_search" value="">
+						<input type="text" class="string span9" name="catalog_search" value="">
 						<span class="add-on">
 							<button class="btn btn-primary" id="catalog_search">
 								<i class="icon-search"></i>&nbsp;
@@ -18,16 +18,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="span7" id="catalog_search_container"></div>
+		<div class="span9" id="catalog_search_container" style="display:none;">
+		</div>
 	</div>
-	<div class="content-column-divider">
+	<div class="span1 content-column-divider">
 		<div class="label-container">
 			<span>OR</span>
 		</div>
 	</div>
-	<div class="span5">
+	<div class="span6 catalog_item_add_child_form">
 		<div class="section-heading">
-			<h3>Create a New Catalog Item</h3>
+			<h4>Create a New Catalog Item</h4>
 		</div>
 		<div class="control-group string required">
 			<label class="string required control-label" for="catalog_item_name">Name</label>

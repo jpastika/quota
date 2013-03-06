@@ -16,6 +16,8 @@ Quota::Application.routes.draw do
   match '/catalog_items/manufacturers', to: 'catalog_items#manufacturers'
   match '/template_items/reorder', to: 'template_items#reorder'
   match '/document_items/reorder', to: 'document_items#reorder'
+  match '/documents/:id/preview', to: 'documents#preview'
+  match '/documents/:id/email', to: 'documents#email'
   
   
   resources :accounts

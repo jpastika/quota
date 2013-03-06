@@ -12,7 +12,8 @@ gem 'jquery-rails'
 gem 'backbone-on-rails'
 gem 'gon'
 gem 'timeliness'
-
+gem 'wicked_pdf'
+gem "wkhtmltopdf-binary"
 
 
 

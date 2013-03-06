@@ -5,10 +5,13 @@
 	<a href="/catalog/{{catalog_item_child_item.pub_key}}">{{catalog_item_child_item.child_item.name}}</a>
 </td>
 <td>
-	<a href="/catalog/{{catalog_item_child_item.pub_key}}">{{catalog_item_child_item.child_item.part_number}}</a>
+	{{catalog_item_child_item.child_item.manufacturer}}
 </td>
 <td>
-	<a href="/catalog/{{catalog_item_child_item.pub_key}}">{{catalog_item_child_item.child_item.list_price}}</a>
+	{{catalog_item_child_item.child_item.part_number}}
+</td>
+<td class="catalog_item_child_item_list_price">
+	{{catalog_item_child_item.child_item.list_price}}
 </td>
 <td>
   <i class="icon-remove"></i>

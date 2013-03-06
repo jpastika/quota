@@ -1,5 +1,8 @@
 <% provide(:title, "Catalog - #{@catalog_item.name}") %>
 <% @nav_caret = "catalog" %>
+<% content_for :css do %>
+<%= stylesheet_link_tag "pages/catalog_item", :media => "all" %>
+<% end %>
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
@@ -95,9 +98,10 @@
 									<thead>
 										<tr>
 											<th width="3%">&nbsp;</th>
-											<th width="50%">Name</th>
-											<th width="25%">Part #</th>
-											<th width="19%">Unit Price</th>
+											<th width="40%">Name</th>
+											<th width="25%">Manufacturer</th>
+											<th width="19%">Part #</th>
+											<th width="10%">List Price</th>
 											<th width="3%">&nbsp;</th>
 										</tr>
 									</thead>

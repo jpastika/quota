@@ -155,6 +155,36 @@ class DocumentsController < ApplicationController
   end
   
   
+  def preview
+    respond_to do |format|
+      format.html {
+        @document = Document.find_by_pub_key(params[:id])
+        @opportunity = Opportunity.find_by_pub_key(@document.opportunity_key)
+        
+        gon.document = @document.to_json()
+        gon.document_items = @document.document_items.to_json(:include => {:catalog_item => {:include => [:child_items]}})
+        gon.opportuity = @opportunity.to_json()
+        
+        render :layout => 'blank'
+      }
+      format.pdf do
+        @document = Document.find_by_pub_key(params[:id])
+        @opportunity = Opportunity.find_by_pub_key(@document.opportunity_key)
+        
+        render :layout => 'pdf.html', :pdf => @document.name
+      end
+    end
+  end
+  
+  def email
+    @document = Document.find_by_pub_key(params[:id])
+    DocumentMailer.email(@document).deliver
+    render :nothing => true
+  end
+  
+  
+  
+  
   
   
   

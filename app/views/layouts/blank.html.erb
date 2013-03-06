@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= yield(:title) %></title>
+		<%= include_gon %>
+		<%= stylesheet_link_tag "application", :media => "all" %>
+		<%= yield(:css) %>
+		<%= javascript_include_tag "application" %>
+		<link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Droid+Sans:400,700' rel='stylesheet' type='text/css'><%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<%= yield(:head) %>
+		<%= render 'layouts/shim' %>
+	</head>
+	<body>
+		<%= yield %>
+		
+		<script language="javascript">
+			$(window).unload(function(){
+			    $(document.activeElement).blur();
+			});
+			
+			$(function(){
+				$('.dropdown-toggle').dropdown();
+			});
+		</script>
+	</body>
+</html>

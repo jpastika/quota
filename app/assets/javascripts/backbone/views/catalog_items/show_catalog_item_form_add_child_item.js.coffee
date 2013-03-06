@@ -124,7 +124,7 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 	
 	clickCatalogSearch: ->
 		self = @
-		res = new Quota.Collections.CatalogItems({url: '/api/catalog_items/filter_by_name_or_part_number'})
+		res = new Quota.Collections.CatalogItems()
 		res.fetch(
 			{
 				url: '/api/catalog_items/filter_by_name_or_part_number'
@@ -140,6 +140,7 @@ class Quota.Views.ShowCatalogItemFormAddChildItem extends Backbone.View
 		# @_contactsView.setElement(@container_contacts).render()
 		
 	renderSearchResults: (collection)->
+		@$('#catalog_search_container').show()
 		@_itemsView.collection = collection
 		@container_search_item_list = @$('#catalog_search_container')
 		@_itemsView.setElement(@container_search_item_list).render()

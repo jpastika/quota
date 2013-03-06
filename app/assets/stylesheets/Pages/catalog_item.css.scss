@@ -1,0 +1,32 @@
+@import "variables";
+@import "mixins";
+
+#catalog_search_container{
+	padding:10px;
+	background: #fff;
+}
+
+#catalog_search_container ul{
+	margin:0 0 0 0;
+	padding: 5px 0 0 0;
+	max-height: 300px;
+	overflow:auto;
+}
+#catalog_search_container li{
+	list-style:none;
+	padding: 10px 0;
+	border-top: 1px solid $ss_lightGray;
+}
+
+
+.catalog_item_search_result_description{
+	color: $ss_mediumGray;
+}
+
+.catalog_item_search_result_name{
+	font-weight: bold;
+}
+
+.catalog_item_add_child_form input[type="checkbox"]{
+	margin-top: -4px;
+}

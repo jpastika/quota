@@ -27,7 +27,7 @@ class Quota.Views.CatalogItemSearchList extends Backbone.View
 		@render()
 
 	addOne: (item)->
-		view = new Quota.Views.CatalogItemSearchAdd({model: item, vent: @vent})
+		view = new Quota.Views.CatalogItemSearchAdd({model: item, tagName: 'li', vent: @vent})
 		@_itemViews.push(view)
 		# view
 		frag = document.createDocumentFragment()

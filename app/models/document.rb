@@ -7,6 +7,7 @@ class Document < ActiveRecord::Base
   belongs_to :company, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "company_key"
   belongs_to :contact, :class_name => "Contact", :primary_key => "pub_key", :foreign_key => "contact_key"
   has_many :document_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "document_key"
+  has_many :items, dependent: :destroy, :class_name => "DocumentItem", :primary_key => "pub_key", :foreign_key => "document_key"
   belongs_to :document_type, :primary_key => "pub_key", :foreign_key => "document_type_key"
   
   scope :quotes, where(:document_type => (DocumentType.find_by_name("Quote")))
@@ -20,7 +21,6 @@ class Document < ActiveRecord::Base
   # validates :document_type_key, presence: true
   
   default_scope { where(account_key: Account.current_account_key) }
-  
   
   private
     def generate_token(column)

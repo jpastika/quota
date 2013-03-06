@@ -15,6 +15,8 @@ class Quota.Views.ShowCatalogItemChildItem extends Backbone.View
 
 	render: ->
 		$(@el).html(@template({catalog_item_child_item:@model.toJSON()}))
+		@list_price = @$('.catalog_item_child_item_list_price')
+		@list_price.html(accounting.formatMoney(@model.get("child_item").unit_price, "$ "))
 		if @hideRemove
 			@$('.child_item_remove').css('visibility', 'hidden')
 		@

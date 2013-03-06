@@ -49,103 +49,99 @@
 		<div class="parent-page">
 			<div id="main_body_container" class="">
 				<div class="row-fluid">
-					<div class="span12">
-						<div class="span4">
-							<div class="section-heading">
-								<h4><%= @document.company.name %></h4>
+					<div class="span9">
+						<div class="row">
+							<div class="span6">
+								<div class="section-heading">
+									<h4><%= @document.company.name %></h4>
+								</div>
+								<div class="">
+									<% if @document.company_phone? %>
+										phone: <%= @document.company_phone %><br>
+									<% end %>
+									<% if @document.company_fax? %>
+										fax: <%= @document.company_fax %>
+									<% end %>
+								</div>
 							</div>
-							<div class="">
-								<% if @document.company_phone? %>
-									phone: <%= @document.company_phone %><br>
-								<% end %>
-								<% if @document.company_fax? %>
-									fax: <%= @document.company_fax %>
-								<% end %>
-							</div>
-						</div>
-						<div class="span1">
+							<div class="span1">
 						
-						</div>
-						<div class="span4">
-							<div class="section-heading">
-								<h4><%= @document.contact.name %></h4>
 							</div>
-							<div class="">
-								<% if @document.contact_phone? %>
-									phone: <%= @document.contact_phone %><br>
-								<% end %>
-								<% if @document.contact_email? %>
-									email: <%= @document.contact_email %>
-								<% end %>
+							<div class="span5">
+								<div class="section-heading">
+									<h4><%= @document.contact.name %></h4>
+								</div>
+								<div class="">
+									<% if @document.contact_phone? %>
+										phone: <%= @document.contact_phone %><br>
+									<% end %>
+									<% if @document.contact_email? %>
+										email: <%= @document.contact_email %>
+									<% end %>
+								</div>
 							</div>
 						</div>
-						<div class="span3 page-options">
-							&nbsp;&nbsp;
-							<span class="btn btn-primary">Preview</span>
-							&nbsp;&nbsp;
-							<span class="btn btn-primary">Download</span>
-							&nbsp;&nbsp;
-							<span class="btn btn-primary">Email</span>
-							&nbsp;<i class="contact_spinner icon-spinner" style="display:none;"></i>
+						<div class="row">
+							<br><br>
+						</div>
+						<div class="row">
+							<div class="span6">
+								<div class="section-heading">
+									<h4>Billing Address</h4>
+								</div>
+								<div class="">
+									<% if @document.billing_street1? %>
+										<%= @document.billing_street1 %><br>
+									<% end %>
+									<% if @document.billing_street2? %>
+										<%= @document.billing_street2 %><br>
+									<% end %>
+									<% if @document.billing_city? %>
+										<%= @document.billing_city %>, 
+									<% end %>
+									<% if @document.billing_state? %>
+										<%= @document.billing_state %>  
+									<% end %>
+									<% if @document.billing_zip? %>
+										<%= @document.billing_zip %><br>
+									<% end %>
+									<%= @document.billing_country %>
+								</div>
+							</div>
+							<div class="span1">
+
+							</div>
+							<div class="span5">
+								<div class="section-heading">
+									<h4>Shipping Address</h4>
+								</div>
+								<div class="">
+									<% if @document.shipping_street1? %>
+										<%= @document.shipping_street1 %><br>
+									<% end %>
+									<% if @document.shipping_street2? %>
+										<%= @document.shipping_street2 %><br>
+									<% end %>
+									<% if @document.shipping_city? %>
+										<%= @document.shipping_city %>, 
+									<% end %>
+									<% if @document.shipping_state? %>
+										<%= @document.shipping_state %>  
+									<% end %>
+									<% if @document.shipping_zip? %>
+										<%= @document.shipping_zip %><br>
+									<% end %>
+									<%= @document.shipping_country %>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="span12">
-						<br><br>
-					</div>
-					<div class="span12">
-						<div class="span4">
-							<div class="section-heading">
-								<h4>Billing Address</h4>
-							</div>
-							<div class="">
-								<% if @document.billing_street1? %>
-									<%= @document.billing_street1 %><br>
-								<% end %>
-								<% if @document.billing_street2? %>
-									<%= @document.billing_street2 %><br>
-								<% end %>
-								<% if @document.billing_city? %>
-									<%= @document.billing_city %>, 
-								<% end %>
-								<% if @document.billing_state? %>
-									<%= @document.billing_state %>  
-								<% end %>
-								<% if @document.billing_zip? %>
-									<%= @document.billing_zip %><br>
-								<% end %>
-								<%= @document.billing_country %>
-							</div>
-						</div>
-						<div class="span1">
-						
-						</div>
-						<div class="span4">
-							<div class="section-heading">
-								<h4>Shipping Address</h4>
-							</div>
-							<div class="">
-								<% if @document.shipping_street1? %>
-									<%= @document.shipping_street1 %><br>
-								<% end %>
-								<% if @document.shipping_street2? %>
-									<%= @document.shipping_street2 %><br>
-								<% end %>
-								<% if @document.shipping_city? %>
-									<%= @document.shipping_city %>, 
-								<% end %>
-								<% if @document.shipping_state? %>
-									<%= @document.shipping_state %>  
-								<% end %>
-								<% if @document.shipping_zip? %>
-									<%= @document.shipping_zip %><br>
-								<% end %>
-								<%= @document.shipping_country %>
-							</div>
-						</div>
-						<div class="span3
-						">
-						
-						</div>
+					<div class="page-options">
+						<span class="btn btn-primary"><i class="icon-download"></i>&nbsp;&nbsp;Download</span>
+						<br>
+						<a href="<%= @document.pub_key %>/preview" class="btn btn-primary" target="_blank"><i class="icon-eye-open"></i>&nbsp;&nbsp;Preview</a>
+						<br>
+						<a href="<%= @document.pub_key %>/email" class="btn btn-primary" target="_blank"><i class="icon-envelope"></i>&nbsp;&nbsp;Email</a>
 					</div>
 				</div>
 				<div>
