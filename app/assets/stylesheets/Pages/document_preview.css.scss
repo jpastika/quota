@@ -1,0 +1,18 @@
+@import 'font-awesome';
+@import "variables";
+@import "mixins";
+
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+
+}
+
+body{
+	background:#fff;
+	font-family: 'Droid Sans',sans-serif;
+	padding: 0px;
+	margin:0;
+}

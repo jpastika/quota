@@ -1,0 +1,11 @@
+<div{{#if template_item.is_group_heading}} style="background:#000;color:#fff;"{{/if}}>
+	<table cellpadding="5px" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td width="50%">{{template_item.name}}</td>
+			<td width="15%">{{template_item.part_number}}</td>
+			<td width="7%">{{template_item.quantity}}</td>
+			<td width="12%" align="right" class="total_holder">{{template_item.total}}</td>
+			<td width="16%" class="total_unit_holder">{{template_item.total_unit}}</td>
+		</tr>
+	</table>
+</div>

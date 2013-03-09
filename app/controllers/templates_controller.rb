@@ -8,9 +8,13 @@ class TemplatesController < ApplicationController
       format.html {
         @account_key = @current_user.account.pub_key
         # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
-        @templates = Template.all
+        # @templates = Template.all
+        #         
+        #         gon.templates = @templates.to_json(:include => [:document_type])
         
-        gon.templates = @templates.to_json(:include => [:document_type])
+        @templates = Template.all
+
+        gon.templates = @templates.to_json(:include => [:document_type, :template_items])
         gon.current_member = @current_user
       }
       format.json { 

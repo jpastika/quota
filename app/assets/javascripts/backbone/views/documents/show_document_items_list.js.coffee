@@ -1,7 +1,7 @@
 class Quota.Views.ShowDocumentItemsList extends Backbone.View
 
 	
-	# document: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['opportunities/show_opp_contacts_list'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
 	
 	el: '#items_container .section-table-rows ul'
 	

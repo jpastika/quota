@@ -1,4 +1,4 @@
-class Quota.Views.ChooseTemplate extends Backbone.View
+class Quota.Views.IndexTemplates_NEW extends Backbone.View
 
 	el: 'body'
 	
@@ -15,7 +15,7 @@ class Quota.Views.ChooseTemplate extends Backbone.View
 		@vent.on("template:clicked", @templateClicked, @)
 		
 		# @_templateSearchView = new Quota.Views.ChooseTemplateTemplateSearch({vent: @vent})
-		@_templates_list_view = new Quota.Views.ChooseTemplateListTemplates({collection: @templates, vent: @vent})
+		@_templates_list_view = new Quota.Views.IndexTemplatesListTemplates({collection: @templates, vent: @vent})
 		# @vent.on("template_combo:item_selected", @templateSelected)
 		
 	# render: ->
@@ -117,9 +117,8 @@ class Quota.Views.ChooseTemplate extends Backbone.View
 		@template.fetch(
 			{
 				success: (model, response, options)->
-					self.templateView = new Quota.Views.ChooseTemplateTemplateDetails({model: model, el: '.template_details', vent: self.vent})
+					self.templateView = new Quota.Views.IndexTemplatesTemplateDetails({model: model, el: '.template_details', vent: self.vent})
 					self.templateView.render()
 			}
 		)
-		
 		

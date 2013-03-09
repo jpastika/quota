@@ -1,0 +1,182 @@
+<div class="doc_heading">
+	<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+	
+	</table>
+</div>
+<div class="doc_customer">
+	<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+		<tr>
+			<td width="50%">
+				<h4><%= document.company.name %></h4>
+				<% if document.company_phone? %>
+					phone: <%= document.company_phone %><br>
+				<% end %>
+				<% if document.company_fax? %>
+					fax: <%= document.company_fax %>
+				<% end %>
+			</td>
+			<td width="50%">
+				<h4><%= document.contact.name %></h4>
+				<% if document.contact_phone? %>
+					phone: <%= document.contact_phone %><br>
+				<% end %>
+				<% if document.contact_email? %>
+					email: <%= document.contact_email %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="doc_items_head">
+	<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+		<thead>
+			<tr>
+				<th width="33%" align="left">Item</th>
+				<th width="14%" align="left">Part #</th>
+				<th width="7%" align="left">Qty</th>
+				<th width="14%" class="align-right">Unit Price</th>
+				<th width="9%">&nbsp;</th>
+				<th width="14%" class="align-right">Total</th>
+				<th width="9%" align="left">&nbsp;</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<div class="doc_items_rows">
+	<% document.items.each do |item| %>
+		<div <% if item.is_group_heading? %>class="document_item_group_heading"<% end %>>
+			<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+				<tbody>
+					<tr>
+						<td width="33%">
+							<%= item.name %>
+						</td>
+						<td width="14%">
+							<%= item.part_number %>
+						</td>
+						<td width="7%">
+							<%= item.quantity %>
+						</td>
+						<td width="14%" class="align-right">
+							<%= item.unit_price %>
+						</td>
+						<td width="9%">
+							<%= item.unit_price_unit %>
+						</td>
+						<td width="14%" class="align-right">
+							<%= item.total %>
+						</td>
+						<td width="9%">
+							<%= item.total_unit %>
+						</td>
+					</tr>
+					<% if item.catalog_item.is_package? and not item.hide_package_contents? %>
+						<tr>
+							<td colspan="7">
+								<% item.catalog_item.catalog_item_children.each do |child| %>
+									<div>
+										<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+											<tbody>
+												<tr>
+													<td width="33%">
+														<%= child.child_item.name %>
+													</td>
+													<td width="14%">
+														<%= child.child_item.part_number %>
+													</td>
+													<td width="7%">
+														<%= child.quantity %>
+													</td>
+													<td width="14%" class="align-right">
+														
+													</td>
+													<td width="9%">
+														
+													</td>
+													<td width="14%" class="align-right">
+														
+													</td>
+													<td width="9%">
+														
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	<% end %>
+</div>
+<div class="doc_totals">
+	<div class="document-items-totals">
+		<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+			<tbody>
+				<tr class="">
+					<td rowspan="8" width="64%">&nbsp;</td>
+					<td width="8%">&nbsp;</td>
+					<td width="12%"></td>
+					<td width="16%">&nbsp;</td>
+				</tr>
+				<tr class="document_total_purchase" style="display: none;">
+					<td width="8%" class="document_total_purchase_plus">&nbsp;</td>
+					<td width="12%" class="document_total_purchase_holder align-right"></td>
+					<td width="16%">&nbsp;</td>
+				</tr>
+				<tr class="document_total_hourly" style="display: none;">
+					<td width="8%" class="document_total_hourly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_hourly_holder align-right"></td>
+					<td width="16%">per hour</td>
+				</tr>
+				<tr class="document_total_daily" style="display: none;">
+					<td width="8%" class="document_total_daily_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_daily_holder align-right"></td>
+					<td width="16%">per day</td>
+				</tr>
+				<tr class="document_total_weekly" style="display: none;">
+					<td width="8%" class="document_total_weekly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_weekly_holder align-right"></td>
+					<td width="16%">per week</td>
+				</tr>
+				<tr class="document_total_monthly" style="display: none;">
+					<td width="8%" class="document_total_monthly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_monthly_holder align-right"></td>
+					<td width="16%">per month</td>
+				</tr>
+				<tr class="document_total_quarterly" style="display: none;">
+					<td width="8%" class="document_total_quarterly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_quarterly_holder align-right"></td>
+					<td width="16%">per quarter</td>
+				</tr>
+				<tr class="document_total_yearly" style="display: none;">
+					<td width="8%" class="document_total_yearly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+					<td width="12%" class="document_total_yearly_holder align-right"></td>
+					<td width="16%">per year</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div>
+	<hr size="0">
+</div>
+<div class="doc_notes">
+	<table class="" cellspacing="0" cellpadding="5px" border="0" width="100%">
+		<tbody>
+			<tr>
+				<td>
+					<h4>Notes</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= document.notes_customer%>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

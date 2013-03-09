@@ -167,6 +167,11 @@ class DocumentsController < ApplicationController
         
         render :layout => 'blank'
       }
+    end
+  end
+  
+  def download
+    respond_to do |format|
       format.pdf do
         @document = Document.find_by_pub_key(params[:id])
         @opportunity = Opportunity.find_by_pub_key(@document.opportunity_key)
@@ -228,7 +233,7 @@ class DocumentsController < ApplicationController
     
       @templates = Template.all
     
-      gon.templates = @templates.to_json(:include => [:document_type])
+      gon.templates = @templates.to_json(:include => [:document_type, :template_items])
     end
   end
 end

@@ -1,6 +1,6 @@
 class Quota.Views.ShowDocument extends Backbone.View
 
-	# document: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
+	# template: HandlebarsTemplates['opportunities/show_opportunity'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
 	# 
 	el: 'body'
 	

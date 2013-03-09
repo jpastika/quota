@@ -1,6 +1,11 @@
 <% provide(:title, "Add Document") %>
 <% @nav_caret = "opportunities" %>
 
+<% content_for :css do %>
+<%= stylesheet_link_tag "pages/choose_template", :media => "all" %>
+<% end %>
+
+
 <div class="body">
 	<div class="body-right pull-right">
 		<div class="action-buttons-container">
@@ -48,52 +53,59 @@
 				<form method="post" action="/documents/choose_template/<%= @document.pub_key %>">
 					<div class="section-form-plain">
 						<div class="row-fluid section-container">
-							<div class="span6">
+							<div class="span4">
 								<div class="section-heading">
-									<h4>Search for a Template</h4>
+									<h4>Choose a Template</h4>
 								</div>
-								<label class="string control-label" for="template_name">Template or Item</label>
-								<div class="controls search_field" id="search_field_container">
-									<input type="text" class="template_search span9">
-								</div>
-								<div id="search_results_container"></div>
-								<br><br>
-								<div id="my_templates_container">
-									<div class="section-heading">
-										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from My Templates</h4>
+								<label class="string control-label" for="template_name">Search by template name, item name, or part number</label>
+								<div class="search-bar">
+									<div class="input-prepend">
+										<span class="add-on"><i class="icon-search"></i></span>
+										<input type="text" class="" name="template_search" value="">
 									</div>
-									<div id="my_templates" style="display:none;">Mine</div>
-								</div>
-								
-								<div id="our_templates_container">
-									<div class="section-heading">
-										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Our Templates</h4>
+									<div class="found" style="display:none;">
+										<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
 									</div>
-									<div id="our_templates" style="display:none;">Ours</div>
 								</div>
-								
-								<div id="trimble_templates_container">
-									<div class="section-heading">
-										<h4><i class="icon-caret-down"></i>&nbsp;&nbsp;Select from Trimble Templates</h4>
+								<div id="templates">
+									<div class="section-heading" style="display:none">
+										My Templates
 									</div>
-									<div id="trimble_templates" style="display:none;">Trimble's</div>
+									<div id="my_list">
+										<ul>
+										</ul>
+									</div>
+									<div class="section-heading" style="display:none">
+										Our Templates
+									</div>
+									<div id="our_list">
+										<ul>
+										</ul>
+									</div>
+									<div class="section-heading" style="display:none">
+										Trimble Templates
+									</div>
+									<div id="trimble_list">
+										<ul>
+										</ul>
+									</div>
 								</div>
 							</div>
-							<div class="content-column-divider">
+							<div class="span1">
 							</div>
-							<div class="span5">
-								<div class="section-heading">
-									<h4></h4>
+							<div class="span7">
+								<div class="template_details">
 								</div>
 								<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
 								<input type="hidden" value="<%= @document.pub_key %>" name="document[pub_key]" id="document_pub_key">
-								<input type="text" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
+								<input type="hidden" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
 							</div>
 						</div>
 					</div>
+					<br><br>
 					<div class="actions-bar">
-						<button type="submit" class="btn btn-primary">
-							Add Items and Select Financing&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
+						<button type="button" class="btn btn-primary">
+							Continue&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
 						</button>
 					</div>
 				</form>
@@ -105,14 +117,11 @@
 <script language="javascript">
 	$(function(){
 		// this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
-		
+		this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
+	
 		window.vent = _.extend({}, Backbone.Events);
-		
-		var view_my_templates = new Quota.Views.TemplateCollection({el: '#my_templates_container', contents_container: '#my_templates'});
-		var view_our_templates = new Quota.Views.TemplateCollection({el: '#our_templates_container', contents_container: '#our_templates'});
-		var view_trimble_templates = new Quota.Views.TemplateCollection({el: '#trimble_templates_container', contents_container: '#trimble_templates'});
-		
-		var page_body_view = new Quota.Views.ChooseTemplate({vent: vent});
+			
+		var page_body_view = new Quota.Views.ChooseTemplate({templates: this.templates, vent: vent});
 		page_body_view.setup();
 		
 	

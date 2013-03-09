@@ -1,6 +1,6 @@
 class Quota.Views.ShowDocumentItem extends Backbone.View
 
-	document: HandlebarsTemplates['documents/show_document_item'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
+	template: HandlebarsTemplates['documents/show_document_item'] #Handlebars.compile($("#quote-document").html()) #JST['quotes/index']
 	
 	events:
 		"click .icon-sort-down": "showPackageContents"
@@ -55,7 +55,7 @@ class Quota.Views.ShowDocumentItem extends Backbone.View
 		
 
 	render: ->
-		$(@el).html(@document({document_item:@model.toJSON()}))
+		$(@el).html(@template({document_item:@model.toJSON()}))
 		
 		@input_document_item_name = @$('.document_item_name')
 		@input_document_item_part_number = @$('.document_item_part_number')

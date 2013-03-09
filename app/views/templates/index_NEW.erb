@@ -1,0 +1,104 @@
+<% provide(:title, "Templates") %>
+<% @nav_caret = "templates" %>
+
+<% content_for :css do %>
+<%= stylesheet_link_tag "pages/templates", :media => "all" %>
+<% end %>
+
+<div class="body">
+	<div class="body-right pull-right">
+		<div class="action-buttons-container">
+			<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new template"), new_template_path, :class => 'btn btn-primary' %>
+		</div>
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="page-title">
+				Templates
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body">
+				<div class="row-fluid section-container">
+					<div class="span4">
+						<label class="string control-label" for="template_name">Search by template name, item name, or part number</label>
+						<div class="search-bar">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-search"></i></span>
+								<input type="text" class="" name="template_search" value="">
+							</div>
+							<div class="found" style="display:none;">
+								<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
+							</div>
+						</div>
+						<div id="templates">
+							<div class="section-heading" style="display:none">
+								My Templates
+							</div>
+							<div id="my_list">
+								<ul>
+								</ul>
+							</div>
+							<div class="section-heading" style="display:none">
+								Our Templates
+							</div>
+							<div id="our_list">
+								<ul>
+								</ul>
+							</div>
+							<div class="section-heading" style="display:none">
+								Trimble Templates
+							</div>
+							<div id="trimble_list">
+								<ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="span1">
+					</div>
+					<div class="span6">
+						<div class="template_details">
+						</div>
+						<input type="hidden" value="" name="" id="" class="document_template_key">
+					</div>
+					<div class="page-options">
+						<a href="" class="btn btn-primary" target="_blank"><i class="icon-eye-open"></i>&nbsp;&nbsp;View</a>
+						<br>
+						<a href="" class="btn btn-primary" target="_blank"><i class="icon-edit"></i>&nbsp;&nbsp;Edit</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+	$(function(){
+		window.vent = _.extend({}, Backbone.Events);
+		
+		this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
+	
+		window.vent = _.extend({}, Backbone.Events);
+			
+		var page_body_view = new Quota.Views.IndexTemplates({templates: this.templates, vent: vent});
+		page_body_view.setup();
+		
+		// var search_form_block_view = new Quota.Views.SearchFormBlock({el: '.search-container', primary: '.search-primary', secondary: '.search-secondary', toggle: '.more-options-nav a', searchbutton: '.btn-primary', vent: vent});
+		
+		// $('#main_body_container').html(page_body_view.render().el);
+		
+		// var sidebar_body_view = new Quota.Views.IndexCatalogItemsSidebar({collection: this.catalog_items, vent: vent});
+		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
+	});	
+	
+	$('input, textarea').placeholder();
+</script>
