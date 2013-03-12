@@ -6,16 +6,16 @@ class CatalogItemsController < ApplicationController
       format.html {
         @account_key = @current_user.account.pub_key
         # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
-        @catalog_items = CatalogItem.all
-        
-        gon.catalog_items = @catalog_items.to_json(:include => [:child_items])
+        # @catalog_items = CatalogItem.all
+        #         
+        #         gon.catalog_items = @catalog_items.to_json(:include => [:child_items])
         gon.current_member = @current_user
       }
       format.json { 
         # @catalog_items = CatalogItem.find(:all, :conditions => {:account_key => @account_key})
         @catalog_items = CatalogItem.all
         
-        render :json => @catalog_items.to_json(:include => [])
+        render :json => @catalog_items.to_json(:include => [:child_items])
       }
     end
   end

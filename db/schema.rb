@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301162416) do
+ActiveRecord::Schema.define(:version => 20130312202828) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -336,6 +336,8 @@ ActiveRecord::Schema.define(:version => 20130301162416) do
     t.boolean  "is_sold",                  :default => false
     t.date     "actual_cancel"
     t.boolean  "is_disabled",              :default => false
+    t.string   "oem_key"
+    t.string   "oem_rep_key"
   end
 
   add_index "opportunities", ["account_key"], :name => "index_opportunities_on_account_key"
