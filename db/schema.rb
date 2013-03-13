@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312202828) do
+ActiveRecord::Schema.define(:version => 20130313165535) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -315,6 +315,34 @@ ActiveRecord::Schema.define(:version => 20130312202828) do
 
   add_index "milestones", ["account_key"], :name => "index_milestones_on_account_key"
   add_index "milestones", ["pub_key"], :name => "index_milestones_on_pub_key"
+
+  create_table "oem_reps", :force => true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "pub_key"
+    t.string   "oem_key"
+    t.string   "account_key"
+    t.boolean  "is_disabled"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "oem_reps", ["account_key"], :name => "index_oem_reps_on_account_key"
+  add_index "oem_reps", ["oem_key"], :name => "index_oem_reps_on_oem_key"
+  add_index "oem_reps", ["pub_key"], :name => "index_oem_reps_on_pub_key"
+
+  create_table "oems", :force => true do |t|
+    t.string   "name"
+    t.string   "pub_key"
+    t.string   "account_key"
+    t.boolean  "is_disabled"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "oems", ["account_key"], :name => "index_oems_on_account_key"
+  add_index "oems", ["pub_key"], :name => "index_oems_on_pub_key"
 
   create_table "opportunities", :force => true do |t|
     t.string   "name"

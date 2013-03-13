@@ -19,6 +19,8 @@ namespace :db do
     import_users
     import_sales_reps
     import_milestones
+    import_oems
+    import_oem_reps
     import_catalog_items
     import_companies
     import_contacts
@@ -103,6 +105,50 @@ def import_milestones
       account.milestones.create!(
         name: row[1],
         probability: row[2]
+      )
+    end
+  end
+end
+
+
+def import_oems
+  file = "db/import/oems.csv"
+  account = Account.new
+  
+  CSV.foreach(file, :headers => true) do |row|
+    if Account.find(row[0]) != account.id
+      account = Account.find(row[0])
+    end
+    
+    if account.id?
+      account.oems.create!(
+        name: row[1]
+      )
+    end
+  end
+end
+
+
+def import_oem_reps
+  file = "db/import/oem_reps.csv"
+  account = Account.new
+  oem = Oem.new
+  
+  CSV.foreach(file, :headers => true) do |row|
+    if Account.find(row[0]) != account.id
+      account = Account.find(row[0])
+    end
+    
+    if account.id?
+      if row[1] != ''
+        oem = Oem.find(row[1])
+      end
+      
+      account.oem_reps.create!(
+        oem_key: oem? ? oem.pub_key : null,
+        name: row[2],
+        phone: row[3],
+        email: row[4]
       )
     end
   end
@@ -301,11 +347,18 @@ def import_users
     if account.id?
       owner = SalesRep.find(row[1])
       company = Contact.find(row[2])
-      
-      
+      oem = Oem.find(row[3])
+      oem_rep = OemRep.find(row[4])
+      milestone = Milestone.find(row[5])
       
       account.opportunities.create!(
-        name: row[3]
+        name: row[3],
+        owner_key: owner? ? owner.pub_key : null,
+        company_key: company? ? company.pub_key : null,
+        oem_key: oem? ? oem.pub_key : null,
+        oem_rep_key: oem_rep? ? oem_rep.pub_key : null,
+        milestone_key: milesone? ? milestone.pub_key : null,
+        
         # email: row[2],
         #         password: row[3]
       )
