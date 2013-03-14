@@ -1,5 +1,5 @@
 @import "bootstrap";
-body { padding-top: 0px; }
+body { padding-top: 0px;}
 
 
 /* PIE */
@@ -307,6 +307,7 @@ header{
 	background: $ss_lightGray;
 	width:230px;
 	padding:10px;
+	min-height:1000px;
 }
 
 .body-right .action-buttons-container{

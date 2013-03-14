@@ -1,11 +1,32 @@
 <% provide(:title, 'Dashboard') %>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<h1>Dashboard#index</h1>
-	<%= current_user.account.name %>
+<div class="body">
+	<div class="body-right pull-right">
+		
+	</div>
+	<div class="body-left">
+		<div class="">
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> fade in">
+			      <a class="close" data-dismiss="alert" href="#">&times;</a>
+			      <%= value %>
+			    </div>
+			<% end %>
+		</div>
+		<div class="page-title-container">
+			<div class="page-title">
+				Dashboard
+			</div>
+		</div>
+		<div class="parent-page">
+			<div id="main_body_container" class="row-fluid">
+				Will include:
+				<ul>
+					<li>Recent activity feed</li>
+					<li>Pipeline summary</li>
+					<li>Shortcuts to common Create actions (contacts, opportunities, documents, etc.)</li>
+					<li>News/Announcements feed</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,14 +1,8 @@
 <% provide(:title, "Sign in") %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div id="sidebar_app_fields_container"class="">
-		</div>
-		<div id="sidebar_body_container" class="">
-		</div>
-	</div>
-	<div class="body-left">
-		<div style="padding:1px 0 0 0;"></div>
-		<div class="parent-page">
+<div class="row-fluid">
+<div class="span4"></div>
+<div class="span4">
+	<div class="parent-page">
 			<div id="main_body">
 				<div class="">
 					<% flash.each do |key, value| %>
@@ -36,6 +30,7 @@
 			 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
 		<% end %>
 			</div>
-		</div>
-	</div>
+		
+</div>
+<div class="span4"></div>
 </div>
