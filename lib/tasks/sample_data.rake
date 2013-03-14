@@ -81,7 +81,7 @@ def import_sales_reps
     if !account.id.nil?
       if row[1] != ''
         user = User.find(row[1])
-        if user?
+        if !user.id.nil?
           account.repize!(user)
         end
       else
