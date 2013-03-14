@@ -21,13 +21,13 @@ namespace :db do
     import_milestones
     import_oems
     import_oem_reps
-    import_catalog_items
-    import_companies
-    import_contacts
-    import_contact_phones
-    import_contact_emails
-    import_contact_addresses
-    import_contact_urls
+    # import_catalog_items
+    #     import_companies
+    #     import_contacts
+    #     import_contact_phones
+    #     import_contact_emails
+    #     import_contact_addresses
+    #     import_contact_urls
     # import_opportunities
     #  import_opportunity_contacts
     #  import_documents
