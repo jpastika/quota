@@ -36,14 +36,12 @@
 		<div class="parent-page">
 			<div class="">
 				<%= simple_form_for(@catalog_item) do |f| %>
-					<div class="row-fluid">
-						<% if f.error_notification %>
+					<% if f.error_notification %>
 						    <div class="alert alert-error fade in">
 						      <a class="close" data-dismiss="alert" href="#">&times;</a>
 						      <%= f.error_notification %>
 						    </div>
 						<% end %>
-					</div>
 					<div id="catalog_item">
 						<%= render 'fields', f: f %>
 					</div>
