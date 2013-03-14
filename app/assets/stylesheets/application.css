@@ -10,7 +10,7 @@
  *
  *= require application/application
  *= require application/custom
- *= require_tree ./pages
+ *= require_tree pages
  *= require shared/custom-theme/jquery-ui-1.8.16.custom
  *= require shared/custom-theme/jquery.ui.1.8.16.ie
 */
