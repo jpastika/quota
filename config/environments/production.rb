@@ -48,7 +48,7 @@ Quota::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += ['site.js', 'site.css']
+  config.assets.precompile += ['site.js', 'pages/catalog.css.scss', 'pages/catalog_item.css.scss', 'pages/choose_template.css.scss', 'pages/contacts.css.scss', 'pages/document.css.scss', 'pages/document_preview.css.scss', 'pages/opportunities.css.scss', 'pages/opportunity.css.scss', 'pages/template.css.scss', 'pages/templates.css.scss']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
