@@ -58,7 +58,7 @@ def import_users
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       account.users.create!(
         name: row[1],
         email: row[2],
@@ -78,7 +78,7 @@ def import_sales_reps
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       if row[1] != ''
         user = User.find(row[1])
         if user?
@@ -104,7 +104,7 @@ def import_milestones
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       account.milestones.create!(
         name: row[1],
         probability: row[2]
@@ -124,7 +124,7 @@ def import_oems
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       account.oems.create!(
         name: row[1]
       )
@@ -144,13 +144,13 @@ def import_oem_reps
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       if row[1] != ''
         oem = Oem.find(row[1])
       end
       
       account.oem_reps.create!(
-        oem_key: oem.nil? ? oem.pub_key : null,
+        oem_key: !oem.nil? ? oem.pub_key : null,
         name: row[2],
         phone: row[3],
         email: row[4]
@@ -170,7 +170,7 @@ def import_catalog_items
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       account.catalog_items.create!(
         name: row[1],
         part_number: row[2],
@@ -196,7 +196,7 @@ def import_companies
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       account.contacts.create!(
         name: row[1],
         is_company: true
@@ -216,14 +216,14 @@ def import_contacts
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       company = Contact.new
       
       if row[1] != ''
         company = Contact.find(row[1])
       end
       
-      if company.id.nil?
+      if !company.id.nil?
         account.contacts.create!(
           name: row[2],
           title: row[3],
@@ -253,10 +253,10 @@ def import_contact_phones
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       contact = Contact.find(row[1])
       
-      if contact.id.nil?
+      if !contact.id.nil?
         account.contact_phones.create!(
           name: row[2],
           val: row[3],
@@ -279,10 +279,10 @@ def import_contact_emails
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       contact = Contact.find(row[1])
       
-      if contact.id.nil?
+      if !contact.id.nil?
         account.contact_emails.create!(
           name: row[2],
           val: row[3],
@@ -305,10 +305,10 @@ def import_contact_urls
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       contact = Contact.find(row[1])
       
-      if contact.id.nil?
+      if !contact.id.nil?
         account.contact_urls.create!(
           name: row[2],
           val: row[3],
@@ -331,10 +331,10 @@ def import_contact_addresses
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       contact = Contact.find(row[1])
       
-      if contact.id.nil?
+      if !contact.id.nil?
         account.contact_addresses.create!(
           name: row[2],
           street1: row[3],
@@ -351,7 +351,7 @@ def import_contact_addresses
 end
 
 
-def import_users
+def import_opportunities
   file = "db/import/opportunities.csv"
   account = Account.new
   owner = SalesRep.new
@@ -366,7 +366,7 @@ def import_users
       Account.current_account_key = account.pub_key
     end
     
-    if account.id.nil?
+    if !account.id.nil?
       owner = SalesRep.find(row[1])
       company = Contact.find(row[2])
       oem = Oem.find(row[3])
@@ -375,11 +375,11 @@ def import_users
       
       account.opportunities.create!(
         name: row[3],
-        owner_key: owner.nil? ? owner.pub_key : null,
-        company_key: company.nil? ? company.pub_key : null,
-        oem_key: oem.nil? ? oem.pub_key : null,
-        oem_rep_key: oem_rep.nil? ? oem_rep.pub_key : null,
-        milestone_key: milesone.nil? ? milestone.pub_key : null,
+        owner_key: !owner.nil? ? owner.pub_key : null,
+        company_key: !company.nil? ? company.pub_key : null,
+        oem_key: !oem.nil? ? oem.pub_key : null,
+        oem_rep_key: !oem_rep.nil? ? oem_rep.pub_key : null,
+        milestone_key: !milesone.nil? ? milestone.pub_key : null
         
         # email: row[2],
         #         password: row[3]
