@@ -53,7 +53,7 @@ def import_users
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -72,7 +72,7 @@ def import_sales_reps
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -97,7 +97,7 @@ def import_milestones
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -116,7 +116,7 @@ def import_oems
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -135,7 +135,7 @@ def import_oem_reps
   oem = Oem.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -160,7 +160,7 @@ def import_catalog_items
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -185,7 +185,7 @@ def import_companies
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -204,7 +204,7 @@ def import_contacts
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -239,7 +239,7 @@ def import_contact_phones
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -263,7 +263,7 @@ def import_contact_emails
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -287,7 +287,7 @@ def import_contact_urls
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -311,7 +311,7 @@ def import_contact_addresses
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
@@ -340,7 +340,7 @@ def import_users
   account = Account.new
   
   CSV.foreach(file, :headers => true) do |row|
-    if Account.find(row[0]) != account.id
+    if row[0] != account.id
       account = Account.find(row[0])
     end
     
