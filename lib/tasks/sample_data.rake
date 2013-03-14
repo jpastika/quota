@@ -260,7 +260,7 @@ def import_contact_phones
         account.contact_phones.create!(
           name: row[2],
           val: row[3],
-          contact_key: contact.pub_key
+          contact_key: !contact.nil? ? contact.pub_key : null
         )
       end
     end
@@ -286,7 +286,7 @@ def import_contact_emails
         account.contact_emails.create!(
           name: row[2],
           val: row[3],
-          contact_key: contact.pub_key
+          contact_key: !contact.nil? ? contact.pub_key : null
         )
       end
     end
@@ -312,7 +312,7 @@ def import_contact_urls
         account.contact_urls.create!(
           name: row[2],
           val: row[3],
-          contact_key: contact.pub_key
+          contact_key: !contact.nil? ? contact.pub_key : null
         )
       end
     end
@@ -343,7 +343,7 @@ def import_contact_addresses
           state: row[6],
           zip: row[7],
           country: row[8],
-          contact_key: contact.pub_key
+          contact_key: !contact.nil? ? contact.pub_key : null
         )
       end
     end

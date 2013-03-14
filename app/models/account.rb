@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   has_many :users, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :sales_reps, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :oems, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
+  has_many :oem_reps, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :catalog_items, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   has_many :opportunities, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
   # has_many :quotes, dependent: :destroy, :primary_key => "pub_key", :foreign_key => "account_key"
