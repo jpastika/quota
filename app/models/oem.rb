@@ -1,7 +1,7 @@
 class Oem < ActiveRecord::Base
   attr_accessible :name, :is_disabled, :pub_key
   
-  has_many :contacts, :class_name => "OemContact", :primary_key => "pub_key", :foreign_key => "oem_key"
+  has_many :reps, :class_name => "OemRep", :primary_key => "pub_key", :foreign_key => "oem_key"
   
   before_create :generate_keys
   
