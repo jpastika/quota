@@ -10,16 +10,16 @@
  *
  *= require application/application
  *= require application/custom
- *= require pages/catalog
- *= require pages/catalog_item
- *= require pages/choose_template
- *= require pages/contacts
- *= require pages/document
- *= require pages/document_preview
- *= require pages/opportunities
- *= require pages/opportunity
- *= require pages/template
- *= require pages/templates
+ *= require application/catalog
+ *= require application/catalog_item
+ *= require application/choose_template
+ *= require application/contacts
+ *= require application/document
+ *= require application/document_preview
+ *= require application/opportunities
+ *= require application/opportunity
+ *= require application/template
+ *= require application/templates
  *= require shared/custom-theme/jquery-ui-1.8.16.custom
  *= require shared/custom-theme/jquery.ui.1.8.16.ie
 */
