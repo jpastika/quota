@@ -3,6 +3,7 @@ class Quota.Views.ListContactsSearch extends Backbone.View
 	# tagName: 'ul'
 	# 	className: 'unstyled form-vertical'
 	
+	
 	# events:
 	# 		# "blur .contact_name input": "contactNameChanged"
 	# 		# 		"blur .contact_title input": "contactTitleChanged"
