@@ -46,29 +46,29 @@ class Account < ActiveRecord::Base
   end
   
   def generate_default_templates
-    self.document_types.each do |doc_type|
-      self.templates.create!(name: doc_type.name, document_type: doc_type, is_document_type_default: true)
-    end
+    # self.document_types.each do |doc_type|
+    #       self.templates.create!(name: doc_type.name, document_type: doc_type, is_document_type_default: true)
+    #     end
   end
   
   def generate_document_item_types
-    self.document_item_types.create!(name: "Product")
-    self.document_item_types.create!(name: "Service")
-    self.document_item_types.create!(name: "Rental")
-    self.document_item_types.create!(name: "Subscription")
-    self.document_item_types.create!(name: "Credit")
-    self.document_item_types.create!(name: "Trade-In")
-    self.document_item_types.create!(name: "Header")
+    # self.document_item_types.create!(name: "Product")
+    #     self.document_item_types.create!(name: "Service")
+    #     self.document_item_types.create!(name: "Rental")
+    #     self.document_item_types.create!(name: "Subscription")
+    #     self.document_item_types.create!(name: "Credit")
+    #     self.document_item_types.create!(name: "Trade-In")
+    #     self.document_item_types.create!(name: "Header")
   end
   
   def generate_contact_types
-    self.contact_types.create!(name: "Person", icon_class: "icon-user", is_default: true)
-    self.contact_types.create!(name: "Company", icon_class: "icon-reorder")
+    # self.contact_types.create!(name: "Person", icon_class: "icon-user", is_default: true)
+    #     self.contact_types.create!(name: "Company", icon_class: "icon-reorder")
   end
   
   def generate_milestones
-    self.milestones.create!(name: "Quote", probability: "0.25")
-    self.milestones.create!(name: "Sale", probability: "1")
+    # self.milestones.create!(name: "Quote", probability: "0.25")
+    #     self.milestones.create!(name: "Sale", probability: "1")
   end
   
   def generate_data
