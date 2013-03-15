@@ -76,7 +76,7 @@ class Quota.Views.IndexContact extends Backbone.View
 		@contact_show_title = @$('.contact_show .contact_show_title')
 		@contact_show_company = @$('.contact_show .contact_show_company')
 		
-		@icon = @$('.contact_icon')
+		@icon = @$('.contact_icon i')
 		@input_name = @$('.contact_edit_name input')
 		@input_title = @$('.contact_edit_title input')
 		@input_company = @$('.contact_edit_company input')
@@ -254,10 +254,12 @@ class Quota.Views.IndexContact extends Backbone.View
 			@icon.removeClass('icon-user').addClass('icon-building')
 			@input_company_key.val(null)
 			@input_company.val(null)
+			@input_name.attr('placeholder', 'Company name')
 		else
 			@container_title.show()
 			@container_company.show()
 			@icon.removeClass('icon-building').addClass('icon-user')
+			@input_name.attr('placeholder', 'First Last')
 			
 	saveModel: ->
 		self = @

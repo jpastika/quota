@@ -6,7 +6,7 @@ class Quota.Views.IndexContactAdd extends Backbone.View
 
 	events:
 		"click .contact_btn_save": "handleSave"
-		"click .contact_edit_is_company input": "handleIsCompanyClick"
+		"click .contact_add_is_company input": "handleIsCompanyClick"
 		# "click .add_contact": "handleAddContactClick"
 		
 	initialize: (options)->
@@ -62,7 +62,7 @@ class Quota.Views.IndexContactAdd extends Backbone.View
 		@container_company = @$('.contact_add_company')
 		@container_is_company = @$('.contact_add_is_company')
 		
-		@icon = @$('.contact_icon')
+		@icon = @$('.contact_icon i')
 		@input_name = @$('.contact_add_name input')
 		@input_title = @$('.contact_add_title input')
 		@input_company = @$('.contact_add_company input')
@@ -229,10 +229,12 @@ class Quota.Views.IndexContactAdd extends Backbone.View
 			@icon.removeClass('icon-user').addClass('icon-building')
 			@input_company_key.val(null)
 			@input_company.val(null)
+			@input_name.attr('placeholder', 'Company name')
 		else
 			@container_title.show()
 			@container_company.show()
 			@icon.removeClass('icon-building').addClass('icon-user')
+			@input_name.attr('placeholder', 'First Last')
 			
 	saveModel: ->
 		self = @
