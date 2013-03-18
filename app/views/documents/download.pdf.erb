@@ -1,6 +1,5 @@
 <% provide(:title, "#{@document.name}") %>
 <% content_for :css do %>
-<%= wicked_pdf_stylesheet_link_tag "pages/document_preview" %>
 <% end %>
 
 <%= render 'document.html', document: @document %>
