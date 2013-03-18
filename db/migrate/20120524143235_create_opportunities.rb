@@ -6,6 +6,7 @@ class CreateOpportunities < ActiveRecord::Migration
       t.string :milestone_key
       t.float :probability
       t.string :owner_key
+      t.string :company_key
 
       t.timestamps
     end

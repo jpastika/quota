@@ -3,5 +3,6 @@ class AddPubKeyToOpportunities < ActiveRecord::Migration
     add_column :opportunities, :pub_key, :string
     
     add_index :opportunities, :pub_key
+    add_index :opportunities, :company_key
   end
 end
