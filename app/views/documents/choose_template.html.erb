@@ -95,6 +95,12 @@
 							<div class="span7">
 								<div class="template_details">
 								</div>
+								<div class="start_empty">
+									or &nbsp;&nbsp;
+									<button type="button" class="btn btn-success">
+										Start with an empty document
+									</button>
+								</div>
 								<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
 								<input type="hidden" value="<%= @document.pub_key %>" name="document[pub_key]" id="document_pub_key">
 								<input type="hidden" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
@@ -103,7 +109,7 @@
 					</div>
 					<br><br>
 					<div class="actions-bar">
-						<button type="button" class="btn btn-primary">
+						<button type="submit" class="btn btn-primary">
 							Continue&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
 						</button>
 					</div>

@@ -5,6 +5,7 @@ class Quota.Views.ChooseTemplate extends Backbone.View
 	events:
 		"keyup .search-bar input": "handleSearch"
 		"click .search-bar .icon-remove": "handleClearSearch"
+		"click .start_empty button": "handleStartEmpty"
 	# 		"focus .template_items_shim" : "handleTemplateItemsShimFocus"
 	
 	initialize: (options)->
@@ -121,5 +122,10 @@ class Quota.Views.ChooseTemplate extends Backbone.View
 					self.templateView.render()
 			}
 		)
+		
+		
+	handleStartEmpty: ->
+		@template_key.val('')
+		@$('form').submit()
 		
 		

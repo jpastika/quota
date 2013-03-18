@@ -13,6 +13,8 @@ class DocumentsController < ApplicationController
     @document_type = DocumentType.find_by_name("Quote")
     @document = @opportunity.documents.build(creator_key: current_user.pub_key, document_type: @document_type, company: @opportunity.company)
     
+    @document.name = "#{@opportunity.company.name} - Quote"
+    
     
     @companies = Contact.companies
     @contacts = Contact.people

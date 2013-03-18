@@ -210,34 +210,37 @@ class Quota.Views.EditDocument extends Backbone.View
 			@company = _.find(self.companies.models, (m) -> m.get("pub_key") == self.model.get("company_key"))
 			
 			if @company
-				company_phones = @company.get("phones")
-				addresses = @company.get("addresses")
-				phones = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
-				faxes = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") != -1)
-				contacts = @getCompanyContacts(@company.get("pub_key"))
+				# company_phones = @company.get("phones")
+				# 				addresses = @company.get("addresses")
+				# 				phones = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
+				# 				faxes = _.filter(company_phones, (m) -> m.name.toLowerCase().indexOf("fax") != -1)
+				# 				contacts = @getCompanyContacts(@company.get("pub_key"))
+				
+				@setupCompanyFields()
+				@setupCompanyContacts()
 
-				if phones.length
-					@setupCompanyPhonesDropDown(phones)
-				if faxes.length
-					@setupCompanyFaxesDropDown(faxes)
-				if addresses.length
-					@setupBillingAddressesDropDown(addresses)
-					@setupShippingAddressesDropDown(addresses)
-				if contacts.length
-					@setupCompanyContactsDropDown(contacts)
+				# if phones.length
+				# 					@setupCompanyPhonesDropDown(phones)
+				# 				if faxes.length
+				# 					@setupCompanyFaxesDropDown(faxes)
+				# 				if addresses.length
+				# 					@setupBillingAddressesDropDown(addresses)
+				# 					@setupShippingAddressesDropDown(addresses)
+				# 				if contacts.length
+				# 					@setupCompanyContactsDropDown(contacts)
 			
-		if @model.get("contact_key")
-			@contact = _.find(self.contacts.models, (m) -> m.get("pub_key") == self.model.get("contact_key"))
-			
-			if @contact
-				contact_phones = @contact.get("phones")
-				c_phones = _.filter(contact_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
-				emails = @contact.get("emails")
-
-				if c_phones.length
-					@setupContactPhonesDropDown(c_phones)
-				if emails.length
-					@setupContactEmailsDropDown(emails)
+		# if @model.get("contact_key")
+		# 			@contact = _.find(self.contacts.models, (m) -> m.get("pub_key") == self.model.get("contact_key"))
+		# 			
+		# 			if @contact
+		# 				contact_phones = @contact.get("phones")
+		# 				c_phones = _.filter(contact_phones, (m) -> m.name.toLowerCase().indexOf("fax") == -1)
+		# 				emails = @contact.get("emails")
+		# 
+		# 				if c_phones.length
+		# 					@setupContactPhonesDropDown(c_phones)
+		# 				if emails.length
+		# 					@setupContactEmailsDropDown(emails)
 		
 	rendered: ->
 		
