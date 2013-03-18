@@ -123,9 +123,6 @@ class Quota.Views.ChooseTemplate extends Backbone.View
 			}
 		)
 		
-		
 	handleStartEmpty: ->
 		@template_key.val('')
 		@$('form').submit()
-		
-		
