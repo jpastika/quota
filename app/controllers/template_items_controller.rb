@@ -23,6 +23,10 @@ class TemplateItemsController < ApplicationController
         end
 
         @template_item = TemplateItem.create(params[:template_item])
+        @template_item.unit_price = params[:template_item][:unit_price].to_s.delete ","
+        @template_item.total = params[:template_item][:total].to_s.delete ","
+        
+        
         if @template_item.save
           render :json => @template_item.to_json(:include => [:catalog_item])
         else
@@ -62,6 +66,9 @@ class TemplateItemsController < ApplicationController
         end
 
         if @template_item.update_attributes(params[:template_item])
+          @template_item.unit_price = params[:template_item][:unit_price].to_s.delete ","
+          @template_item.total = params[:template_item][:total].to_s.delete ","
+          @template.save
           flash[:success] = "Template Item updated"
           redirect_to template_item_path(@template_item.pub_key)
         else
@@ -90,11 +97,11 @@ class TemplateItemsController < ApplicationController
           @template_item.hide_package_contents = params[:hide_package_contents]
           @template_item.name = params[:name]
           @template_item.part_number = params[:part_number]
-          @template_item.unit_price = params[:unit_price]
+          @template_item.unit_price = params[:unit_price].to_s.delete ","
           @template_item.unit_price_unit = params[:unit_price_unit]
           @template_item.quantity = params[:quantity]
           @template_item.total_unit = params[:total_unit]
-          @template_item.total = params[:total]
+          @template_item.total = params[:total].to_s.delete ","
           @template_item.description = params[:description]
           @template_item.catalog_item_key = params[:catalog_item_key]
           @template_item.sort_order = params[:sort_order]

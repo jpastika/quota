@@ -23,6 +23,9 @@ class DocumentItemsController < ApplicationController
         end
 
         @document_item = DocumentItem.create(params[:document_item])
+        
+        @document_item.unit_price = params[:document_item][:unit_price].to_s.delete ","
+        @document_item.total = params[:document_item][:total].to_s.delete ","
         if @document_item.save
           render :json => @document_item.to_json(:include => [:catalog_item])
         else
@@ -62,6 +65,10 @@ class DocumentItemsController < ApplicationController
         end
 
         if @document_item.update_attributes(params[:document_item])
+          @document_item.unit_price = params[:document_item][:unit_price].to_s.delete ","
+          @document_item.total = params[:document_item][:total].to_s.delete ","
+          
+          @document_item.save
           flash[:success] = "Document Item updated"
           redirect_to document_item_path(@document_item.pub_key)
         else
@@ -90,11 +97,11 @@ class DocumentItemsController < ApplicationController
           @document_item.hide_package_contents = params[:hide_package_contents]
           @document_item.name = params[:name]
           @document_item.part_number = params[:part_number]
-          @document_item.unit_price = params[:unit_price]
+          @document_item.unit_price = params[:unit_price].to_s.delete ","
           @document_item.unit_price_unit = params[:unit_price_unit]
           @document_item.quantity = params[:quantity]
           @document_item.total_unit = params[:total_unit]
-          @document_item.total = params[:total]
+          @document_item.total = params[:total].to_s.delete ","
           @document_item.description = params[:description]
           @document_item.catalog_item_key = params[:catalog_item_key]
           @document_item.sort_order = params[:sort_order]

@@ -174,6 +174,8 @@ class Quota.Views.ShowDocumentFormAddItem extends Backbone.View
 
 
 	calcTotal: ->
+		@input_document_item_quantity.val(@input_document_item_quantity.val().replace(/[^\d.-]/g, ''))
+		@input_document_item_unit_price.val(@input_document_item_unit_price.val().replace(/[^\d.-]/g, ''))
 		@input_document_item_quantity.val() * @input_document_item_unit_price.val()
 
 	updateTotal: ->

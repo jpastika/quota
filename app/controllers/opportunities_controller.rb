@@ -82,6 +82,9 @@ class OpportunitiesController < ApplicationController
       end
     end
     
+    @opportunity.estimated_value = params[:opportunity][:estimated_value].to_s.delete ","
+    
+    
     if @opportunity.save
       if !@opportunity.company_key.nil?
         OpportunityContact.create!(opportunity_key: @opportunity.pub_key, contact_key: @opportunity.company_key)
@@ -134,6 +137,8 @@ class OpportunitiesController < ApplicationController
     end
     
     if @opportunity.update_attributes(params[:opportunity])
+      @opportunity.estimated_value = params[:opportunity][:estimated_value].to_s.delete ","
+      @opportunity.save
       if (@opportunity.company_key.nil? || @opportunity.company_key == "") && (!params[:customer][:company_name].nil? && params[:customer][:company_name] != "")
         @company = Company.build(name: params[:customer][:company_name])
         if @company.save

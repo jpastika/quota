@@ -79,6 +79,8 @@ class CatalogItemsController < ApplicationController
         end
 
         @catalog_item = CatalogItem.create(params[:catalog_item])
+        @catalog_item.list_price = params[:catalog_item][:list_price].to_s.delete ","
+        
         if @catalog_item.save
           flash[:success] = "Catalog item has been created"
           redirect_to catalog_item_path(@catalog_item.pub_key)
@@ -103,6 +105,8 @@ class CatalogItemsController < ApplicationController
         end
 
         @catalog_item = CatalogItem.create(params[:catalog_item])
+        @catalog_item.list_price = params[:catalog_item][:list_price].to_s.delete ","
+        
         if @catalog_item.save
           render :json => @catalog_item.to_json(:include => [])
         else
@@ -140,6 +144,8 @@ class CatalogItemsController < ApplicationController
         end
 
         if @catalog_item.update_attributes(params[:catalog_item])
+          @catalog_item.list_price = params[:catalog_item][:list_price].to_s.delete ","
+          @catalog_item.save
           flash[:success] = "Catalog Item updated"
           redirect_to catalog_item_path(@catalog_item.pub_key)
         else
@@ -162,7 +168,7 @@ class CatalogItemsController < ApplicationController
           @catalog_item.is_package = params[:is_package]
           @catalog_item.name = params[:name]
           @catalog_item.manufacturer = params[:manufacturer]
-          @catalog_item.list_price = params[:list_price]
+          @catalog_item.list_price = params[:list_price].to_s.delete ","
           @catalog_item.recurring_unit = params[:recurring_unit]
           @catalog_item.part_number = params[:part_number]
           @catalog_item.parent_key = params[:parent_key]

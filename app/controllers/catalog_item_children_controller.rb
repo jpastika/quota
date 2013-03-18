@@ -31,6 +31,7 @@ class CatalogItemChildrenController < ApplicationController
     respond_to do |format|
       format.html {
         @catalog_item_child = CatalogItemChild.new(parent_key: params[:parent_key], child_key: params[:child_key])
+        
         if @catalog_item_child.save
           flash[:success] = "#{@child_item.name} saved."
           redirect_to catalog_items_path

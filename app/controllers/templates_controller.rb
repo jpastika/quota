@@ -62,7 +62,7 @@ class TemplatesController < ApplicationController
       format.html {
        @template = Template.create(params[:template])
         if @template.save
-          flash[:success] = "Temnplate has been created"
+          flash[:success] = "Template has been created"
           redirect_to template_path(@template.pub_key)
         else
           gon.template = @template

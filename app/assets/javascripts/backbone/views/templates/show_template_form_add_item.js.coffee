@@ -175,6 +175,8 @@ class Quota.Views.ShowTemplateFormAddItem extends Backbone.View
 
 
 	calcTotal: ->
+		@input_template_item_quantity.val(@input_template_item_quantity.val().replace(/[^\d.-]/g, ''))
+		@input_template_item_unit_price.val(@input_template_item_unit_price.val().replace(/[^\d.-]/g, ''))
 		@input_template_item_quantity.val() * @input_template_item_unit_price.val()
 
 	updateTotal: ->
