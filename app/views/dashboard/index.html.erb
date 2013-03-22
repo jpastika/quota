@@ -1,7 +1,32 @@
 <% provide(:title, 'Dashboard') %>
 <div class="body">
 	<div class="body-right pull-right">
-		
+		<br><br><br>
+		<h4>News</h4>
+		<div class="section-table">
+			<table width="100%" cellpadding="5px" cellspacing="0" border="0" class="table table-condensed table-plain">
+				<tr>
+					<td>March 5</td>
+					<td>Quota version 1.5.1 released.  Release notes available <b>here</b></td>
+				</tr>
+				<tr>
+					<td>February&nbsp;15</td>
+					<td>Quota version 1.5.0 released.  Release notes available <b>here</b></td>
+				</tr>
+				<tr>
+					<td>February 5</td>
+					<td>Trimble added promotion and template <b>Getting Started Bundle</b></td>
+				</tr>
+				<tr>
+					<td width="17%">February 3</td>
+					<td>Quota will be down from 11:00 PM - 12:00 AM for maintenance.</td>
+				</tr>
+				<tr>
+					<td width="17%">February 1</td>
+					<td>Quota version 1.4.9 released.  Release notes available <b>here</b></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<div class="body-left">
 		<div class="">
@@ -19,13 +44,251 @@
 		</div>
 		<div class="parent-page">
 			<div id="main_body_container" class="row-fluid">
-				Will include:
-				<ul>
-					<li>Recent activity feed</li>
-					<li>Pipeline summary</li>
-					<li>Shortcuts to common Create actions (contacts, opportunities, documents, etc.)</li>
-					<li>News/Announcements feed</li>
-				</ul>
+				<div class="row-fluid">
+					<div class="span6">
+						<div class="row-fluid">
+							<h4>Pipeline - By Expected Close</h4><br>
+							<div>
+								<table width="100%" cellpadding="5px" cellspacing="5px" border="0">
+									<tr>
+										<th align="left">
+											Overdue
+										</th>
+										<th align="left">
+											0-15 days
+										</th>
+										<th align="left">
+											16-30 days
+										</th>	
+										<th align="left">
+											31-60 days
+										</th>
+										<th align="left">
+											60+ days
+										</th>
+									</tr>
+									<tr>
+										<td align="left" valign="bottom">
+											<div style="height:45px; background:#B94A48; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:25px; background:#468847; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:37px; background:#F89406; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:23px; background:#333333; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:14px; background:#999999; margin: 0 10px 0 0;"></div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">
+											$ 457,893.50
+										</td>
+										<td align="left">
+											$ 254,789.00
+										</td>
+										<td align="left">
+											$ 376,512.10
+										</td>
+										<td align="left">
+											$ 232,631.00
+										</td>
+										<td align="left">
+											$ 145,321.20
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<hr size="0">
+						<div class="row-fluid">
+							<h4>Pipeline - By Milestone</h4><br>
+							<div>
+								<table width="100%" cellpadding="5px" cellspacing="5px" border="0">
+									<tr>
+										<th align="left">
+											Pre-Discussion
+										</th>
+										<th align="left">
+											Meeting
+										</th>
+										<th align="left">
+											Quote
+										</th>	
+										<th align="left">
+											Financing
+										</th>
+										<th align="left">
+											Sale
+										</th>
+									</tr>
+									<tr>
+										<td align="left" valign="bottom">
+											<div style="height:13px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:49px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:55px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:25px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:25px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">
+											$ 133,543.00
+										</td>
+										<td align="left">
+											$ 393,235.30
+										</td>
+										<td align="left">
+											$ 557,231.40
+										</td>
+										<td align="left">
+											$ 254,331.00
+										</td>
+										<td align="left">
+											$ 255,321.30
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<hr size="0">
+						<div class="row-fluid">
+							<h4>Pipeline - By Likely to Close</h4><br>
+							<div>
+								<table width="100%" cellpadding="5px" cellspacing="5px" border="0">
+									<tr>
+										<th align="left">
+											0-20%
+										</th>
+										<th align="left">
+											21-40%
+										</th>
+										<th align="left">
+											41-60%
+										</th>	
+										<th align="left">
+											61-80%
+										</th>
+										<th align="left">
+											81-100%
+										</th>
+									</tr>
+									<tr>
+										<td align="left" valign="bottom">
+											<div style="height:32px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:23px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:58px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:43px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+										<td align="left" valign="bottom">
+											<div style="height:24px; background:#448AC6; margin: 0 10px 0 0;"></div>
+										</td>
+									</tr>
+									<tr>
+										<td align="left">
+											$ 322,754.00
+										</td>
+										<td align="left">
+											$ 234,422.10
+										</td>
+										<td align="left">
+											$ 583,462.20
+										</td>
+										<td align="left">
+											$ 432,765.00
+										</td>
+										<td align="left">
+											$ 243,445.30
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="span1">
+					</div>
+					<div class="span5">
+						<h4>Recent Activity</h4>
+						<div class="section-table">
+							<table width="100%" cellpadding="5px" cellspacing="0" border="0" class="table table-condensed table-plain">
+								<tr>
+									<td width="17%">March 19</td>
+									<td>Jeremy Pastika added opportunity: <b>Alexander Contracting - Base and Rover</b></td>
+								</tr>
+								<tr>
+									<td>March 19</td>
+									<td>Jeremy Pastika added opportunity: <b>Cat D6K SiteVision </b></td>
+								</tr>
+								<tr>
+									<td>March 19</td>
+									<td>Greg Hasty added opportunity: <b>Front Line Surveying &amp; Mapping - GCS and Cab Kit</b></td>
+								</tr>
+								<tr>
+									<td>March 18</td>
+									<td>Rob Curry added opportunity: <b>Graham Brothers - Base and Rover</b></td>
+								</tr>
+								<tr>
+									<td>March 18</td>
+									<td>Greg Hasty added opportunity: <b>INDIAN RIVER COUNTY - GCS and Cab Kit </b></td>
+								</tr>
+								<tr>
+									<td>March 17</td>
+									<td>Jeremy Pastika added opportunity: <b>Mark Randell - Dual MS990</b></td>
+								</tr>
+								<tr>
+									<td>March 17</td>
+									<td>Mike Nixon added opportunity: <b>Nortrax - GCS and Cab Kit</b></td>
+								</tr>
+								<tr>
+									<td>March 17</td>
+									<td>Jeremy Pastika added opportunity: <b>Skanska Construction - Robot</b></td>
+								</tr>
+								<tr>
+									<td width="17%">March 16</td>
+									<td>Jeremy Pastika added opportunity: <b>Alexander Contracting - Base and Rover</b></td>
+								</tr>
+								<tr>
+									<td>March 16</td>
+									<td>Jeremy Pastika added opportunity: <b>Cat D6K SiteVision </b></td>
+								</tr>
+								<tr>
+									<td>March 15</td>
+									<td>Greg Hasty added opportunity: <b>Front Line Surveying &amp; Mapping - GCS and Cab Kit</b></td>
+								</tr>
+								<tr>
+									<td>March 14</td>
+									<td>Rob Curry added opportunity: <b>Graham Brothers - Base and Rover</b></td>
+								</tr>
+								<tr>
+									<td>March 14</td>
+									<td>Greg Hasty added opportunity: <b>INDIAN RIVER COUNTY - GCS and Cab Kit </b></td>
+								</tr>
+								<tr>
+									<td>March 13</td>
+									<td>Jeremy Pastika added opportunity: <b>Mark Randell - Dual MS990</b></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

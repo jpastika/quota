@@ -23,10 +23,10 @@ class Quota.Views.ListContact extends Backbone.View
 		@
 		
 	destroy: (evt) ->
-		# @toggle()
-		# 		# @model.trigger('removing', {view: @})
-		# 		@model.remove()
-		# 		@vent.trigger('contacts:remove_contact', {model: @model})
+		@toggle()
+		# @model.trigger('removing', {view: @})
+		@model.remove()
+		@vent.trigger('contacts:remove_contact', {model: @model})
 		
 	toggle: () ->
 		$(@el).toggle()

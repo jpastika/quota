@@ -15,13 +15,13 @@ namespace :db do
   
   desc "Import data from csv files"
   task import: :environment do
-    import_accounts
-    import_users
-    import_sales_reps
-    import_milestones
-    import_oems
-    import_oem_reps
-    # import_catalog_items
+    # import_accounts
+    #     import_users
+    #     import_sales_reps
+    #     import_milestones
+    #     import_oems
+    #     import_oem_reps
+    #     import_catalog_items
     #     import_companies
     #     import_contacts
     #     import_contact_phones
@@ -29,10 +29,10 @@ namespace :db do
     #     import_contact_addresses
     #     import_contact_urls
     # import_opportunities
-    #  import_opportunity_contacts
+    # import_opportunity_contacts
     #  import_documents
     #  import_document_items
-    #  import_templates
+    import_templates
     #  import_template_items
   end
 end
@@ -369,20 +369,41 @@ def import_opportunities
     if !account.id.nil?
       owner = SalesRep.find(row[1])
       company = Contact.find(row[2])
-      oem = Oem.find(row[3])
-      oem_rep = OemRep.find(row[4])
+      if !row[3].nil?
+        oem = Oem.find(row[3])
+      end
+      if !row[4].nil?
+        oem_rep = OemRep.find(row[4])
+      end
       milestone = Milestone.find(row[5])
       
       account.opportunities.create!(
-        name: row[3],
+        name: row[7],
         owner_key: !owner.nil? ? owner.pub_key : null,
         company_key: !company.nil? ? company.pub_key : null,
         oem_key: !oem.nil? ? oem.pub_key : null,
         oem_rep_key: !oem_rep.nil? ? oem_rep.pub_key : null,
-        milestone_key: !milesone.nil? ? milestone.pub_key : null
-        
-        # email: row[2],
-        #         password: row[3]
+        milestone_key: !milestone.nil? ? milestone.pub_key : null,
+        estimated_value: row[6]
+      )
+    end
+  end
+end
+
+def import_templates
+  file = "db/import/templates.csv"
+  account = Account.new
+  
+  CSV.foreach(file, :headers => true) do |row|
+    if row[0] != account.id
+      account = Account.find(row[0])
+      Account.current_account_key = account.pub_key
+    end
+    
+    if !account.id.nil?
+      account.templates.create!(
+        name: row[1],
+        description: row[2]
       )
     end
   end

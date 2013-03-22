@@ -20,3 +20,13 @@ class Quota.Models.Template extends Backbone.Model
 		# 		@addresses = new Quota.Collections.ContactAddresses
 		# 		@addresses.url = '/api/contacts/' + @id + '/addresses'
 	    # this.phones.on("reset", this.updateCounts)
+	
+	remove: ->
+		self = @
+		@destroy({
+			wait: false
+			success:()-> 
+				self.trigger('destroy:success',{model: self})
+			error:()-> 
+				self.trigger('destroy:error',{model: self})
+		})
