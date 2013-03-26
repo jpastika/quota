@@ -1,0 +1,64 @@
+<div class="navbar">
+	<div class="pull-left">
+		<ul class="nav alternate-nav">
+			<% if @nav_caret == "help" %>
+				<li class="current">
+					<a href="#">
+						<i class="icon-question-sign"></i>
+					</a>
+				</li>
+			<% else %>
+				<li>
+					<a href="#">
+						<i class="icon-question-sign"></i>
+					</a>
+				</li>
+			<% end %>
+			<% if @nav_caret == "administration" %>
+				<li id="admin-menu" class="dropdown current">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-cog"></i>
+					</a>
+					<ul class="dropdown-menu">
+						<li><%= link_to "Users", users_path %></li>
+						<li><%= link_to "Reps", sales_reps_path %></li>
+					</ul>
+				</li>
+			<% else %>
+				<li id="admin-menu" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-cog"></i>
+					</a>
+					<ul class="dropdown-menu">
+						<li><%= link_to "Users", users_path %></li>
+						<li><%= link_to "Reps", sales_reps_path %></li>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="pull-right">
+		<ul class="nav user-nav">
+			<% if signed_in? %>
+				<li id="member-menu" class="dropdown">
+					<a href="#" class="user dropdown-toggle" data-toggle="dropdown">
+						<%= current_user.name || current_user.email %>
+					</a>
+					<ul class="dropdown-menu">
+						<li><%= link_to "Profile", current_user %></li>
+						<li><%= link_to "Settings", '#' %></li>
+						<li class="divider"></li>
+						<li>
+							<%= link_to "Sign out", signout_path, method: "delete" %>
+						</li>
+					</ul>
+				</li>
+			<% else %>
+				<li><%= link_to "Sign in", signin_path %></li>
+			<% end %>
+		</ul>
+		<div class="user-nav-company-name">
+			SITECH SE
+		</div>
+	</div>
+</div>

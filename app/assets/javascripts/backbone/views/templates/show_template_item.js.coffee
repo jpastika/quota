@@ -123,7 +123,11 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 		# @unit_price_unit_holder.html()
 
 	decorateTotal: ->
-		@total_holder.html(accounting.formatMoney(@model.get("total"), "$ "))
+		if @model.get("total") != "" and @model.get("total") != null
+			@total_holder.html(accounting.formatMoney(@model.get("total"), "$ "))
+		else
+			@total_holder.html("")
+		# @total_holder.html(accounting.formatMoney(@model.get("total"), "$ "))
 
 	decorateTotalUnit: ->
 		# @unit_price_holder.html(accounting.formatMoney(@model.get("unit_price")), "$")
@@ -408,9 +412,16 @@ class Quota.Views.ShowTemplateItem extends Backbone.View
 
 
 	calcTotal: ->
-		@input_template_item_quantity.val(@input_template_item_quantity.val().replace(/[^\d.-]/g, ''))
-		@input_template_item_unit_price.val(@input_template_item_unit_price.val().replace(/[^\d.-]/g, ''))
-		@input_template_item_quantity.val() * @input_template_item_unit_price.val()
+		# @input_template_item_quantity.val(@input_template_item_quantity.val().replace(/[^\d.-]/g, ''))
+		# 	@input_template_item_unit_price.val(@input_template_item_unit_price.val().replace(/[^\d.-]/g, ''))
+		# 	@input_template_item_quantity.val() * @input_template_item_unit_price.val()
+		
+		if @input_template_item_quantity.val().replace(/[^\d.-]/g, '') == '' or @input_template_item_unit_price.val().replace(/[^\d.-]/g, '') == ''
+			''
+		else
+			@input_template_item_quantity.val(@input_template_item_quantity.val().replace(/[^\d.-]/g, ''))
+			@input_template_item_unit_price.val(@input_template_item_unit_price.val().replace(/[^\d.-]/g, ''))
+			@input_template_item_quantity.val() * @input_template_item_unit_price.val()
 
 	updateTotal: ->
 		@model.set("total", @calcTotal())

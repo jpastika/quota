@@ -49,8 +49,11 @@ class Quota.Views.IndexTemplatesTemplateDetailsListItem extends Backbone.View
 		# @unit_price_unit_holder.html()
 
 	decorateTotal: ->
-		@total_holder.html(accounting.formatMoney(@model.get("total"), "$ "))
-
+		if @model.get("total") != ""
+			@total_holder.html(accounting.formatMoney(@model.get("total"), "$ "))
+		else
+			@total_holder.html("")
+		
 	decorateTotalUnit: ->
 		# @unit_price_holder.html(accounting.formatMoney(@model.get("unit_price")), "$")
 

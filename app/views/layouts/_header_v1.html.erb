@@ -2,41 +2,11 @@
 	<div class="header row">
 		<div class="header-right pull-right">
 			<div class="">
-				<ul class="nav alternate-nav">
-					<% if @nav_caret == "help" %>
-						<li class="current"><%= link_to raw("Help"), "#" %></li>
-					<% else %>
-						<li><%= link_to raw("Help"), "#" %></li>
-					<% end %>
-					<% if @nav_caret == "administration" %>
-						<li id="admin-menu" class="dropdown current">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-cog"></i>
-							</a>
-							<ul class="dropdown-menu">
-								<li><%= link_to "Users", users_path %></li>
-								<li><%= link_to "Reps", sales_reps_path %></li>
-							</ul>
-						</li>
-					<% else %>
-						<li id="admin-menu" class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-cog"></i>
-							</a>
-							<ul class="dropdown-menu">
-								<li><%= link_to "Users", users_path %></li>
-								<li><%= link_to "Reps", sales_reps_path %></li>
-							</ul>
-						</li>
-					<% end %>
-				</ul>
-			</div>
-			<div class="">
 				<ul class="nav user-nav">
 					<% if signed_in? %>
 						<li id="member-menu" class="dropdown">
-							<a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-								<%= current_user.name || current_user.email %>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<%= current_user.name || current_user.email %> <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><%= link_to "Profile", current_user %></li>
@@ -49,6 +19,36 @@
 						</li>
 					<% else %>
 						<li><%= link_to "Sign in", signin_path %></li>
+					<% end %>
+				</ul>
+			</div>
+			<div class="">
+				<ul class="nav alternate-nav">
+					<% if @nav_caret == "help" %>
+						<li class="current"><%= link_to raw("Help"), "#" %></li>
+					<% else %>
+						<li><%= link_to raw("Help"), "#" %></li>
+					<% end %>
+					<% if @nav_caret == "administration" %>
+						<li id="admin-menu" class="dropdown current">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Administration <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><%= link_to "Users", users_path %></li>
+								<li><%= link_to "Reps", sales_reps_path %></li>
+							</ul>
+						</li>
+					<% else %>
+						<li id="admin-menu" class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Administration <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><%= link_to "Users", users_path %></li>
+								<li><%= link_to "Reps", sales_reps_path %></li>
+							</ul>
+						</li>
 					<% end %>
 				</ul>
 			</div>

@@ -5,34 +5,22 @@
 <% end %>
 
 
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-			<div class="show-field">
-				<span class="show-label">Opportunity</span>
-				<br>
-				<span class="show-value"><%= @opportunity.name %></span>
-			</div>
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunity"), opportunity_path(@opportunity.pub_key) %>
+			<div class="return-nav">
+				<%= link_to raw("return to opportunity"), opportunity_path(@opportunity.pub_key) %>
 			</div>
 			<div class="page-title">
-				Create a New Document
+				Create Document - Choose a Template
 			</div>
 		</div>
 		<div class="process-steps-container">
@@ -47,78 +35,89 @@
 				<dd>Add items and select financing</dd>
 			</dl>
 		</div>
-		<div class="parent-page">
-			<div class="">
-				<form method="post" action="/documents/choose_template/<%= @document.pub_key %>">
-					<div class="section-form-plain">
-						<div class="row-fluid section-container">
-							<div class="span4">
-								<div class="section-heading">
-									<h4>Choose a Template</h4>
+		<div class="page-content-container">
+			<form method="post" action="/documents/choose_template/<%= @document.pub_key %>">
+				<div class="section-form-plain">
+					<div class="row-fluid section-container">
+						<div class="span4">
+							<label class="string control-label" for="template_name">Search by template name, item name, or part number</label>
+							<div class="search-bar">
+								<div class="input-prepend">
+									<span class="add-on"><i class="icon-search"></i></span>
+									<input type="text" class="" name="template_search" value="">
 								</div>
-								<label class="string control-label" for="template_name">Search by template name, item name, or part number</label>
-								<div class="search-bar">
-									<div class="input-prepend">
-										<span class="add-on"><i class="icon-search"></i></span>
-										<input type="text" class="" name="template_search" value="">
-									</div>
-									<div class="found" style="display:none;">
-										<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
-									</div>
-								</div>
-								<div id="templates">
-									<div class="section-heading" style="display:none">
-										My Templates
-									</div>
-									<div id="my_list">
-										<ul>
-										</ul>
-									</div>
-									<div class="section-heading" style="display:none">
-										Our Templates
-									</div>
-									<div id="our_list">
-										<ul>
-										</ul>
-									</div>
-									<div class="section-heading" style="display:none">
-										Trimble Templates
-									</div>
-									<div id="trimble_list">
-										<ul>
-										</ul>
-									</div>
+								<div class="found" style="display:none;">
+									<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
 								</div>
 							</div>
-							<div class="span1">
-							</div>
-							<div class="span7">
-								<div class="template_details">
+							<div id="templates">
+								<div class="section-heading" style="display:none">
+									My Templates
 								</div>
-								<div class="start_empty">
-									or &nbsp;&nbsp;
-									<button type="button" class="btn btn-success">
-										Start with an empty document
-									</button>
+								<div id="my_list">
+									<ul>
+									</ul>
 								</div>
-								<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
-								<input type="hidden" value="<%= @document.pub_key %>" name="document[pub_key]" id="document_pub_key">
-								<input type="hidden" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
+								<div class="section-heading" style="display:none">
+									Our Templates
+								</div>
+								<div id="our_list">
+									<ul>
+									</ul>
+								</div>
+								<div class="section-heading" style="display:none">
+									Trimble Templates
+								</div>
+								<div id="trimble_list">
+									<ul>
+									</ul>
+								</div>
 							</div>
 						</div>
+						<div class="span1">
+						</div>
+						<div class="span7">
+							<div class="template_details">
+							</div>
+							<div class="start_empty">
+								or &nbsp;&nbsp;
+								<button type="button" class="btn btn-success">
+									Start with an empty document
+								</button>
+							</div>
+							<input type="hidden" value="<%= @opportunity.pub_key %>" name="document[opportunity_key]" id="document_opportunity_key">
+							<input type="hidden" value="<%= @document.pub_key %>" name="document[pub_key]" id="document_pub_key">
+							<input type="hidden" value="<%= @document.template_key %>" name="document[template_key]" id="document_template_key" class="document_template_key">
+						</div>
 					</div>
-					<br><br>
-					<div class="actions-bar">
-						<button type="submit" class="btn btn-primary">
-							Continue&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
-						</button>
-					</div>
-				</form>
-			</div>
+				</div>
+				<br><br>
+				<div class="actions-bar">
+					<button type="submit" class="btn btn-primary">
+						Continue&nbsp;&nbsp;<i class="icon-circle-arrow-right"></i>
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
 
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+		
+</div>
+<div id="sidebar_app_fields_container"class="">
+	<div class="show-field">
+		<span class="show-label">Opportunity</span>
+		<br>
+		<span class="show-value"><%= @opportunity.name %></span>
+	</div>
+</div>
+<% end %>
+
+
+<% content_for :page_script do %>
 <script language="javascript">
 	$(function(){
 		// this.templates = new Quota.Collections.Templates($.parseJSON(gon.templates));
@@ -136,3 +135,4 @@
 	
 	$('input, textarea').placeholder();
 </script>
+<% end %>

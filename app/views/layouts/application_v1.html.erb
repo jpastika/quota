@@ -14,19 +14,10 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-		<div class="body">
-			<div class="right-col pull-right">
-				<%= render 'layouts/header_right' %>
-				<%= yield(:right) %>
-			</div>
-			<div class="left-col">
-				<%= render 'layouts/header_left' %>
-				<%= yield %>
-			</div>
-		</div>
-		<div>
-			<%= render 'layouts/footer' %>
-		</div>
+		<%= render 'layouts/header' %>
+		<%= yield %>
+		<%= render 'layouts/footer' %>
+		
 		<script language="javascript">
 			$(window).unload(function(){
 			    $(document.activeElement).blur();
@@ -36,6 +27,5 @@
 				$('.dropdown-toggle').dropdown();
 			});
 		</script>
-		<%= yield(:page_script) %>
 	</body>
 </html>

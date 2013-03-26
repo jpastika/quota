@@ -34,6 +34,9 @@ section {
   overflow: auto;
 }
 
+textarea {
+  resize: vertical;
+}
 
 .alert {
   border-radius: 0;
@@ -74,43 +77,40 @@ section {
     margin-left: 180px;
 }
 
-
-.body{
-	width:100%;
-	float:left;
-}
-
-.left-col{
-	padding:20px;
-	margin-right: 260px;
-}
-
-.right-col{
-	width: 240px;
-	margin-left:-100%;
-	padding:20px 20px 20px 0px;
-}
-
-.right-col .navbar{
-	width:100%;
-}
-
-
-.dropdown-menu{
-	text-align: left;
-	min-width: 0px;
-}
-
 /* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 2.5em;
+  letter-spacing: -2px;
+  
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
 
 /* header */
 header{
+	background: $ss_darkGray;
 	width:100%;
 }
 
 .navbar{
-  margin-bottom:10px;
-  display: inline-block;
+  margin-bottom:0px;
 }
 
 .navbar .nav > li > a{
@@ -121,179 +121,192 @@ header{
 	text-shadow: none;
 }
 
+.navbar .user-nav > li > a{
+	color: $ss_lightGray;
+	font-size:10px;
+	padding: 4px 40px 3px 0px;
+}
+
+.navbar .user-nav > li > a:hover{
+	color: $ss_nearWhite;
+}
+
+
+.navbar .user-nav > li > a > b.caret{
+	opacity: 0.6;
+	margin-left: 8px;
+}
 
 .navbar .user-nav{
-	margin:0px;
-	text-align:right;
-}
-
-.navbar .user-nav > li > a{
-	color: $v2_nearWhite;
-	font-size:10px;
-	padding: 0px;
-	&:hover {
-	    color: $v2_lightGray;
-	}
-}
-
-.user-nav-company-name{
-	text-align:right;
-	padding: 15px 0 0;
-	color: $v2_lightGray;
-	font-size: 10px;
-}
-
-
-
-.navbar .alternate-nav{
-	width:80px;
+	margin: 10px 0 0 0px;
 }
 
 .navbar .alternate-nav > li > a{
-	color: $v2_lightGray;
-	padding: 0px 20px 0px 0px;
-	margin: 0 0px 0 0;
-	font-size:20px;
-	&:hover {
-	    color: $v2_mediumLightGray;
-	}
+	color: $ss_coolBlue;
+	padding: 5px 0px 10px 0px;
+	margin: 0 40px 0 0;
+}
+
+.navbar .alternate-nav > li > a:hover{
+	color: $ss_nearWhite;
 }
 
 .navbar .primary-nav{
 	clear:left;
-	padding-top:15px;
 }
 
 .navbar .primary-nav > li > a{
-	color: $v2_lightGray;
-	padding: 0px;
+	color: $ss_orange;
+	padding: 5px 0px 10px 0px;
 	margin: 0 40px 0 0;
-	&:hover {
-	    color: $v2_mediumLightGray;
-	}
+}
+
+.navbar .primary-nav > li > a:hover{
+	color: $ss_nearWhite;
+	padding: 5px 0px 10px 0px;
+	margin: 0 40px 0 0;
+}
+
+.navbar .primary-nav > li:last-child a{
+	padding: 5px 0px 10px 0px;
 }
 
 
-
-.navbar .primary-nav > li.current > a,
-.navbar .alternate-nav > li.current > a{
-	position:relative;
-	color: $v2_orange;
-}
-
-
-
-.navbar .user-nav .user{
-	font-size:14px;
-	text-align:right;
-}
-
-.navbar .user-nav .user li a{
-	font-size:14px;
-	text-align:right;
-	color: $v2_lightGray;
-	&:hover {
-	    color: $v2_mediumLightGray;
-	}
-}
-
-.navbar .alternate-nav li a{
-	color: $v2_lightGray;
-	&:hover {
-	    color: $v2_mediumLightGray;
-	}
-}
-
-.navbar .alternate-nav .dropdown li a{
-	color: #333;
-	&:hover {
-	    color: #fff;
-	}
-}
-
-.navbar .user-nav{
-	width:100%;
-	text-align:right;
-}
-
-.navbar .user-nav li{
-	float:none;
-}
-
-
-.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
-    background-color: transparent;
-    color: $v2_mediumLightGray;
-}
-
-
-.header .header-search{
+.navbar .navbar-search{
 	margin: 10px 20px 0 0;
 }
 
 
 .table-plain th{
+	color: $ss_mediumGray;
 	font-weight: normal;
 	font-size: 12px;
 	font-family: 'Droid Sans',sans-serif;
 }
 
 .table-plain thead{
-	border-bottom: 1px solid $v2_mediumLightGray;
+	border-bottom: 1px solid $ss_khakiGray;
 }
 
 .table-plain td{
 	border-top: none;
-	font-size: 12px;
+	color: $ss_mediumDarkGray;
+	font-size: 13px;
 }
 
 .table-plain td a{
-	color: $v2_mediumDarkGray;
+	color: $ss_mediumDarkGray;
 }
 
 .table-plain td a:hover{
-	color: $v2_mediumDarkGray;
+	color: $ss_darkGray;
 	text-decoration: 'underline';
 }
 
 .table-plain tbody tr:hover td{
-	background:$v2_lightGray;
+	background:$ss_milkyWhite;
 }
 
 
 
 
-.logo .brand {
-  text-shadow: 0 1px 0 $v2_nearBlack;
+#logo {
+  text-shadow: 0 1px 0 $ss_nearBlack;
+  float: left;
+  margin-left: 0px;
   font-size: 1.6em;
-  color: $v2_mediumLightGray;
-  font-family: 'Droid Sans', sans-serif;
+  color: $ss_logoGray;
+  padding: 8px 10px 7px;
+	font-family: 'Droid Sans', sans-serif;
   line-height: 1;
   font-weight: normal;
 	text-transform:uppercase;
   &:hover {
-    color: $v2_lightGray;
+    color: $ss_nearWhite;
     text-decoration: none;
   }
-  margin:0;
-  padding:0;
+}
+
+.header-left{
+	background: $ss_darkGray;
+	margin-right:250px;
+}
+
+.header-right{
+	background: $ss_nearBlack;
+	width:250px;
+}
+
+.navbar .primary-nav > li.current > a,
+.navbar .alternate-nav > li.current > a{
+	position:relative;
+	
+}
+
+.navbar .primary-nav > li.current > a:before,
+.navbar .primary-nav > li.current > a:after,
+.navbar .alternate-nav > li.current > a:before,
+.navbar .alternate-nav > li.current > a:after{
+	content:"";
+	display:block;
+	width:0.7em; /* Let's call this our magic number... */
+	height:0.7em; /* ...our notch will be half this size. We define it in ems to scale it up with the text size. */
+	position:absolute;
+	bottom:0;
+	left:50%;
+	/*margin-left:-1.7em; *//* Half of our magic number. */
+	text-align:center;
 }
 
 
+.navbar .primary-nav > li.current a:after{
+	width:0;
+	height:0;
+	border:0.35em solid $ss_darkGray; /* Half of our magic number and same colours as our nav's background. */
+	border-bottom-color:$ss_nearWhite;
+}
 
+.navbar .user-nav,
+.navbar .alternate-nav{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.navbar .primary-nav{
+	padding-left:10px;
+	padding-right:20px;
+}
+
+.navbar .alternate-nav > li.current a:after{
+	width:0;
+	height:0;
+	border:0.35em solid $ss_nearBlack; /* Half of our magic number and same colours as our nav's background. */
+	border-bottom-color:$ss_lightGray;
+}
 
 
 /* body */
 
-.parent-page {
-	background:#fff;
-	@include drop-shadow(#000);
+.body{
+	background: $ss_lightGray;
+	width:100%;
 }
 
-.page-content-container{
-	padding:20px;
+.body-left{
+	background: $ss_nearWhite;
+	margin-right:250px;
 }
 
+.body-right{
+	background: $ss_lightGray;
+	width:230px;
+	padding:10px;
+	
+}
+
+.body-right .action-buttons-container{
+	margin-bottom: 20px;
+}
 
 .content-column-divider {
 /* 	background: none repeat scroll 0 0 $ss_khakiGray; */
@@ -399,19 +412,16 @@ header{
 
 
 .process-steps-container{
-	background: $v2_mediumGray;
-	border-top: 1px solid $v2_darkGray;
-	border-bottom: 1px solid $v2_darkGray;
+	
 }
 
 .process-steps-container .process-steps{
 	list-style: none outside none;
 	font-family: 'Droid Sans', sans-serif;
-	color: $v2_lightGray;
+	color: $ss_mediumGray;
 	font-size: 12px;
 	font-weight: normal;
-	padding: 0px 15px;
-	margin:0;
+	padding: 10px 15px;
 }
 
 .process-steps-container .process-steps dt{
@@ -430,23 +440,22 @@ header{
 	vertical-align:abs_middle;
 	margin-left:0px;
 	padding:2px 30px 2px 0px;
+	/* background: $white;
+	border-top:1px solid $ss_khakiGray;
+	border-bottom:1px solid $ss_khakiGray; */
 }
 
 .process-steps-container .process-steps .current{
 	font-family: 'Droid Sans', sans-serif;
 	font-weight: normal;
-	color: $v2_nearWhite;
-	text-shadow: 0 1px 0 $v2_nearBlack;
-	
+	color: $ss_nearBlack;
 }
 
 .process-steps-container .process-steps dt.current{
 	font-family: 'Droid Sans', sans-serif;
 	font-weight: normal;
-	color: $v2_nearWhite;
+	color: $ss_nearBlack;
 	background: url("current_step_circle.png");
-	text-shadow: 0 1px 0 $v2_nearBlack;
-	
 }
 
 
@@ -576,6 +585,22 @@ label.required{
 }
 
 /* nav */
+.navbar-inner{
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.nav .nav-header {
+  color: #999999;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 3px 15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
 
 
 .cancel-link{
@@ -587,19 +612,14 @@ label.required{
 
 /* page body */
 
-.page-title-container{
-	background:#d8d8d8;
-	height: 80px;
-	border-bottom:1px solid $v2_lightGray;
-}
-
 .page-title{
-	color:$v2_nearBlack;
+	margin:0 20px 20px;
+	color:$ss_nearBlack;
+	border-bottom:1px solid $ss_khakiGray;
 	font-size:20px;
-	text-align:left;
-	vertical-align: bottom;
-	padding:24px 20px 0;
-	text-shadow: 0px 1px 0px $v2_mediumLightGray;
+	text-align:right;
+	padding:20px 0 5px 0;
+	text-shadow: 1px 1px 0px $ss_khakiGray;
 }
 
 .page-title .label{
@@ -608,59 +628,28 @@ label.required{
 }
 
 .page-title-container .return-nav{
-	color:$v2_mediumGray;
+	margin:0 20px 20px;
+	color:$ss_mediumGray;
 	font-size:11px;
 	text-align:left;
+	padding:20px 0 5px 0;
 	font-family: 'Droid Sans', sans-serif;
-	display:inline;
-	padding: 3px 5px 4px 0;
-}
-
-
-.page-title-container .return-nav { 
-  position: relative; 
-  background: $v2_lightGray; 
-  border: 1px solid $v2_mediumLightGray; 
-  top:8px;
-}
-
-.page-title-container .return-nav:after, .page-title-container .return-nav:before { 
-  right: 100%; 
-  border: 1px solid transparent; 
-  content: " "; 
-  height: 0; 
-  width: 0; 
-  position: 
-  absolute; 
-  pointer-events: none; 
-}
-
-.page-title-container .return-nav:after { 
-  border-color: rgba(95, 95, 95, 0); 
-  border-right-color: $v2_lightGray; 
-  border-width: 11px; 
-  top: 50%; 
-  margin-top: -12px; 
-}
-
-.page-title-container .return-nav:before { 
-  border-color: rgba(153, 153, 153, 0); 
-  border-right-color: $v2_mediumLightGray; 
-  border-width: 10px; 
-  top: 50%; 
-  margin-top: -12px; 
 }
 
 .page-title-container .return-nav a{
-	color:$v2_mediumGray;
+	color:$ss_mediumGray;
 	text-decoration:none;
 	cursor:pointer;
 }
 
 
 .page-title-container .return-nav i{
-	color:$v2_mediumGray;
+	color:$ss_mediumGray;
+	background: $ss_nearWhite;
+	font-size: 23px;
+	margin-top: 6px;
 	padding: 0 8px 0 0;
+	vertical-align: middle;
 }
 
 
@@ -788,6 +777,30 @@ label.required{
 	position: relative;
 }
 
+
+.parent-page {
+	border: 1px solid $ss_lightGray;
+	padding: 10px;
+	background:#fff;
+	margin:20px;
+}
+
+.parent-page h3 {
+	padding-bottom: 10px;
+}
+
+.child-page {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid $ss_lightGray;
+	margin-bottom: -30px;
+	margin-right: -20px;
+	padding: 10px;
+	position: relative;
+}
+
+.child-page h3 {
+	padding: 0px;
+}
 
 .page-label {
 	padding: 5px;
