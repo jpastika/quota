@@ -4,243 +4,246 @@
 <% content_for :css do %>
 <% end %>
 
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			<span class="btn btn-primary add_contact"><i class="icon-plus"></i>&nbsp;&nbsp;Add a new contact</span>
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="page-title">
+			<div class="page-title page-title-no-back">
 				Contacts
 			</div>
 		</div>
-		<div class="parent-page">
-			<div id="main_body_container" class="row-fluid">
-				<div id="contacts" class="section-content span5">
-					<label class="string control-label" for="contact_search">Search by name</label>
-					<div class="search-bar">
-						<div class="input-prepend">
-							<span class="add-on"><i class="icon-search"></i></span>
-							<input type="text" class="string" name="contact_search" value="">
-						</div>
-						<div class="found" style="display:none;">
-							<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
-						</div>
+		<div class="page-content-container">
+			<div id="contacts" class="section-content span5">
+				<label class="string control-label" for="contact_search">Search by name</label>
+				<div class="search-bar">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-search"></i></span>
+						<input type="text" class="string" name="contact_search" value="">
 					</div>
-					<div class="contacts_search_results" style="display:none;">
-						
-					</div>
-					<div class="contacts_list">
-						<div class="section-heading" style="display:none">
-							A
-						</div>
-						<div id="a_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							B
-						</div>
-						<div id="b_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							C
-						</div>
-						<div id="c_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							D
-						</div>
-						<div id="d_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							E
-						</div>
-						<div id="e_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							F
-						</div>
-						<div id="f_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							G
-						</div>
-						<div id="g_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							H
-						</div>
-						<div id="h_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							I
-						</div>
-						<div id="i_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							J
-						</div>
-						<div id="j_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							K
-						</div>
-						<div id="k_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							L
-						</div>
-						<div id="l_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							M
-						</div>
-						<div id="m_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							N
-						</div>
-						<div id="n_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							O
-						</div>
-						<div id="o_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							P
-						</div>
-						<div id="p_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							Q
-						</div>
-						<div id="q_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							R
-						</div>
-						<div id="r_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							S
-						</div>
-						<div id="s_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							T
-						</div>
-						<div id="t_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							U
-						</div>
-						<div id="u_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							V
-						</div>
-						<div id="v_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							W
-						</div>
-						<div id="w_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							X
-						</div>
-						<div id="x_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							Y
-						</div>
-						<div id="y_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							Z
-						</div>
-						<div id="z_list">
-							<ul>
-							</ul>
-						</div>
-						<div class="section-heading" style="display:none">
-							#
-						</div>
-						<div id="1_list">
-							<ul>
-							</ul>
-						</div>
+					<div class="found" style="display:none;">
+						<span class="found_count"></span>&nbsp;Found&nbsp;<i class="icon-remove"></i>&nbsp;
 					</div>
 				</div>
-				<div class="span1">
+				<div class="contacts_search_results" style="display:none;">
 					
 				</div>
-				<div id="contact" class="section-content span6">
+				<div class="contacts_list">
+					<div class="section-heading" style="display:none">
+						A
+					</div>
+					<div id="a_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						B
+					</div>
+					<div id="b_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						C
+					</div>
+					<div id="c_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						D
+					</div>
+					<div id="d_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						E
+					</div>
+					<div id="e_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						F
+					</div>
+					<div id="f_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						G
+					</div>
+					<div id="g_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						H
+					</div>
+					<div id="h_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						I
+					</div>
+					<div id="i_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						J
+					</div>
+					<div id="j_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						K
+					</div>
+					<div id="k_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						L
+					</div>
+					<div id="l_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						M
+					</div>
+					<div id="m_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						N
+					</div>
+					<div id="n_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						O
+					</div>
+					<div id="o_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						P
+					</div>
+					<div id="p_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						Q
+					</div>
+					<div id="q_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						R
+					</div>
+					<div id="r_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						S
+					</div>
+					<div id="s_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						T
+					</div>
+					<div id="t_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						U
+					</div>
+					<div id="u_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						V
+					</div>
+					<div id="v_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						W
+					</div>
+					<div id="w_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						X
+					</div>
+					<div id="x_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						Y
+					</div>
+					<div id="y_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						Z
+					</div>
+					<div id="z_list">
+						<ul>
+						</ul>
+					</div>
+					<div class="section-heading" style="display:none">
+						#
+					</div>
+					<div id="1_list">
+						<ul>
+						</ul>
+					</div>
 				</div>
+			</div>
+			<div class="span1">
+				
+			</div>
+			<div id="contact" class="section-content span6">
 			</div>
 		</div>
 	</div>
 </div>
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<span class="btn btn-primary add_contact"><i class="icon-plus"></i>&nbsp;&nbsp;Add a new contact</span>
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -260,3 +263,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

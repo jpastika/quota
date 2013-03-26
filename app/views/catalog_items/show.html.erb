@@ -2,145 +2,134 @@
 <% @nav_caret = "catalog" %>
 <% content_for :css do %>
 <% end %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change item details"), edit_catalog_item_path(@catalog_item.pub_key), :class => 'btn btn-primary' %>
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-		</div>
-		<div id="sidebar_body_container" class="">
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog"), catalog_path %>
+			<div class="return-nav">
+				<%= link_to raw("return to catalog"), catalog_path %>
 			</div>
 			<div class="page-title">
 				<%= @catalog_item.name %>
 			</div>
 		</div>
-		<div class="parent-page">
-			<div id="main_body_container" class="">
-				<div>
+		<div class="page-content-container">
+			<div>
+				<div class="section-heading">
+					<h4>Item Details</h4>
+				</div>
+				<div class="row-fluid">
+					<div class="span3">
+						<div class="show-field">
+							<span class="show-label">Part Number</span>
+							<br>
+							<span class="show-value"><%= @catalog_item.part_number %></span>
+						</div>
+					</div>
+					<div class="span1"></div>
+					<div class="span3">
+						<div class="show-field">
+							<span class="show-label">Manufacturer</span>
+							<br>
+							<span class="show-value"><%= @catalog_item.manufacturer %></span>
+						</div>
+					</div>
+					<div class="span1"></div>
+					<div class="span2">
+						<div class="show-field">
+							<span class="show-label">List Price</span>
+							<br>
+							<span class="show-value"><%= @catalog_item.list_price %></span>
+						</div>
+					</div>
+					<div class="span1"></div>
+					<div class="span2">
+						<div class="show-field">
+							<% if @catalog_item.is_taxable? %>
+								<i class="icon-check"><span class="show-label"></i>&nbsp;Taxable</span>
+							<% else %>
+								<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Taxable</span>
+							<% end %>
+						</div>
+						<div class="show-field">
+							<% if @catalog_item.is_package? %>
+								<i class="icon-check"><span class="show-label"></i>&nbsp;Package</span>
+							<% else %>
+								<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Package</span>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="show-field">
+							<span class="show-label">Description</span>
+							<br>
+							<span class="show-value"><%= @catalog_item.description %></span>
+						</div>
+					</div>
+				<br>
+				<% if @catalog_item.is_package? %>
+				<div id="child_items_container">
 					<div class="section-heading">
-						<h4>Item Details</h4>
+						<h4>Package Contents</h4>
 					</div>
-					<div class="row-fluid">
-						<div class="span3">
-							<div class="show-field">
-								<span class="show-label">Part Number</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.part_number %></span>
-							</div>
+					<div class="section-content">
+						<div class="section-table">
+							<table class="table table-condensed table-plain">
+								<thead>
+									<tr>
+										<th width="3%">&nbsp;</th>
+										<th width="40%">Name</th>
+										<th width="25%">Manufacturer</th>
+										<th width="19%">Part #</th>
+										<th width="10%">List Price</th>
+										<th width="3%">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
 						</div>
-						<div class="span1"></div>
-						<div class="span3">
-							<div class="show-field">
-								<span class="show-label">Manufacturer</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.manufacturer %></span>
-							</div>
+						<div class="section-form" style="display:none;">
 						</div>
-						<div class="span1"></div>
-						<div class="span2">
-							<div class="show-field">
-								<span class="show-label">List Price</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.list_price %></span>
-							</div>
-						</div>
-						<div class="span1"></div>
-						<div class="span2">
-							<div class="show-field">
-								<% if @catalog_item.is_taxable? %>
-									<i class="icon-check"><span class="show-label"></i>&nbsp;Taxable</span>
-								<% else %>
-									<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Taxable</span>
-								<% end %>
-							</div>
-							<div class="show-field">
-								<% if @catalog_item.is_package? %>
-									<i class="icon-check"><span class="show-label"></i>&nbsp;Package</span>
-								<% else %>
-									<i class="icon-check-empty"><span class="show-label"></i>&nbsp;Package</span>
-								<% end %>
-							</div>
+						<div id="catalog-item-child-items-actions" class="section-actions actions-bar-left">
+							<button type="submit" class="btn btn-primary form-submit">
+								<i class="icon-plus"></i>&nbsp;&nbsp;Add an Item
+							</button>
+							<a class="btn btn-danger form-cancel" href="#" style="display:none;">
+								<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding items
+							</a>
 						</div>
 					</div>
-					<div class="row-fluid">
-						<div class="span12">
-							<div class="show-field">
-								<span class="show-label">Description</span>
-								<br>
-								<span class="show-value"><%= @catalog_item.description %></span>
-							</div>
-						</div>
-					<br>
-					<% if @catalog_item.is_package? %>
-					<div id="child_items_container">
-						<div class="section-heading">
-							<h4>Package Contents</h4>
-						</div>
-						<div class="section-content">
-							<div class="section-table">
-								<table class="table table-condensed table-plain">
-									<thead>
-										<tr>
-											<th width="3%">&nbsp;</th>
-											<th width="40%">Name</th>
-											<th width="25%">Manufacturer</th>
-											<th width="19%">Part #</th>
-											<th width="10%">List Price</th>
-											<th width="3%">&nbsp;</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-							<div class="section-form" style="display:none;">
-							</div>
-							<div id="catalog-item-child-items-actions" class="section-actions actions-bar-left">
-								<button type="submit" class="btn btn-primary form-submit">
-									<i class="icon-plus"></i>&nbsp;&nbsp;Add an Item
-								</button>
-								<a class="btn btn-danger form-cancel" href="#" style="display:none;">
-									<i class="icon-remove"></i>&nbsp;&nbsp;-&nbsp;&nbsp;I'm done adding items
-								</a>
-							</div>
-						</div>
+				</div>
+				<% end %>
+				<div id="opportunities_container">
+					<div class="section-heading">
+						<h4>Opportunities</h4>
 					</div>
-					<% end %>
-					<div id="opportunities_container">
-						<div class="section-heading">
-							<h4>Opportunities</h4>
-						</div>
-						<div class="section-content">
-							<div class="section-table">
-								<table class="table table-condensed table-plain">
-									<thead>
-										<tr>
-											<th width="30%">Name</th>
-											<th width="25%">Company</th>
-											<th width="25%">Milestone</th>
-											<th width="10%">Value</th>
-											<th width="10%">Close Date</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
+					<div class="section-content">
+						<div class="section-table">
+							<table class="table table-condensed table-plain">
+								<thead>
+									<tr>
+										<th width="30%">Name</th>
+										<th width="25%">Company</th>
+										<th width="25%">Milestone</th>
+										<th width="10%">Value</th>
+										<th width="10%">Close Date</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -148,6 +137,21 @@
 		</div>
 	</div>
 </div>
+
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change item details"), edit_catalog_item_path(@catalog_item.pub_key), :class => 'btn btn-primary' %>
+</div>
+<div id="sidebar_app_fields_container"class="">
+</div>
+<div id="sidebar_body_container" class="">
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -207,3 +211,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

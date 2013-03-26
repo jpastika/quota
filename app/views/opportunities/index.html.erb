@@ -5,50 +5,52 @@
 <% end %>
 
 
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new opportunity"), new_opportunity_path, :class => 'btn btn-primary' %>
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="page-title">
+			<div class="page-title page-title-no-back">
 				Opportunities
 			</div>
 		</div>
-		<div class="parent-page">
-			<div id="main_body">
-				<div id="opportunities_container">
-					<div class="section-table">
-						<table class="table table-condensed table-plain">
-							<thead class="opportunitites-heading">
-								<tr>
-									<th width="8%">Milestone</th>
-									<th width="8%">Added</th>
-									<th width="40%">Opportunity/Company</th>
-									<th width="40%">Activity/Owner</th>
-									<th width="4%">&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody class="opportunities-rows">
-							</tbody>
-						</table>
-					</div>
+		<div class="page-content-container">
+			<div id="opportunities_container">
+				<div class="section-table">
+					<table class="table table-condensed table-plain">
+						<thead class="opportunitites-heading">
+							<tr>
+								<th width="8%">Milestone</th>
+								<th width="8%">Added</th>
+								<th width="40%">Opportunity/Company</th>
+								<th width="40%">Activity/Owner</th>
+								<th width="4%">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody class="opportunities-rows">
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new opportunity"), new_opportunity_path, :class => 'btn btn-primary' %>
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -58,3 +60,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

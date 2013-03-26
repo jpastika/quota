@@ -1,54 +1,58 @@
 <% provide(:title, "Update Catalog Item") %>
 <% @nav_caret = "catalog" %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to catalog item"), catalog_item_path(@catalog_item.pub_key) %>
+			<div class="return-nav">
+				<%= link_to raw("return to catalog item"), catalog_item_path(@catalog_item.pub_key) %>
 			</div>
 			<div class="page-title">
 				<span class="label label-info">Editing</span> <%= @catalog_item.name %>
 			</div>
 		</div>
-		<div class="parent-page">
-			<div class="">
-				<%= simple_form_for(@catalog_item, :url => catalog_item_path(@catalog_item.pub_key)) do |f| %>
-					<div class="row-fluid">
-						<% if f.error_notification %>
-						    <div class="alert alert-error fade in">
-						      <a class="close" data-dismiss="alert" href="#">&times;</a>
-						      <%= f.error_notification %>
-						    </div>
-						<% end %>
-					</div>
-					<div id="catalog_item">
-						<%= render 'fields', f: f %>
-					</div>
-					<div class="actions-bar">
-						<button type="submit" class="btn btn-primary">
-						  <i class="icon-save"></i>&nbsp;&nbsp;Save Changes to Catalog Item Details
-						</button>
-					</div>
-				<% end %>
-			</div>
+		<div class="page-content-container">
+			<%= simple_form_for(@catalog_item, :url => catalog_item_path(@catalog_item.pub_key)) do |f| %>
+				<div class="row-fluid">
+					<% if f.error_notification %>
+					    <div class="alert alert-error fade in">
+					      <a class="close" data-dismiss="alert" href="#">&times;</a>
+					      <%= f.error_notification %>
+					    </div>
+					<% end %>
+				</div>
+				<div id="catalog_item">
+					<%= render 'fields', f: f %>
+				</div>
+				<div class="actions-bar">
+					<button type="submit" class="btn btn-primary">
+					  <i class="icon-save"></i>&nbsp;&nbsp;Save Changes to Catalog Item Details
+					</button>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>
+
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	
+</div>
+<div id="sidebar_app_fields_container"class="">
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -72,3 +76,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

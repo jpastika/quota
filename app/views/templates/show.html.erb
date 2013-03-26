@@ -3,115 +3,104 @@
 
 <% content_for :css do %>
 <% end %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change template details"), edit_template_path(@template.pub_key), :class => 'btn btn-primary' %>
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-		</div>
-		<div id="sidebar_body_container" class="">
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to templates"), templates_path %>
+			<div class="return-nav">
+				<%= link_to raw("return to templates"), templates_path %>
 			</div>
 			<div class="page-title">
 				<%= @template.name %>
 			</div>
 		</div>
-		<div class="parent-page">
-			<div id="main_body_container" class="">
-				<div>
-					<div id="items_container">
-						<div class="section-heading">
-							<h3>Items</h3>
+		<div id="main_body_container" class="page-content-container">
+			<div>
+				<div id="items_container">
+					<div class="section-heading">
+						<h4>Items</h4>
+					</div>
+					<div class="section-content">
+						<div class="template-items-heading">
+							<input type="text" class="template_items_shim template_item_shim">
+							<table class="table table-condensed table-plain" cellspacing="0" cellpadding="0" width="100%">
+								<thead>
+									<tr>
+										<th width="3%">&nbsp;</th>
+										<th width="3%">&nbsp;</th>
+										<th width="29%">Item</th>
+										<th width="12%">Part #</th>
+										<th width="5%">Qty</th>
+										<th width="12%" class="align-right">Unit Price</th>
+										<th width="8%">&nbsp;</th>
+										<th width="12%" class="align-right">Total</th>
+										<th width="8%">&nbsp;</th>
+										<th width="8%">&nbsp;</th>
+									</tr>
+								</thead>
+							</table>
 						</div>
-						<div class="section-content">
-							<div class="template-items-heading">
-								<input type="text" class="template_items_shim template_item_shim">
-								<table class="table table-condensed table-plain" cellspacing="0" cellpadding="0" width="100%">
-									<thead>
-										<tr>
-											<th width="3%">&nbsp;</th>
-											<th width="3%">&nbsp;</th>
-											<th width="29%">Item</th>
-											<th width="12%">Part #</th>
-											<th width="5%">Qty</th>
-											<th width="12%" class="align-right">Unit Price</th>
-											<th width="8%">&nbsp;</th>
-											<th width="12%" class="align-right">Total</th>
-											<th width="8%">&nbsp;</th>
-											<th width="8%">&nbsp;</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
-							<div class="template-items-rows">
-								<ul>
-								</ul>
-							</div>
-							<div class="template-items-new">
-								<ul>
-								</ul>
-							</div>
-							<div class="template-items-totals">
-								<table class="" cellspacing="0" cellpadding="0" width="100%">
-									<tbody>
-										<tr class="">
-											<td rowspan="8" width="64%">&nbsp;</td>
-											<td width="8%">&nbsp;</td>
-											<td width="12%"></td>
-											<td width="16%">&nbsp;</td>
-										</tr>
-										<tr class="template_total_purchase" style="display: none;">
-											<td width="8%" class="template_total_purchase_plus">&nbsp;</td>
-											<td width="12%" class="template_total_purchase_holder align-right"></td>
-											<td width="16%">&nbsp;</td>
-										</tr>
-										<tr class="template_total_hourly" style="display: none;">
-											<td width="8%" class="template_total_hourly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_hourly_holder align-right"></td>
-											<td width="16%">per hour</td>
-										</tr>
-										<tr class="template_total_daily" style="display: none;">
-											<td width="8%" class="template_total_daily_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_daily_holder align-right"></td>
-											<td width="16%">per day</td>
-										</tr>
-										<tr class="template_total_weekly" style="display: none;">
-											<td width="8%" class="template_total_weekly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_weekly_holder align-right"></td>
-											<td width="16%">per week</td>
-										</tr>
-										<tr class="template_total_monthly" style="display: none;">
-											<td width="8%" class="template_total_monthly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_monthly_holder align-right"></td>
-											<td width="16%">per month</td>
-										</tr>
-										<tr class="template_total_quarterly" style="display: none;">
-											<td width="8%" class="template_total_quarterly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_quarterly_holder align-right"></td>
-											<td width="16%">per quarter</td>
-										</tr>
-										<tr class="template_total_yearly" style="display: none;">
-											<td width="8%" class="template_total_yearly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
-											<td width="12%" class="template_total_yearly_holder align-right"></td>
-											<td width="16%">per year</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<div class="template-items-rows">
+							<ul>
+							</ul>
+						</div>
+						<div class="template-items-new">
+							<ul>
+							</ul>
+						</div>
+						<div class="template-items-totals">
+							<table class="" cellspacing="0" cellpadding="0" width="100%">
+								<tbody>
+									<tr class="">
+										<td rowspan="8" width="64%">&nbsp;</td>
+										<td width="8%">&nbsp;</td>
+										<td width="12%"></td>
+										<td width="16%">&nbsp;</td>
+									</tr>
+									<tr class="template_total_purchase" style="display: none;">
+										<td width="8%" class="template_total_purchase_plus">&nbsp;</td>
+										<td width="12%" class="template_total_purchase_holder align-right"></td>
+										<td width="16%">&nbsp;</td>
+									</tr>
+									<tr class="template_total_hourly" style="display: none;">
+										<td width="8%" class="template_total_hourly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_hourly_holder align-right"></td>
+										<td width="16%">per hour</td>
+									</tr>
+									<tr class="template_total_daily" style="display: none;">
+										<td width="8%" class="template_total_daily_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_daily_holder align-right"></td>
+										<td width="16%">per day</td>
+									</tr>
+									<tr class="template_total_weekly" style="display: none;">
+										<td width="8%" class="template_total_weekly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_weekly_holder align-right"></td>
+										<td width="16%">per week</td>
+									</tr>
+									<tr class="template_total_monthly" style="display: none;">
+										<td width="8%" class="template_total_monthly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_monthly_holder align-right"></td>
+										<td width="16%">per month</td>
+									</tr>
+									<tr class="template_total_quarterly" style="display: none;">
+										<td width="8%" class="template_total_quarterly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_quarterly_holder align-right"></td>
+										<td width="16%">per quarter</td>
+									</tr>
+									<tr class="template_total_yearly" style="display: none;">
+										<td width="8%" class="template_total_yearly_plus align-right"><i class="icon-plus" style="display: none;" /></td>
+										<td width="12%" class="template_total_yearly_holder align-right"></td>
+										<td width="16%">per year</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -119,6 +108,21 @@
 		</div>
 	</div>
 </div>
+
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change template details"), edit_template_path(@template.pub_key), :class => 'btn btn-primary' %>
+</div>
+<div id="sidebar_app_fields_container"class="">
+</div>
+<div id="sidebar_body_container" class="">
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -149,3 +153,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

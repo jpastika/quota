@@ -8,14 +8,24 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-		<%= render 'layouts/public-header' %>
-		<%= yield %>
-		<%= render 'layouts/footer' %>
-		
+		<div class="body">
+			<div class="right-col pull-right">
+				<%= render 'layouts/public-header_right' %>
+				<%= yield(:right) %>
+			</div>
+			<div class="left-col">
+				<%= render 'layouts/public-header_left' %>
+				<%= yield %>
+			</div>
+		</div>
+		<div>
+			<%= render 'layouts/footer' %>
+		</div>
 		<script language="javascript">
 			$(window).unload(function(){
 			    $(document.activeElement).blur();
 			});
 		</script>
+		<%= yield(:page_script) %>
 	</body>
 </html>

@@ -3,33 +3,35 @@
 <div class="span4"></div>
 <div class="span4">
 	<div class="parent-page">
-			<div id="main_body">
-				<div class="">
-					<% flash.each do |key, value| %>
-						<div class="alert alert-<%= key %> fade in">
-					      <a class="close" data-dismiss="alert" href="#">&times;</a>
-					      <%= value %>
-					    </div>
-					<% end %>
-				</div>
-				<div class="section-heading">
-					<h3>Sign In</h3>
-				</div>
-				<%= form_for(:session, url: sessions_path) do |f| %>
-
-					<%= f.label :email %>
-					<%= f.text_field :email, :class => "input-xlarge" %>
-
-					<%= f.label :password %>
-					<%= f.password_field :password, :class => "input-xlarge" %>
-<div class="actions-bar-left">
-					<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-</div>
-				<% end %>
-<% if 1== 2 %>
-			 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
-		<% end %>
+		<div class="page-title-container">
+			<div class="page-title page-title-no-back">
+				Sign In
 			</div>
+		</div>
+		<div class="page-content-container">
+			<div class="">
+				<% flash.each do |key, value| %>
+					<div class="alert alert-<%= key %> fade in">
+				      <a class="close" data-dismiss="alert" href="#">&times;</a>
+				      <%= value %>
+				    </div>
+				<% end %>
+			</div>
+			<%= form_for(:session, url: sessions_path) do |f| %>
+
+				<%= f.label :email %>
+				<%= f.text_field :email, :class => "input-xlarge" %>
+
+				<%= f.label :password %>
+				<%= f.password_field :password, :class => "input-xlarge" %>
+<div class="actions-bar-left">
+				<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+</div>
+			<% end %>
+<% if 1== 2 %>
+		 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+	<% end %>
+		</div>
 		
 </div>
 <div class="span4"></div>

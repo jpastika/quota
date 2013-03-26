@@ -1,26 +1,19 @@
 <% provide(:title, "Add Opportunity") %>
 <% provide(:css, raw("")) %>
 <% @nav_caret = "opportunities" %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-		</div>
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
 	</div>
-	<div class="body-left">
-		<div class="">
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> fade in">
-			      <a class="close" data-dismiss="alert" href="#">&times;</a>
-			      <%= value %>
-			    </div>
-			<% end %>
-		</div>
+	<div class="parent-page">
 		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunities"), opportunities_path %>
+			<div class="return-nav">
+				<%= link_to raw("return to opportunities"), opportunities_path %>
 			</div>
 			<div class="page-title">
 				Create a New Opportunity
@@ -34,29 +27,40 @@
 				<dd>Add opportunity components</dd>
 			</dl>
 		</div>
-		<div class="parent-page">
-			<div class="">
-				<%= simple_form_for(@opportunity) do |f| %>
-					<div class="row-fluid">
-						<% if f.error_notification %>
-						    <div class="alert alert-error fade in">
-						      <a class="close" data-dismiss="alert" href="#">&times;</a>
-						      <%= f.error_notification %>
-						    </div>
-						<% end %>
-					</div>
-					<div id="opportunity">
-					</div>
-					<div class="actions-bar">
-						<button type="submit" class="btn btn-primary">
-						  <i class="icon-save"></i>&nbsp;&nbsp;Create this Opportunity
-						</button>
-					</div>
-				<% end %>
-			</div>
+		<div class="page-content-container">
+			<%= simple_form_for(@opportunity) do |f| %>
+				<div class="row-fluid">
+					<% if f.error_notification %>
+					    <div class="alert alert-error fade in">
+					      <a class="close" data-dismiss="alert" href="#">&times;</a>
+					      <%= f.error_notification %>
+					    </div>
+					<% end %>
+				</div>
+				<div id="opportunity">
+				</div>
+				<div class="actions-bar">
+					<button type="submit" class="btn btn-primary">
+					  <i class="icon-save"></i>&nbsp;&nbsp;Create this Opportunity
+					</button>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>
+
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	
+</div>
+<div id="sidebar_app_fields_container"class="">
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
 
 <script language="javascript">
 	$(function(){
@@ -81,3 +85,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>
