@@ -1,16 +1,44 @@
 <% provide(:title, "Add Sales Rep")%>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<h1>Add Sales Rep</h1>
-	
-	<%= simple_form_for(@rep) do |f| %>
-		<%= render 'fields', f: f %>
-		<%= f.button :submit, "Add rep", class: "btn btn-large btn-primary" %>
-	<% end %>
-		
+<% @nav_caret = "administration" %>
+
+<% content_for :css do %>
+<% end %>
+
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
+	</div>
+	<div class="parent-page">
+		<div class="page-title-container">
+			<div class="return-nav">
+				<%= link_to raw("return to sales reps"), sales_reps_path %>
+			</div>
+			<div class="page-title">
+				Add Sales Rep
+			</div>
+		</div>
+		<div class="page-content-container">
+			<%= simple_form_for(@rep) do |f| %>
+				<%= render 'fields', f: f %>
+				<div class="actions-bar">
+					<button type="submit" class="btn btn-primary">
+					  <i class="icon-save"></i>&nbsp;&nbsp;Add Rep
+					</button>
+				</div>
+			<% end %>
+		</div>
+	</div>
 </div>
+
+
+<%= content_for :right do %>
+<% end %>
+
+
+<% content_for :page_script do %>
+<% end %>

@@ -1,36 +1,63 @@
 <% provide(:title, 'Sign up') %>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<h1>Sign up</h1>
-
-	
-	<%= simple_form_for(@account) do |f| %>
-		<% if f.error_notification %>
-		    <div class="alert alert-error fade in">
-		      <a class="close" data-dismiss="alert" href="#">&times;</a>
-		      <%= f.error_notification %>
-		    </div>
-		<% end %>
-		<%= f.simple_fields_for :users do |user| %>
-
-				<%= user.input :name, :label => "Your name" %>
-				<%= user.input :email, :label => "Email address" %>
-				<%= user.input :password, :label => "Password" %>
-	
-		<% end %>
-
-		<%= f.input :name, :label => "Company" %>
-		<%= f.input :subdomain, :label => "Site address" %>
-
-		<div class="form-actions">
-		    <%= f.button :submit, "Create account", class: "btn btn-primary" %>
-			<%= link_to 'Cancel', root_path, :class => 'btn' %>
+<div class="row-fluid">
+<div class="span4"></div>
+<div class="span4">
+	<div class="parent-page">
+		<div class="page-title-container">
+			<div class="page-title page-title-no-back">
+				Sign Up
+			</div>
 		</div>
-	<% end %>
+		<div class="page-content-container">
+			<div class="">
+				<% flash.each do |key, value| %>
+					<div class="alert alert-<%= key %> fade in">
+				      <a class="close" data-dismiss="alert" href="#">&times;</a>
+				      <%= value %>
+				    </div>
+				<% end %>
+			</div>
+			<%= simple_form_for(@account) do |f| %>
+				<% if f.error_notification %>
+				    <div class="alert alert-error fade in">
+				      <a class="close" data-dismiss="alert" href="#">&times;</a>
+				      <%= f.error_notification %>
+				    </div>
+				<% end %>
+				<%= f.simple_fields_for :users do |user| %>
+
+						<%= user.input :name, :label => "Your name" %>
+						<%= user.input :email, :label => "Email address" %>
+						<%= user.input :password, :label => "Password" %>
+
+				<% end %>
+
+				<%= f.input :name, :label => "Company" %>
+				<%= f.input :subdomain, :label => "Site address" %>
+				<div class="actions-bar-left">
+								<%= f.submit "Create account", class: "btn btn-primary" %>
+				</div>
+			<% end %>
+		</div>
 		
 </div>
+<% if 1== 1 %>
+	<br>
+	<div class="show-field">
+		<span class="show-label">Already have an account? <%= link_to "Sign in", signin_path %></p>
+	</div>
+<% end %>
+<div class="span4"></div>
+</div>
+
+<%= content_for :right do %>
+
+<% end %>
+
+
+
+<% content_for :page_script do %>
+
+
+
+<% end %>

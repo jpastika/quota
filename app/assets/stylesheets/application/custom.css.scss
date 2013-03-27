@@ -257,7 +257,7 @@ header{
 }
 
 .table-plain tbody tr:hover td{
-	background:$v2_lightGray;
+	background:$v2_nearWhite;
 }
 
 
@@ -365,7 +365,7 @@ header{
 }
 
 .btn.btn-primary{
-	background: $v2_nearBlack;
+	background: $v2_mediumGray;
 	padding:5px 10px;
 	border-bottom:0px solid $v2_mediumGray;
 }

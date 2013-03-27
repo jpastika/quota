@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   
   def new
     @account = Account.new
-    User.build
+    # User.build
     
     render layout: "public"
   end

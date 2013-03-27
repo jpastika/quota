@@ -24,15 +24,17 @@
 
 				<%= f.label :password %>
 				<%= f.password_field :password, :class => "input-xlarge" %>
-<div class="actions-bar-left">
+				<div class="actions-bar-left">
 				<%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-</div>
+				</div>
 			<% end %>
-<% if 1== 2 %>
-		 	<p>New user? <%= link_to "Sign up now!", signup_path %></p>
-	<% end %>
 		</div>
-		
 </div>
+<% if 1== 1 %>
+	<br>
+	<div class="show-field">
+		<span class="show-label">Don't have an account? <%= link_to "Sign up now!", signup_path %></p>
+	</div>
+<% end %>
 <div class="span4"></div>
 </div>

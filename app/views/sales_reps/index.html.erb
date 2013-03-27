@@ -1,35 +1,64 @@
 <% provide(:title, 'Sales Reps') %>
-<div class="span10">
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %> fade in">
-	      <a class="close" data-dismiss="alert" href="#">&times;</a>
-	      <%= value %>
-	    </div>
-	<% end %>
-	<h1>Sales Reps</h1>
-	<table class="table table-striped">
-	  <thead>
-	    <tr>
-	      <th>Name</th>
-	      <th>Email</th>
-		  <th>Actions</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @reps.each do |rep| %>
-	      <tr>
-	        <td><%= link_to rep.name, sales_rep_path(rep.pub_key) %></td>
-	        <td><%= link_to rep.email, sales_rep_path(rep.pub_key) %></td>
-			<td>
-	          <%= link_to 'Edit', edit_sales_rep_path(rep.pub_key), :class => 'btn btn-mini' %>
-	          <%= link_to 'Delete', sales_rep_path(rep.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-	        </td>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-	
-	<div>
-		<%= link_to 'Add rep', new_sales_rep_path %>
+<% @nav_caret = "administration" %>
+
+<% content_for :css do %>
+<% end %>
+
+
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
+	</div>
+	<div class="parent-page">
+		<div class="page-title-container">
+			<div class="page-title page-title-no-back">
+				Sales Reps
+			</div>
+		</div>
+		<div class="page-content-container">
+			<div id="opportunities_container">
+				<div class="section-table">
+					<table class="table table-condensed table-plain">
+						<thead>
+						    <tr>
+						      <th>Name</th>
+						      <th>Email</th>
+							  <th>Actions</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <% @reps.each do |rep| %>
+						      <tr>
+						        <td><%= link_to rep.name, sales_rep_path(rep.pub_key) %></td>
+						        <td><%= link_to rep.email, sales_rep_path(rep.pub_key) %></td>
+								<td>
+						          <%= link_to 'Edit', edit_sales_rep_path(rep.pub_key), :class => 'btn btn-mini' %>
+						          <%= link_to 'Delete', sales_rep_path(rep.pub_key), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+						        </td>
+						      </tr>
+						    <% end %>
+						  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Add rep"), new_sales_rep_path, :class => 'btn btn-primary' %>
+</div>
+<% end %>
+
+
+
+<% content_for :page_script do %>
+
+
+<% end %>

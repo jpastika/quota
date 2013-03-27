@@ -3,32 +3,7 @@
 
 <% content_for :css do %>
 <% end %>
-<div class="body">
-	<div class="body-right pull-right">
-		<div class="action-buttons-container">
-			<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change document details"), edit_document_path(@document.pub_key), :class => 'btn btn-primary' %>
-		</div>
-		<div id="sidebar_app_fields_container"class="">
-			<div class="show-field">
-				<span class="show-label">Opportunity</span>
-				<br>
-				<span class="show-value"><%= @opportunity.name ? @opportunity.name : nil %></span>
-			</div>
-			<div class="show-field">
-				<span class="show-label">PO</span>
-				<br>
-				<span class="show-value"><%= @document.po ? @document.po : nil %></span>
-			</div>
-			<div class="show-field">
-				<span class="show-label">Owner</span>
-				<br>
-				<span class="show-value"><%= @opportunity.owner ? @opportunity.owner.name : nil %></span>
-			</div>
-		</div>
-		<div id="sidebar_body_container" class="">
-		</div>
-	</div>
-	<div class="body-left">
+<div>
 		<div class="">
 			<% flash.each do |key, value| %>
 				<div class="alert alert-<%= key %> fade in">
@@ -37,16 +12,16 @@
 			    </div>
 			<% end %>
 		</div>
-		<div class="page-title-container">
-			<div class="return-nav pull-left">
-				<%= link_to raw("<i class=""icon-circle-arrow-left""></i>return to opportunity"), opportunity_path(@document.opportunity_key) %>
-			</div>
-			<div class="page-title">
-				<%= @document.name %>
-			</div>
-		</div>
 		<div class="parent-page">
-			<div id="main_body_container" class="">
+			<div class="page-title-container">
+				<div class="return-nav">
+					<%= link_to raw("return to opportunity"), opportunity_path(@document.opportunity_key) %>
+				</div>
+				<div class="page-title">
+					<%= @document.name %>
+				</div>
+			</div>
+			<div class="page-content-container">
 				<div class="row-fluid">
 					<div class="span9">
 						<div class="row">
@@ -259,6 +234,34 @@
 	</div>
 </div>
 
+
+<%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-edit""></i>&nbsp;&nbsp;Change document details"), edit_document_path(@document.pub_key), :class => 'btn btn-primary' %>
+</div>
+<div id="sidebar_app_fields_container"class="">
+	<div class="show-field">
+		<span class="show-label">Opportunity</span>
+		<br>
+		<span class="show-value"><%= @opportunity.name ? @opportunity.name : nil %></span>
+	</div>
+	<div class="show-field">
+		<span class="show-label">PO</span>
+		<br>
+		<span class="show-value"><%= @document.po ? @document.po : nil %></span>
+	</div>
+	<div class="show-field">
+		<span class="show-label">Owner</span>
+		<br>
+		<span class="show-value"><%= @opportunity.owner ? @opportunity.owner.name : nil %></span>
+	</div>
+</div>
+<div id="sidebar_body_container" class="">
+</div>
+<% end %>
+
+
+<% content_for :page_script do %>
 <script language="javascript">
 	$(function(){
 		window.vent = _.extend({}, Backbone.Events);
@@ -288,3 +291,5 @@
 	
 	$('input, textarea').placeholder();
 </script>
+
+<% end %>

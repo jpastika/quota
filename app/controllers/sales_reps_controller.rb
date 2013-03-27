@@ -26,7 +26,7 @@ class SalesRepsController < ApplicationController
   end
   
   def new
-    @rep = SalesRep.build()
+    @rep = SalesRep.new
   end
   
   def create
