@@ -141,6 +141,7 @@ header{
 	padding: 15px 0 0;
 	color: $v2_lightGray;
 	font-size: 10px;
+	margin-bottom: 40px;
 }
 
 
@@ -228,7 +229,31 @@ header{
 
 
 .header .header-search{
-	margin: 10px 20px 0 0;
+	margin: -28px 0 0 0;
+	float: right;
+}
+
+.header .header-search i{
+	color: $v2_mediumLightGray;
+	text-shadow: none;
+	cursor: pointer;
+}
+
+
+.header .header-search input{
+	width:380px;
+	background: $v2_darkMediumGray;
+	border: 1px solid $v2_darkMediumGray;
+	color: $v2_lightGray;
+}
+
+.header .header-search:after{
+	clear:both;
+}
+
+.header .logo{
+	width: 200px;
+	
 }
 
 
