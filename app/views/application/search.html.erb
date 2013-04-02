@@ -20,118 +20,15 @@
 		<div class="page-content-container">
 			<div class="search_results">
 			</div>
-			<% if !@opportunities_by_name.empty? || !@opportunities_by_company.empty? %>
-				<h4>Opportunities</h4>
-				<% if !@opportunities_by_name.empty? %>
-					<h5>matching Name</h5>
-					<% @opportunities_by_name.each do |opportunity| %>
-						<%= opportunity.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@opportunities_by_company.empty? %>
-					<h5>matching Company</h5>
-					<% @opportunities_by_company.each do |opportunity| %>
-						<%= opportunity.name %><br>
-					<% end %>
-				<% end %>
-			<% end %>
-			<% if !@documents_by_name.empty? || !@documents_by_opportunity_name.empty? || !@documents_by_opportunity_company_name.empty? || !@documents_by_po.empty? || !@documents_by_part_name.empty? || !@documents_by_part_number.empty? %>
-				<h4>Documents</h4>
-				<% if !@documents_by_name.empty? %>
-					<h5>matching Name</h5>
-					<% @documents_by_name.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@documents_by_opportunity_name.empty? %>
-					<h5>matching Opportunity</h5>
-					<% @documents_by_opportunity_name.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@documents_by_opportunity_company_name.empty? %>
-					<h5>matching Company</h5>
-					<% @documents_by_opportunity_company_name.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@documents_by_po.empty? %>
-					<h5>matching PO</h5>
-					<% @documents_by_po.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@documents_by_part_name.empty? %>
-					<h5>matching Part</h5>
-					<% @documents_by_part_name.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@documents_by_part_number.empty? %>
-					<h5>matching Part Number</h5>
-					<% @documents_by_part_number.each do |document| %>
-						<%= document.name %><br>
-					<% end %>
-				<% end %>
-			<% end %>
-			<% if !@contacts_by_name.empty? || !@contacts_by_company.empty? %>
-				<h4>Contacts</h4>
-				<% if !@contacts_by_name.empty? %>
-					<h5>matching Name</h5>
-					<% @contacts_by_name.each do |contact| %>
-						<%= contact.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@contacts_by_company.empty? %>
-					<h5>matching Company</h5>
-					<% @contacts_by_company.each do |contact| %>
-						<%= contact.name %><br>
-					<% end %>
-				<% end %>
-			<% end %>
-			<% if !@catalog_items_by_name.empty? || !@catalog_items_by_part_number.empty? %>
-				<h4>Catalog Items</h4>
-				<% if !@catalog_items_by_name.empty? %>
-					<h5>matching Name</h5>
-					<% @catalog_items_by_name.each do |catalog_item| %>
-						<%= catalog_item.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@catalog_items_by_part_number.empty? %>
-					<h5>matching Part Number</h5>
-					<% @catalog_items_by_part_number.each do |catalog_item| %>
-						<%= catalog_item.name %><br>
-					<% end %>
-				<% end %>
-			<% end %>
-			<% if !@templates_by_name.empty? || !@templates_by_part_name.empty? || !@templates_by_part_number.empty? %>
-				<h4>Templates</h4>
-				<% if !@templates_by_name.empty? %>
-					<h5>matching Name</h5>
-					<% @templates_by_name.each do |template| %>
-						<%= template.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@templates_by_part_name.empty? %>
-					<h5>matching Part Name</h5>
-					<% @templates_by_part_name.each do |template| %>
-						<%= template.name %><br>
-					<% end %>
-				<% end %>
-				<% if !@templates_by_part_number.empty? %>
-					<h5>matching Part Number</h5>
-					<% @templates_by_part_number.each do |template| %>
-						<%= template.name %><br>
-					<% end %>
-				<% end %>
-			<% end %>
 		</div>
 	</div>
 </div>
 
 
 <%= content_for :right do %>
-
+<div class="search_categories">
+	
+</div>
 <% end %>
 
 

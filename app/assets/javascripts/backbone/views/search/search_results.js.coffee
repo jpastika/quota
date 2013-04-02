@@ -34,7 +34,10 @@ class Quota.Views.SearchResults extends Backbone.View
 		
 		@catalog_items_container_view = new Quota.Views.SearchResultsCatalogItemsContainer({catalog_items_by_name: @catalog_items_by_name, catalog_items_by_part_number: @catalog_items_by_part_number, tagName:'div', vent: @vent})
 		
-		# @vent.on('catalog_item_link:clicked', @catalogItemLinkClicked, @)
+		@search_categories_container_view = new Quota.Views.SearchResultsCategoriesContainer({documents_by_name: @documents_by_name, documents_by_opportunity_name: @documents_by_opportunity_name, documents_by_opportunity_company_name: @documents_by_opportunity_company_name, documents_by_po: @documents_by_po, documents_by_part_number: @documents_by_part_number, documents_by_part_name: @documents_by_part_name, opportunities_by_name: @opportunities_by_name, opportunities_by_company: @opportunities_by_company, templates_by_name: @templates_by_name, templates_by_part_name: @templates_by_part_name, templates_by_part_number: @templates_by_part_number, contacts_by_name: @contacts_by_name, contacts_by_company: @contacts_by_company, catalog_items_by_name: @catalog_items_by_name, catalog_items_by_part_number: @catalog_items_by_part_number, vent: @vent})
+		
+		@vent.on('category:show', @categoryShow, @)
+		@vent.on('category:hide', @categoryHide, @)
 		# 		@vent.on('search:clicked', @searchClicked, @)
 		
 	render: ->
@@ -52,4 +55,22 @@ class Quota.Views.SearchResults extends Backbone.View
 		if @catalog_items_by_name.length || @catalog_items_by_part_number.length
 			frag.appendChild(@catalog_items_container_view.render().el)
 		@$el.append(frag)
+		
+		@search_categories_container_view.render()
 		@
+		
+	categoryShow: (obj) ->
+		switch obj.category
+			when "opportunities" then @opportunities_container_view.$el.show()
+			when "documents" then @documents_container_view.$el.show()
+			when "templates" then @templates_container_view.$el.show()
+			when "contacts" then @contacts_container_view.$el.show()
+			when "catalog items" then @catalog_items_container_view.$el.show()
+
+	categoryHide: (obj) ->
+		switch obj.category
+			when "opportunities" then @opportunities_container_view.$el.hide()
+			when "documents" then @documents_container_view.$el.hide()
+			when "templates" then @templates_container_view.$el.hide()
+			when "contacts" then @contacts_container_view.$el.hide()
+			when "catalog items" then @catalog_items_container_view.$el.hide()

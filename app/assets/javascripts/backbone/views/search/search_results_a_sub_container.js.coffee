@@ -3,9 +3,8 @@ class Quota.Views.SearchResultsSubContainer extends Backbone.View
 	template: HandlebarsTemplates['search/search_results_subcontainer'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
 	events:
-		"click .icon-chevron-down" : "handleClickExpand"
-		"click .icon-chevron-up" : "handleClickCollapse"
-	
+		"click .search_results_subcontainer-chevron:first" : "handleClickChevron"
+		
 	initialize: (options)->
 		self = @
 		_.bindAll(@)
@@ -27,8 +26,10 @@ class Quota.Views.SearchResultsSubContainer extends Backbone.View
 		@items.append(frag)
 		@
 		
-	handleClickExpand: ->
-		@$('.icon-chevron-down').removeClass('icon-chevron-down').addClass('icon-chevron-up')
-	
-	handleClickCollapse: ->
-		@$('.icon-chevron-up').removeClass('icon-chevron-up').addClass('icon-chevron-down')
+	handleClickChevron: (evt)->
+		if $(evt.target).hasClass('icon-chevron-down')
+			$(evt.target).addClass('icon-chevron-up').removeClass('icon-chevron-down')
+			@$('.search_results_subcontainer_rows:first').show()
+		else
+			$(evt.target).addClass('icon-chevron-down').removeClass('icon-chevron-up')
+			@$('.search_results_subcontainer_rows:first').hide()
