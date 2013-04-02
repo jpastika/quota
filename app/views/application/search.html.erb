@@ -1,0 +1,275 @@
+<% provide(:title, "Search Results") %>
+<% content_for :css do %>
+<% end %>
+
+<div>
+	<div class="">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %> fade in">
+		      <a class="close" data-dismiss="alert" href="#">&times;</a>
+		      <%= value %>
+		    </div>
+		<% end %>
+	</div>
+	<div class="parent-page">
+		<div class="page-title-container">
+			<div class="page-title page-title-no-back">
+				Search Results for "<%= @search %>"
+			</div>
+		</div>
+		<div class="page-content-container">
+			<div class="search_results">
+			</div>
+			<% if !@opportunities_by_name.empty? || !@opportunities_by_company.empty? %>
+				<h4>Opportunities</h4>
+				<% if !@opportunities_by_name.empty? %>
+					<h5>matching Name</h5>
+					<% @opportunities_by_name.each do |opportunity| %>
+						<%= opportunity.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@opportunities_by_company.empty? %>
+					<h5>matching Company</h5>
+					<% @opportunities_by_company.each do |opportunity| %>
+						<%= opportunity.name %><br>
+					<% end %>
+				<% end %>
+			<% end %>
+			<% if !@documents_by_name.empty? || !@documents_by_opportunity_name.empty? || !@documents_by_opportunity_company_name.empty? || !@documents_by_po.empty? || !@documents_by_part_name.empty? || !@documents_by_part_number.empty? %>
+				<h4>Documents</h4>
+				<% if !@documents_by_name.empty? %>
+					<h5>matching Name</h5>
+					<% @documents_by_name.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@documents_by_opportunity_name.empty? %>
+					<h5>matching Opportunity</h5>
+					<% @documents_by_opportunity_name.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@documents_by_opportunity_company_name.empty? %>
+					<h5>matching Company</h5>
+					<% @documents_by_opportunity_company_name.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@documents_by_po.empty? %>
+					<h5>matching PO</h5>
+					<% @documents_by_po.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@documents_by_part_name.empty? %>
+					<h5>matching Part</h5>
+					<% @documents_by_part_name.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@documents_by_part_number.empty? %>
+					<h5>matching Part Number</h5>
+					<% @documents_by_part_number.each do |document| %>
+						<%= document.name %><br>
+					<% end %>
+				<% end %>
+			<% end %>
+			<% if !@contacts_by_name.empty? || !@contacts_by_company.empty? %>
+				<h4>Contacts</h4>
+				<% if !@contacts_by_name.empty? %>
+					<h5>matching Name</h5>
+					<% @contacts_by_name.each do |contact| %>
+						<%= contact.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@contacts_by_company.empty? %>
+					<h5>matching Company</h5>
+					<% @contacts_by_company.each do |contact| %>
+						<%= contact.name %><br>
+					<% end %>
+				<% end %>
+			<% end %>
+			<% if !@catalog_items_by_name.empty? || !@catalog_items_by_part_number.empty? %>
+				<h4>Catalog Items</h4>
+				<% if !@catalog_items_by_name.empty? %>
+					<h5>matching Name</h5>
+					<% @catalog_items_by_name.each do |catalog_item| %>
+						<%= catalog_item.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@catalog_items_by_part_number.empty? %>
+					<h5>matching Part Number</h5>
+					<% @catalog_items_by_part_number.each do |catalog_item| %>
+						<%= catalog_item.name %><br>
+					<% end %>
+				<% end %>
+			<% end %>
+			<% if !@templates_by_name.empty? || !@templates_by_part_name.empty? || !@templates_by_part_number.empty? %>
+				<h4>Templates</h4>
+				<% if !@templates_by_name.empty? %>
+					<h5>matching Name</h5>
+					<% @templates_by_name.each do |template| %>
+						<%= template.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@templates_by_part_name.empty? %>
+					<h5>matching Part Name</h5>
+					<% @templates_by_part_name.each do |template| %>
+						<%= template.name %><br>
+					<% end %>
+				<% end %>
+				<% if !@templates_by_part_number.empty? %>
+					<h5>matching Part Number</h5>
+					<% @templates_by_part_number.each do |template| %>
+						<%= template.name %><br>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+<%= content_for :right do %>
+
+<% end %>
+
+
+
+<% content_for :page_script do %>
+
+<script language="javascript">
+	$(function(){
+		window.vent = _.extend({}, Backbone.Events);
+		
+		if(gon.opportunities_by_name){
+			this.opportunities_by_name = new Quota.Collections.Opportunities($.parseJSON(gon.opportunities_by_name));
+		}
+		else{
+			this.opportunities_by_name = new Quota.Collections.Opportunities();
+		}
+		
+		if(gon.opportunities_by_company){
+			this.opportunities_by_company = new Quota.Collections.Opportunities($.parseJSON(gon.opportunities_by_company));
+		}
+		else{
+			this.opportunities_by_company = new Quota.Collections.Opportunities();
+		}
+		
+		if(gon.documents_by_name){
+			this.documents_by_name = new Quota.Collections.Documents($.parseJSON(gon.documents_by_name));
+		}
+		else{
+			this.documents_by_name = new Quota.Collections.Documents();
+		}
+		
+		if(gon.documents_by_opportunity_name){
+			this.documents_by_opportunity_name = new Quota.Collections.Documents($.parseJSON(gon.documents_by_opportunity_name));
+		}
+		else{
+			this.documents_by_opportunity_name = new Quota.Collections.Documents();
+		}
+		
+		if(gon.documents_by_opportunity_company_name){
+			this.documents_by_opportunity_company_name = new Quota.Collections.Documents($.parseJSON(gon.documents_by_opportunity_company_name));
+		}
+		else{
+			this.documents_by_opportunity_company_name = new Quota.Collections.Documents();
+		}
+		
+		if(gon.documents_by_po){
+			this.documents_by_po = new Quota.Collections.Documents($.parseJSON(gon.documents_by_po));
+		}
+		else{
+			this.documents_by_po = new Quota.Collections.Documents();
+		}
+		
+		if(gon.documents_by_part_number){
+			this.documents_by_part_number = new Quota.Collections.Documents($.parseJSON(gon.documents_by_part_number));
+		}
+		else{
+			this.documents_by_part_number = new Quota.Collections.Documents();
+		}
+		
+		if(gon.documents_by_part_name){
+			this.documents_by_part_name = new Quota.Collections.Documents($.parseJSON(gon.documents_by_part_name));
+		}
+		else{
+			this.documents_by_part_name = new Quota.Collections.Documents();
+		}
+		
+		if(gon.contacts_by_name){
+			this.contacts_by_name = new Quota.Collections.Contacts($.parseJSON(gon.contacts_by_name));
+		}
+		else{
+			this.contacts_by_name = new Quota.Collections.Contacts();
+		}
+		
+		if(gon.contacts_by_company){
+			this.contacts_by_company = new Quota.Collections.Contacts($.parseJSON(gon.contacts_by_company));
+		}
+		else{
+			this.contacts_by_company = new Quota.Collections.Contacts();
+		}
+		
+		if(gon.templates_by_name){
+			this.templates_by_name = new Quota.Collections.Templates($.parseJSON(gon.templates_by_name));
+		}
+		else{
+			this.templates_by_name = new Quota.Collections.Templates();
+		}
+		
+		if(gon.templates_by_part_name){
+			this.templates_by_part_name = new Quota.Collections.Templates($.parseJSON(gon.templates_by_part_name));
+		}
+		else{
+			this.templates_by_part_name = new Quota.Collections.Templates();
+		}
+		
+		if(gon.templates_by_part_number){
+			this.templates_by_part_number = new Quota.Collections.Templates($.parseJSON(gon.templates_by_part_number));
+		}
+		else{
+			this.templates_by_part_number = new Quota.Collections.Templates();
+		}
+		
+		if(gon.catalog_items_by_name){
+			this.catalog_items_by_name = new Quota.Collections.CatalogItems($.parseJSON(gon.catalog_items_by_name));
+		}
+		else{
+			this.catalog_items_by_name = new Quota.Collections.CatalogItems();
+		}
+		
+		if(gon.catalog_items_by_part_number){
+			this.catalog_items_by_part_number = new Quota.Collections.CatalogItems($.parseJSON(gon.catalog_items_by_part_number));
+		}
+		else{
+			this.catalog_items_by_part_number = new Quota.Collections.CatalogItems();
+		}
+		
+		
+		
+		var page_body_view = new Quota.Views.SearchResults({opportunities_by_name: this.opportunities_by_name, opportunities_by_company: this.opportunities_by_company, documents_by_name: this.documents_by_name, documents_by_opportunity_name: this.documents_by_opportunity_name, documents_by_opportunity_company_name: this.documents_by_opportunity_company_name, documents_by_po: this.documents_by_po, documents_by_part_number: this.documents_by_part_number, documents_by_part_name: this.documents_by_part_name, contacts_by_name: this.contacts_by_name, contacts_by_company: this.contacts_by_company, templates_by_name: this.templates_by_name, templates_by_part_name: this.templates_by_part_name, templates_by_part_number: this.templates_by_part_number, catalog_items_by_name: this.catalog_items_by_name, catalog_items_by_part_number: this.catalog_items_by_part_number, vent: vent});
+		
+		// var page_body_view = new Quota.Views.SearchResults({opportunities_by_name: this.opportunities_by_name, opportunities_by_company: this.opportunities_by_company, documents_by_name: this.documents_by_name, documents_by_opportunity_name: this.documents_by_opportunity_name, documents_by_opportunity_company_name: this.documents_by_opportunity_company_name, documents_by_po: this.documents_by_po, documents_by_part_number: this.documents_by_part_number, documents_by_part_name: this.documents_by_part_name, vent: vent});
+		$('.serch_results').html(page_body_view.render().el)
+		
+		// page_body_view.setElement($('.serch_results')).render().el
+		
+		
+		// $('#main_body_container').html(page_body_view.render().el);
+		
+		// var sidebar_body_view = new Quota.Views.IndexCatalogItemsSidebar({collection: this.catalog_items, vent: vent});
+		// 		$('#sidebar_body_container').html(sidebar_body_view.render().el);
+	});	
+	
+	
+</script>
+
+<% end %>
+
+
+
+
+
+

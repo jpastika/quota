@@ -5,12 +5,14 @@
 				<%= link_to raw("Q<u>uota</u>"), dashboard_path, id: "logo", :class => "brand" %>
 			</div>
 			<div class="header-search pull-right">
+				<form name="search" action="../search" method="post">
 				<div class="input-append">
-					<input type="text" class="" name="" value="">
+					<input type="text" class="" name="search" value="<%= @search %>">
 					<span class="add-on">
-						<i class="icon-search"></i>&nbsp;
+						<i class="icon-search"></i>
 					</span>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

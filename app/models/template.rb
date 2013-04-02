@@ -13,13 +13,30 @@ class Template < ActiveRecord::Base
   
   default_scope { where(account_key: Account.current_account_key) }
   
+  class << self
+    def find_by_name_or_item(flt)
+      where("templates.name ILIKE ?",'%'+flt+'%') + self.with_item_by_name_or_part_number(flt)
+    end
   
-  def self.find_by_name_or_item(flt)
-    self.where("templates.name ILIKE ?",'%'+flt+'%') + self.with_item_by_name_or_part_number(flt)
-  end
+    def with_item_by_name_or_part_number(value)
+      where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name ILIKE ? OR part_number ILIKE ?)",'%'+value+'%',value+'%')
+    end
   
-  def self.with_item_by_name_or_part_number(value)
-    self.where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name ILIKE ? OR part_number ILIKE ?)",'%'+value+'%',value+'%')
+    def search(flt)
+      where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name ILIKE ? OR part_number ILIKE ?)",'%'+flt+'%',flt+'%')
+    end
+    
+    def search_name(flt)
+      where("templates.name ILIKE ?",'%'+flt+'%')
+    end
+    
+    def search_part_name(flt)
+      where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.name ILIKE ?)",'%'+flt+'%')
+    end
+    
+    def search_part_number(flt)
+      where("templates.pub_key IN (SELECT template_key FROM template_items WHERE template_items.part_number ILIKE ?)",flt+'%')
+    end
   end
   
   private

@@ -24,6 +24,25 @@ class Opportunity < ActiveRecord::Base
   # validates :creator_key, presence: true
   #   validates :owner_key, presence: true
   
+  class << self
+    def search(flt)
+      # where("name ILIKE ?",'%'+flt+'%')
+      where("name ILIKE ? OR (company_key IN (SELECT pub_key FROM contacts where name ILIKE ? AND is_company = true))",'%'+flt+'%',flt+'%')
+    end
+    
+    def search_name(flt)
+      # where("name ILIKE ?",'%'+flt+'%')
+      where("name ILIKE ?",'%'+flt+'%')
+    end
+    
+    def search_company(flt)
+      # where("name ILIKE ?",'%'+flt+'%')
+      where("company_key IN (SELECT pub_key FROM contacts where name ILIKE ? AND is_company = true)",flt+'%')
+    end
+    
+    
+  end
+
   private
     def generate_token(column)
       begin

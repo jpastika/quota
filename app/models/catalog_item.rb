@@ -13,9 +13,22 @@ class CatalogItem < ActiveRecord::Base
   validates :account_key, presence: true
   
   default_scope { where(account_key: Account.current_account_key) }
+  class << self
+    def find_by_name_or_part_number(flt)
+      where("catalog_items.name ILIKE ? OR catalog_items.part_number ILIKE ?",'%'+flt+'%',flt+'%')
+    end
   
-  def self.find_by_name_or_part_number(flt)
-    self.where("catalog_items.name ILIKE ? OR catalog_items.part_number ILIKE ?",'%'+flt+'%',flt+'%')
+    def search(flt)
+      where("catalog_items.name ILIKE ? OR catalog_items.part_number ILIKE ?",'%'+flt+'%',flt+'%')
+    end
+    
+    def search_name(flt)
+      where("catalog_items.name ILIKE ?",'%'+flt+'%')
+    end
+    
+    def search_part_number(flt)
+      where("catalog_items.part_number ILIKE ?",flt+'%')
+    end
   end
   
   private

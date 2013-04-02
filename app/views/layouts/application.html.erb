@@ -34,6 +34,8 @@
 			
 			$(function(){
 				$('.dropdown-toggle').dropdown();
+				
+				$('.header-search i').click(function() {$('form[name="search"]').submit();});
 			});
 		</script>
 		<%= yield(:page_script) %>

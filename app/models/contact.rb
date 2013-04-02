@@ -36,8 +36,22 @@ class Contact < ActiveRecord::Base
     def companies_find_by_name(flt)
       where("contacts.name ILIKE ? AND is_company = true",'%'+flt+'%')
     end
-
     
+    def find_by_name_or_company_name(flt)
+      where("name ILIKE ? OR (company_key IN (SELECT pub_key FROM contacts where name ILIKE ? AND is_company = true) AND is_company = false)",'%'+flt+'%',flt+'%')
+    end
+    
+    def search(flt)
+      where("name ILIKE ? OR (company_key IN (SELECT pub_key FROM contacts where name ILIKE ? AND is_company = true) AND is_company = false)",'%'+flt+'%',flt+'%')
+    end
+    
+    def search_name(flt)
+      where("name ILIKE ?",'%'+flt+'%')
+    end
+
+    def search_company(flt)
+      where("company_key IN (SELECT pub_key FROM contacts where name ILIKE ? AND is_company = true) AND is_company = false",flt+'%')
+    end
     
     # def people(account)
     #       where(:contact_type_key => (ContactType.where(:name => "Person", :account_key => account.pub_key).first.pub_key unless ContactType.where(:name => "Person", :account_key => account.pub_key).nil?))

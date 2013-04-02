@@ -22,6 +22,37 @@ class Document < ActiveRecord::Base
   
   default_scope { where(account_key: Account.current_account_key) }
   
+  class << self
+    def search(flt)
+      # where("name ILIKE ?",'%'+flt+'%')
+      where("name ILIKE ? OR (company_key IN (SELECT pub_key FROM contacts WHERE name ILIKE ? AND is_company = true))",'%'+flt+'%',flt+'%')
+    end
+    
+    def search_name(flt)
+      where("name ILIKE ?",'%'+flt+'%')
+    end
+    
+    def search_opportunity_name(flt)
+      where("opportunity_key IN (SELECT pub_key FROM opportunities WHERE name ILIKE ?)",'%'+flt+'%')
+    end
+    
+    def search_opportunity_company_name(flt)
+      where("opportunity_key IN (SELECT pub_key FROM opportunities WHERE company_key IN (SELECT pub_key FROM contacts WHERE name ILIKE ? AND is_company = true))",'%'+flt+'%')
+    end
+    
+    def search_po(flt)
+      where("po ILIKE ?",flt+'%')
+    end
+    
+    def search_part_number(flt)
+      where("pub_key IN (SELECT document_key FROM document_items WHERE part_number ILIKE ?)",'%'+flt+'%')
+    end
+    
+    def search_part_name(flt)
+      where("pub_key IN (SELECT document_key FROM document_items WHERE name ILIKE ?)",'%'+flt+'%')
+    end
+  end
+  
   private
     def generate_token(column)
       begin
