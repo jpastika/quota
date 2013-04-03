@@ -3,12 +3,11 @@
 	<head>
 		<title><%= yield(:title) %></title>
 		<%= include_gon %>
-		<%= stylesheet_link_tag "application", :media => "all" %>
+		<%= stylesheet_link_tag "application", :media => "all", debug: false %>
 		<%= yield(:css) %>
-		<%= javascript_include_tag "application" %>
 		<link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-		<%= javascript_include_tag "application" %>
+		<%= javascript_include_tag "application", debug: false %>
 		<%= csrf_meta_tags %>
 		<%= yield(:head) %>
 		<%= render 'layouts/shim' %>
