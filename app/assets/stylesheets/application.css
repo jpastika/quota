@@ -10,6 +10,7 @@
  *
  *= require application/application
  *= require application/custom
+ *= require application/dashboard
  *= require application/catalog
  *= require application/catalog_item
  *= require application/choose_template
@@ -20,6 +21,7 @@
  *= require application/opportunity
  *= require application/template
  *= require application/templates
+ *= require application/search
  *= require shared/custom-theme/jquery-ui-1.8.16.custom
  *= require shared/custom-theme/jquery.ui.1.8.16.ie
 */

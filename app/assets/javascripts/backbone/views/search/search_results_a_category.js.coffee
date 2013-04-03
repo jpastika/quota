@@ -2,6 +2,10 @@ class Quota.Views.SearchResultsCategory extends Backbone.View
 
 	template: HandlebarsTemplates['search/search_results_category'] #Handlebars.compile($("#quote-template").html()) #JST['quotes/index']
 	
+	tagName: "div",
+
+	className: "search_results_category row-fluid",
+	
 	events:
 		"click input" : "handleClick"
 		# "click .icon-remove": "destroy"

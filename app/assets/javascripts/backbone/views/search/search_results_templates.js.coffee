@@ -14,9 +14,9 @@ class Quota.Views.SearchResultsTemplates extends Backbone.View
 		# @vent.on('catalog_item_link:clicked', @catalogItemLinkClicked, @)
 		# 		@vent.on('search:clicked', @searchClicked, @)
 		
-		@templates_by_name_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_name, title: "matching Name", vent: @vent})
-		@templates_by_part_name_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_part_name, title: "matching Part Name", vent: @vent})
-		@templates_by_part_number_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_part_number, title: "matching Part Number", vent: @vent})
+		@templates_by_name_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_name, title: "w/ matching Name", vent: @vent})
+		@templates_by_part_name_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_part_name, title: "w/ matching Part Name", vent: @vent})
+		@templates_by_part_number_view = new Quota.Views.SearchResultsTemplatesSubList({collection: @templates_by_part_number, title: "w/ matching Part Number", vent: @vent})
 		
 	render: ->
 		$(@el).html(@template())

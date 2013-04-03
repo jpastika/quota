@@ -1,0 +1,50 @@
+@import "variables";
+@import "mixins";
+
+
+.search_results_container{
+	margin-bottom:20px;
+	border: 1px solid $v2_mediumGray;
+}
+
+.search_results_container .table{
+	margin-bottom:0px;
+}
+
+.search_results_container_header{
+	color: $v2_nearWhite;
+	background: $v2_mediumGray;
+	padding:5px;
+	display: list-item;
+}
+
+.search_results_container_rows{
+	padding:5px;
+}
+
+.search_results_subcontainer{
+	margin-bottom:5px;
+}
+
+.search_results_subcontainer_header{
+	color: $v2_nearWhite;
+	background: $v2_mediumLightGray;
+	padding:5px;
+}
+
+.search_categories{
+	margin-top: 70px;
+}
+
+.search_results_category{
+	color: $v2_nearWhite;
+	padding: 5px;
+}
+
+.search_results_category input{
+	margin-top: -4px;
+	margin-right: 8px;
+}
+
+
+

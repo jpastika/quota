@@ -70,7 +70,7 @@
 							<%= item.total_unit %>
 						</td>
 					</tr>
-					<% if item.catalog_item.is_package? and not item.hide_package_contents? %>
+					<% if item.catalog_item and (item.catalog_item.is_package? and not item.hide_package_contents?) %>
 						<tr>
 							<td colspan="7">
 								<% item.catalog_item.catalog_item_children.each do |child| %>

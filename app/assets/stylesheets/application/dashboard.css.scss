@@ -1,0 +1,11 @@
+@import "variables";
+@import "mixins";
+
+.news{
+	margin-top: 90px;
+	color: $v2_nearWhite;
+}
+
+.news tr:hover{
+	color: $v2_darkGray;
+}
