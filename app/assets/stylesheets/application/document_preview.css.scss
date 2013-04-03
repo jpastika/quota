@@ -5,14 +5,19 @@
 
 /* universal */
 
-html {
-  overflow-y: scroll;
+/* universal */
 
-}
-
-.preview_body{
+.preview{
 	background:#fff;
 	font-family: 'Droid Sans',sans-serif;
+	padding: 0px;
+	margin:0;
+}
+
+.pdf{
+	background:#fff;
+	font-family: 'Droid Sans',sans-serif;
+	font-size: smaller;
 	padding: 0px;
 	margin:0;
 }

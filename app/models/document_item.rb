@@ -16,7 +16,7 @@ class DocumentItem < ActiveRecord::Base
   validates :document_key, presence: true
   
   default_scope { where(account_key: Account.current_account_key) }
-  
+  default_scope order('sort_order ASC')
   
   private
     def generate_token(column)
