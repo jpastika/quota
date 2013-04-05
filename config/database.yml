@@ -25,7 +25,14 @@ test:
 production:
     adapter: postgresql
     encoding: unicode
-    database: quota
+    database: quota_development
     pool: 5
     username: jpastika
     password:
+    # adapter: postgresql
+    #     encoding: unicode
+    #     database: quota
+    #     pool: 5
+    #     username: jpastika
+    #     password:
+    

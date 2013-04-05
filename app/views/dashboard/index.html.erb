@@ -267,6 +267,11 @@
 
 
 <%= content_for :right do %>
+<div class="action-buttons-container">
+	<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new opportunity"), new_opportunity_path, :class => 'btn btn-primary' %>
+	<br><br>
+	<%= link_to raw("<i class=""icon-plus""></i>&nbsp;&nbsp;Create a new document&nbsp;&nbsp;&nbsp;"), new_document_path, :class => 'btn btn-primary' %>
+</div>
 <div class="news">
 <h4>News</h4>
 <div class="section-table">
